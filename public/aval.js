@@ -240,7 +240,7 @@
     const L = avals(), sexo = (CURATH && CURATH.sexo) || 'F';
     if (!L.length) {
       el.innerHTML = `<div class="empty">Nenhuma avaliação lançada ainda.${coach ? ' Clique em <b>+ Nova avaliação</b> para começar.' : ''}</div>
-        ${coach ? `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="mini" data-av="new">+ Nova avaliação</button><label class="mini ghost" style="cursor:pointer">Importar avaliações (.json)<input type="file" accept=".json,application/json" data-avimp hidden></label></div>` : ''}`;
+        ${coach ? `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="mini" data-av="new">+ Nova avaliação</button><label class="mini ghost" style="cursor:pointer">Importar avaliações (PDF)<input type="file" accept=".pdf,application/pdf,.json,application/json" data-avimp hidden></label></div>` : ''}`;
       return;
     }
     if (sel < 0 || sel >= L.length) sel = L.length - 1;
@@ -250,7 +250,7 @@
     el.innerHTML = `
      <div class="avtop">
        <div class="avdates" role="tablist" aria-label="Avaliações">${L.map((x, i) => `<button role="tab" aria-selected="${i === sel}" data-sel="${i}">${fmtD(x.data).slice(0, 5)}<small>${x.data.slice(0, 4)}</small></button>`).join('')}</div>
-       ${coach ? `<div class="avact"><button class="mini ghost" data-av="sexo">Modelo: ${sexo === 'M' ? 'Masculino' : 'Feminino'}</button><label class="mini ghost" style="cursor:pointer">Importar (.json)<input type="file" accept=".json,application/json" data-avimp hidden></label><button class="mini ghost" data-av="edit">Editar</button><button class="mini" data-av="new">+ Nova avaliação</button></div>` : ''}
+       ${coach ? `<div class="avact"><button class="mini ghost" data-av="sexo">Modelo: ${sexo === 'M' ? 'Masculino' : 'Feminino'}</button><label class="mini ghost" style="cursor:pointer">Importar PDF<input type="file" accept=".pdf,application/pdf,.json,application/json" data-avimp hidden></label><button class="mini ghost" data-av="edit">Editar</button><button class="mini" data-av="new">+ Nova avaliação</button></div>` : ''}
      </div>
      <div class="avgrid">
        <div class="card av3card">
@@ -322,6 +322,88 @@
     try { await FS.collection('athletes').doc(AID).update({ avals: clean }); setSync('Salvo ✓'); } catch (e) { setSync('Não consegui salvar a avaliação.', 1); }
   }
 
+  // ---------- importar PDF da ficha de coleta ----------
+  function loadPdfJs() {
+    return window.pdfjsLib ? Promise.resolve() : new Promise((ok, err) => {
+      const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      s.onload = () => { window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; ok(); }; s.onerror = err; document.head.appendChild(s);
+    });
+  }
+  // agrupa os pedaços de texto em linhas; colunas separadas por " | "
+  function linesOf(tc) {
+    const it = tc.items.filter(i => i.str.trim()).map(i => ({ s: i.str, x: i.transform[4], y: i.transform[5], w: i.width }));
+    it.sort((a, b) => b.y - a.y || a.x - b.x);
+    const rows = [];
+    for (const i of it) { const r = rows.find(r => Math.abs(r.y - i.y) < 3); if (r) r.it.push(i); else rows.push({ y: i.y, it: [i] }); }
+    return rows.sort((a, b) => b.y - a.y).map(r => { r.it.sort((a, b) => a.x - b.x); let out = '', end = null; for (const i of r.it) { out += end == null ? i.s : (i.x - end > 14 ? ' | ' : (i.x - end > 1 ? ' ' : '')) + i.s; end = i.x + i.w; } return out.replace(/\s+/g, ' ').trim(); });
+  }
+  const nb = s => s == null ? null : num(String(s).replace(/\.(?=\d{3}\b)/, '').replace(',', '.'));
+  function parsePage(L) {
+    const T = L.join('\n'), a = { per: {} };
+    const dm = T.match(/(\d{2})\/(\d{2})\/(\d{4})/); if (!dm) return null; a.data = `${dm[3]}-${dm[2]}-${dm[1]}`;
+    const hdr = L.find(l => l.includes(dm[0]));
+    if (hdr) { const c = hdr.split(' | '); if (c.length >= 4) { a.avaliador = c[0]; a.tipo = c[2]; } }
+    const body = L.find(l => /^\d{2,3}[,.]\d\s*\|\s*(1[,.]\d{1,3}|1\d{2})\s*\|\s*\d{2}\b/.test(l));
+    if (body) { const c = body.split(' | '); a.peso = nb(c[0]); let h = nb(c[1]); if (h > 3) h = h / 100; a.altura = h; a.idade = nb(c[2]); }
+    const g = T.match(/(?:Sobrepeso|Normal|Eutr[oó]fic\w*|Obesidade[^|\n]*|Abaixo[^|\n]*)\s*(?:\|\s*)?%?\s*(\d{1,2}(?:[,.]\d+)?)\s*%?\s*(?:\n|\|)/i); if (g) a.gordura = nb(g[1]);
+    const v = T.match(/(\d{1,2}[,.]\d+)\s*ml\/kg/i); if (v) a.vo2 = nb(v[1]);
+    const at = L.find(l => /(^|\| )\d{4}(?:[,.]\d+)?\s*\|\s*\d{3,4}(?:[,.]\d+)?(\s|$|\|)/.test(l) && !/\d{2}\/\d{2}/.test(l));
+    if (at) { const m = at.match(/(\d{4}(?:[,.]\d+)?)\s*\|\s*(\d{3,4}(?:[,.]\d+)?)/); a.agua = nb(m[1]); a.tmb = Math.round(nb(m[2]) * 100) / 100; }
+    const co = T.match(/(\d[.,]\d{1,3})\s*(KM|metros)/i); if (co) { const x = nb(co[1].replace('.', ',')); a.cooper = Math.round(x < 10 ? x * 1000 : x); }
+    let sh = T.match(/(\d{1,2}[.,]\d{1,2})\s*(?:segundos|seg)/i);
+    if (!sh) { const i = L.findIndex(l => /KM.*12\s*min/i.test(l)); if (i >= 0) sh = (L[i] + ' ' + (L[i + 1] || '')).match(/\|\s*(\d{1,2}[.,]\d{1,2})\b/); }
+    if (sh) a.shuttle = nb(sh[1]);
+    const fx = L.find(l => /^\d{1,3}\s*\|\s*[A-Za-zÀ-ú][A-Za-zÀ-ú ]*\|\s*\d{1,3}\s*\|\s*[A-Za-zÀ-ú]/.test(l));
+    if (fx) { const c = fx.split(' | '); a.flexao = nb(c[0]); a.flexaoCl = c[1]; a.abdRem = nb(c[2]); a.abdRemCl = c[3]; }
+    else { const ci = L.findLastIndex(l => /CLASSIFICA/i.test(l)); if (ci >= 0) { const n = (L[ci + 1] || '').match(/^(\d{1,3})\s*\|\s*(\d{1,3})$/), cl = (L[ci + 2] || '').split(' | ');
+      if (n) { a.flexao = nb(n[1]); a.abdRem = nb(n[2]); if (cl.length >= 2 && !/\d/.test(cl.join(''))) { a.flexaoCl = cl[0]; a.abdRemCl = cl[1]; } } } }
+    const obs = []; let on = false;
+    for (const l of L) { if (/^(OBJETIVO|OBSERVAÇÃO|META)\b/i.test(l)) on = true; else if (/^(TESTE|RESULTADO|FLEX|ABD)/i.test(l)) on = false; if (on) obs.push(l.replace(/\s*\|\s*/g, ' ')); }
+    if (obs.length) a.obs = obs.join('\n');
+    const oc = L.filter(l => /^OBS:/i.test(l)); if (oc.length) a.cooperObs = oc.join(' ').replace(/\s*\|\s*/g, ' / ');
+    const tp = T.match(/TEMPO:\s*([\d:]+)/i), rt = T.match(/RITMO:\s*([\d:]+)/i); if (tp) a.extra = 'TESTE 5 km: tempo ' + tp[1] + (rt ? ' · ritmo ' + rt[1] + '/km' : '');
+    for (const k in a) if (a[k] == null) delete a[k];
+    return a;
+  }
+  async function importPDF(file) {
+    modal.innerHTML = '<div class="mbox"><div class="eyebrow">Importar avaliações</div><p>Lendo ' + esc(file.name) + '…</p></div>'; modal.hidden = false;
+    try {
+      await loadPdfJs();
+      const doc = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise, found = [];
+      for (let p = 1; p <= doc.numPages; p++) {
+        const pg = await doc.getPage(p), a = parsePage(linesOf(await pg.getTextContent())); if (!a) continue;
+        // imagem do corpo (perimetria) desta página, para conferir e digitar as medidas
+        const vp = pg.getViewport({ scale: 2 }), cv = document.createElement('canvas'); cv.width = vp.width; cv.height = vp.height;
+        await pg.render({ canvasContext: cv.getContext('2d'), viewport: vp }).promise;
+        const W = vp.width, H = vp.height, cx = W * 0.083, cy = H * 0.318, cw = W * 0.47, ch = H * 0.23, c2 = document.createElement('canvas'); c2.width = cw; c2.height = ch;
+        c2.getContext('2d').drawImage(cv, cx, cy, cw, ch, 0, 0, cw, ch); a._img = c2.toDataURL('image/jpeg', 0.85); found.push(a);
+      }
+      if (!found.length) { modal.innerHTML = '<div class="mbox"><button class="x" aria-label="Fechar">×</button><p class="amsg err">Não encontrei avaliações neste PDF. Ele precisa ser a ficha de coleta exportada com texto (não uma foto escaneada).</p></div>'; return; }
+      review(found);
+    } catch (e) { modal.innerHTML = '<div class="mbox"><button class="x" aria-label="Fechar">×</button><p class="amsg err">Não consegui ler o PDF (' + esc(e.message || e) + ').</p></div>'; }
+  }
+  function review(found) {
+    const ex = new Set(avals().map(x => x.data)), F = [['peso', 'Peso'], ['altura', 'Altura (m)'], ['idade', 'Idade'], ['gordura', '% Gord.'], ['vo2', 'VO₂'], ['agua', 'Água'], ['tmb', 'TMB'], ['cooper', 'Cooper (m)'], ['shuttle', 'Shuttle (s)'], ['flexao', 'Flexão'], ['abdRem', 'Abd. rem.']];
+    modal.innerHTML = `<div class="mbox avform" style="width:min(1000px,100%)"><button class="x" aria-label="Fechar">×</button><div class="eyebrow">Importar avaliações · revisão</div>
+      <p style="color:var(--mute);font-size:13px;margin:6px 0 12px">Encontrei <b>${found.length} avaliações</b>. Os dados do texto já vieram preenchidos. As medidas do corpo estão em imagem no PDF: confira a imagem e digite ao lado (pode deixar em branco e completar depois em Editar). Avaliações com data que já existe ficam desmarcadas.</p>
+      ${found.map((a, i) => `<div class="rcard imp" data-i="${i}"><div class="rhead"><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" class="imp-ok" ${ex.has(a.data) ? '' : 'checked'}><b>${fmtD(a.data)}</b></label><small>${esc(a.tipo || '')}${ex.has(a.data) ? ' · já existe no app' : ''}</small></div>
+        <div class="fgrid">${F.map(([k, l]) => `<label class="fl"><span>${l}</span><input data-k="${k}" value="${a[k] ?? ''}" inputmode="decimal"></label>`).join('')}</div>
+        <div class="impper"><img src="${a._img}" alt="Perimetria da avaliação de ${fmtD(a.data)}" loading="lazy"><div class="fgrid per">${PER.map(([k, l]) => `<label class="fl"><span>${l}</span><input data-p="${k}" inputmode="decimal"></label>`).join('')}</div></div></div>`).join('')}
+      <div class="amsg" id="imp-msg"></div><div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="big" id="imp-save" style="padding:12px 22px">Salvar avaliações marcadas</button></div></div>`;
+    modal.querySelector('#imp-save').onclick = async () => {
+      const add = [];
+      modal.querySelectorAll('.imp').forEach(c => {
+        if (!c.querySelector('.imp-ok').checked) return;
+        const a = { ...found[+c.dataset.i], per: {} }; delete a._img;
+        c.querySelectorAll('[data-k]').forEach(i => { const v = num(i.value); if (v == null) delete a[i.dataset.k]; else a[i.dataset.k] = v; });
+        c.querySelectorAll('[data-p]').forEach(i => { const v = num(i.value); if (v != null) a.per[i.dataset.p] = v; });
+        if (a.altura > 3) a.altura /= 100; a.id = rid(); add.push(a);
+      });
+      if (!add.length) { modal.querySelector('#imp-msg').className = 'amsg err'; modal.querySelector('#imp-msg').textContent = 'Nenhuma avaliação marcada.'; return; }
+      await saveList(avals().filter(x => !add.some(y => y.data === x.data)).concat(add)); sel = -1; close(); setSync(add.length + ' avaliações importadas ✓');
+    };
+  }
+
   // ---------- eventos ----------
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-av],[data-sel]'); if (!b || !b.closest('#av-root,#a-av-root')) return;
@@ -337,6 +419,7 @@
   });
   document.addEventListener('change', e => {
     const t = e.target, rt = t.closest && t.closest('#av-root,#a-av-root'); if (!rt) return;
+    if (t.matches && t.matches('[data-avimp]') && t.files[0] && /\.pdf$/i.test(t.files[0].name)) { importPDF(t.files[0]); t.value = ''; return; }
     if (t.matches && t.matches('[data-avimp]') && t.files[0]) {
       t.files[0].text().then(txt => {
         let L; try { L = JSON.parse(txt); } catch (e) { return setSync('Arquivo inválido: não é um .json de avaliações.', 1); }
