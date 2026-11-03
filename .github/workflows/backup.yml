@@ -1,0 +1,28 @@
+name: Backup diário do banco
+on:
+  schedule:
+    - cron: '17 6 * * *'   # todo dia às 03:17 (horário de Brasília)
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: backups
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm i --no-save firebase-admin@12.7.0
+      - run: git show origin/main:scripts/backup.mjs > /tmp/backup.mjs 2>/dev/null || git fetch origin main && git show origin/main:scripts/backup.mjs > /tmp/backup.mjs
+      - run: cp /tmp/backup.mjs ./backup.mjs && node backup.mjs && rm backup.mjs
+        env:
+          FIREBASE_SA: ${{ secrets.FIREBASE_SA }}
+      - run: |
+          git config user.name "backup-bot"
+          git config user.email "backup-bot@users.noreply.github.com"
+          git add backups
+          git commit -m "Backup $(date +%F)" || echo "Sem mudanças"
+          git push

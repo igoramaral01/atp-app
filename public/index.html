@@ -209,20 +209,50 @@ input[type=range].borgr{width:100%;accent-color:var(--purple)}
 .borgval small{display:block;font:600 12px var(--body);color:var(--mute);font-style:normal}
 .timer-el{font-family:var(--mono);font-size:13px;color:var(--mute)}
 .dsc{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--mute);margin-top:4px}.dsc input{width:52px;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:4px 6px;font:600 12px var(--mono);text-align:center}
+
+.authbox{min-height:100%;display:grid;place-items:center;padding-block:40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.authcard{width:min(400px,100%);display:grid;gap:14px}
+.authcard h1{margin:18px 0 0}
+.authcard label{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--mute);font-weight:600}
+.authcard input{width:100%;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:13px;font:inherit;font-size:16px}
+.authcard input:focus{outline:2px solid var(--purple);border-color:transparent}
+.authcard .lnk{all:unset;cursor:pointer;color:var(--mute);font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.authcard .lnk:hover{color:var(--fg)}
+.amsg{font-size:13px;min-height:18px}.amsg.err{color:var(--red)}.amsg.ok{color:var(--green)}
+.sync{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:65;font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;background:var(--panel);border:1px solid var(--line);color:var(--mute)}
+.sync.err{color:var(--red);border-color:var(--red)}
+.hdr-r{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.out{all:unset;cursor:pointer;font-size:13px;color:var(--mute);font-weight:600;padding:8px}.out:hover{color:var(--fg)}
+.li.sel{background:var(--panel2);border-radius:8px;padding-inline:8px}
+.li button.pick{all:unset;cursor:pointer;display:flex;gap:12px;align-items:center;flex:1;min-width:0}
+.inv{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.inv input{flex:1;min-width:140px;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:7px;font:inherit;font-size:13px}
+.termos{max-height:45vh;overflow:auto;font-size:13px;color:var(--mute);background:var(--panel2);border-radius:8px;padding:12px}
 </style>
 
-<div class="wrap">
+<div id="auth" class="authbox"><form class="authcard" id="auth-f" novalidate>
+  <div class="logo"><span class="stripes"><i></i><i></i><i></i></span><div>ATP<small>AMARAL TRAINING PERFORMANCE</small></div></div>
+  <h1 id="auth-t">Entrar</h1>
+  <div id="auth-fields">
+   <div style="display:grid;gap:6px;margin-bottom:12px"><label for="a-email">E-mail</label><input id="a-email" type="email" autocomplete="email" required></div>
+   <div style="display:grid;gap:6px" id="pw-row"><label for="a-pw">Senha</label><input id="a-pw" type="password" autocomplete="current-password" minlength="6"></div>
+  </div>
+  <button class="big" type="submit" id="auth-go">Entrar</button>
+  <div class="amsg" id="auth-msg" role="status"></div>
+  <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><button type="button" class="lnk" data-am="reset">Esqueci minha senha</button><button type="button" class="lnk" data-am="coach">Primeiro acesso do treinador</button><button type="button" class="lnk" data-am="login" hidden>Voltar para entrar</button></div>
+ </form></div>
+<div class="sync" id="sync" hidden></div>
+<div class="wrap" hidden>
 <header>
   <div class="logo"><span class="stripes"><i></i><i></i><i></i></span><div>ATP<small>AMARAL TRAINING PERFORMANCE</small></div></div>
-  <div class="mode" role="group" aria-label="Visão">
+  <div class="hdr-r"><div class="mode" role="group" aria-label="Visão">
     <button id="m-coach" aria-pressed="true">Treinador</button>
-    <button id="m-aluno" aria-pressed="false">Aluno</button>
-  </div>
+    <button id="m-aluno" aria-pressed="false">Ver como aluno</button>
+  </div><button class="out" id="logout">Sair</button></div>
 </header>
 
 <!-- TREINADOR -->
 <section id="coach">
-  <h1 id="c-h1">Olá, <em>Igor</em></h1>
+  <h1 id="c-h1">Olá, <em>Treinador</em></h1>
   <p class="sub" id="c-sub"></p>
   <div class="tabs" role="tablist">
     <button role="tab" aria-selected="true" data-t="home">Início</button>
@@ -249,7 +279,7 @@ input[type=range].borgr{width:100%;accent-color:var(--purple)}
       <span class="sep"></span>
       <button data-a="colLeft">+ Coluna à esquerda</button><button data-a="colRight">+ Coluna à direita</button><button data-a="delCol" class="danger">Excluir coluna</button>
       <span class="sep"></span>
-      <button data-a="undo" id="undo" disabled>↶ Desfazer</button>
+      <button data-a="undo" id="undo" disabled>↶ Desfazer</button><span class="sep"></span><button data-a="export">⇩ Exportar Excel</button>
     </div>
     <div class="card scroll" id="sheet"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
     <div class="sheets" id="sheets"></div>
@@ -265,7 +295,7 @@ input[type=range].borgr{width:100%;accent-color:var(--purple)}
 
 <!-- ALUNO -->
 <section id="aluno" hidden>
-  <h1>Bom dia, <em>Bianca</em></h1>
+  <h1 id="a-h1">Bom dia</h1>
   <p class="sub" id="a-sub"></p>
   <div class="tabs" role="tablist">
     <button role="tab" aria-selected="true" data-t="hoje">Hoje</button>
@@ -290,6 +320,9 @@ input[type=range].borgr{width:100%;accent-color:var(--purple)}
 </section>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 const C={Força:'#f4c9a0',Específico:'#f0a070',Descanso:'#cfcfd4',Fortalecimento:'#9fe39a',Velocidade:'#f5df8a','Res. de Força':'#f2b36b','Testes Periódicos':'#c9a6f0'};
 const rows=[];
@@ -327,6 +360,7 @@ const weeksIn=m=>m.rows.filter(r=>r.w!=null).length;
 function makeWeek(start,w){const out=[{w}];for(let k=0;k<7;k++){const d=new Date(start);d.setDate(d.getDate()+k);out.push(blank(d))}out.push({sum:w,km:0});return out}
 function act(a){const m=M();
  if(a==='undo')return undo();
+ if(a==='export')return exportXLSX();
  if(a==='mes'){snap();const n=parseInt((months[months.length-1].nome.match(/\d+/)||[months.length])[0])+1;let d=lastDate();d.setDate(d.getDate()+1);months.push(newMonth('MÊS '+n,d,months[months.length-1].cols));cur=months.length-1;sel=null;renderAll();return flash('MÊS '+n+' criado com 4 semanas. Dê dois cliques na aba para renomear.')}
  if(a==='week'){snap();let d=lastDateIn(m);d.setDate(d.getDate()+1);m.rows.push(...makeWeek(d,weeksIn(m)+1));renderAll();return flash('Semana adicionada no fim do mês.')}
  if(a==='rowUp'||a==='rowDown'){if(!sel)return flash('Selecione uma célula primeiro.');snap();const at=a==='rowUp'?sel.i:sel.i+1;m.rows.splice(at,0,blank());sel={i:at,c:sel.c};renderAll();return}
@@ -409,7 +443,7 @@ function renderHome(){const t=todayRow();
  document.getElementById('h-alunos').innerHTML=`<div class="li"><div class="av">BC</div><div style="flex:1"><b>Bianca Cândido</b><small>Corrida + força · ${esc(M().nome)}</small></div><span class="pill p-ok">ATIVA</span></div><div class="li"><div class="av" style="background:var(--panel2);color:var(--mute)">+</div><div style="flex:1"><b style="color:var(--mute)">Novo aluno</b><small>Disponível quando o login estiver pronto</small></div></div>`}
 document.querySelector('#home .qa').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;const g=b.dataset.go;if(g==='import')return openImport();if(g==='mes'){goTab('plan');act('mes')}else goTab(g)});
 function goTab(t){document.querySelector(`#coach .tabs [data-t="${t}"]`).click()}
-document.querySelector('#coach .tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const h=b.dataset.t==='home';document.getElementById('c-h1').innerHTML=h?'Olá, <em>Igor</em>':'Bianca <em>Cândido</em>';document.getElementById('c-sub').textContent=h?DATA_LONGA:'Planilha · '+M().nome});
+document.querySelector('#coach .tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const h=b.dataset.t==='home';document.getElementById('c-h1').innerHTML=h?'Olá, <em>Treinador</em>':athH();document.getElementById('c-sub').textContent=h?DATA_LONGA:'Planilha · '+M().nome});
 
 function renderChart(){const W=[],B0=[];let k=0;months.forEach((m,mi)=>{const st=k;m.rows.forEach((r,i)=>{if(r.w!=null){const w=weekStats(m.rows,i);const sm=m.rows.slice(i+1).find(x=>x.sum!=null||x.w!=null);w.km=sm&&sm.sum!=null?sm.km:null;W.push(w);k++}});B0.push([st,k,(m.nome.match(/\d+/)||[mi+1])[0]])});
  let nx=+(B0.length?B0[B0.length-1][2]:0);while(B0.length<12){nx++;B0.push([k,k+4,String(nx)]);k+=4}
@@ -469,7 +503,7 @@ const ok=document.getElementById('f-ok'),no=document.getElementById('f-no');
 ok.onclick=()=>{done='✓';ok.setAttribute('aria-pressed',true);no.setAttribute('aria-pressed',false)};
 no.onclick=()=>{done='✗';no.setAttribute('aria-pressed',true);ok.setAttribute('aria-pressed',false)};
 document.getElementById('send').onclick=()=>{const t=document.getElementById('toast');if(!done){t.style.color='var(--red)';t.textContent='Marque se fez ou não o treino.';return}
- const r=todayRow();if(!r)return;r.s=done;r.r=done==='✓'&&rpe?rpe:'';r.o=document.getElementById('f-obs').value;renderAll();
+ const r=todayRow();if(!r)return;r.s=done;r.r=done==='✓'&&rpe?rpe:'';r.o=document.getElementById('f-obs').value;renderAll();athFb(r);
  t.style.color='var(--green)';t.textContent='Feedback enviado. Veja na visão Treinador: planilha e gráfico atualizados.'};
 
 function fichaDe(txt){const t=norm(String(txt||''));for(const P of pastas)for(const f of P.fichas){const code=norm(f.nome).split(/[\s·\-]+/)[0];if(code&&new RegExp('(^|[^a-z0-9])'+code.replace(/[^a-z0-9]/g,'')+'([^a-z0-9]|$)').test(t))return f}return null}
@@ -497,7 +531,7 @@ function renderFichasAluno(){const el=document.getElementById('a-fichas');if(!el
 document.getElementById('a-fichas').addEventListener('click',e=>{const b=e.target.closest('[data-ficha]');if(b)openRunner(pastas[0].fichas[+b.dataset.ficha])});
 document.getElementById('a-treino').addEventListener('click',e=>{if(e.target.closest('[data-start-today]')){const f=fichaDe((todayRow()||{}).c);if(f)openRunner(f,true)}});
 const runner=document.createElement('div');runner.className='runner';runner.hidden=true;document.body.appendChild(runner);
-function openRunner(f,fromToday){RUN={f,stage:'intro',i:0,fromToday,data:f.ex.map(x=>{const pr=parsePres(x.pres),h=HIST[x.n]||[];if(x.desc!=null&&x.desc!=='')pr.rest=+x.desc;return{pr,cur:0,com:'',sets:Array.from({length:pr.sets},(_,k)=>({a:pr.val,b:(h[k]||h[h.length-1]||{b:''}).b,done:false}))}}),tab:'s',t0:null,rest:null};runner.hidden=false;draw()}
+function openRunner(f,fromToday){RUN={f,stage:'intro',i:0,fromToday,data:f.ex.map(x=>{const pr=parsePres(x.pres),h=HIST[hk(x.n)]||[];if(x.desc!=null&&x.desc!=='')pr.rest=+x.desc;return{pr,cur:0,com:'',sets:Array.from({length:pr.sets},(_,k)=>({a:pr.val,b:(h[k]||h[h.length-1]||{b:''}).b,done:false}))}}),tab:'s',t0:null,rest:null};runner.hidden=false;draw()}
 function closeRunner(){clearInterval(RUN&&RUN.tick);RUN=null;runner.hidden=true;try{wake&&wake.release()}catch(e){}}
 function startRest(sec){const R=RUN;R.rest={total:sec,end:Date.now()+sec*1000,fired:false};clearInterval(R.tick);R.tick=setInterval(tickRest,250);tickRest()}
 function tickRest(){const R=RUN;if(!R)return;if(R.rest){const left=(R.rest.end-Date.now())/1000;if(left<=0&&!R.rest.fired){R.rest.fired=true;beep()}const t=runner.querySelector('.rest .t');if(t){t.textContent=left>0?mmss(left):'00:00';t.parentElement.classList.toggle('end',left<=0);const bar=runner.querySelector('.restbar i');if(bar)bar.style.width=Math.max(0,left/R.rest.total*100)+'%'}if(left<=-4){R.rest=null;draw()}}
@@ -540,19 +574,122 @@ runner.addEventListener('click',async e=>{const b=e.target.closest('[data-r]');i
  if(a==='tab-s'||a==='tab-c'){R.tab=a.slice(-1);return draw()}
  if(a==='info'){const x=R.f.ex[R.i];modal.style.zIndex=80;return showGif(x)}
  if(a==='addset'){d.sets.push({a:d.pr.val,b:(d.sets[d.sets.length-1]||{}).b||'',done:false});if(d.sets.every((s,k)=>k<d.sets.length-1?s.done:true))d.cur=d.sets.length-1;return draw()}
- if(a==='reg'){d.sets[d.cur].done=true;const nx=d.sets.findIndex(s=>!s.done);d.cur=nx<0?d.sets.length:nx;HIST[R.f.ex[R.i].n]=d.sets.map(s=>({b:s.b}));startRest(d.pr.rest);return draw()}
+ if(a==='reg'){d.sets[d.cur].done=true;const nx=d.sets.findIndex(s=>!s.done);d.cur=nx<0?d.sets.length:nx;HIST[hk(R.f.ex[R.i].n)]=d.sets.map(s=>({b:s.b}));startRest(d.pr.rest);return draw()}
  if(a==='m10'||a==='p10'){if(R.rest){R.rest.end+=a==='m10'?-10000:10000;R.rest.total=Math.max(R.rest.total,(R.rest.end-Date.now())/1000);R.rest.fired=false}return tickRest()}
  if(a==='skip'){R.rest=null;return draw()}
  if(a==='next'){R.rest=null;R.tab='s';if(R.i<R.f.ex.length-1){R.i++;return draw()}R.stage='end';clearInterval(R.tick);return draw()}
- if(a==='finish'){const row=todayRow(),fe=R.fim||'';if(row&&R.fromToday!==false){row.s='✓';row.r=R.rpe;const coms=R.data.map((dd,i)=>dd.com?R.f.ex[i].n+': '+dd.com:'').filter(Boolean);row.o=[fe,...coms].filter(Boolean).join(' | ')}
+ if(a==='finish'){const row=todayRow(),fe=R.fim||'';if(row&&R.fromToday!==false){row.s='✓';row.r=R.rpe;const coms=R.data.map((dd,i)=>dd.com?R.f.ex[i].n+': '+dd.com:'').filter(Boolean);row.o=[fe,...coms].filter(Boolean).join(' | ');athFb(row)}athSession(R);
   closeRunner();renderAll();const t=document.getElementById('toast');t&&(t.style.color='var(--green)',t.textContent=row?'Treino enviado ao treinador.':'Treino concluído.')}});
 renderFichasAluno();
 
 // navegação
-function mode(m){document.getElementById('coach').hidden=m!=='coach';document.getElementById('aluno').hidden=m!=='aluno';document.getElementById('m-coach').setAttribute('aria-pressed',m==='coach');document.getElementById('m-aluno').setAttribute('aria-pressed',m==='aluno')}
+function mode(m){if(ROLE==='athlete')m='aluno';document.getElementById('coach').hidden=m!=='coach';document.getElementById('aluno').hidden=m!=='aluno';document.getElementById('m-coach').setAttribute('aria-pressed',m==='coach');document.getElementById('m-aluno').setAttribute('aria-pressed',m==='aluno')}
 document.getElementById('m-coach').onclick=()=>mode('coach');document.getElementById('m-aluno').onclick=()=>mode('aluno');
 document.querySelectorAll('.tabs').forEach(tl=>tl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;tl.querySelectorAll('button').forEach(x=>{x.setAttribute('aria-selected',x===b);document.getElementById(x.dataset.t).hidden=x!==b})}));
 renderAll();
+
+// ---------- NUVEM: login, salvamento e alunos (Firebase) ----------
+const FB_CFG={apiKey:"AIzaSyCJkAD090db45ee16Nt9Nqrxy9QPyQsCC4",authDomain:"atp-app-amaral.firebaseapp.com",projectId:"atp-app-amaral",storageBucket:"atp-app-amaral.firebasestorage.app",messagingSenderId:"159136384691",appId:"1:159136384691:web:3895bc5941fde3ae1052c6"};
+firebase.initializeApp(FB_CFG);const AUTH=firebase.auth(),FS=firebase.firestore(),FV=firebase.firestore.FieldValue;
+try{FS.enablePersistence({synchronizeTabs:true}).catch(()=>{})}catch(e){}
+const SEED_PASTAS=JSON.parse(JSON.stringify(pastas));pastas.splice(0,pastas.length);
+let LOADED=false,ME=null,ROLE=null,AID=null,ATHS=[],CURATH=null,unsub=null,lastSaved='',prevFb={},pendingSince=0,saving=false,deferred=null;
+const appEl=document.querySelector('.wrap'),authEl=document.getElementById('auth'),syncEl=document.getElementById('sync');
+const hk=n=>String(n).normalize('NFD').replace(/[^\w]/g,'_').slice(0,80);
+const rid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-3);
+const clean=o=>JSON.parse(JSON.stringify(o));
+function athH(){const n=(CURATH&&CURATH.nome||'Aluno').trim().split(/\s+/);return esc(n[0])+(n.length>1?' <em>'+esc(n.slice(1).join(' '))+'</em>':'')}
+function setSync(t,err){syncEl.hidden=false;syncEl.textContent=t;syncEl.classList.toggle('err',!!err);clearTimeout(setSync.t);if(!err)setSync.t=setTimeout(()=>syncEl.hidden=true,2500)}
+function ensureIds(){const seen=new Set();for(const m of months)for(const r of m.rows)if(r.w==null&&r.sum==null){if(!r.id||seen.has(r.id))r.id=rid();seen.add(r.id)}}
+function fbFromRows(){const o={};for(const m of months)for(const r of m.rows)if(r.id&&(r.s||(r.r!==''&&r.r!=null)||r.o))o[r.id]={s:r.s||'',r:r.r??'',o:r.o||''};return o}
+const planStr=()=>JSON.stringify({months,pastas});
+const busy=()=>{const a=document.activeElement;return a&&(a.isContentEditable||/INPUT|TEXTAREA|SELECT/.test(a.tagName))&&!runner.contains(a)};
+function applyDoc(d){CURATH=d;LOADED=true;months.splice(0,months.length,...(d.months&&d.months.length?d.months:[newMonth('MÊS 1',new Date())]));pastas.splice(0,pastas.length,...(d.pastas||[]));
+ const fb=d.fb||{};for(const m of months)for(const r of m.rows)if(r.id&&fb[r.id])Object.assign(r,{s:fb[r.id].s||'',r:fb[r.id].r??'',o:fb[r.id].o||''});
+ for(const k in HIST)delete HIST[k];Object.assign(HIST,d.hist||{});
+ if(cur>=months.length)cur=0;if(pasta!=null&&pasta>=pastas.length)pasta=null;ensureIds();lastSaved=planStr();prevFb=fbFromRows();undoStack.length=0;document.getElementById('undo').disabled=true;
+ renderAll();renderProgs();const ct=document.querySelector('#coach .tabs [aria-selected="true"]');if(ct&&ct.dataset.t!=='home')document.getElementById('c-h1').innerHTML=athH();
+ document.getElementById('a-h1').innerHTML=(NOW.getHours()<12?'Bom dia':NOW.getHours()<18?'Boa tarde':'Boa noite')+', <em>'+esc((d.nome||'').split(' ')[0])+'</em>';}
+function subscribe(id){unsub&&unsub();LOADED=false;AID=id;try{localStorage.setItem('atp-aid',id)}catch(e){}
+ unsub=FS.collection('athletes').doc(id).onSnapshot(sn=>{if(sn.metadata.hasPendingWrites||!sn.exists)return;const d=sn.data();
+  if(LOADED&&ROLE==='coach'&&(busy()||saving||planStr()!==lastSaved)){deferred=d;return}deferred=null;applyDoc(d);
+  if(ROLE==='athlete'&&!d.termos)showTermos()},e=>setSync('Sem permissão para ler os dados',1))}
+setInterval(()=>{if(deferred&&!busy()&&!saving&&planStr()===lastSaved){const d=deferred;deferred=null;applyDoc(d)}
+ if(ROLE!=='coach'||!AID||saving||!LOADED)return;ensureIds();if(planStr()===lastSaved&&JSON.stringify(fbFromRows())===JSON.stringify(prevFb)){pendingSince=0;return}
+ if(!pendingSince){pendingSince=Date.now();return}if(Date.now()-pendingSince<1200)return;pendingSince=0;save()},600);
+async function save(){if(!LOADED||!AID)return;saving=true;const s0=planStr(),now=fbFromRows(),upd={months:clean(months),pastas:clean(pastas),atualizado:FV.serverTimestamp()};
+ for(const id in now)if(JSON.stringify(now[id])!==JSON.stringify(prevFb[id]))upd['fb.'+id]=now[id];for(const id in prevFb)if(!now[id])upd['fb.'+id]=FV.delete();
+ setSync(navigator.onLine===false?'Sem internet: salvo no aparelho, envia quando voltar':'Salvando…');
+ const p=FS.collection('athletes').doc(AID).update(upd);lastSaved=s0;prevFb=now;saving=false;
+ try{await p;setSync('Salvo ✓')}catch(e){lastSaved='';setSync('Não consegui salvar. Tentando de novo…',1)}}
+window.addEventListener('beforeunload',e=>{if(ROLE==='coach'&&planStr()!==lastSaved){e.preventDefault();e.returnValue=''}});
+function athFb(row){if(ROLE!=='athlete'||!AID||!row.id)return;FS.collection('athletes').doc(AID).update({['fb.'+row.id]:{s:row.s||'',r:row.r??'',o:row.o||''}}).then(()=>setSync('Enviado ao treinador ✓')).catch(()=>setSync('Não consegui enviar. Tente de novo.',1))}
+function athSession(R){if(ROLE!=='athlete'||!AID)return;const upd={sessions:FV.arrayUnion({ficha:R.f.nome,data:new Date().toISOString(),min:R.dur||0,rpe:R.rpe||null,ex:R.data.map((d,i)=>({n:R.f.ex[i].n,sets:d.sets.filter(s=>s.done).map(s=>({a:String(s.a),b:String(s.b)})),com:d.com||''}))})};
+ R.data.forEach((d,i)=>{if(d.sets.some(s=>s.done))upd['hist.'+hk(R.f.ex[i].n)]=d.sets.map(s=>({b:String(s.b||'')}))});FS.collection('athletes').doc(AID).update(upd).catch(()=>{})}
+
+// alunos (treinador)
+async function loadAthletes(){const q=await FS.collection('athletes').orderBy('nome').get();ATHS=q.docs.map(d=>({id:d.id,...d.data()}));
+ if(!ATHS.length){const ref=FS.collection('athletes').doc();const m=newMonth('MÊS 1',new Date(2026,10,30));m.rows.forEach(r=>{if(r.w==null&&r.sum==null)r.id=rid()});
+  const d={nome:'Bianca Cândido',email:'',months:clean([m]),pastas:clean(SEED_PASTAS),fb:{},criado:FV.serverTimestamp()};await ref.set(d);ATHS=[{id:ref.id,...d}]}
+ let last=null;try{last=localStorage.getItem('atp-aid')}catch(e){}subscribe(ATHS.some(a=>a.id===last)?last:ATHS[0].id)}
+function renderAlunos(){const el=document.getElementById('h-alunos');if(!el||ROLE!=='coach')return;
+ el.innerHTML=ATHS.map(a=>{const ini=(a.nome||'?').split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();return`<div class="li ${a.id===AID?'sel':''}"><button class="pick" data-aid="${a.id}"><span class="av">${esc(ini)}</span><span style="min-width:0"><b>${esc(a.nome)}</b><small>${a.uid?esc(a.email)+' · com acesso':'Sem acesso ao app ainda'}</small></span></button>${a.id===AID?'<span class="pill p-ok">ABERTO</span>':''}</div>${!a.uid?`<div class="inv"><input id="inv-${a.id}" type="email" placeholder="E-mail de ${esc(a.nome.split(' ')[0])}" value="${esc(a.email||'')}" aria-label="E-mail para convite"><button class="mini" data-inv="${a.id}">CONVIDAR</button></div>`:''}`}).join('')+
+ `<div class="newbox" style="margin-top:12px"><label for="na-n" style="font-size:12px;color:var(--mute)">Novo aluno</label><input id="na-n" placeholder="Nome completo"><input id="na-e" type="email" placeholder="E-mail (para ele receber o acesso)"><button data-novo>CRIAR ALUNO</button><div class="amsg" id="na-msg"></div></div>`}
+const _renderHome=renderHome;renderHome=function(){_renderHome();renderAlunos()};
+async function convidar(aid,email,msgEl){email=(email||'').trim().toLowerCase();if(!/^\S+@\S+\.\S+$/.test(email)){msgEl.className='amsg err';msgEl.textContent='Digite um e-mail válido.';return false}
+ msgEl.className='amsg';msgEl.textContent='Criando acesso…';const sec=firebase.apps.find(a=>a.name==='sec')||firebase.initializeApp(FB_CFG,'sec');
+ try{const pw=Array.from(crypto.getRandomValues(new Uint8Array(18)),b=>b.toString(36)).join('')+'Aa1!';const cr=await sec.auth().createUserWithEmailAndPassword(email,pw);
+  await FS.collection('users').doc(cr.user.uid).set({role:'athlete',athleteId:aid,email});await FS.collection('athletes').doc(aid).update({uid:cr.user.uid,email});
+  await sec.auth().sendPasswordResetEmail(email);await sec.auth().signOut();msgEl.className='amsg ok';msgEl.textContent='Convite enviado para '+email+'. Peça para olhar o spam também.';return true}
+ catch(e){msgEl.className='amsg err';msgEl.textContent=e.code==='auth/email-already-in-use'?'Esse e-mail já tem conta.':'Não consegui criar o acesso ('+(e.code||e.message)+').';return false}}
+document.getElementById('h-alunos').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.aid&&b.dataset.aid!==AID){if(ROLE==='coach'&&planStr()!==lastSaved)await save();subscribe(b.dataset.aid);pasta=null;cur=0;renderAlunos();return}
+ if(b.dataset.inv!=null){const m=document.createElement('div');b.parentElement.after(m);m.className='amsg';if(await convidar(b.dataset.inv,document.getElementById('inv-'+b.dataset.inv).value,m)){await loadAthletesList();setTimeout(renderAlunos,2500)}return}
+ if(b.hasAttribute('data-novo')){const n=document.getElementById('na-n').value.trim(),em=document.getElementById('na-e').value.trim(),msg=document.getElementById('na-msg');if(!n){msg.className='amsg err';msg.textContent='Digite o nome.';return}
+  b.disabled=true;const ref=FS.collection('athletes').doc();const m=newMonth('MÊS 1',new Date());m.rows.forEach(r=>{if(r.w==null&&r.sum==null)r.id=rid()});
+  await ref.set({nome:n,email:em,months:clean([m]),pastas:[{nome:'MACROCICLO 1 - '+n.split(' ')[0],fichas:[]}],fb:{},criado:FV.serverTimestamp()});
+  if(em)await convidar(ref.id,em,msg);await loadAthletesList();subscribe(ref.id);setTimeout(renderAlunos,em?2500:0)}});
+async function loadAthletesList(){const q=await FS.collection('athletes').orderBy('nome').get();ATHS=q.docs.map(d=>({id:d.id,...d.data()}))}
+
+// exportar Excel (backup manual)
+async function exportXLSX(){try{await loadXLSX()}catch(e){return flash('Não consegui carregar o exportador. Verifique a internet.')}
+ const wb=XLSX.utils.book_new();for(const m of months){const head=m.cols.map(c=>c.l),aoa=[[(CURATH&&CURATH.nome)||''],head];
+  for(const r of m.rows){if(r.w!=null)aoa.push(['SEMANA '+r.w]);else if(r.sum!=null){const st=weekStats(m.rows,(()=>{for(let j=m.rows.indexOf(r);j>=0;j--)if(m.rows[j].w!=null)return j;return 0})());aoa.push(['RESUMO','','Treinos: '+st.done,'','RPE médio: '+(st.ex?st.ex.toFixed(1):'-'),'','KM semana = '+(r.km||0)+' KM'])}else aoa.push(m.cols.map(c=>r[c.id]??''))}
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(aoa),String(m.nome).replace(/[\\/?*\[\]:]/g,' ').slice(0,31)||'Mês')}
+ const nm=((CURATH&&CURATH.nome)||'aluno').replace(/\s+/g,'_')+'_'+new Date().toISOString().slice(0,10)+'.xlsx';XLSX.writeFile(wb,nm);flash('Arquivo '+nm+' baixado.')}
+
+// termos (LGPD)
+function showTermos(){if(document.getElementById('termos-m'))return;const d=document.createElement('div');d.className='modal';d.id='termos-m';d.style.zIndex=90;
+ d.innerHTML=`<div class="mbox"><div class="eyebrow">Antes de começar</div><h3 style="margin:6px 0 10px">Termos de uso e privacidade</h3><div class="termos">
+ <p>A ATP (Amaral Training Performance) guarda no app os dados necessários para o seu acompanhamento: nome, e-mail, plano de treino, treinos realizados, cargas, esforço percebido (RPE) e comentários que você enviar.</p>
+ <p>Esses dados são usados apenas pelo seu treinador para planejar e ajustar seus treinos. Eles não são vendidos nem compartilhados com terceiros. Ficam guardados nos servidores do Google (Firebase), com acesso protegido por senha.</p>
+ <p>Você pode pedir a qualquer momento uma cópia dos seus dados ou a exclusão completa deles, falando com o seu treinador. Isso segue a Lei Geral de Proteção de Dados (LGPD).</p></div>
+ <label style="display:flex;gap:10px;align-items:flex-start;margin:14px 0;font-size:14px"><input type="checkbox" id="tm-ok" style="margin-top:3px"> Li e concordo com os termos de uso e privacidade.</label><button class="big" id="tm-go" style="display:block;width:100%;box-sizing:border-box">Continuar</button></div>`;
+ document.body.appendChild(d);d.querySelector('#tm-go').onclick=()=>{if(!d.querySelector('#tm-ok').checked){d.querySelector('#tm-ok').focus();return}FS.collection('athletes').doc(AID).update({termos:{aceito:true,em:FV.serverTimestamp()}}).then(()=>d.remove()).catch(()=>{})}}
+
+// tela de login
+let amode='login';const af=document.getElementById('auth-f'),amsg=document.getElementById('auth-msg');
+function setAMode(m){amode=m;document.getElementById('auth-t').textContent={login:'Entrar',reset:'Recuperar senha',coach:'Criar conta do treinador'}[m];document.getElementById('auth-go').textContent={login:'Entrar',reset:'Enviar link por e-mail',coach:'Criar conta'}[m];
+ document.getElementById('pw-row').hidden=m==='reset';document.getElementById('a-pw').autocomplete=m==='coach'?'new-password':'current-password';af.querySelectorAll('[data-am]').forEach(b=>b.hidden=b.dataset.am===m||(m!=='login'&&b.dataset.am!=='login'));amsg.textContent='';amsg.className='amsg'}
+af.addEventListener('click',e=>{const b=e.target.closest('[data-am]');if(b)setAMode(b.dataset.am)});
+const AERR={'auth/invalid-credential':'E-mail ou senha incorretos.','auth/wrong-password':'E-mail ou senha incorretos.','auth/user-not-found':'E-mail ou senha incorretos.','auth/invalid-email':'E-mail inválido.','auth/too-many-requests':'Muitas tentativas. Espere alguns minutos.','auth/weak-password':'A senha precisa ter pelo menos 6 caracteres.','auth/email-already-in-use':'Esse e-mail já tem conta. Use "Entrar".','auth/network-request-failed':'Sem conexão com a internet.'};
+af.addEventListener('submit',async e=>{e.preventDefault();const em=document.getElementById('a-email').value.trim(),pw=document.getElementById('a-pw').value,go=document.getElementById('auth-go');amsg.className='amsg';amsg.textContent='Aguarde…';go.disabled=true;
+ try{if(amode==='login')await AUTH.signInWithEmailAndPassword(em,pw);else if(amode==='coach')await AUTH.createUserWithEmailAndPassword(em,pw);else{await AUTH.sendPasswordResetEmail(em);amsg.className='amsg ok';amsg.textContent='Se o e-mail estiver cadastrado, você vai receber um link para criar uma nova senha.'}}
+ catch(err){amsg.className='amsg err';amsg.textContent=AERR[err.code]||'Não deu certo ('+(err.code||err.message)+').'}finally{go.disabled=false}});
+document.getElementById('logout').onclick=async()=>{if(ROLE==='coach'&&planStr()!==lastSaved)await save();unsub&&unsub();unsub=null;await AUTH.signOut();location.reload()};
+function noAccess(t){appEl.hidden=true;authEl.hidden=false;amsg.className='amsg err';amsg.innerHTML=esc(t)+' <button type="button" class="lnk" id="nx">Sair</button>';document.getElementById('nx').onclick=()=>AUTH.signOut()}
+AUTH.onAuthStateChanged(async u=>{ME=u;if(!u){appEl.hidden=true;authEl.hidden=false;return}
+ amsg.className='amsg';amsg.textContent='Carregando…';
+ try{const mc=await FS.collection('meta').doc('coach').get();
+  if(mc.exists&&mc.data().uid===u.uid)ROLE='coach';
+  else{const ud=await FS.collection('users').doc(u.uid).get().catch(()=>null);
+   if(ud&&ud.exists&&ud.data().athleteId){ROLE='athlete';AID=ud.data().athleteId}
+   else if(!mc.exists){await FS.collection('meta').doc('coach').set({uid:u.uid,email:u.email,criado:FV.serverTimestamp()});ROLE='coach'}
+   else return noAccess('Esta conta não tem acesso. Peça um convite ao seu treinador.')}
+  authEl.hidden=true;appEl.hidden=false;
+  if(ROLE==='coach'){await loadAthletes();mode('coach')}
+  else{document.querySelector('.mode').hidden=true;document.getElementById('coach').hidden=true;mode('aluno');subscribe(AID)}}
+ catch(e){noAccess('Não consegui conectar ('+(e.code||e.message)+'). Verifique a internet e as regras do banco.')}});
 </script>
 
 </body></html>

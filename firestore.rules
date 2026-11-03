@@ -1,0 +1,33 @@
+rules_version = '2';
+// Regras de segurança do ATP App.
+// - Treinador (dono de meta/coach) lê e edita tudo.
+// - Atleta lê só o próprio documento e só pode alterar feedback (fb),
+//   cargas (hist), sessões de treino (sessions) e o aceite dos termos.
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function signed() { return request.auth != null; }
+    function coachDoc() { return /databases/$(db)/documents/meta/coach; }
+    function isCoach() { return signed() && exists(coachDoc()) && get(coachDoc()).data.uid == request.auth.uid; }
+    function userDoc() { return /databases/$(db)/documents/users/$(request.auth.uid); }
+    function isAthleteOf(id) { return signed() && exists(userDoc()) && get(userDoc()).data.athleteId == id; }
+
+    match /meta/coach {
+      allow read: if signed();
+      allow create: if signed() && !exists(coachDoc()) && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if false;
+    }
+    match /users/{uid} {
+      allow read: if isCoach() || (signed() && request.auth.uid == uid);
+      allow write: if isCoach();
+    }
+    match /athletes/{id} {
+      allow read, write: if isCoach();
+      allow read: if isAthleteOf(id);
+      allow update: if isAthleteOf(id)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fb', 'hist', 'sessions', 'termos']);
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
