@@ -58,6 +58,7 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { 'content-type': 'image/gif', 'cache-control': 'private, max-age=86400' });
       return res.end(buf);
     }
+    if (u.pathname === '/exercicios.json') { res.writeHead(200,{'content-type':'application/json'}); return res.end(fs.readFileSync(path.join(__dirname,'public','exercicios.json'))); }
     if (u.pathname === '/' || u.pathname === '/index.html') {
       const body = fs.readFileSync(path.join(__dirname, 'public', 'body.html'), 'utf8');
       res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });

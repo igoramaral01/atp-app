@@ -92,10 +92,10 @@ textarea{width:100%;background:var(--panel2);color:var(--fg);border:1px solid va
 .mbox input{width:100%;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit}
 .res{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
 .res button{all:unset;cursor:pointer;background:#fff;border-radius:10px;overflow:hidden;color:#111;font-size:12px;font-weight:600}
-.res button img{display:block;width:100%;aspect-ratio:1;object-fit:contain}
+.res button img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
 .res button span{display:block;padding:6px 8px}
-.gifbig{background:#fff;border-radius:10px;display:block;width:100%;max-width:360px;margin:0 auto}
-.vid img{width:100%;height:100%;object-fit:contain;background:#fff;border-radius:8px}
+.gifbig{max-width:420px;margin:0 auto}.gifbig img{width:100%;border-radius:10px;display:block}
+.vid{padding:0;overflow:hidden}.vid img{width:100%;height:100%;object-fit:cover;border-radius:8px}
 .add{all:unset;cursor:pointer;display:block;text-align:center;margin-top:10px;padding:9px;border:1px dashed var(--line);border-radius:8px;color:var(--mute);font-weight:600;font-size:13px}
 .add:hover{color:var(--fg);border-color:var(--red)}
 .x{all:unset;cursor:pointer;float:right;font-size:20px;color:var(--mute)}
@@ -208,16 +208,19 @@ const fichas=[['A3 · Inferiores',[]],['B2 · Resistência de força',[]],['R1 �
 const prog=document.getElementById('progs'),modal=document.createElement('div');modal.className='modal';modal.hidden=true;document.body.appendChild(modal);
 function close(){modal.hidden=true;modal.innerHTML=''}
 modal.addEventListener('click',e=>{if(e.target===modal||e.target.closest('.x'))close()});
-function renderProgs(){prog.innerHTML=fichas.map(([n,ex],fi)=>`<div class="card"><div class="eyebrow" style="color:var(--red)">${n}</div>${ex.map((x,ei)=>`<div class="ex"><button class="vid" data-gif="${fi}-${ei}" title="Ver execução"><img src="/api/gif/${x.id}" alt="" loading="lazy"></button><div><b >${x.nome}</b><small contenteditable data-p="${fi}-${ei}">${x.pres}</small></div></div>`).join('')}<button class="add" data-f="${fi}">+ Adicionar exercício</button></div>`).join('')}
+const IMG='https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/';
+let DB=null;const loadDB=()=>DB?Promise.resolve(DB):fetch('/exercicios.json').then(r=>r.json()).then(d=>{DB=d.map(x=>({...x,k:(x.n+' '+x.en+' '+x.m.join(' ')+' '+x.eq).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')}));return DB});
+const anim=x=>`<img class="anim" data-a="${IMG+x.img[0]}" data-b="${IMG+(x.img[1]||x.img[0])}" src="${IMG+x.img[0]}" alt="" loading="lazy">`;
+setInterval(()=>document.querySelectorAll('img.anim').forEach(i=>{i.src=i.src===i.dataset.a?i.dataset.b:i.dataset.a}),900);
+function renderProgs(){prog.innerHTML=fichas.map(([n,ex],fi)=>`<div class="card"><div class="eyebrow" style="color:var(--red)">${n}</div>${ex.map((x,ei)=>`<div class="ex"><button class="vid" data-gif="${fi}-${ei}" title="Ver execução">${anim(x)}</button><div><b>${x.n}</b><small style="display:block;font-size:11px">${x.m.join(', ')}</small><small contenteditable data-p="${fi}-${ei}">${x.pres}</small></div></div>`).join('')}<button class="add" data-f="${fi}">+ Adicionar exercício</button></div>`).join('')}
 prog.addEventListener('input',e=>{const p=e.target.dataset.p;if(p){const[f,i]=p.split('-');fichas[f][1][i].pres=e.target.innerText}});
 prog.addEventListener('click',e=>{const a=e.target.closest('.add');if(a)return openSearch(+a.dataset.f);const g=e.target.closest('[data-gif]');if(g){const[f,i]=g.dataset.gif.split('-');showGif(fichas[f][1][i])}});
-function showGif(x){modal.innerHTML=`<div class="mbox"><button class="x" aria-label="Fechar">×</button><div class="eyebrow">${x.alvo||''}</div><h3 style="text-transform:capitalize;margin:4px 0 12px">${x.nome}</h3><img class="gifbig" src="/api/gif/${x.id}" alt="Execução de ${x.nome}"><ol style="color:var(--mute);font-size:13px">${(x.passos||[]).map(t=>`<li>${t}</li>`).join('')}</ol></div>`;modal.hidden=false}
-let tmr;function openSearch(fi){modal.innerHTML=`<div class="mbox"><button class="x" aria-label="Fechar">×</button><div class="eyebrow">Adicionar em ${fichas[fi][0]}</div><input id="q" placeholder="Buscar: agachamento, supino, remada…" autocomplete="off" style="margin-top:10px"><div id="st" style="font-size:12px;color:var(--mute);margin-top:6px"></div><div class="res" id="res"></div></div>`;modal.hidden=false;const q=modal.querySelector('#q');q.focus();
- q.oninput=()=>{clearTimeout(tmr);tmr=setTimeout(async()=>{if(q.value.trim().length<3)return;const st=modal.querySelector('#st');st.textContent='Buscando…';
-  try{const r=await(await fetch('/api/search?q='+encodeURIComponent(q.value))).json();st.textContent=r.items.length+' resultados para "'+r.en+'"';
-   modal.querySelector('#res').innerHTML=r.items.map((x,i)=>`<button data-i="${i}"><img src="/api/gif/${x.id}" alt="" loading="lazy"><span>${x.nome||x.name}</span><small style="display:block;padding:0 8px 6px;color:#666">${x.alvoPT||''}</small></button>`).join('');
-   modal.querySelector('#res').onclick=e=>{const b=e.target.closest('button');if(!b)return;const x=r.items[b.dataset.i];fichas[fi][1].push({id:x.id,nome:x.nome||x.name,alvo:x.alvoPT||x.target,passos:x.instructions,pres:'3 x 12 · desc. 60s'});close();renderProgs()}}
-  catch(err){st.textContent='Não consegui buscar. Verifique a conexão.'}},400)}}
+function showGif(x){modal.innerHTML=`<div class="mbox"><button class="x" aria-label="Fechar">×</button><div class="eyebrow">${x.m.join(' · ')}${x.eq?' · '+x.eq:''}</div><h3 style="margin:4px 0 2px">${x.n}</h3><div style="color:var(--mute);font-size:12px;margin-bottom:12px">${x.en}</div><div class="gifbig">${anim(x)}</div><ol style="color:var(--mute);font-size:13px">${(x.ins||[]).map(t=>`<li>${t}</li>`).join('')}</ol></div>`;modal.hidden=false}
+const norm=t=>t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+function openSearch(fi){modal.innerHTML=`<div class="mbox"><button class="x" aria-label="Fechar">×</button><div class="eyebrow">Adicionar em ${fichas[fi][0]}</div><input id="q" placeholder="Buscar: agachamento, supino, glúteos, halter…" autocomplete="off" style="margin-top:10px"><div id="st" style="font-size:12px;color:var(--mute);margin-top:6px">Carregando 876 exercícios…</div><div class="res" id="res"></div></div>`;modal.hidden=false;const q=modal.querySelector('#q'),st=modal.querySelector('#st'),res=modal.querySelector('#res');q.focus();let list=[];
+ const run=()=>{const ws=norm(q.value).split(/\s+/).filter(Boolean);list=ws.length?DB.filter(x=>ws.every(w=>x.k.includes(w))):DB;st.textContent=list.length+' exercícios'+(list.length>60?' (mostrando 60, refine a busca)':'');res.innerHTML=list.slice(0,60).map((x,i)=>`<button data-i="${i}">${anim(x)}<span>${x.n}</span><small style="display:block;padding:0 8px 6px;color:#666">${x.m.join(', ')}</small></button>`).join('')};
+ loadDB().then(()=>{run();q.oninput=run}).catch(()=>st.textContent='Não consegui carregar os exercícios. Verifique a conexão.');
+ res.onclick=e=>{const b=e.target.closest('button');if(!b)return;const x=list[b.dataset.i];fichas[fi][1].push({...x,k:undefined,pres:'3 x 12 · desc. 60s'});close();renderProgs()}}
 renderProgs();
 
 // aluno
