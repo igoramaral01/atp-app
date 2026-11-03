@@ -315,6 +315,69 @@ td select{max-width:190px;width:100%}
 .gsel select{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:7px 8px;font:13px var(--body);max-width:100%}
 .gchart svg{min-width:560px;width:100%;height:auto;display:block}
 @media(max-width:640px){.rbar{display:grid;grid-template-columns:1fr auto;gap:10px}.rf{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:auto 1fr auto 1fr;gap:6px 8px}.rf input{min-width:0;width:100%}.rf select{grid-column:1/-1;width:100%}.rt th:nth-child(3),.rt td:nth-child(3){white-space:nowrap}}
+
+/* avaliações */
+.avtop{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.avdates{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin;max-width:100%}
+.avdates button{all:unset;cursor:pointer;flex:0 0 auto;text-align:center;padding:7px 11px;border-radius:8px;background:var(--panel);border:1px solid var(--line);font:600 13px var(--mono)}
+.avdates button small{display:block;font-size:10px;color:var(--mute)}
+.avdates button[aria-selected="true"]{border-color:var(--purple);background:var(--panel2);box-shadow:inset 0 -3px 0 var(--purple)}
+.avact{display:flex;gap:6px;flex-wrap:wrap}
+.avgrid{display:grid;gap:16px}
+@media(min-width:900px){.avgrid{grid-template-columns:minmax(320px,420px) 1fr}}
+.av3card{display:flex;flex-direction:column;gap:10px}
+.avhead{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+.avhead b{font-family:var(--display);font-style:italic;font-weight:900;font-size:20px}
+.avhead small{color:var(--mute);font-size:12px}
+.av3d{height:460px;border-radius:10px;background:radial-gradient(ellipse at 50% 40%,#1f1f26,#0f0f12 70%);overflow:hidden}
+.av3d canvas{display:block}
+#av-slide{width:100%;accent-color:var(--purple)}
+.avleg{display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--mute)}
+.avleg label{display:flex;gap:6px;align-items:center;color:var(--fg)}
+.lg::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+.lg.g{--c:var(--green)}.lg.z{--c:#dcdce6}.lg.r{--c:var(--red)}
+.avcount{display:flex;gap:14px;flex-wrap:wrap;font-weight:800;font-size:14px}
+.avcount .g,.pertab .g{color:var(--green)}.avcount .r,.pertab .r{color:var(--red)}
+.avright{display:grid;gap:16px;align-content:start;min-width:0}
+.avkpis,.avtests{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.avk{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0}
+.avtests .avk{background:var(--panel2);border:0}
+.avk span{display:block;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--mute)}
+.avk b{display:block;font-family:var(--display);font-style:italic;font-weight:900;font-size:24px;margin-top:4px;font-variant-numeric:tabular-nums}
+.avk small{display:block;font-size:12px;color:var(--mute);margin-top:2px}
+.avk i{font-style:normal;font-weight:700;font-family:var(--mono);font-size:12px}
+.dg{color:var(--green)}.dr{color:var(--red)}.dz{color:var(--mute)}
+.avh3{margin:0 0 12px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--mute);font-weight:600}
+.avobs{font-size:13px;color:var(--mute);margin:10px 0 0;line-height:1.5}
+.avmeta{display:grid;gap:4px;font-size:13px;color:var(--mute);margin-top:10px}
+.pertab{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:0 18px}
+.pr{display:grid;grid-template-columns:1fr auto 56px;gap:8px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.pr b{font-family:var(--mono);font-weight:600}.pr i{font-style:normal;font-family:var(--mono);font-size:12px;text-align:right}
+.pr .z{color:var(--mute)}
+.avform{width:min(820px,100%)}
+.avform h4{margin:18px 0 8px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--green)}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.fgrid.per{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+.fgrid.one{grid-template-columns:1fr;margin-top:10px}
+.fl{display:grid;gap:4px;font-size:12px;color:var(--mute);min-width:0}
+.fl.one{margin-top:10px}
+.fl input,.fl textarea{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:8px;font:14px var(--body);width:100%;box-sizing:border-box;color-scheme:dark}
+@media(max-width:640px){.av3d{height:380px}.avk b{font-size:20px}}
+/* planilha: rolagem lateral e cabeçalho fixo */
+#sheet{max-height:calc(100vh - 250px);min-height:320px;overflow:auto;padding:0;scrollbar-color:#55555f var(--panel2);scrollbar-width:auto}
+#sheet::-webkit-scrollbar{height:14px;width:12px}
+#sheet::-webkit-scrollbar-track{background:var(--panel2)}
+#sheet::-webkit-scrollbar-thumb{background:#55555f;border-radius:8px;border:3px solid var(--panel2)}
+#sheet::-webkit-scrollbar-thumb:hover{background:var(--purple)}
+#sheet table{width:max-content;min-width:100%}
+#sheet thead th{position:sticky;top:0;z-index:3;padding:10px 12px;white-space:nowrap}
+#sheet td{padding:9px 12px;line-height:1.45}
+#sheet td.c{min-width:var(--w,200px);max-width:520px}
+#sheet .rn{position:sticky;left:0;z-index:2}
+#sheet thead th.rn{z-index:4}
+#sheet.grab{cursor:grabbing;user-select:none}
+.sheetnav{display:flex;gap:6px;align-items:center;justify-content:flex-end;margin:-4px 0 8px;font-size:12px;color:var(--mute)}
+.sheetnav button{all:unset;cursor:pointer;padding:5px 10px;border-radius:6px;background:var(--panel2);border:1px solid var(--line);color:var(--fg);font-weight:700}
 </style>
 
 <div id="auth" class="authbox"><form class="authcard" id="auth-f" novalidate>
@@ -349,6 +412,7 @@ td select{max-width:190px;width:100%}
     <button role="tab" aria-selected="false" data-t="prog">Programas</button>
     <button role="tab" aria-selected="false" data-t="esf">Esforço</button>
     <button role="tab" aria-selected="false" data-t="real">Realizados</button>
+    <button role="tab" aria-selected="false" data-t="av">Avaliações</button>
   </div>
   <div id="home" class="panel"><div class="home">
     <div class="card"><h3>Treinos de hoje</h3><div id="h-hoje"></div></div>
@@ -371,11 +435,13 @@ td select{max-width:190px;width:100%}
       <span class="sep"></span>
       <button data-a="undo" id="undo" disabled>↶ Desfazer</button><span class="sep"></span><button data-a="export">⇩ Exportar Excel</button>
     </div>
+    <div class="sheetnav"><span>Arraste a planilha para o lado ou use</span><button type="button" data-sn="-1" aria-label="Rolar para a esquerda">◀</button><button type="button" data-sn="1" aria-label="Rolar para a direita">▶</button></div>
     <div class="card scroll" id="sheet"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
     <div class="sheets" id="sheets"></div>
     <div class="flash" id="flash" role="status"></div>
     <p class="note">Clique numa célula para selecionar a linha e a coluna. Clique com o botão direito para ver as opções. Dê dois cliques na aba do mês para renomear. Clique no ✓/✗ para mudar o status.</p></div>
   <div id="prog" class="panel" hidden><div class="prog" id="progs"></div></div>
+  <div id="av" class="panel" hidden><div id="av-root"></div></div>
   <div id="real" class="panel" hidden>
     <div class="rbar">
       <div class="seg" role="tablist" aria-label="Modalidade"><button data-rm="corrida" aria-selected="true">Corrida</button><button data-rm="academia" aria-selected="false">Academia</button></div>
@@ -400,6 +466,7 @@ td select{max-width:190px;width:100%}
     <button role="tab" aria-selected="true" data-t="hoje">Hoje</button>
     <button role="tab" aria-selected="false" data-t="treinos">Treinos</button>
     <button role="tab" aria-selected="false" data-t="cal">Calendário</button>
+    <button role="tab" aria-selected="false" data-t="a-av">Avaliações</button>
   </div>
   <div id="hoje" class="panel"><div class="phone today">
     <div id="a-treino"></div>
@@ -415,6 +482,7 @@ td select{max-width:190px;width:100%}
     </div>
   </div></div>
   <div id="treinos" class="panel" hidden><div class="flist" id="a-fichas"></div></div>
+  <div id="a-av" class="panel" hidden><div id="a-av-root"></div></div>
   <div id="cal" class="panel" hidden><div class="card"><div class="eyebrow" style="margin-bottom:10px" id="cal-t"></div><div class="cal" id="calg"></div></div></div>
 </section>
 </div>
@@ -438,7 +506,7 @@ function flash(t){const f=document.getElementById('flash');f.textContent=t;clear
 function snap(){undoStack.push(JSON.stringify({months,cur}));if(undoStack.length>40)undoStack.shift();document.getElementById('undo').disabled=false}
 function undo(){const x=undoStack.pop();if(!x)return;const o=JSON.parse(x);months.splice(0,months.length,...o.months);cur=o.cur;sel=null;document.getElementById('undo').disabled=!undoStack.length;renderAll();flash('Alteração desfeita.')}
 function renderTable(){const m=M(),cols=m.cols,n=cols.length;
- thead.innerHTML='<tr><th class="rn"></th>'+cols.map((c,ci)=>`<th data-c="${ci}" class="${sel&&sel.c===ci?'selc':''}"><span contenteditable data-h="${ci}">${esc(c.l)}</span></th>`).join('')+'</tr>';
+ const CW={s:56,d:120,dt:78,t:190,c:340,p:96,r:80,o:280};thead.innerHTML='<tr><th class="rn"></th>'+cols.map((c,ci)=>`<th data-c="${ci}" class="${sel&&sel.c===ci?'selc':''}" style="min-width:${CW[c.id]||220}px"><span contenteditable data-h="${ci}">${esc(c.l)}</span></th>`).join('')+'</tr>';
  tbody.innerHTML=m.rows.map((r,i)=>{const rn=`<td class="rn ${sel&&sel.i===i?'selr':''}" data-i="${i}">${i+1}</td>`;
   if(r.w!=null)return`<tr class="week">${rn}<td colspan="${n}" data-i="${i}"><span class="wl">SEMANA ${esc(r.w)}</span></td></tr>`;
   if(r.sum!=null){const st=weekStats(m.rows,weekOf(m.rows,i));const parts=[['RESUMO',2],[`Treinos: ${st.done}/${st.plan}`,2],[`RPE médio: <span class="num">${st.ex?st.ex.toFixed(1):'–'}</span>`,2],[`KM semana = <span contenteditable data-i="${i}" data-k="km" class="num">${esc(r.km??0)}</span> KM`,Math.max(1,n-6)]];
@@ -540,6 +608,13 @@ async function readFile(file){const pv=modal.querySelector('#imp-p');pv.innerHTM
   pv.onclick=e=>{const b=e.target.closest('[data-imp]');if(!b)return;snap();const novos=IMP.ms.map(m=>({nome:m.nome,cols:m.cols,rows:m.rows}));
    if(b.dataset.imp==='rep')months.splice(0,months.length,...novos);else months.push(...novos);cur=b.dataset.imp==='rep'?0:months.length-novos.length;sel=null;close();renderAll();goTab('plan');flash(novos.length+' meses importados de '+IMP.file+'.')}}
  catch(err){pv.innerHTML='<div style="color:var(--red)">Não consegui ler o arquivo. Ele precisa ser .xlsx (baixado do Drive como Microsoft Excel).</div>'}}
+
+// planilha: arrastar para rolar (pelo cabeçalho, números das linhas ou áreas não editáveis)
+{const sh=document.getElementById('sheet');let dg=null;
+ sh.addEventListener('pointerdown',e=>{if(e.button!==0||e.target.closest('[contenteditable="true"],select,input,td.st'))return;dg={x:e.clientX,y:e.clientY,l:sh.scrollLeft,t:sh.scrollTop,moved:false}});
+ window.addEventListener('pointermove',e=>{if(!dg)return;const dx=e.clientX-dg.x,dy=e.clientY-dg.y;if(!dg.moved&&Math.abs(dx)+Math.abs(dy)<6)return;dg.moved=true;sh.classList.add('grab');sh.scrollLeft=dg.l-dx;sh.scrollTop=dg.t-dy});
+ window.addEventListener('pointerup',()=>{if(dg&&dg.moved){const stop=ev=>{ev.stopPropagation();ev.preventDefault()};sh.addEventListener('click',stop,{capture:true,once:true});setTimeout(()=>sh.removeEventListener('click',stop,{capture:true}),50)}dg=null;sh.classList.remove('grab')});
+ document.querySelector('.sheetnav').addEventListener('click',e=>{const b=e.target.closest('[data-sn]');if(b)sh.scrollBy({left:+b.dataset.sn*Math.max(300,sh.clientWidth*0.6),behavior:'smooth'})});}
 
 // ---------- HOME ----------
 const NOW=new Date(),KEY=String(NOW.getDate()).padStart(2,'0')+'/'+String(NOW.getMonth()+1).padStart(2,'0');
@@ -848,6 +923,7 @@ AUTH.onAuthStateChanged(async u=>{ME=u;if(!u){appEl.hidden=true;authEl.hidden=fa
   else{document.querySelector('.mode').hidden=true;document.getElementById('coach').hidden=true;mode('aluno');subscribe(AID)}}
  catch(e){noAccess('Não consegui conectar ('+(e.code||e.message)+'). Verifique a internet e as regras do banco.')}});
 </script>
+<script src="/aval.js"></script>
 
 </body>
 </html>
