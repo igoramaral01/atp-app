@@ -58,11 +58,12 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { 'content-type': 'image/gif', 'cache-control': 'private, max-age=86400' });
       return res.end(buf);
     }
-    if (u.pathname === '/exercicios.json') { res.writeHead(200,{'content-type':'application/json'}); return res.end(fs.readFileSync(path.join(__dirname,'public','exercicios.json'))); }
-    if (u.pathname === '/' || u.pathname === '/index.html') {
-      const body = fs.readFileSync(path.join(__dirname, 'public', 'body.html'), 'utf8');
-      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
-      return res.end('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>' + body + '</body></html>');
+    const TYPES = { '.html': 'text/html; charset=utf-8', '.json': 'application/json', '.png': 'image/png', '.webmanifest': 'application/manifest+json', '.js': 'text/javascript', '.css': 'text/css' };
+    const rel = u.pathname === '/' ? 'index.html' : decodeURIComponent(u.pathname).replace(/^\/+/, '');
+    const file = path.join(__dirname, 'public', path.normalize(rel));
+    if (file.startsWith(path.join(__dirname, 'public')) && fs.existsSync(file) && fs.statSync(file).isFile()) {
+      res.writeHead(200, { 'content-type': TYPES[path.extname(file)] || 'application/octet-stream' });
+      return res.end(fs.readFileSync(file));
     }
     res.writeHead(404); res.end('Não encontrado');
   } catch (e) {
