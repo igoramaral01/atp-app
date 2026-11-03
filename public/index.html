@@ -286,6 +286,7 @@ td select.vazio{background:var(--panel2);color:var(--mute);border:1px solid var(
   .qa{grid-template-columns:1fr 1fr}
   .crumb{font-size:13px}
 }
+td select{max-width:190px;width:100%}
 </style>
 
 <div id="auth" class="authbox"><form class="authcard" id="auth-f" novalidate>
@@ -457,19 +458,32 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')ctx.hidden=true;if((
 // ---------- IMPORTAR ----------
 function loadXLSX(){return window.XLSX?Promise.resolve():new Promise((ok,err)=>{const sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';sc.onload=ok;sc.onerror=err;document.head.appendChild(sc)})}
 const nrm=t=>String(t??'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim();
-function colId(h){const t=nrm(h);if(!t)return null;if(t.includes('✓')||t.includes('✔')||t==='✓/✗'||t==='status')return's';if(t==='dia')return'd';if(t==='data')return'dt';if(t==='treino')return't';if(t.startsWith('conteudo'))return'c';if(t.startsWith('previsto'))return'p';if(t.replace(/\s/g,'').includes('6-20')||t==='rpe')return'r';if(t.startsWith('observ'))return'o';return'x_'+t.replace(/[^a-z0-9]/g,'')}
+function colId(h){const t=nrm(h).replace(/\s+/g,' ');if(!t)return null;if(/[✓✔✗✘❌]/.test(t)||t==='status')return's';if(t==='dia')return'd';if(t==='data')return'dt';if(t==='treino'||t==='tipo de treino'||t==='tipo')return't';if(t.startsWith('conteudo'))return'c';if(t.startsWith('previsto'))return'p';if(t.replace(/\s/g,'').includes('6-20')||t==='rpe')return'r';if(t.startsWith('observ'))return'o';return'x_'+t.replace(/[^a-z0-9]/g,'')}
 function fmtDate(v){if(typeof v==='number'&&v>20000){const d=XLSX.SSF.parse_date_code(v);return String(d.d).padStart(2,'0')+'/'+String(d.m).padStart(2,'0')}if(v instanceof Date)return String(v.getDate()).padStart(2,'0')+'/'+String(v.getMonth()+1).padStart(2,'0');const m=String(v).match(/(\d{1,2})\/(\d{1,2})/);return m?m[1].padStart(2,'0')+'/'+m[2].padStart(2,'0'):String(v).trim()}
+const DIAS_N={seg:'SEGUNDA',ter:'TERÇA',qua:'QUARTA',qui:'QUINTA',sex:'SEXTA',sab:'SÁBADO',dom:'DOMINGO'};
 function parseSheet(ws){const A=XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:''});let h=-1;
- for(let i=0;i<Math.min(A.length,60);i++){const t=A[i].map(nrm);if(t.includes('data')&&t.includes('treino')){h=i;break}}if(h<0)return null;
- const map=A[h].map(colId),cols=[];map.forEach((id,ci)=>{if(id&&!cols.some(c=>c.id===id))cols.push({id,l:String(A[h][ci]).trim(),ci})});
- for(const b of BASE_COLS)if(!cols.some(c=>c.id===b.id))cols.push({id:b.id,l:b.l,ci:-1});
- const rows=[];let days=0,weeks=0;
- for(let i=h+1;i<A.length;i++){const cells=A[i].map(v=>v instanceof Date?v:String(v??'').trim?String(v??'').trim():v),txt=cells.map(String).join(' ').replace(/\s+/g,' ').trim();if(!txt)continue;const filled=cells.filter(v=>String(v).trim()).length;
-  const wm=txt.match(/^.{0,6}SEMANA\s*(\d+)/i);if(wm&&filled<=2){rows.push({w:+wm[1]});weeks++;continue}
-  if(/RESUMO/i.test(txt)){const km=(txt.match(/KM\s*semana\s*=?\s*([\d.,]+)/i)||[])[1];rows.push({sum:1,km:km?km.replace(',','.'):''});continue}
-  const r={s:'',d:'',dt:'',t:'',c:'',p:'',r:'',o:''};for(const c of cols){if(c.ci<0)continue;let v=A[i][c.ci];if(c.id==='dt'){r.dt=v===''?'':fmtDate(v);continue}v=String(v??'').trim();
-   if(c.id==='s'){r.s=/^(✓|✔|☑|true|sim|ok)$/i.test(v)?'✓':/^(✗|✘|x|❌|false|nao|não)$/i.test(v)?'✗':''}else if(c.id==='t'){r.t=v;if(v&&!C[v])C[v]='#cfcfd4'}else r[c.id]=v}
-  if(r.d||r.dt||r.t||r.c){rows.push(r);days++}}
+ for(let i=0;i<Math.min(A.length,80);i++){const t=A[i].map(x=>nrm(x).replace(/\s+/g,' '));if(t.includes('data')&&(t.some(x=>x==='treino'||x==='tipo de treino')||t.some(x=>x.startsWith('conteudo')))){h=i;break}}if(h<0)return null;
+ const hdr=A[h],body=A.slice(h+1),filled=ci=>body.filter(r=>String(r[ci]??'').trim()).length;
+ const cols=[];hdr.forEach((x,ci)=>{const id=colId(x);if(!id||cols.some(c=>c.id===id))return;let use=ci;
+  // cabeçalho mesclado: o valor real fica na coluna seguinte sem título
+  if(!String(hdr[ci+1]??'').trim()&&filled(ci+1)>filled(ci))use=ci+1;cols.push({id,l:String(x).trim(),ci:use})});
+ const hasDia=cols.some(c=>c.id==='d');for(const b of BASE_COLS)if(!cols.some(c=>c.id===b.id))cols.push({id:b.id,l:b.l,ci:-1});
+ const order=['s','d','dt','t'];cols.sort((x,y)=>{const a=order.indexOf(x.id),b=order.indexOf(y.id);return(a<0?9:a)-(b<0?9:b)});
+ const rows=[];let days=0,weeks=0,explicitWeeks=false,gap=true,wk=0,inWeek=false;
+ const closeWeek=()=>{if(inWeek&&!explicitWeeks){rows.push({sum:wk,km:''});inWeek=false}};
+ for(const raw of body){const txt=raw.map(v=>String(v??'')).join(' ').replace(/\s+/g,' ').trim();if(!txt){gap=true;continue}
+  const nf=raw.filter(v=>String(v??'').trim()).length;
+  const wm=txt.match(/^.{0,6}SEMANA\s*(\d+)/i);if(wm&&nf<=2){explicitWeeks=true;rows.push({w:+wm[1]});weeks++;gap=false;continue}
+  if(/^RESUMO/i.test(txt)||(/RESUMO/i.test(txt)&&nf<=6)){const km=(txt.match(/KM\s*semana\s*=?\s*([\d.,]+)/i)||[])[1];rows.push({sum:1,km:km?km.replace(',','.'):''});continue}
+  const r={s:'',d:'',dt:'',t:'',c:'',p:'',r:'',o:''};
+  for(const c of cols){if(c.ci<0)continue;let v=raw[c.ci];
+   if(c.id==='dt'){if(v===''){r.dt='';continue}const sv=String(v),dm=sv.match(/^\s*([A-Za-zÀ-ú]{3,})[^0-9]*?(\d{1,2}\/\d{1,2})(?:\/\d{2,4})?([\s\S]*)$/);if(dm){r.dt=fmtDate(dm[2]);const extra=dm[3].replace(/\s+/g,' ').trim();if(!hasDia)r.d=(DIAS_N[nrm(dm[1]).slice(0,3)]||dm[1].toUpperCase())+(extra?' · '+extra:'')}else r.dt=fmtDate(v);continue}
+   v=String(v??'').trim();
+   if(c.id==='s'){r.s=/^(✓|✔|☑|true|sim|ok)/i.test(v)?'✓':/^(✗|✘|❌|x$|false|nao|não)/i.test(v)?'✗':''}
+   else if(c.id==='t'){r.t=v;if(v&&!C[v])C[v]='#cfcfd4'}else r[c.id]=v}
+  if(!(r.d||r.dt||r.t||r.c))continue;
+  if(!explicitWeeks&&(gap||(String(r.d).startsWith('SEGUNDA')&&inWeek&&rows.length&&rows[rows.length-1].w==null&&rows[rows.length-1].dt!==r.dt))){closeWeek();wk++;rows.push({w:wk});weeks++;inWeek=true}gap=false;rows.push(r);days++}
+ closeWeek();
  return{cols:cols.map(({id,l})=>({id,l})),rows,days,weeks}}
 let IMP=null;
 function openImport(){modal.innerHTML=`<div class="mbox"><button class="x" aria-label="Fechar">×</button><div class="eyebrow">Importar macrociclo</div><h3 style="margin:6px 0 4px">Trazer planilha do Google Drive</h3>
