@@ -157,6 +157,57 @@ td select{background:var(--c,#ccc);color:#111;border:0;border-radius:4px;font:60
 .prev{margin-top:12px;font-size:13px;display:grid;gap:6px}
 .prev div{display:flex;justify-content:space-between;background:var(--panel2);padding:8px 10px;border-radius:6px}
 .nofoto{display:grid;place-items:center;width:100%;height:100%;min-height:60px;font-size:10px;color:var(--mute);background:var(--panel2);border-radius:8px;text-align:center}
+
+.flist{display:grid;gap:10px;max-width:560px}
+.fitem{all:unset;cursor:pointer;display:flex;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+.fitem:hover{border-color:var(--red)}
+.fitem .code{font-family:var(--display);font-style:italic;font-weight:900;font-size:26px;width:58px;text-align:center;color:var(--red)}
+.fitem small{display:block;color:var(--mute);font-size:12px}
+.runner{position:fixed;inset:0;z-index:70;background:var(--bg);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.r-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
+.r-top b{font-family:var(--display);font-style:italic;font-weight:900;text-transform:uppercase;font-size:15px}
+.r-top button{all:unset;cursor:pointer;color:var(--mute);font-size:13px;font-weight:600;padding:6px}
+.r-body{flex:1;overflow:auto;padding:16px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+.r-wrap{max-width:520px;margin:0 auto;display:grid;gap:14px}
+.r-ex{display:flex;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px}
+.r-ex .vid{flex:0 0 84px;height:84px}
+.r-ex .cnt{font-family:var(--mono);font-size:12px;color:var(--mute)}
+.r-ex b{font-size:16px;display:block}
+.r-ex .info{all:unset;cursor:pointer;margin-left:auto;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--mute);font-weight:800;flex:0 0 30px}
+.r-tabs{display:flex;border-bottom:1px solid var(--line)}
+.r-tabs button{all:unset;cursor:pointer;flex:1;text-align:center;padding:10px;font-weight:600;color:var(--mute);border-bottom:3px solid transparent}
+.r-tabs button[aria-selected="true"]{color:var(--fg);border-color:var(--red)}
+.sets{display:grid;gap:8px}
+.sets .hd,.set{display:grid;grid-template-columns:40px 1fr 1fr;gap:8px;align-items:center}
+.sets .hd span{font-size:11px;color:var(--mute);text-align:center;letter-spacing:1px;text-transform:uppercase}
+.set .n{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-size:13px;color:var(--mute)}
+.set.cur .n{border-color:var(--red);color:var(--fg)}
+.set.done .n{background:var(--green);border-color:var(--green);color:#062008;font-weight:800}
+.set input{width:100%;min-width:0;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center;font:600 16px var(--mono)}
+.set.cur input{border-color:#4a4a52}
+.set.done input{color:var(--mute)}
+.r-note{font-size:13px;color:var(--mute);background:var(--panel);border-radius:10px;padding:12px;white-space:pre-line}
+.r-foot{border-top:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px))}
+.r-foot .in{max-width:520px;margin:0 auto;display:grid;gap:10px}
+.rest{display:flex;align-items:center;justify-content:center;gap:16px}
+.rest button{all:unset;cursor:pointer;font-size:13px;font-weight:600;color:var(--mute);padding:6px 8px;border-radius:6px;background:var(--panel2)}
+.rest .skip{color:var(--green);background:none;font-weight:800}
+.rest .t{font-family:var(--display);font-style:italic;font-weight:900;font-size:40px;color:var(--green);font-variant-numeric:tabular-nums;min-width:120px;text-align:center}
+.rest.end .t{color:var(--red)}
+.restbar{height:4px;background:var(--panel2);border-radius:2px;overflow:hidden}.restbar i{display:block;height:100%;background:var(--green);transition:width 1s linear}
+.big{all:unset;cursor:pointer;text-align:center;padding:15px;border-radius:12px;background:var(--red);color:#fff;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.big.alt{background:none;border:2px solid var(--red);color:var(--fg)}
+.big:disabled{opacity:.4;cursor:default}
+.r-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.r-stats b{display:block;font-family:var(--display);font-style:italic;font-weight:900;font-size:28px}
+.r-stats span{font-size:11px;color:var(--mute);letter-spacing:1px;text-transform:uppercase}
+.done-ic{width:64px;height:64px;border-radius:16px;background:var(--green);display:grid;place-items:center;margin:10px auto 0;color:#062008;font-size:34px;font-weight:900}
+.r-h{font-family:var(--display);font-style:italic;font-weight:900;font-size:30px;text-transform:uppercase;text-align:center;margin:6px 0}
+input[type=range].borgr{width:100%;accent-color:var(--purple)}
+.ticks{display:flex;justify-content:space-between;font:11px var(--mono);color:var(--mute)}
+.borgval{text-align:center;font-family:var(--display);font-style:italic;font-weight:900;font-size:34px;color:var(--purple)}
+.borgval small{display:block;font:600 12px var(--body);color:var(--mute);font-style:normal}
+.timer-el{font-family:var(--mono);font-size:13px;color:var(--mute)}
 </style>
 
 <div class="wrap">
@@ -217,6 +268,7 @@ td select{background:var(--c,#ccc);color:#111;border:0;border-radius:4px;font:60
   <p class="sub" id="a-sub"></p>
   <div class="tabs" role="tablist">
     <button role="tab" aria-selected="true" data-t="hoje">Hoje</button>
+    <button role="tab" aria-selected="false" data-t="treinos">Treinos</button>
     <button role="tab" aria-selected="false" data-t="cal">Calendário</button>
   </div>
   <div id="hoje" class="panel"><div class="phone today">
@@ -232,6 +284,7 @@ td select{background:var(--c,#ccc);color:#111;border:0;border-radius:4px;font:60
     <div class="toast" id="toast" role="status"></div>
     </div>
   </div></div>
+  <div id="treinos" class="panel" hidden><div class="flist" id="a-fichas"></div></div>
   <div id="cal" class="panel" hidden><div class="card"><div class="eyebrow" style="margin-bottom:10px" id="cal-t"></div><div class="cal" id="calg"></div></div></div>
 </section>
 </div>
@@ -264,7 +317,7 @@ function renderTable(){const m=M(),cols=m.cols,n=cols.length;
    return`<td class="${cls}${sc}" contenteditable data-i="${i}" data-c="${ci}" data-k="${c.id}">${esc(v)}</td>`}).join('')+'</tr>'}).join('');
  renderSheets()}
 function renderSheets(){document.getElementById('sheets').innerHTML=months.map((m,i)=>`<button class="${i===cur?'on':''}" data-m="${i}" title="Dois cliques para renomear">${esc(m.nome)}</button>`).join('')+'<button class="plus" data-m="new" title="Adicionar mês" aria-label="Adicionar mês">+</button>'}
-function renderAll(){renderTable();renderChart();renderHome();if(typeof renderAluno==='function'&&document.getElementById('calg'))renderAluno()}
+function renderAll(){renderTable();renderChart();renderHome();if(typeof renderFichasAluno==='function')renderFichasAluno();if(typeof renderAluno==='function'&&document.getElementById('calg'))renderAluno()}
 const blank=(d)=>({s:'',d:d?DIAS[d.getDay()]:'',dt:d?String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0'):'',t:'',c:'',p:'',r:'',o:''});
 function lastDate(){let y=2026,last=null;for(const m of months)for(const r of m.rows){const x=String(r.dt||'').match(/^(\d{1,2})\/(\d{1,2})/);if(x){const d=new Date(y,+x[2]-1,+x[1]);if(last&&d<last-1e9){y++;d.setFullYear(y)}last=d}}return last||new Date(2026,10,1)}
 function lastWeekNum(){let w=0;for(const m of months)for(const r of m.rows)if(r.w!=null&&+r.w>w)w=+r.w;return w}
@@ -423,13 +476,76 @@ function renderAluno(){document.getElementById('a-sub').textContent=DATA_LONGA;c
  if(!r){box.innerHTML='<div class="eyebrow">Hoje</div><h2>Sem treino</h2><p style="color:var(--mute)">Nenhum treino lançado para hoje na planilha.</p>'}
  else{const linhas=String(r.c||'').split('\n'),f=fichaDe(r.c);
   box.innerHTML=`<div class="eyebrow">${esc(r.t||'Treino')}</div><h2>${esc(linhas[0]||r.t||'Treino do dia')}</h2>${linhas.length>1?`<div class="block" style="--c:var(--red)"><h4>PARTE PRINCIPAL</h4><p>${esc(linhas.slice(1).join('\n'))}</p></div>`:''}
-  ${f?`<div class="block" style="--c:var(--purple)"><h4>FICHA ${esc(f.nome)}</h4>${f.ex.map((x,ei)=>`<div class="ex"><div class="vid">${anim(x)}</div><div><b>${esc(x.n)}</b><small>${esc(x.pres)}</small></div></div>`).join('')||'<p style="color:var(--mute)">Ficha ainda sem exercícios.</p>'}</div>`:''}`;
+  ${f?`<button class="big" style="display:block;margin:14px 0" data-start-today>Iniciar treino ${esc(f.nome)}</button><div class="block" style="--c:var(--purple)"><h4>FICHA ${esc(f.nome)}</h4>${f.ex.map((x,ei)=>`<div class="ex"><div class="vid">${anim(x)}</div><div><b>${esc(x.n)}</b><small>${esc(x.pres)}</small></div></div>`).join('')||'<p style="color:var(--mute)">Ficha ainda sem exercícios.</p>'}</div>`:''}`;
   document.getElementById('a-prev').textContent='Esforço (escala de Borg 6–20)'+(r.p?' · previsto '+r.p:'')}
  const y=NOW.getFullYear(),mo=NOW.getMonth();document.getElementById('cal-t').textContent=NOW.toLocaleDateString('pt-BR',{month:'long',year:'numeric'}).replace(/^./,c=>c.toUpperCase());
  const ev={};for(const m of months)for(const x of m.rows){const d=String(x.dt||'').match(/^(\d{1,2})\/(\d{1,2})/);if(d&&+d[2]===mo+1&&x.t)ev[+d[1]]=x}
  let cg='';['D','S','T','Q','Q','S','S'].forEach(h=>cg+=`<div class="h">${h}</div>`);for(let i=0;i<new Date(y,mo,1).getDay();i++)cg+='<div></div>';
  for(let d=1;d<=new Date(y,mo+1,0).getDate();d++){const e=ev[d];cg+=`<div class="${d===NOW.getDate()?'now':''}"><span class="d">${d}</span>${e?`<span class="ev" style="background:${C[e.t]||'#cfcfd4'}">${esc(e.t)}</span>`:''}</div>`}
  document.getElementById('calg').innerHTML=cg}
+
+// ---------- EXECUTAR TREINO (aluno) ----------
+const HIST={};let RUN=null,audio=null,wake=null;
+function parsePres(t){t=String(t||'').toLowerCase();const m=t.match(/(\d+)\s*x\s*(\d+(?:[.,]\d+)?)\s*(reps?|s|seg|min|m)?/);const rest=(t.match(/desc\.?\s*(\d+)\s*(s|min|m)?/)||[]);
+ const r={sets:3,val:'',time:false,rest:rest[1]?(+rest[1])*(/^m/.test(rest[2]||'')?60:1):60};if(!m)return r;r.sets=+m[1];const u=m[3]||'';
+ if(u==='s'||u==='seg'){r.time=true;r.val='0:'+String(m[2]).padStart(2,'0')}else if(u==='m'||u==='min'){r.time=true;r.val=m[2]+':00'}else r.val=m[2];return r}
+const mmss=s=>{s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+function beep(){try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();[0,.35,.7].forEach((t,i)=>{const o=audio.createOscillator(),g=audio.createGain();o.type='square';o.frequency.value=i===2?1320:880;g.gain.setValueAtTime(.0001,audio.currentTime+t);g.gain.exponentialRampToValueAtTime(.3,audio.currentTime+t+.02);g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+t+.25);o.connect(g).connect(audio.destination);o.start(audio.currentTime+t);o.stop(audio.currentTime+t+.3)})}catch(e){}try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}}
+function renderFichasAluno(){const el=document.getElementById('a-fichas');if(!el)return;const P=pastas[0];
+ el.innerHTML=P?`<div class="eyebrow" style="margin-bottom:4px">${esc(P.nome)}</div>`+P.fichas.map((f,i)=>`<button class="fitem" data-ficha="${i}"><span class="code">${esc(f.nome)}</span><span style="min-width:0"><b>${f.ex.length} exercícios</b><small>${esc([...new Set(f.ex.flatMap(x=>x.m))].slice(0,5).join(' · '))}</small></span></button>`).join(''):'<div class="empty">Nenhum programa liberado ainda.</div>'}
+document.getElementById('a-fichas').addEventListener('click',e=>{const b=e.target.closest('[data-ficha]');if(b)openRunner(pastas[0].fichas[+b.dataset.ficha])});
+document.getElementById('a-treino').addEventListener('click',e=>{if(e.target.closest('[data-start-today]')){const f=fichaDe((todayRow()||{}).c);if(f)openRunner(f,true)}});
+const runner=document.createElement('div');runner.className='runner';runner.hidden=true;document.body.appendChild(runner);
+function openRunner(f,fromToday){RUN={f,stage:'intro',i:0,fromToday,data:f.ex.map(x=>{const pr=parsePres(x.pres),h=HIST[x.n]||[];return{pr,cur:0,com:'',sets:Array.from({length:pr.sets},(_,k)=>({a:pr.val,b:(h[k]||h[h.length-1]||{b:''}).b,done:false}))}}),tab:'s',t0:null,rest:null};runner.hidden=false;draw()}
+function closeRunner(){clearInterval(RUN&&RUN.tick);RUN=null;runner.hidden=true;try{wake&&wake.release()}catch(e){}}
+function startRest(sec){const R=RUN;R.rest={total:sec,end:Date.now()+sec*1000,fired:false};clearInterval(R.tick);R.tick=setInterval(tickRest,250);tickRest()}
+function tickRest(){const R=RUN;if(!R)return;if(R.rest){const left=(R.rest.end-Date.now())/1000;if(left<=0&&!R.rest.fired){R.rest.fired=true;beep()}const t=runner.querySelector('.rest .t');if(t){t.textContent=left>0?mmss(left):'00:00';t.parentElement.classList.toggle('end',left<=0);const bar=runner.querySelector('.restbar i');if(bar)bar.style.width=Math.max(0,left/R.rest.total*100)+'%'}if(left<=-4){R.rest=null;draw()}}
+ const el=runner.querySelector('.timer-el');if(el&&R.t0)el.textContent=mmss((Date.now()-R.t0)/1000)}
+function draw(){const R=RUN;if(!R)return;const f=R.f;
+ if(R.stage==='intro'){runner.innerHTML=`<div class="r-top"><button data-r="close">← Voltar</button><b>Treino ${esc(f.nome)}</b><span style="width:50px"></span></div><div class="r-body"><div class="r-wrap">
+  <div><div class="r-h" style="text-align:left">${esc(f.nome)}</div><div style="color:var(--mute);font-size:13px">${esc([...new Set(f.ex.flatMap(x=>x.m))].join(' · '))}</div></div>
+  ${f.ex.map((x,i)=>`<div class="r-ex"><div class="vid">${anim(x)}</div><div style="min-width:0"><b>${esc(x.n)}</b><small style="color:var(--mute)">Séries x reps</small><div class="num" style="margin-top:4px;background:var(--panel2);border-radius:6px;padding:6px 10px;display:inline-block">${esc(x.pres)}</div></div></div>`).join('')}
+ </div></div><div class="r-foot"><div class="in"><button class="big" data-r="go">Iniciar treino</button></div></div>`;return}
+ if(R.stage==='end'){const sets=R.data.reduce((s,d)=>s+d.sets.filter(x=>x.done).length,0),exs=R.data.filter(d=>d.sets.some(x=>x.done)).length,dur=Math.round((Date.now()-R.t0)/60000);R.dur=dur;
+  runner.innerHTML=`<div class="r-top"><span></span><b>ATP</b><span></span></div><div class="r-body"><div class="r-wrap"><div class="done-ic">✓</div><div class="r-h">Treino concluído</div>
+  <div class="r-stats"><div><b>${dur}min</b><span>Duração</span></div><div><b>${exs}</b><span>Exercícios</span></div><div><b>${sets}</b><span>Séries</span></div></div>
+  <div class="card"><div style="font-weight:600;margin-bottom:6px">Como foi o seu treino? (escala de Borg)</div><div class="borgval" id="bv">${R.rpe||13}<small id="bl"></small></div>
+  <input type="range" class="borgr" id="br" min="6" max="20" step="1" value="${R.rpe||13}" aria-label="Esforço de 6 a 20"><div class="ticks">${[6,8,10,12,14,16,18,20].map(v=>`<span>${v}</span>`).join('')}</div>
+  <label for="bc" style="display:block;font-size:13px;color:var(--mute);margin:12px 0 4px">Comentário para o treinador</label><textarea id="bc" rows="3" placeholder="Como se sentiu, dores, cargas…">${esc(R.fim||'')}</textarea></div>
+  </div></div><div class="r-foot"><div class="in"><button class="big" data-r="finish">Enviar e fechar</button></div></div>`;
+  const BL={6:'Nenhum esforço',7:'Extremamente leve',9:'Muito leve',11:'Leve',13:'Um pouco intenso',15:'Intenso',17:'Muito intenso',19:'Extremamente intenso',20:'Esforço máximo'};
+  const br=runner.querySelector('#br'),upd=()=>{R.rpe=+br.value;runner.querySelector('#bv').firstChild.textContent=br.value;let l='';for(const k in BL)if(+br.value>=+k)l=BL[k];runner.querySelector('#bl').textContent=l};br.oninput=upd;upd();runner.querySelector('#bc').oninput=e=>R.fim=e.target.value;return}
+ const x=f.ex[R.i],d=R.data[R.i],all=d.sets.every(s=>s.done),last=R.i===f.ex.length-1;
+ runner.innerHTML=`<div class="r-top"><button data-r="quit">✕ Sair</button><b>Executando treino</b><span class="timer-el">${mmss((Date.now()-R.t0)/1000)}</span></div>
+ <div class="r-body"><div class="r-wrap">
+  <div class="r-ex"><div class="vid">${anim(x)}</div><div style="min-width:0"><span class="cnt">${R.i+1} / ${f.ex.length}</span><b>${esc(x.n)}</b><small style="color:var(--mute)">${esc(x.pres)}</small></div><button class="info" data-r="info" aria-label="Como executar">i</button></div>
+  <div class="r-tabs" role="tablist"><button role="tab" aria-selected="${R.tab==='s'}" data-r="tab-s">Séries</button><button role="tab" aria-selected="${R.tab==='c'}" data-r="tab-c">Comentários</button></div>
+  ${R.tab==='s'?`<div class="sets"><div class="hd"><span></span><span>${d.pr.time?'Tempo':'Reps'}</span><span>${d.pr.time?'Distância':'Peso (kg)'}</span></div>
+   ${d.sets.map((st,k)=>`<div class="set ${st.done?'done':k===d.cur?'cur':''}"><span class="n">${st.done?'✓':k+1}</span><input inputmode="${d.pr.time?'text':'numeric'}" data-s="${k}" data-f="a" value="${esc(st.a)}" aria-label="${d.pr.time?'Tempo':'Repetições'} da série ${k+1}"><input inputmode="decimal" data-s="${k}" data-f="b" value="${esc(st.b)}" placeholder="${d.pr.time?'–':'0'}" aria-label="${d.pr.time?'Distância':'Peso'} da série ${k+1}"></div>`).join('')}
+   <button class="add" data-r="addset" style="margin-top:4px">+ Adicionar série</button></div>`
+  :`<label for="rc" style="font-size:13px;color:var(--mute)">Comentário sobre este exercício</label><textarea id="rc" rows="4" placeholder="Ex.: senti o joelho na última série">${esc(d.com)}</textarea>`}
+  ${x.ins&&x.ins.length?'':''}
+ </div></div>
+ <div class="r-foot"><div class="in">
+  ${R.rest?`<div class="restbar"><i style="width:100%"></i></div><div class="rest"><button data-r="m10">−10s</button><span class="t">${mmss(R.rest.total)}</span><button data-r="p10">+10s</button><button class="skip" data-r="skip">Pular</button></div>`:''}
+  ${all?`<button class="big ${last?'':'alt'}" data-r="next">${last?'Concluir treino':'Próximo exercício'}</button>`:`<button class="big" data-r="reg">Registrar série ${d.cur+1}</button>`}
+  ${!all?`<button class="mini ghost" data-r="next" style="justify-self:center">${last?'Finalizar treino agora':'Pular exercício'}</button>`:''}
+ </div></div>`;tickRest()}
+runner.addEventListener('input',e=>{const R=RUN,t=e.target;if(!R)return;if(t.dataset.s!=null)R.data[R.i].sets[+t.dataset.s][t.dataset.f]=t.value;if(t.id==='rc')R.data[R.i].com=t.value});
+runner.addEventListener('click',async e=>{const b=e.target.closest('[data-r]');if(!b||!RUN)return;const R=RUN,a=b.dataset.r,d=R.data[R.i];
+ if(a==='close')return closeRunner();
+ if(a==='go'){try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();audio.resume()}catch(e){}try{wake=await navigator.wakeLock.request('screen')}catch(e){}R.stage='run';R.t0=Date.now();clearInterval(R.tick);R.tick=setInterval(tickRest,250);return draw()}
+ if(a==='quit'){if(b.dataset.arm){return closeRunner()}b.dataset.arm=1;b.textContent='Toque de novo para sair';setTimeout(()=>{if(b.isConnected){delete b.dataset.arm;b.textContent='✕ Sair'}},3000);return}
+ if(a==='tab-s'||a==='tab-c'){R.tab=a.slice(-1);return draw()}
+ if(a==='info'){const x=R.f.ex[R.i];modal.style.zIndex=80;return showGif(x)}
+ if(a==='addset'){d.sets.push({a:d.pr.val,b:(d.sets[d.sets.length-1]||{}).b||'',done:false});if(d.sets.every((s,k)=>k<d.sets.length-1?s.done:true))d.cur=d.sets.length-1;return draw()}
+ if(a==='reg'){d.sets[d.cur].done=true;const nx=d.sets.findIndex(s=>!s.done);d.cur=nx<0?d.sets.length:nx;HIST[R.f.ex[R.i].n]=d.sets.map(s=>({b:s.b}));startRest(d.pr.rest);return draw()}
+ if(a==='m10'||a==='p10'){if(R.rest){R.rest.end+=a==='m10'?-10000:10000;R.rest.total=Math.max(R.rest.total,(R.rest.end-Date.now())/1000);R.rest.fired=false}return tickRest()}
+ if(a==='skip'){R.rest=null;return draw()}
+ if(a==='next'){R.rest=null;R.tab='s';if(R.i<R.f.ex.length-1){R.i++;return draw()}R.stage='end';clearInterval(R.tick);return draw()}
+ if(a==='finish'){const row=todayRow(),fe=R.fim||'';if(row&&R.fromToday!==false){row.s='✓';row.r=R.rpe;const coms=R.data.map((dd,i)=>dd.com?R.f.ex[i].n+': '+dd.com:'').filter(Boolean);row.o=[fe,...coms].filter(Boolean).join(' | ')}
+  closeRunner();renderAll();const t=document.getElementById('toast');t&&(t.style.color='var(--green)',t.textContent=row?'Treino enviado ao treinador.':'Treino concluído.')}});
+renderFichasAluno();
 
 // navegação
 function mode(m){document.getElementById('coach').hidden=m!=='coach';document.getElementById('aluno').hidden=m!=='aluno';document.getElementById('m-coach').setAttribute('aria-pressed',m==='coach');document.getElementById('m-aluno').setAttribute('aria-pressed',m==='aluno')}
