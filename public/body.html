@@ -131,6 +131,30 @@ td select{background:var(--c,#ccc);color:#111;border:0;border-radius:4px;font:60
 .pill{font-size:11px;font-weight:800;letter-spacing:1px;padding:4px 8px;border-radius:999px;white-space:nowrap}
 .p-ok{background:rgba(63,217,58,.15);color:var(--green)}.p-no{background:rgba(238,43,43,.15);color:var(--red)}.p-wait{background:var(--panel2);color:var(--mute)}
 .av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:var(--purple);color:#fff;flex:0 0 36px}
+
+.folders{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.folder{all:unset;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:6px;position:relative}
+.folder:hover{border-color:var(--red)}
+.folder .ic{width:34px;height:26px;border-radius:3px 6px 6px 6px;background:var(--purple);position:relative;margin-bottom:6px}
+.folder .ic::before{content:"";position:absolute;top:-6px;left:0;width:14px;height:8px;border-radius:3px 3px 0 0;background:var(--purple)}
+.folder b{font-family:var(--display);font-style:italic;font-weight:900;font-size:16px;text-transform:uppercase}
+.folder small{color:var(--mute);font-size:12px}
+.newbox{background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:14px;display:grid;gap:8px;align-content:start}
+.newbox input{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:8px;font:inherit;min-width:0}
+.newbox button,.mini{all:unset;cursor:pointer;font-size:12px;font-weight:800;letter-spacing:1px;padding:8px 10px;border-radius:6px;background:var(--red);color:#fff;text-align:center}
+.mini.ghost{background:var(--panel2);color:var(--mute);font-weight:600;letter-spacing:0}
+.mini.ghost.warn{color:var(--red)}
+.crumb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px;font-size:14px}
+.crumb button{all:unset;cursor:pointer;color:var(--mute);font-weight:600}.crumb button:hover{color:var(--fg)}
+.crumb b{font-family:var(--display);font-style:italic;font-weight:900;text-transform:uppercase}
+.fhead{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:4px}
+.fhead [contenteditable]{outline:none}
+.exdel{all:unset;cursor:pointer;color:var(--mute);font-size:18px;padding:0 4px}.exdel:hover{color:var(--red)}
+.empty{color:var(--mute);font-size:14px;padding:18px;border:1px dashed var(--line);border-radius:10px;text-align:center}
+.drop{border:2px dashed var(--line);border-radius:10px;padding:22px;text-align:center;color:var(--mute);display:block;cursor:pointer}
+.drop:hover,.drop.over{border-color:var(--green);color:var(--fg)}
+.prev{margin-top:12px;font-size:13px;display:grid;gap:6px}
+.prev div{display:flex;justify-content:space-between;background:var(--panel2);padding:8px 10px;border-radius:6px}
 </style>
 
 <div class="wrap">
@@ -145,7 +169,7 @@ td select{background:var(--c,#ccc);color:#111;border:0;border-radius:4px;font:60
 <!-- TREINADOR -->
 <section id="coach">
   <h1 id="c-h1">Olá, <em>Igor</em></h1>
-  <p class="sub" id="c-sub">Sexta-feira, 30/10 · protótipo com dados de exemplo</p>
+  <p class="sub" id="c-sub"></p>
   <div class="tabs" role="tablist">
     <button role="tab" aria-selected="true" data-t="home">Início</button>
     <button role="tab" aria-selected="false" data-t="plan">Planilha</button>
@@ -158,6 +182,7 @@ td select{background:var(--c,#ccc);color:#111;border:0;border-radius:4px;font:60
     <div class="card"><h3>Feedbacks recentes</h3><div id="h-feed"></div></div>
     <div class="card"><h3>Alunos</h3><div id="h-alunos"></div></div>
     <div class="wide"><h3 style="margin:4px 0 12px;font-size:12px;letter-spacing:2px;color:var(--mute)">AÇÕES RÁPIDAS</h3><div class="qa">
+      <button data-go="import" style="--c:var(--fg)"><i></i><b>Importar</b><small>Trazer macrociclos do Drive (.xlsx)</small></button>
       <button data-go="plan" style="--c:var(--green)"><i></i><b>Planilha</b><small>Editar o mês atual</small></button>
       <button data-go="mes" style="--c:var(--purple)"><i></i><b>Novo mês</b><small>Cria a próxima aba</small></button>
       <button data-go="prog" style="--c:var(--red)"><i></i><b>Fichas</b><small>Montar A3, B2, R1…</small></button>
@@ -187,59 +212,36 @@ td select{background:var(--c,#ccc);color:#111;border:0;border-radius:4px;font:60
 <!-- ALUNO -->
 <section id="aluno" hidden>
   <h1>Bom dia, <em>Bianca</em></h1>
-  <p class="sub">Sexta-feira, 30/10 · Semana 6</p>
+  <p class="sub" id="a-sub"></p>
   <div class="tabs" role="tablist">
     <button role="tab" aria-selected="true" data-t="hoje">Hoje</button>
     <button role="tab" aria-selected="false" data-t="cal">Calendário</button>
   </div>
   <div id="hoje" class="panel"><div class="phone today">
-    <div class="eyebrow">Específico · 6:00</div>
-    <h2>Fartlek 5 km</h2>
-    <div class="block" style="--c:var(--yellow)"><h4>AQUECIMENTO</h4><p>Alongamento com ênfase em membros inferiores
-400 m caminhando</p></div>
-    <div class="block" style="--c:var(--red)"><h4>PARTE PRINCIPAL</h4><p>5 km com variação de ritmo a cada km</p>
-      <div class="zones"><span>1º Z2 · 7:00</span><span>2º Z3 · 6:30–6:50</span><span>3º Z2 · 7:00</span><span>4º Z3 · 6:30–6:50</span><span>5º Z1 · 7:20+</span></div></div>
-    <div class="block" style="--c:var(--green)"><h4>DESAQUECIMENTO</h4><p>200 m caminhada leve e alongamento</p></div>
+    <div id="a-treino"></div>
+    <div id="a-fb">
     <div class="eyebrow" style="margin-top:18px">Como foi?</div>
     <div class="row" style="margin:8px 0"><button class="btn b-ok" id="f-ok" aria-pressed="false">✓ Fiz</button><button class="btn b-no" id="f-no" aria-pressed="false">✗ Não fiz</button></div>
-    <div style="font-size:13px;color:var(--mute)">Esforço (escala de Borg 6–20) · previsto 12–14</div>
+    <div style="font-size:13px;color:var(--mute)" id="a-prev">Esforço (escala de Borg 6–20)</div>
     <div class="borg" id="borg"></div>
     <label for="f-obs" style="font-size:13px;color:var(--mute)">Comentário para o treinador</label>
     <textarea id="f-obs" rows="2" placeholder="Ex.: senti a perna no 4º km"></textarea>
     <button class="btn b-ok" id="send" style="display:block;margin-top:10px">Enviar feedback</button>
     <div class="toast" id="toast" role="status"></div>
+    </div>
   </div></div>
-  <div id="cal" class="panel" hidden><div class="card"><div class="eyebrow" style="margin-bottom:10px">Outubro 2026</div><div class="cal" id="calg"></div></div></div>
+  <div id="cal" class="panel" hidden><div class="card"><div class="eyebrow" style="margin-bottom:10px" id="cal-t"></div><div class="cal" id="calg"></div></div></div>
 </section>
 </div>
 
 <script>
 const C={Força:'#f4c9a0',Específico:'#f0a070',Descanso:'#cfcfd4',Fortalecimento:'#9fe39a',Velocidade:'#f5df8a','Res. de Força':'#f2b36b','Testes Periódicos':'#c9a6f0'};
-const rows=[
- {w:5},
- {s:'✓',d:'SEGUNDA',dt:'19/10',t:'Fortalecimento',c:'R1',p:'10 - 14',r:12,o:''},
- {s:'✓',d:'TERÇA',dt:'20/10',t:'Velocidade',c:'8 x 200m pausa 2:30',p:'12 - 16',r:15,o:''},
- {s:'✓',d:'QUARTA',dt:'21/10',t:'Res. de Força',c:'B2',p:'10 - 13',r:12,o:''},
- {s:'✓',d:'QUINTA',dt:'22/10',t:'Descanso',c:'-',p:'',r:'',o:''},
- {s:'✗',d:'SEXTA',dt:'23/10',t:'Força',c:'INF - A3',p:'12 - 16',r:'',o:'Chuva, acabou não indo.'},
- {s:'✓',d:'SÁBADO',dt:'24/10',t:'Específico',c:'FARTLEK 5KM\nIntervalado',p:'13 - 15',r:15,o:'Ótimo treino, KMs fortes: 2º 6.11/km, 4º 6.28/km'},
- {s:'✓',d:'DOMINGO',dt:'25/10',t:'Descanso',c:'-',p:'',r:'',o:''},
- {sum:5,n:7,km:8},
- {w:6},
- {s:'✓',d:'SEGUNDA',dt:'26/10',t:'Fortalecimento',c:'R1',p:'10 - 14',r:12,o:''},
- {s:'✓',d:'TERÇA',dt:'27/10',t:'Velocidade',c:'10 x 200m com pausa passiva de 2:30 min.',p:'12 - 16',r:14,o:'Realizou 8 tiros ao invés de 10, ritmo médio 5.06/km'},
- {s:'✗',d:'QUARTA',dt:'28/10',t:'Res. de Força',c:'B2',p:'10 - 13',r:'',o:'Não foi, passado para dia seguinte'},
- {s:'✓',d:'QUINTA',dt:'29/10',t:'Res. de Força',c:'B2',p:'10 - 13',r:11,o:''},
- {s:'',d:'SEXTA',dt:'30/10',t:'Específico',c:'5 km Fartlek\n1º KM Z2 · 2º KM Z3 · 3º KM Z2\n4º KM Z3 · 5º KM Z1',p:'12 - 14',r:'',o:'',today:1},
- {s:'',d:'SÁBADO',dt:'31/10',t:'Descanso',c:'',p:'',r:'',o:''},
- {s:'',d:'DOMINGO',dt:'01/11',t:'Testes Periódicos',c:'Perimetria / Peso / Altura',p:'',r:'',o:''},
- {sum:6,n:6,km:9}
-];
+const rows=[];
 const mid=p=>{const m=String(p).match(/(\d+)\s*-\s*(\d+)/);return m?(+m[1]+ +m[2])/2:(isFinite(parseFloat(p))?parseFloat(p):null)};
 const esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
 const DIAS=['DOMINGO','SEGUNDA','TERÇA','QUARTA','QUINTA','SEXTA','SÁBADO'];
 const BASE_COLS=[{id:'s',l:'✓/✗'},{id:'d',l:'Dia'},{id:'dt',l:'Data'},{id:'t',l:'Treino'},{id:'c',l:'Conteúdo'},{id:'p',l:'Previsto'},{id:'r',l:'(6-20)'},{id:'o',l:'Observação'}];
-const months=[{nome:'MÊS 13',cols:BASE_COLS.map(c=>({...c})),rows}];
+const months=[];
 let cur=0,sel=null;const undoStack=[];const M=()=>months[cur];
 const thead=document.getElementById('thead'),tbody=document.getElementById('tbody');
 function weekStats(rs,i){let pl=[],ex=[],done=0,plan=0;for(i++;rs[i]&&rs[i].sum==null&&rs[i].w==null;i++){const r=rs[i];const m=mid(r.p);if(m)pl.push(m);if(r.r!==''&&r.r!=null&&isFinite(+r.r))ex.push(+r.r);if(r.t&&r.t!=='Descanso')plan++;if(r.s==='✓'&&r.t!=='Descanso')done++}const a=x=>x.length?x.reduce((s,v)=>s+v,0)/x.length:null;return{pl:a(pl),ex:a(ex),done,plan}}
@@ -260,21 +262,24 @@ function renderTable(){const m=M(),cols=m.cols,n=cols.length;
    return`<td class="${cls}${sc}" contenteditable data-i="${i}" data-c="${ci}" data-k="${c.id}">${esc(v)}</td>`}).join('')+'</tr>'}).join('');
  renderSheets()}
 function renderSheets(){document.getElementById('sheets').innerHTML=months.map((m,i)=>`<button class="${i===cur?'on':''}" data-m="${i}" title="Dois cliques para renomear">${esc(m.nome)}</button>`).join('')+'<button class="plus" data-m="new" title="Adicionar mês" aria-label="Adicionar mês">+</button>'}
-function renderAll(){renderTable();renderChart();renderHome()}
+function renderAll(){renderTable();renderChart();renderHome();if(typeof renderAluno==='function'&&document.getElementById('calg'))renderAluno()}
 const blank=(d)=>({s:'',d:d?DIAS[d.getDay()]:'',dt:d?String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0'):'',t:'',c:'',p:'',r:'',o:''});
 function lastDate(){let y=2026,last=null;for(const m of months)for(const r of m.rows){const x=String(r.dt||'').match(/^(\d{1,2})\/(\d{1,2})/);if(x){const d=new Date(y,+x[2]-1,+x[1]);if(last&&d<last-1e9){y++;d.setFullYear(y)}last=d}}return last||new Date(2026,10,1)}
 function lastWeekNum(){let w=0;for(const m of months)for(const r of m.rows)if(r.w!=null&&+r.w>w)w=+r.w;return w}
+function newMonth(nome,start,cols){const rs=[],d=new Date(start);for(let w=1;w<=4;w++){rs.push(...makeWeek(d,w));d.setDate(d.getDate()+7)}return{nome,cols:(cols||BASE_COLS).map(c=>({...c})),rows:rs}}
+const weeksIn=m=>m.rows.filter(r=>r.w!=null).length;
 function makeWeek(start,w){const out=[{w}];for(let k=0;k<7;k++){const d=new Date(start);d.setDate(d.getDate()+k);out.push(blank(d))}out.push({sum:w,km:0});return out}
 function act(a){const m=M();
  if(a==='undo')return undo();
- if(a==='mes'){snap();const n=parseInt((months[months.length-1].nome.match(/\d+/)||[months.length])[0])+1;let d=lastDate();d.setDate(d.getDate()+1);let w=lastWeekNum(),rs=[];for(let k=0;k<4;k++){rs.push(...makeWeek(d,++w));d.setDate(d.getDate()+7)}months.push({nome:'MÊS '+n,cols:m.cols.map(c=>({...c})),rows:rs});cur=months.length-1;sel=null;renderAll();return flash('MÊS '+n+' criado com 4 semanas. Dê dois cliques na aba para renomear.')}
- if(a==='week'){snap();let d=lastDateIn(m);d.setDate(d.getDate()+1);m.rows.push(...makeWeek(d,lastWeekNum()+1));renderAll();return flash('Semana adicionada no fim do mês.')}
+ if(a==='mes'){snap();const n=parseInt((months[months.length-1].nome.match(/\d+/)||[months.length])[0])+1;let d=lastDate();d.setDate(d.getDate()+1);months.push(newMonth('MÊS '+n,d,months[months.length-1].cols));cur=months.length-1;sel=null;renderAll();return flash('MÊS '+n+' criado com 4 semanas. Dê dois cliques na aba para renomear.')}
+ if(a==='week'){snap();let d=lastDateIn(m);d.setDate(d.getDate()+1);m.rows.push(...makeWeek(d,weeksIn(m)+1));renderAll();return flash('Semana adicionada no fim do mês.')}
  if(a==='rowUp'||a==='rowDown'){if(!sel)return flash('Selecione uma célula primeiro.');snap();const at=a==='rowUp'?sel.i:sel.i+1;m.rows.splice(at,0,blank());sel={i:at,c:sel.c};renderAll();return}
  if(a==='delRow'){if(!sel)return flash('Selecione a linha que quer excluir.');snap();m.rows.splice(sel.i,1);sel=null;renderAll();return flash('Linha excluída. Use Desfazer se foi sem querer.')}
  if(a==='colLeft'||a==='colRight'){const ci=sel&&sel.c!=null?sel.c:m.cols.length-1;snap();const at=a==='colLeft'?ci:ci+1;m.cols.splice(at,0,{id:'x'+Date.now().toString(36),l:'Nova coluna'});sel={i:sel?sel.i:null,c:at};renderTable();const h=thead.querySelector(`[data-h="${at}"]`);h&&h.focus();return flash('Coluna criada. Digite o nome no cabeçalho.')}
  if(a==='delCol'){if(!sel||sel.c==null)return flash('Selecione uma célula da coluna que quer excluir.');const c=m.cols[sel.c];if(['p','r'].includes(c.id))return flash('As colunas Previsto e (6-20) alimentam o gráfico de esforço e não podem ser excluídas.');snap();m.cols.splice(sel.c,1);sel=null;renderAll();return flash('Coluna "'+c.l+'" excluída.')}
  if(a==='delMonth'){if(months.length<2)return flash('É preciso ter pelo menos um mês.');snap();const nm=m.nome;months.splice(cur,1);cur=Math.max(0,cur-1);sel=null;renderAll();return flash(nm+' excluído. Use Desfazer se foi sem querer.')}
- if(a==='dupMonth'){snap();const c=JSON.parse(JSON.stringify(m));c.nome=m.nome+' (cópia)';c.rows.forEach(r=>{if(r.sum==null&&r.w==null){r.s='';r.r='';r.o='';delete r.today}});months.splice(cur+1,0,c);cur++;renderAll();return flash('Mês duplicado (sem os feedbacks).')}}
+ if(a==='dupMonth'){snap();const c=JSON.parse(JSON.stringify(m));c.nome=m.nome+' (cópia)';c.rows.forEach(r=>{if(r.sum==null&&r.w==null){r.s='';r.r='';r.o=''}});months.splice(cur+1,0,c);cur++;renderAll();return flash('Mês duplicado (sem os feedbacks).')}}
+months.push(newMonth('MÊS 1',new Date(2026,10,30)));
 function lastDateIn(m){let last=null;for(const r of m.rows){const x=String(r.dt||'').match(/^(\d{1,2})\/(\d{1,2})/);if(x)last=new Date(2026,+x[2]-1,+x[1])}return last||lastDate()}
 document.querySelector('.toolbar').addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b)act(b.dataset.a)});
 tbody.addEventListener('click',e=>{const td=e.target.closest('td');if(!td||td.dataset.i==null)return;const i=+td.dataset.i,c=td.dataset.c!=null?+td.dataset.c:null;
@@ -299,33 +304,73 @@ ctx.addEventListener('click',e=>{const b=e.target.closest('[data-a]');ctx.hidden
 document.addEventListener('click',e=>{if(!ctx.contains(e.target))ctx.hidden=true});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')ctx.hidden=true;if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!document.getElementById('plan').hidden&&!e.target.isContentEditable){e.preventDefault();undo()}});
 
+// ---------- IMPORTAR ----------
+function loadXLSX(){return window.XLSX?Promise.resolve():new Promise((ok,err)=>{const sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';sc.onload=ok;sc.onerror=err;document.head.appendChild(sc)})}
+const nrm=t=>String(t??'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim();
+function colId(h){const t=nrm(h);if(!t)return null;if(t.includes('✓')||t.includes('✔')||t==='✓/✗'||t==='status')return's';if(t==='dia')return'd';if(t==='data')return'dt';if(t==='treino')return't';if(t.startsWith('conteudo'))return'c';if(t.startsWith('previsto'))return'p';if(t.replace(/\s/g,'').includes('6-20')||t==='rpe')return'r';if(t.startsWith('observ'))return'o';return'x_'+t.replace(/[^a-z0-9]/g,'')}
+function fmtDate(v){if(typeof v==='number'&&v>20000){const d=XLSX.SSF.parse_date_code(v);return String(d.d).padStart(2,'0')+'/'+String(d.m).padStart(2,'0')}if(v instanceof Date)return String(v.getDate()).padStart(2,'0')+'/'+String(v.getMonth()+1).padStart(2,'0');const m=String(v).match(/(\d{1,2})\/(\d{1,2})/);return m?m[1].padStart(2,'0')+'/'+m[2].padStart(2,'0'):String(v).trim()}
+function parseSheet(ws){const A=XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:''});let h=-1;
+ for(let i=0;i<Math.min(A.length,60);i++){const t=A[i].map(nrm);if(t.includes('data')&&t.includes('treino')){h=i;break}}if(h<0)return null;
+ const map=A[h].map(colId),cols=[];map.forEach((id,ci)=>{if(id&&!cols.some(c=>c.id===id))cols.push({id,l:String(A[h][ci]).trim(),ci})});
+ for(const b of BASE_COLS)if(!cols.some(c=>c.id===b.id))cols.push({id:b.id,l:b.l,ci:-1});
+ const rows=[];let days=0,weeks=0;
+ for(let i=h+1;i<A.length;i++){const cells=A[i].map(v=>v instanceof Date?v:String(v??'').trim?String(v??'').trim():v),txt=cells.map(String).join(' ').replace(/\s+/g,' ').trim();if(!txt)continue;const filled=cells.filter(v=>String(v).trim()).length;
+  const wm=txt.match(/^.{0,6}SEMANA\s*(\d+)/i);if(wm&&filled<=2){rows.push({w:+wm[1]});weeks++;continue}
+  if(/RESUMO/i.test(txt)){const km=(txt.match(/KM\s*semana\s*=?\s*([\d.,]+)/i)||[])[1];rows.push({sum:1,km:km?km.replace(',','.'):''});continue}
+  const r={s:'',d:'',dt:'',t:'',c:'',p:'',r:'',o:''};for(const c of cols){if(c.ci<0)continue;let v=A[i][c.ci];if(c.id==='dt'){r.dt=v===''?'':fmtDate(v);continue}v=String(v??'').trim();
+   if(c.id==='s'){r.s=/^(✓|✔|☑|true|sim|ok)$/i.test(v)?'✓':/^(✗|✘|x|❌|false|nao|não)$/i.test(v)?'✗':''}else if(c.id==='t'){r.t=v;if(v&&!C[v])C[v]='#cfcfd4'}else r[c.id]=v}
+  if(r.d||r.dt||r.t||r.c){rows.push(r);days++}}
+ return{cols:cols.map(({id,l})=>({id,l})),rows,days,weeks}}
+let IMP=null;
+function openImport(){modal.innerHTML=`<div class="mbox"><button class="x" aria-label="Fechar">×</button><div class="eyebrow">Importar macrociclo</div><h3 style="margin:6px 0 4px">Trazer planilha do Google Drive</h3>
+ <p style="color:var(--mute);font-size:13px;margin:0 0 14px">No Drive, abra a planilha e vá em <b>Arquivo → Fazer download → Microsoft Excel (.xlsx)</b>. Depois escolha o arquivo aqui. Cada aba do arquivo (MÊS 13, MÊS 14…) vira uma aba de mês no app.</p>
+ <label class="drop" id="drop" for="imp-f">Clique para escolher o arquivo .xlsx<br><small>ou arraste ele para cá</small></label><input type="file" id="imp-f" accept=".xlsx,.xls,.csv" hidden>
+ <div class="prev" id="imp-p"></div></div>`;modal.hidden=false;
+ const f=modal.querySelector('#imp-f'),drop=modal.querySelector('#drop');f.onchange=()=>f.files[0]&&readFile(f.files[0]);
+ drop.ondragover=e=>{e.preventDefault();drop.classList.add('over')};drop.ondragleave=()=>drop.classList.remove('over');drop.ondrop=e=>{e.preventDefault();drop.classList.remove('over');e.dataTransfer.files[0]&&readFile(e.dataTransfer.files[0])}}
+async function readFile(file){const pv=modal.querySelector('#imp-p');pv.innerHTML='<div>Lendo '+esc(file.name)+'…</div>';
+ try{await loadXLSX();const wb=XLSX.read(await file.arrayBuffer(),{type:'array',cellDates:false});const ms=[];
+  for(const n of wb.SheetNames){const r=parseSheet(wb.Sheets[n]);if(r&&r.rows.length)ms.push({nome:n.trim(),...r})}
+  if(!ms.length){pv.innerHTML='<div style="color:var(--red)">Não encontrei nenhuma aba com as colunas DATA e TREINO. Confira se é a planilha de treinos.</div>';return}
+  IMP={file:file.name,ms};const vazio=months.every(m=>m.rows.every(r=>r.w!=null||r.sum!=null||!(r.t||r.c||r.s)));
+  pv.innerHTML=ms.map(m=>`<div><b>${esc(m.nome)}</b><span>${m.weeks} semanas · ${m.days} dias</span></div>`).join('')+
+   `<div style="background:none;padding:0;gap:8px;margin-top:6px;justify-content:flex-start;flex-wrap:wrap">${vazio?'':'<button class="mini ghost" data-imp="add">Adicionar depois dos meses atuais</button>'}<button class="mini" data-imp="rep">${vazio?'Importar '+ms.length+' meses':'Substituir os meses atuais'}</button></div>`;
+  pv.onclick=e=>{const b=e.target.closest('[data-imp]');if(!b)return;snap();const novos=IMP.ms.map(m=>({nome:m.nome,cols:m.cols,rows:m.rows}));
+   if(b.dataset.imp==='rep')months.splice(0,months.length,...novos);else months.push(...novos);cur=b.dataset.imp==='rep'?0:months.length-novos.length;sel=null;close();renderAll();goTab('plan');flash(novos.length+' meses importados de '+IMP.file+'.')}}
+ catch(err){pv.innerHTML='<div style="color:var(--red)">Não consegui ler o arquivo. Ele precisa ser .xlsx (baixado do Drive como Microsoft Excel).</div>'}}
+
 // ---------- HOME ----------
-function todayRow(){for(const m of months)for(const r of m.rows)if(r.today)return r;return null}
+const NOW=new Date(),KEY=String(NOW.getDate()).padStart(2,'0')+'/'+String(NOW.getMonth()+1).padStart(2,'0');
+const DATA_LONGA=NOW.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'}).replace(/^./,c=>c.toUpperCase());
+function todayRow(){for(const m of months)for(const r of m.rows)if(r.w==null&&r.sum==null&&String(r.dt).trim().slice(0,5)===KEY)return r;return null}
 function renderHome(){const t=todayRow();
  document.getElementById('h-hoje').innerHTML=t?`<div class="li"><div class="av">BC</div><div style="flex:1"><b>Bianca Cândido</b><small>${esc(t.t)} · ${esc(String(t.c).split('\n')[0])}</small></div><span class="pill ${t.s==='✓'?'p-ok':t.s==='✗'?'p-no':'p-wait'}">${t.s==='✓'?'FEITO':t.s==='✗'?'NÃO FEZ':'AGUARDANDO'}</span></div>`:'<small style="color:var(--mute)">Nenhum treino marcado para hoje.</small>';
- let wk=null;for(const m of months)m.rows.forEach((r,i)=>{if(r.w!=null&&m.rows.slice(i).some(x=>x.today))wk=wk||{m,i}});wk=wk||{m:M(),i:M().rows.map(r=>r.w!=null).lastIndexOf(true)};
+ let wk=null;for(const m of months){const t0=todayRow();m.rows.forEach((r,i)=>{if(r.w!=null&&t0&&m.rows.indexOf(t0)>i&&!wk)wk={m,i,cand:1}})}if(wk&&wk.cand){const rs=wk.m.rows,t0=rs.indexOf(todayRow());let j=t0;while(j>=0&&rs[j].w==null)j--;wk={m:wk.m,i:j}}wk=wk||{m:M(),i:M().rows.findIndex(r=>r.w!=null)};
  const st=wk.i>=0?weekStats(wk.m.rows,wk.i):{done:0,plan:0,pl:null,ex:null};const sum=wk.m.rows.slice(wk.i).find(r=>r.sum!=null);
  document.getElementById('h-kpis').innerHTML=`<div><b>${st.done}/${st.plan}</b><span>treinos feitos</span></div><div><b style="color:var(--purple)">${st.pl?st.pl.toFixed(1):'–'}</b><span>RPE planejado</span></div><div><b style="color:var(--green)">${st.ex?st.ex.toFixed(1):'–'}</b><span>RPE executado</span></div><div><b>${esc(sum?sum.km:0)}</b><span>km</span></div>`;
  const fb=[];for(const m of months)for(const r of m.rows)if(r.o&&String(r.o).trim())fb.push(r);
  document.getElementById('h-feed').innerHTML=fb.slice(-3).reverse().map(r=>`<div class="li"><div><b>${esc(r.d)} ${esc(r.dt)} · ${esc(r.t)}</b><small>${esc(r.o)}</small></div><span class="pill ${r.s==='✓'?'p-ok':r.s==='✗'?'p-no':'p-wait'}">${r.s==='✓'?'RPE '+esc(r.r||'–'):r.s==='✗'?'FALTOU':'–'}</span></div>`).join('')||'<small style="color:var(--mute)">Sem feedbacks ainda.</small>';
- document.getElementById('h-alunos').innerHTML=`<div class="li"><div class="av">BC</div><div style="flex:1"><b>Bianca Cândido</b><small>Corrida + força · ${esc(M().nome)} · Transição</small></div><span class="pill p-ok">ATIVA</span></div><div class="li"><div class="av" style="background:var(--panel2);color:var(--mute)">+</div><div style="flex:1"><b style="color:var(--mute)">Novo aluno</b><small>Disponível quando o login estiver pronto</small></div></div>`}
-document.querySelector('#home .qa').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;const g=b.dataset.go;if(g==='mes'){goTab('plan');act('mes')}else goTab(g)});
+ document.getElementById('h-alunos').innerHTML=`<div class="li"><div class="av">BC</div><div style="flex:1"><b>Bianca Cândido</b><small>Corrida + força · ${esc(M().nome)}</small></div><span class="pill p-ok">ATIVA</span></div><div class="li"><div class="av" style="background:var(--panel2);color:var(--mute)">+</div><div style="flex:1"><b style="color:var(--mute)">Novo aluno</b><small>Disponível quando o login estiver pronto</small></div></div>`}
+document.querySelector('#home .qa').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;const g=b.dataset.go;if(g==='import')return openImport();if(g==='mes'){goTab('plan');act('mes')}else goTab(g)});
 function goTab(t){document.querySelector(`#coach .tabs [data-t="${t}"]`).click()}
-document.querySelector('#coach .tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const h=b.dataset.t==='home';document.getElementById('c-h1').innerHTML=h?'Olá, <em>Igor</em>':'Bianca <em>Cândido</em>';document.getElementById('c-sub').textContent=h?'Sexta-feira, 30/10 · protótipo com dados de exemplo':'Macrociclo 2 · '+M().nome+' · Período de Transição'});
+document.querySelector('#coach .tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const h=b.dataset.t==='home';document.getElementById('c-h1').innerHTML=h?'Olá, <em>Igor</em>':'Bianca <em>Cândido</em>';document.getElementById('c-sub').textContent=h?DATA_LONGA:'Planilha · '+M().nome});
 
-const histP=[13.3,13.3,14.3,13.1],histE=[14,14,14.4,13.1];
-const periods=[[13,15,'Transição','#3fd93a'],[16,17,'Prep. Específico','#f2c230'],[18,20,'Prep. Geral','#ee2b2b'],[21,22,'Prep. Específico','#f2c230'],[23,24,'Competitivo','#a95ee8']];
-function renderChart(){const W=[];months.forEach(m=>m.rows.forEach((r,i)=>{if(r.w!=null)W.push(weekStats(m.rows,i))}));const s6=W.filter(w=>w.pl!=null).pop()||{pl:0,ex:null};const P=[...histP,...W.map(w=>w.pl)].slice(0,48),E=[...histE,...W.map(w=>w.ex)].slice(0,48);
- const L=60,R=990,T=20,B=330,N=48,x=i=>L+(i+.5)*(R-L)/N,y=v=>B-(v-6)/(20-6)*(B-T);let g='';
+function renderChart(){const W=[],B0=[];let k=0;months.forEach((m,mi)=>{const st=k;m.rows.forEach((r,i)=>{if(r.w!=null){const w=weekStats(m.rows,i);const sm=m.rows.slice(i+1).find(x=>x.sum!=null||x.w!=null);w.km=sm&&sm.sum!=null?sm.km:null;W.push(w);k++}});B0.push([st,k,(m.nome.match(/\d+/)||[mi+1])[0]])});
+ let nx=+(B0.length?B0[B0.length-1][2]:0);while(B0.length<12){nx++;B0.push([k,k+4,String(nx)]);k+=4}
+ const N=Math.max(48,k),L=60,R=990,T=20,Bt=330,x=i=>L+(i+.5)*(R-L)/N,xb=i=>L+i*(R-L)/N,y=v=>Bt-(v-6)/(20-6)*(Bt-T);let g='';
  for(let v=6;v<=20;v+=2)g+=`<line x1="${L}" x2="${R}" y1="${y(v)}" y2="${y(v)}" stroke="#2a2a30"/><text x="${L-10}" y="${y(v)+4}" fill="#9a9aa3" font-size="12" text-anchor="end" font-family="JetBrains Mono">${v}</text>`;
- for(let m=0;m<=12;m++){const xx=L+m*4*(R-L)/N;g+=`<line x1="${xx}" x2="${xx}" y1="${T}" y2="${B}" stroke="${[3,5,8,10].includes(m)?'#666':'#333'}" stroke-dasharray="4 4"/>`;if(m<12)g+=`<text x="${xx+2*(R-L)/N}" y="${B+24}" fill="#f2f2f2" font-size="14" font-weight="800" text-anchor="middle">${13+m}</text>`}
- periods.forEach(([a,b,n,c])=>{const x1=L+(a-13)*4*(R-L)/N+3,x2=L+(b-12)*4*(R-L)/N-3;g+=`<rect x="${x1}" y="${B+40}" width="${x2-x1}" height="34" rx="4" fill="#1d1d21" stroke="${c}" stroke-width="2"/><text x="${(x1+x2)/2}" y="${B+62}" fill="#f2f2f2" font-size="13" font-weight="600" text-anchor="middle">${n}</text>`});
- const line=(a,c)=>{let d='',pts='';a.forEach((v,i)=>{if(v==null)return;d+=(d?'L':'M')+x(i)+' '+y(v);pts+=`<circle cx="${x(i)}" cy="${y(v)}" r="4" fill="${c}"><title>Semana ${i+1}: ${v.toFixed(1)}</title></circle>`});return`<path d="${d}" fill="none" stroke="${c}" stroke-width="3" stroke-linejoin="round"/>${pts}`};
- g+=`<text x="16" y="${(T+B)/2}" fill="#9a9aa3" font-size="12" transform="rotate(-90 16 ${(T+B)/2})" text-anchor="middle">Intensidade · Escala de Borg (6–20)</text>`;
- g+=line(P,'#a95ee8')+line(E,'#3fd93a');document.getElementById('chart').innerHTML=g;
- document.getElementById('k-plan').textContent=s6.pl.toFixed(1);document.getElementById('k-exe').textContent=s6.ex?s6.ex.toFixed(1):'–';document.getElementById('k-km').textContent='9'}
+ B0.forEach(([a,b,n])=>{g+=`<line x1="${xb(a)}" x2="${xb(a)}" y1="${T}" y2="${Bt}" stroke="#333" stroke-dasharray="4 4"/><text x="${(xb(a)+xb(b))/2}" y="${Bt+24}" fill="#f2f2f2" font-size="14" font-weight="800" text-anchor="middle">${esc(n)}</text>`});
+ g+=`<line x1="${xb(k)}" x2="${xb(k)}" y1="${T}" y2="${Bt}" stroke="#333" stroke-dasharray="4 4"/><text x="${L}" y="${Bt+50}" fill="#9a9aa3" font-size="12">MESES</text>`;
+ const line=(a,c)=>{let d='',pts='';a.forEach((v,i)=>{if(v==null)return;d+=(d?'L':'M')+x(i)+' '+y(v);pts+=`<circle cx="${x(i)}" cy="${y(v)}" r="4" fill="${c}"><title>Semana ${i+1}: ${v.toFixed(1)}</title></circle>`});return d?`<path d="${d}" fill="none" stroke="${c}" stroke-width="3" stroke-linejoin="round"/>${pts}`:''};
+ g+=`<text x="16" y="${(T+Bt)/2}" fill="#9a9aa3" font-size="12" transform="rotate(-90 16 ${(T+Bt)/2})" text-anchor="middle">Intensidade · Escala de Borg (6–20)</text>`;
+ const P=W.map(w=>w.pl),E=W.map(w=>w.ex);g+=line(P,'#a95ee8')+line(E,'#3fd93a');
+ if(!P.some(v=>v!=null))g+=`<text x="${(L+R)/2}" y="${(T+Bt)/2}" fill="#9a9aa3" font-size="15" text-anchor="middle">Preencha a coluna Previsto na planilha ou importe um macrociclo para ver o gráfico.</text>`;
+ document.getElementById('chart').setAttribute('viewBox','0 0 1000 400');document.getElementById('chart').innerHTML=g;
+ const last=W.filter(w=>w.pl!=null||w.ex!=null).pop()||{};
+ document.getElementById('k-plan').textContent=last.pl?last.pl.toFixed(1):'–';document.getElementById('k-exe').textContent=last.ex?last.ex.toFixed(1):'–';document.getElementById('k-km').textContent=last.km??'–'}
 
-const fichas=[['A3 · Inferiores',[]],['B2 · Resistência de força',[]],['R1 · Fortalecimento',[]]];
+const pastas=[{nome:'MACROCICLO 2 - Bianca',fichas:[]}];let pasta=null;
+const FX=()=>pastas[pasta].fichas;
 const prog=document.getElementById('progs'),modal=document.createElement('div');modal.className='modal';modal.hidden=true;document.body.appendChild(modal);
 function close(){modal.hidden=true;modal.innerHTML=''}
 modal.addEventListener('click',e=>{if(e.target===modal||e.target.closest('.x'))close()});
@@ -333,15 +378,32 @@ const IMG='https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/'
 let DB=null;const loadDB=()=>DB?Promise.resolve(DB):fetch('/exercicios.json').then(r=>r.json()).then(d=>{DB=d.map(x=>({...x,k:(x.n+' '+x.en+' '+x.m.join(' ')+' '+x.eq).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')}));return DB});
 const anim=x=>`<img class="anim" data-a="${IMG+x.img[0]}" data-b="${IMG+(x.img[1]||x.img[0])}" src="${IMG+x.img[0]}" alt="" loading="lazy">`;
 setInterval(()=>document.querySelectorAll('img.anim').forEach(i=>{i.src=i.src===i.dataset.a?i.dataset.b:i.dataset.a}),900);
-function renderProgs(){prog.innerHTML=fichas.map(([n,ex],fi)=>`<div class="card"><div class="eyebrow" style="color:var(--red)">${n}</div>${ex.map((x,ei)=>`<div class="ex"><button class="vid" data-gif="${fi}-${ei}" title="Ver execução">${anim(x)}</button><div><b>${x.n}</b><small style="display:block;font-size:11px">${x.m.join(', ')}</small><small contenteditable data-p="${fi}-${ei}">${x.pres}</small></div></div>`).join('')}<button class="add" data-f="${fi}">+ Adicionar exercício</button></div>`).join('')}
-prog.addEventListener('input',e=>{const p=e.target.dataset.p;if(p){const[f,i]=p.split('-');fichas[f][1][i].pres=e.target.innerText}});
-prog.addEventListener('click',e=>{const a=e.target.closest('.add');if(a)return openSearch(+a.dataset.f);const g=e.target.closest('[data-gif]');if(g){const[f,i]=g.dataset.gif.split('-');showGif(fichas[f][1][i])}});
+function renderProgs(){prog.className='';
+ if(pasta==null){prog.innerHTML=`<div class="folders">${pastas.map((p,i)=>`<button class="folder" data-open="${i}"><span class="ic"></span><b>${esc(p.nome)}</b><small>${p.fichas.length} ficha${p.fichas.length===1?'':'s'} · ${p.fichas.reduce((s,f)=>s+f.ex.length,0)} exercícios</small></button>`).join('')}
+  <div class="newbox"><label for="np" style="font-size:12px;color:var(--mute)">Nova pasta (aluno + macrociclo)</label><input id="np" placeholder="Ex.: MACROCICLO 1 - João"><button data-new="pasta">CRIAR PASTA</button></div></div>`;return}
+ const P=pastas[pasta];
+ prog.innerHTML=`<div class="crumb"><button data-back>Programas</button><span style="color:var(--mute)">/</span><b contenteditable data-rn-pasta>${esc(P.nome)}</b><span style="flex:1"></span><button class="mini ghost warn" data-del-pasta>${delArm==='p'?'Confirmar exclusão':'Excluir pasta'}</button></div>
+ <div class="prog">${P.fichas.map((f,fi)=>`<div class="card"><div class="fhead"><div class="eyebrow" style="color:var(--red)" contenteditable data-rn="${fi}">${esc(f.nome)}</div><button class="mini ghost warn" data-del-ficha="${fi}">${delArm==='f'+fi?'Confirmar':'Excluir'}</button></div>${f.ex.map((x,ei)=>`<div class="ex"><button class="vid" data-gif="${fi}-${ei}" title="Ver execução">${anim(x)}</button><div><b>${esc(x.n)}</b><small style="display:block;font-size:11px">${esc(x.m.join(', '))}</small><small contenteditable data-p="${fi}-${ei}">${esc(x.pres)}</small></div><button class="exdel" data-rm="${fi}-${ei}" aria-label="Remover ${esc(x.n)}">×</button></div>`).join('')}<button class="add" data-f="${fi}">+ Adicionar exercício</button></div>`).join('')}
+  <div class="newbox"><label for="nf" style="font-size:12px;color:var(--mute)">Nova ficha</label><input id="nf" placeholder="Ex.: A3 · Inferiores"><button data-new="ficha">CRIAR FICHA</button></div></div>`}
+let delArm=null;
+prog.addEventListener('input',e=>{const t=e.target;if(t.dataset.p){const[f,i]=t.dataset.p.split('-');FX()[f].ex[i].pres=t.innerText}if(t.dataset.rn!=null)FX()[t.dataset.rn].nome=t.innerText.trim();if(t.hasAttribute('data-rn-pasta'))pastas[pasta].nome=t.innerText.trim()});
+prog.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='np')prog.querySelector('[data-new=pasta]').click();if(e.key==='Enter'&&e.target.id==='nf')prog.querySelector('[data-new=ficha]').click()});
+prog.addEventListener('click',e=>{const q=s=>e.target.closest(s);let b;
+ if(b=q('[data-open]')){pasta=+b.dataset.open;delArm=null;return renderProgs()}
+ if(q('[data-back]')){pasta=null;delArm=null;return renderProgs()}
+ if(b=q('[data-new]')){const inp=prog.querySelector(b.dataset.new==='pasta'?'#np':'#nf'),v=inp.value.trim();if(!v){inp.focus();return}
+  if(b.dataset.new==='pasta')pastas.push({nome:v,fichas:[]});else FX().push({nome:v,ex:[]});return renderProgs()}
+ if(q('[data-del-pasta]')){if(delArm!=='p'){delArm='p';return renderProgs()}pastas.splice(pasta,1);pasta=null;delArm=null;return renderProgs()}
+ if(b=q('[data-del-ficha]')){const k='f'+b.dataset.delFicha;if(delArm!==k){delArm=k;return renderProgs()}FX().splice(+b.dataset.delFicha,1);delArm=null;return renderProgs()}
+ if(b=q('[data-rm]')){const[f,i]=b.dataset.rm.split('-');FX()[f].ex.splice(i,1);return renderProgs()}
+ if(b=q('.add'))return openSearch(+b.dataset.f);
+ if(b=q('[data-gif]')){const[f,i]=b.dataset.gif.split('-');showGif(FX()[f].ex[i])}});
 function showGif(x){modal.innerHTML=`<div class="mbox"><button class="x" aria-label="Fechar">×</button><div class="eyebrow">${x.m.join(' · ')}${x.eq?' · '+x.eq:''}</div><h3 style="margin:4px 0 2px">${x.n}</h3><div style="color:var(--mute);font-size:12px;margin-bottom:12px">${x.en}</div><div class="gifbig">${anim(x)}</div><ol style="color:var(--mute);font-size:13px">${(x.ins||[]).map(t=>`<li>${t}</li>`).join('')}</ol></div>`;modal.hidden=false}
 const norm=t=>t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
-function openSearch(fi){modal.innerHTML=`<div class="mbox"><button class="x" aria-label="Fechar">×</button><div class="eyebrow">Adicionar em ${fichas[fi][0]}</div><input id="q" placeholder="Buscar: agachamento, supino, glúteos, halter…" autocomplete="off" style="margin-top:10px"><div id="st" style="font-size:12px;color:var(--mute);margin-top:6px">Carregando 876 exercícios…</div><div class="res" id="res"></div></div>`;modal.hidden=false;const q=modal.querySelector('#q'),st=modal.querySelector('#st'),res=modal.querySelector('#res');q.focus();let list=[];
+function openSearch(fi){modal.innerHTML=`<div class="mbox"><button class="x" aria-label="Fechar">×</button><div class="eyebrow">Adicionar em ${esc(FX()[fi].nome)}</div><input id="q" placeholder="Buscar: agachamento, supino, glúteos, halter…" autocomplete="off" style="margin-top:10px"><div id="st" style="font-size:12px;color:var(--mute);margin-top:6px">Carregando 876 exercícios…</div><div class="res" id="res"></div></div>`;modal.hidden=false;const q=modal.querySelector('#q'),st=modal.querySelector('#st'),res=modal.querySelector('#res');q.focus();let list=[];
  const run=()=>{const ws=norm(q.value).split(/\s+/).filter(Boolean);list=ws.length?DB.filter(x=>ws.every(w=>x.k.includes(w))):DB;st.textContent=list.length+' exercícios'+(list.length>60?' (mostrando 60, refine a busca)':'');res.innerHTML=list.slice(0,60).map((x,i)=>`<button data-i="${i}">${anim(x)}<span>${x.n}</span><small style="display:block;padding:0 8px 6px;color:#666">${x.m.join(', ')}</small></button>`).join('')};
  loadDB().then(()=>{run();q.oninput=run}).catch(()=>st.textContent='Não consegui carregar os exercícios. Verifique a conexão.');
- res.onclick=e=>{const b=e.target.closest('button');if(!b)return;const x=list[b.dataset.i];fichas[fi][1].push({...x,k:undefined,pres:'3 x 12 · desc. 60s'});close();renderProgs()}}
+ res.onclick=e=>{const b=e.target.closest('button');if(!b)return;const x=list[b.dataset.i];FX()[fi].ex.push({...x,k:undefined,pres:'3 x 12 · desc. 60s'});close();renderProgs()}}
 renderProgs();
 
 // aluno
@@ -351,13 +413,21 @@ const ok=document.getElementById('f-ok'),no=document.getElementById('f-no');
 ok.onclick=()=>{done='✓';ok.setAttribute('aria-pressed',true);no.setAttribute('aria-pressed',false)};
 no.onclick=()=>{done='✗';no.setAttribute('aria-pressed',true);ok.setAttribute('aria-pressed',false)};
 document.getElementById('send').onclick=()=>{const t=document.getElementById('toast');if(!done){t.style.color='var(--red)';t.textContent='Marque se fez ou não o treino.';return}
- const r=todayRow();r.s=done;r.r=done==='✓'&&rpe?rpe:'';r.o=document.getElementById('f-obs').value;renderAll();
+ const r=todayRow();if(!r)return;r.s=done;r.r=done==='✓'&&rpe?rpe:'';r.o=document.getElementById('f-obs').value;renderAll();
  t.style.color='var(--green)';t.textContent='Feedback enviado. Veja na visão Treinador: planilha e gráfico atualizados.'};
 
-const ev={5:['FORTALECIMENTO','Fortalecimento'],9:['FARTLEK','Específico'],10:['CIRCUITO','Força'],16:['SUPERIOR','Força'],17:['RODAGEM','Específico'],19:['CIRCUITO','Força'],23:['INF - FORÇA','Força'],24:['FARTLEK','Específico'],25:['DESCANSO','Descanso'],26:['R1','Fortalecimento'],27:['TIROS','Velocidade'],28:['B2','Res. de Força'],29:['B2','Res. de Força'],30:['FARTLEK','Específico'],31:['DESCANSO','Descanso'],3:['TESTE','Testes Periódicos'],4:['TESTE','Testes Periódicos']};
-let cg='';['D','S','T','Q','Q','S','S'].forEach(h=>cg+=`<div class="h">${h}</div>`);for(let i=0;i<4;i++)cg+='<div></div>';
-for(let d=1;d<=31;d++){const e=ev[d];cg+=`<div class="${d===30?'now':''}"><span class="d">${d}</span>${e?`<span class="ev" style="background:${C[e[1]]}">${e[0]}</span>`:''}</div>`}
-document.getElementById('calg').innerHTML=cg;
+function fichaDe(txt){const t=norm(String(txt||''));for(const P of pastas)for(const f of P.fichas){const code=norm(f.nome).split(/[\s·\-]+/)[0];if(code&&new RegExp('(^|[^a-z0-9])'+code.replace(/[^a-z0-9]/g,'')+'([^a-z0-9]|$)').test(t))return f}return null}
+function renderAluno(){document.getElementById('a-sub').textContent=DATA_LONGA;const r=todayRow(),box=document.getElementById('a-treino');document.getElementById('a-fb').hidden=!r||r.t==='Descanso';
+ if(!r){box.innerHTML='<div class="eyebrow">Hoje</div><h2>Sem treino</h2><p style="color:var(--mute)">Nenhum treino lançado para hoje na planilha.</p>'}
+ else{const linhas=String(r.c||'').split('\n'),f=fichaDe(r.c);
+  box.innerHTML=`<div class="eyebrow">${esc(r.t||'Treino')}</div><h2>${esc(linhas[0]||r.t||'Treino do dia')}</h2>${linhas.length>1?`<div class="block" style="--c:var(--red)"><h4>PARTE PRINCIPAL</h4><p>${esc(linhas.slice(1).join('\n'))}</p></div>`:''}
+  ${f?`<div class="block" style="--c:var(--purple)"><h4>FICHA ${esc(f.nome)}</h4>${f.ex.map((x,ei)=>`<div class="ex"><div class="vid">${anim(x)}</div><div><b>${esc(x.n)}</b><small>${esc(x.pres)}</small></div></div>`).join('')||'<p style="color:var(--mute)">Ficha ainda sem exercícios.</p>'}</div>`:''}`;
+  document.getElementById('a-prev').textContent='Esforço (escala de Borg 6–20)'+(r.p?' · previsto '+r.p:'')}
+ const y=NOW.getFullYear(),mo=NOW.getMonth();document.getElementById('cal-t').textContent=NOW.toLocaleDateString('pt-BR',{month:'long',year:'numeric'}).replace(/^./,c=>c.toUpperCase());
+ const ev={};for(const m of months)for(const x of m.rows){const d=String(x.dt||'').match(/^(\d{1,2})\/(\d{1,2})/);if(d&&+d[2]===mo+1&&x.t)ev[+d[1]]=x}
+ let cg='';['D','S','T','Q','Q','S','S'].forEach(h=>cg+=`<div class="h">${h}</div>`);for(let i=0;i<new Date(y,mo,1).getDay();i++)cg+='<div></div>';
+ for(let d=1;d<=new Date(y,mo+1,0).getDate();d++){const e=ev[d];cg+=`<div class="${d===NOW.getDate()?'now':''}"><span class="d">${d}</span>${e?`<span class="ev" style="background:${C[e.t]||'#cfcfd4'}">${esc(e.t)}</span>`:''}</div>`}
+ document.getElementById('calg').innerHTML=cg}
 
 // navegação
 function mode(m){document.getElementById('coach').hidden=m!=='coach';document.getElementById('aluno').hidden=m!=='aluno';document.getElementById('m-coach').setAttribute('aria-pressed',m==='coach');document.getElementById('m-aluno').setAttribute('aria-pressed',m==='aluno')}
