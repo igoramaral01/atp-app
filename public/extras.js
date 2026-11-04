@@ -56,7 +56,7 @@
       return `<div class="rb"><span class="rv">${d.km ? f1(d.km) : ''}</span><i style="height:${Math.max(h, 3)}px;background:${c}"></i><b>${d.n}</b><small>${d.iso.slice(8)}</small></div>` }).join('');
     const linhas = D.porDia.map(d => d.rows.map(o => { const r = o.r, ds = typeKey(r.t) === 'descanso';
       const pill = ds ? '<span class="pill" style="background:#2a2a30">DESCANSO</span>' : r.s === '✓' ? '<span class="pill p-ok">FEITO</span>' : r.s === '✗' ? '<span class="pill p-no">NÃO FEZ</span>' : '<span class="pill" style="background:#2a2a30;color:#9a9aa3">PENDENTE</span>';
-      const ex = (r.ext || []).map(x => `<div class="ob">⌚ ${esc(SRC(x.src))}: ${f1(x.km)} km · ${Math.round(x.min)} min${pace(x.km, x.min) ? ' · ' + pace(x.km, x.min) : ''}${x.fc ? ' · FC ' + Math.round(x.fc) : ''}${x.kcal ? ' · ' + Math.round(x.kcal) + ' kcal' : ''}${x.alt ? ' · ↑' + Math.round(x.alt) + ' m' : ''}</div>`).join('');
+      const ex = (r.ext || []).map(x => `<div class="ob">⌚ ${esc(SRC(x.src))}: ${f1(x.km)} km · ${Math.round(x.min)} min${pace(x.km, x.min) ? ' · ' + pace(x.km, x.min) : ''}${x.fc ? ' · FC ' + Math.round(x.fc) : ''}${x.kcal ? ' · ' + Math.round(x.kcal) + ' kcal' : ''}${x.alt ? ' · ↑' + Math.round(x.alt) + ' m' : ''}${x.tiros ? ' · tiros ' + x.tiros.n + '×' + f1(x.tiros.km) + ' km' + (x.tiros.media ? ' a ' + fmtT(x.tiros.media) + '/km' : '') : ''}</div>`).join('');
       return `<div class="rrow"><div class="dt">${d.iso.slice(8)}/${d.iso.slice(5, 7)}<small>${d.n}</small></div><div style="min-width:0"><b>${esc(r.t || '—')}</b><div class="ct">${esc(String(r.c || '').split('\n')[0])}</div>${kmN(r.kmd) ? `<div class="ob">📏 ${f1(kmN(r.kmd))} km${r.r ? ' · esforço ' + esc(r.r) : ''}</div>` : r.r ? `<div class="ob">Esforço ${esc(r.r)}</div>` : ''}${ex}${r.o ? `<div class="ob">💬 ${esc(r.o)}</div>` : ''}</div>${pill}</div>` }).join('')).join('');
     const tp = Object.entries(D.tipos).map(([k, v]) => `<span class="tchip"><i style="background:${v.c}"></i>${esc(k)} ${v.f}/${v.n}</span>`).join('');
     R.innerHTML = `<div class="relnav"><button class="btn" data-rw="-1" aria-label="Semana anterior">‹</button><div><div class="eyebrow">Relatório semanal</div><b>${dm(WK)} a ${dm(addD(WK, 6))}</b></div><button class="btn" data-rw="1" aria-label="Próxima semana">›</button></div>
@@ -145,7 +145,7 @@
       const iso = String(a.data).slice(0, 10); const o = rows.find(o => o.iso === iso && o.r.t && typeKey(o.r.t) !== 'descanso') || rows.find(o => o.iso === iso);
       if (!o) { sem++; continue }
       const r = o.r, L = (r.ext || []).filter(x => String(x.id) !== String(a.id)); const novo = !(r.ext || []).some(x => String(x.id) === String(a.id));
-      L.push({ id: a.id, src: a.src, tipo: a.tipo || '', nome: String(a.nome || '').slice(0, 60), km: a.km, min: a.min, fc: a.fc || null, kcal: a.kcal || null, alt: a.alt || null });
+      L.push({ id: a.id, src: a.src, tipo: a.tipo || '', nome: String(a.nome || '').slice(0, 60), km: a.km, min: a.min, fc: a.fc || null, kcal: a.kcal || null, alt: a.alt || null, tiros: a.tiros || null });
       r.ext = L; const km = L.filter(x => RUN.test(x.tipo || 'run')).reduce((t, x) => t + (x.km || 0), 0);
       if (km) r.kmd = String(Math.round(km * 100) / 100); if (!r.s) r.s = '✓'; if (novo) n++; mud.add(r) }
     mud.forEach(r => athFb(r)); if (mud.size) renderAll(); return { n, sem };
@@ -198,7 +198,7 @@
   // ---------------- LEITURA DE PRINTS (OCR no próprio celular) ----------------
   const tsec = t => { const p = String(t).split(':').map(Number); if (p.some(isNaN)) return null; return p.length === 3 ? p[0] * 3600 + p[1] * 60 + p[2] : p.length === 2 ? p[0] * 60 + p[1] : null };
   const fmtT = s => { if (s == null) return ''; s = Math.round(s); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60; return (h ? h + ':' + pad(m) : m) + ':' + pad(x) };
-  function lerTexto(txt) {
+  function lerGenerico(txt) {
     const t = String(txt).replace(/[|]/g, ' ').replace(/(\d)\s*[,.]\s*(\d)/g, '$1,$2'), low = t.toLowerCase(), o = {};
     // ritmo: tempo seguido de /km
     const pc = [...low.matchAll(/(\d{1,2}:\d{2})\s*(?:min)?\s*\/\s*km/g)].map(m => tsec(m[1])).filter(v => v >= 150 && v <= 1200);
@@ -223,6 +223,70 @@
     if (!o.pace && o.km && o.seg) o.pace = o.seg / o.km;
     return o;
   }
+
+  const MES = { jan: 1, fev: 2, feb: 2, mar: 3, abr: 4, apr: 4, mai: 5, may: 5, jun: 6, jul: 7, ago: 8, aug: 8, set: 9, sep: 9, out: 10, oct: 10, nov: 11, dez: 12, dec: 12 };
+  function lerData(low) {
+    let m = low.match(/\b(jan|fev|feb|mar|abr|apr|mai|may|jun|jul|ago|aug|set|sep|out|oct|nov|dez|dec)[a-zç]*\.?\s*(\d{1,2}),?\s*(20\d\d)/);
+    if (m) return m[3] + '-' + pad(MES[m[1]]) + '-' + pad(m[2]);
+    m = low.match(/(\d{1,2})\s*(?:de\s*)?(jan|fev|feb|mar|abr|apr|mai|may|jun|jul|ago|aug|set|sep|out|oct|nov|dez|dec)[a-zç]*\.?\s*(?:de\s*)?(20\d\d)/);
+    if (m) return m[3] + '-' + pad(MES[m[2]]) + '-' + pad(m[1]);
+    m = low.match(/\b(\d{1,2})\/(\d{1,2})\/(20\d\d)\b/); if (m) return m[3] + '-' + pad(m[2]) + '-' + pad(m[1]);
+    return null;
+  }
+  // Resumo em linha (Runkeeper web/app e similares): uma linha com os rótulos e logo abaixo os valores na mesma ordem.
+  function lerResumo(lines) {
+    for (let i = 0; i < lines.length; i++) {
+      const L = lines[i].toLowerCase();
+      if (/intervals|interval|splits|parciais|kilometers\s*$/.test(L) && !/duration|dura[çc]/.test(L)) continue;
+      const pos = { km: L.search(/\b(km|dist[âa]ncia|distance|mi)\b/), dur: L.search(/duration|dura[çc][ãa]o|tempo|\btime\b/), pace: L.search(/pace|ritmo/), cal: L.search(/calor/) };
+      if (Object.values(pos).filter(v => v >= 0).length < 2) continue;
+      for (let j = i + 1; j <= i + 3 && j < lines.length; j++) {
+        const V = lines[j].replace(/\(\s*\d{1,2}\s*\)/g, ' ');
+        const toks = [...V.matchAll(/\d{1,2}:\d{2}(?::\d{2})?|\d+[.,]\d+|\d+/g)].map(m => m[0]);
+        const dec = toks.filter(t => /[.,]/.test(t)), times = toks.filter(t => t.includes(':'));
+        if (!dec.length && !times.length) continue;
+        const o = { resumo: true };
+        if (pos.km >= 0 && dec.length) { const v = parseFloat(dec[0].replace(',', '.')); if (v > 0 && v < 400) o.km = /\bmi\b/.test(L) && !/\bkm\b/.test(L) ? v * 1.609 : v }
+        const ord = ['dur', 'pace'].filter(k => pos[k] >= 0).sort((a, b) => pos[a] - pos[b]);
+        ord.forEach((k, n) => { const t = times[n]; if (t) { if (k === 'dur') o.seg = tsec(t); else o.pace = tsec(t) } });
+        if (pos.km >= 0 && !o.km) { const ints = toks.filter(t => /^\d{2,5}$/.test(t)); if (ints.length) o.kmBruto = +ints[0] } // ponto decimal perdido na leitura
+        if (o.seg && o.pace) { const der = o.seg / o.pace, cs = [o.km, o.kmBruto, o.kmBruto / 10, o.kmBruto / 100, o.kmBruto / 1000].filter(v => v > 0);
+          const best = cs.sort((a, b) => Math.abs(a - der) - Math.abs(b - der))[0]; o.km = best && Math.abs(best - der) / der < 0.06 ? best : Math.round(der * 100) / 100 }
+        else if (!o.km && o.kmBruto) o.km = o.kmBruto >= 100 ? o.kmBruto / 100 : o.kmBruto;
+        delete o.kmBruto;
+        if (pos.cal >= 0) { const last = toks.filter(t => /^\d{2,4}$/.test(t)).pop(); if (last) o.kcal = +last }
+        if (o.km || o.seg) return o;
+      }
+    }
+    return null;
+  }
+  // Tabela de tiros (Intervals/Splits): várias linhas com a mesma distância curta.
+  function lerTiros(txt, low) {
+    if (!/interval|splits|parciais|tiros|voltas|laps/.test(low)) return null;
+    const ds = [...low.matchAll(/(\d+[.,]\d+)\s*km\b(?!\s*\/)/g)].map(m => parseFloat(m[1].replace(',', '.')));
+    if (ds.length < 3) return null;
+    const cnt = {}; ds.forEach(v => cnt[v] = (cnt[v] || 0) + 1); const [dist, n] = Object.entries(cnt).sort((a, b) => b[1] - a[1])[0];
+    if (n < 3 || +dist > 2) return null;
+    const ts = [...low.matchAll(/(?<![\d:])(\d{1,2}:\d{2})(?![\d:])/g)].map(m => tsec(m[1]));
+    const tc = {}; ts.forEach(v => tc[v] = (tc[v] || 0) + 1);
+    const rep = Object.keys(tc).filter(k => tc[k] >= 3).map(Number); // duração fixa da recuperação (ex.: 3:00)
+    const cand = ts.filter(v => v >= 150 && v <= 720 && !rep.some(r => Math.abs(r - v) <= 2));
+    const work = cand.slice().sort((a, b) => a - b).slice(0, +n); const set = work.slice();
+    const paces = cand.filter(v => { const i = set.indexOf(v); if (i >= 0) { set.splice(i, 1); return true } return false });
+    return { n: +n, km: +dist, paces, media: paces.length ? paces.reduce((a, b) => a + b, 0) / paces.length : null };
+  }
+  function lerTexto(txt) {
+    const lines = String(txt).split('\n').map(l => l.trim()).filter(Boolean), low = String(txt).toLowerCase();
+    const R = lerResumo(lines), T = lerTiros(txt, low), D = lerData(low);
+    let o = R || {};
+    if (!R) { // sem resumo em linha: leitura genérica, ignorando as distâncias dos tiros
+      const g = lerGenerico(T ? txt.replace(/\d+[.,]\d+\s*km\b(?!\s*\/)/gi, ' ') : txt);
+      o = T ? { fc: g.fc, kcal: g.kcal, alt: g.alt } : g;
+    } else { const g = lerGenerico(txt); if (!o.fc) o.fc = g.fc; if (!o.alt) o.alt = g.alt; if (!o.kcal) o.kcal = g.kcal }
+    if (o.km && o.seg && !o.pace) o.pace = o.seg / o.km;
+    if (T) o.tiros = T; if (D) o.data = D;
+    return o;
+  }
   window.__lerTexto = lerTexto;
   let TESS = null;
   const loadTess = () => TESS || (TESS = new Promise((ok, no) => { if (window.Tesseract) return ok(window.Tesseract); const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js'; s.onload = () => ok(window.Tesseract); s.onerror = () => { TESS = null; no(new Error('sem internet para carregar o leitor')) }; document.head.appendChild(s) }));
@@ -236,14 +300,16 @@
   }
   function diasRecentes() { const hoje = isoOf(new Date()), ini = isoOf(addD(new Date(), -21));
     return datedRows().filter(o => o.iso >= ini && o.iso <= hoje && o.r.t && typeKey(o.r.t) !== 'descanso').reverse() }
+  let TIROS = null;
   function openPrint() {
+    TIROS = null;
     const old = document.getElementById('pr-m'); if (old) old.remove();
     const ds = diasRecentes(), hoje = isoOf(new Date()), def = (ds.find(o => o.iso === hoje) || ds[0] || {}).iso;
     const m = document.createElement('div'); m.id = 'pr-m'; m.className = 'prm';
     m.innerHTML = `<div class="prb" role="dialog" aria-label="Enviar print do treino"><div class="eyebrow">Print do treino</div><h2 style="margin:4px 0 8px">Strava ou ASICS Runkeeper</h2>
       <p style="color:var(--mute);font-size:14px;margin:0 0 10px">Envie o print da tela de resumo da atividade (pode ser mais de um). Os números são lidos aqui no seu celular.</p>
       <label class="btn b-ok" style="display:inline-block;cursor:pointer">📷 Escolher print(s)<input type="file" id="pr-f" accept="image/*" multiple hidden></label>
-      <div id="pr-th" class="prth"></div><div id="pr-st" style="font-size:13px;color:var(--mute);margin:8px 0"></div>
+      <div id="pr-th" class="prth"></div><div id="pr-tr" style="font-size:13px;margin-top:8px"></div><div id="pr-st" style="font-size:13px;color:var(--mute);margin:8px 0"></div>
       <div class="prg"><label>Dia do treino<select id="pr-d">${ds.map(o => `<option value="${o.iso}" ${o.iso === def ? 'selected' : ''}>${o.iso.slice(8)}/${o.iso.slice(5, 7)} · ${esc(o.r.t)}</option>`).join('') || '<option value="">Nenhum treino nos últimos dias</option>'}</select></label>
       <label>Distância (km)<input id="pr-km" inputmode="decimal" placeholder="Ex.: 5,02"></label>
       <label>Tempo (h:mm:ss)<input id="pr-t" inputmode="numeric" placeholder="Ex.: 27:36"></label>
@@ -262,16 +328,17 @@
         for (let i = 0; i < fs.length; i++) { const { c, thumb } = await prepImg(fs[i]); $('pr-th').insertAdjacentHTML('beforeend', `<img src="${thumb}" alt="print ${i + 1}">`);
           const r = await T.recognize(c, 'por+eng', { logger: x => { if (x.status === 'recognizing text') $('pr-st').textContent = `Lendo print ${i + 1} de ${fs.length}… ${Math.round(x.progress * 100)}%` } });
           txt += '\n' + r.data.text }
-        const o = lerTexto(txt);
+        window.__ocrTxt = txt; const o = lerTexto(txt);
         if (o.km) $('pr-km').value = String(Math.round(o.km * 100) / 100).replace('.', ','); if (o.seg) $('pr-t').value = fmtT(o.seg);
         if (o.fc) $('pr-fc').value = o.fc; if (o.kcal) $('pr-kc').value = o.kcal; if (o.alt) $('pr-el').value = o.alt; upP();
-        const d = txt.match(/(\d{1,2})\s+de\s+([a-zç]{3,})\.?\s+de\s+(\d{4})/i); // data do print, se aparecer
-        $('pr-st').textContent = o.km || o.seg ? 'Pronto! Confira os números abaixo.' : 'Não consegui achar os números. Preencha à mão ou tente um print mais nítido da tela de resumo.';
+        TIROS = o.tiros || null; if (o.data && [...$('pr-d').options].some(x => x.value === o.data)) $('pr-d').value = o.data;
+        $('pr-tr').innerHTML = TIROS ? `<b>Tiros detectados:</b> ${TIROS.n} × ${String(TIROS.km).replace('.', ',')} km${TIROS.media ? ' · pace médio dos tiros ' + fmtT(TIROS.media) + '/km (' + TIROS.paces.map(fmtT).join(', ') + ')' : ''}` : '';
+        $('pr-st').textContent = o.km || o.seg ? 'Pronto! Confira os números abaixo.' : TIROS ? 'Li os tiros, mas falta o resumo do treino. Envie também o print do topo (KM, DURATION, PACE) ou preencha à mão.' : 'Não consegui achar os números. Preencha à mão ou tente um print mais nítido da tela de resumo.';
       } catch (er) { $('pr-st').textContent = 'Não consegui ler: ' + er.message + '. Preencha os números à mão.' }
     };
     $('pr-ok').onclick = () => { const iso = $('pr-d').value, km = num($('pr-km').value), s = tsec($('pr-t').value);
       if (!iso) return $('pr-st').textContent = 'Escolha o dia do treino.'; if (!km && !s) return $('pr-st').textContent = 'Informe pelo menos a distância ou o tempo.';
-      const r = aplicarAtividades([{ id: 'p' + Date.now(), src: 'print', tipo: 'Run', nome: 'Print', data: iso, km: km || 0, min: s ? Math.round(s / 6) / 10 : 0, fc: num($('pr-fc').value), kcal: num($('pr-kc').value), alt: num($('pr-el').value) }]);
+      const r = aplicarAtividades([{ id: 'p' + Date.now(), src: 'print', tipo: 'Run', nome: 'Print', data: iso, km: km || 0, min: s ? Math.round(s / 6) / 10 : 0, fc: num($('pr-fc').value), kcal: num($('pr-kc').value), alt: num($('pr-el').value), tiros: TIROS }]);
       m.remove(); setMsg('fi-msg', ''); if (typeof flash === 'function') flash(r.n ? 'Treino lançado ✓ ' + (km ? String(km).replace('.', ',') + ' km' : '') : 'Não achei esse dia na planilha.') };
   }
   document.addEventListener('click', e => { if (e.target.closest('[data-print-open]')) openPrint() });
