@@ -383,6 +383,7 @@ td select{max-width:190px;width:100%}
 tr.hoje td{background:rgba(169,94,232,.12)}tr.hoje td.rn{background:var(--purple);color:#fff}
 .pin{width:64px;justify-self:end;background:var(--panel2);border:1px solid var(--line);border-radius:6px;color:var(--fg);padding:4px 6px;font:600 13px var(--mono);text-align:right}.pin:focus{outline:2px solid var(--purple);border-color:transparent}.pin.g{color:var(--green)}.pin.r{color:var(--red)}
 .kmw{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center}.kmed{display:inline-block;min-width:34px;padding:2px 6px;border-radius:4px;background:rgba(255,255,255,.06);border:1px dashed #55555f}.kmed:empty::before{content:"–";color:var(--mute)}.kmbar{display:inline-block;width:70px;height:7px;border-radius:4px;background:var(--panel2);overflow:hidden;vertical-align:middle}.kmbar i{display:block;height:100%}
+.howto{color:var(--fg);font-size:14px;line-height:1.55;padding-left:20px;margin:0;display:grid;gap:6px}.howto li::marker{color:var(--green);font-weight:800}
 </style>
 
 <div id="auth" class="authbox"><form class="authcard" id="auth-f" novalidate>
@@ -743,7 +744,11 @@ prog.addEventListener('click',e=>{const q=s=>e.target.closest(s);let b;
  if(b=q('[data-rm]')){const[f,i]=b.dataset.rm.split('-');FX()[f].ex.splice(i,1);return renderProgs()}
  if(b=q('.add'))return openSearch(+b.dataset.f);
  if(b=q('[data-gif]')){const[f,i]=b.dataset.gif.split('-');showGif(FX()[f].ex[i])}});
-function showGif(x){modal.innerHTML=`<div class="mbox"><button class="x" aria-label="Fechar">×</button><div class="eyebrow">${x.m.join(' · ')}${x.eq?' · '+x.eq:''}</div><h3 style="margin:4px 0 2px">${x.n}</h3><div style="color:var(--mute);font-size:12px;margin-bottom:12px">${x.en}</div><div class="gifbig">${anim(x)}</div><ol style="color:var(--mute);font-size:13px">${(x.ins||[]).map(t=>`<li>${t}</li>`).join('')}</ol></div>`;modal.hidden=false}
+// orientações sempre em português: busca na base pelo id (as fichas antigas guardaram o texto em inglês)
+function showGif(x){const draw=base=>{const ins=(base&&base.pt&&base.ins)||(x.pt&&x.ins)||null;
+ modal.innerHTML=`<div class="mbox"><button class="x" aria-label="Fechar">×</button><div class="eyebrow">${esc((x.m||[]).join(' · '))}${x.eq?' · '+esc(x.eq):''}</div><h3 style="margin:4px 0 2px">${esc(x.n)}</h3>${base&&base.n&&base.n!==x.n?`<div style="color:var(--mute);font-size:12px">${esc(base.n)}</div>`:''}<div class="gifbig" style="margin-top:12px">${anim(x)}</div>
+  <h4 style="margin:14px 0 6px;font-size:12px;letter-spacing:2px;color:var(--green)">COMO EXECUTAR</h4>${ins?`<ol class="howto">${ins.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>`:`<p class="note">Orientação em português ainda não disponível para este exercício. Em caso de dúvida, fale com o seu treinador.</p>`}</div>`;modal.hidden=false};
+ if(DB)return draw(DB.find(d=>d.id===x.id));draw(null);loadDB().then(()=>{if(!modal.hidden)draw(DB.find(d=>d.id===x.id))}).catch(()=>{})}
 const norm=t=>t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 function openSearch(fi){modal.innerHTML=`<div class="mbox"><button class="x" aria-label="Fechar">×</button><div class="eyebrow">Adicionar em ${esc(FX()[fi].nome)}</div><input id="q" placeholder="Buscar: agachamento, supino, glúteos, halter…" autocomplete="off" style="margin-top:10px"><div id="st" style="font-size:12px;color:var(--mute);margin-top:6px">Carregando 876 exercícios…</div><div class="res" id="res"></div></div>`;modal.hidden=false;const q=modal.querySelector('#q'),st=modal.querySelector('#st'),res=modal.querySelector('#res');q.focus();let list=[];
  const run=()=>{const ws=norm(q.value).split(/\s+/).filter(Boolean);list=ws.length?DB.filter(x=>ws.every(w=>x.k.includes(w))):DB;st.textContent=list.length+' exercícios'+(list.length>60?' (mostrando 60, refine a busca)':'');res.innerHTML=list.slice(0,60).map((x,i)=>`<button data-i="${i}">${anim(x)}<span>${x.n}</span><small style="display:block;padding:0 8px 6px;color:#666">${x.m.join(', ')}</small></button>`).join('')};
