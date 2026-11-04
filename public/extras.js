@@ -2,7 +2,7 @@
 // Usa as variáveis globais do app (months, datedRows, CURATH, AID, ROLE, FS, FV...).
 (function () {
   // Chave pública "Web Push" do Firebase (Configurações do projeto → Cloud Messaging → Certificados push da Web).
-  const VAPID = '';
+  const VAPID = 'BCeYsMH_cxAgAA69tTJqRs1Y1gskp2QypbyINtdDWar1j4E247Cb7D4v7_3kO_UHh2nFqzDuvog5OVDE9tZl39U';
   const RUN = /run|walk|hike|corrida|caminhada/i;
   const pad = n => String(n).padStart(2, '0');
   const isoOf = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
