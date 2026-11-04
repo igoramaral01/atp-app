@@ -25,6 +25,7 @@
   const vo2Cooper = m => m ? (m - 504.9) / 44.73 : null;
 
   let sel = -1, cmpPrev = true, metric = 'peso';
+  const fixSel = () => { const n = avals().length; if (sel < 0 || sel >= n) sel = n - 1; return sel; };
 
   // ---------- comparação ----------
   function deltas(a, b) {
@@ -38,179 +39,150 @@
     return { d: out, dim, seg, aum };
   }
 
-  // ---------- corpo 3D (Three.js) ----------
+  // ---------- corpo 3D (Three.js + superfície implícita) ----------
+  // O corpo é uma "escultura" feita de formas arredondadas (elipsoides e cones arredondados)
+  // fundidas suavemente; o tamanho de cada forma sai das medidas (circunferências).
   let three = null;
-  function loadThree() {
-    return window.THREE ? Promise.resolve() : new Promise((ok, err) => {
-      const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
-      s.onload = ok; s.onerror = err; document.head.appendChild(s);
-    });
+  const loadScript = src => new Promise((ok, err) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = err; document.head.appendChild(s); });
+  async function loadThree() {
+    if (!window.THREE) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js');
+    if (!THREE.MarchingCubes) await loadScript('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/objects/MarchingCubes.js');
   }
-  const ell = (C, k) => { const a = C / (Math.PI * (1 + k)) * 1.0; return [a / 100, a * k / 100]; }; // circunferência (cm) -> semieixos (m)
+  const rC = C => C / (2 * Math.PI) / 100;                               // circunferência (cm) -> raio (m)
+  const eAx = (C, k) => { const a = C / (Math.PI * (1 + k)) / 100 * 1.02; return [a, a * k]; }; // elipse -> semieixos
 
-  // Monta a lista de "anéis" do corpo a partir das medidas.
-  function bodySpec(a, sexo) {
-    const m = k => num(a.per && a.per[k]);
-    const F = sexo !== 'M';
-    const H = num(a.altura) || 1.65;
-    const avg = (x, y, def) => { const v = [m(x), m(y)].filter(v => v != null); return v.length ? v.reduce((s, z) => s + z, 0) / v.length : def; };
-    const side = (k, def) => m(k) ?? def;
+  // primitivas: e = elipsoide {c:[x,y,z], r:[rx,ry,rz]}, c = cone arredondado {a:[..], b:[..], ra, rb}
+  function bodyPrims(a, sexo) {
+    const F = sexo !== 'M', m = k => num(a.per && a.per[k]);
+    const H = num(a.altura) || (F ? 1.62 : 1.75), s = H / 1.65;
+    const side = (k, d) => m(k) ?? d;
     const quad = m('quad') ?? (m('cint') && m('cint') > 95 ? m('cint') : (F ? 100 : 96));
     const cint = (m('cint') != null && m('cint') <= 95) ? m('cint') : (F ? 80 : 86);
-    const abdo = m('abdo') ?? cint + 2;
-    const tx = m('tx') ?? (F ? 94 : 100);
-    const pe = m('pe') ?? (F ? 34 : 39);
-    const y = f => f * H;
-    // tronco: anéis de baixo para cima
-    const T = [
-      [0.455, quad * 0.42, 0.85, 0], [0.475, quad * 0.80, 0.80, 0], [0.50, quad * 0.97, 0.78, 0], [0.525, quad, 0.76, 0],
-      [0.575, (quad + abdo) / 2, 0.74, 0.004], [0.605, abdo, 0.74, 0.008], [0.635, cint, 0.70, 0.004],
-      [0.675, (cint + tx) / 2, 0.68, 0], [0.715, tx * (F ? 0.98 : 0.97), F ? 0.80 : 0.64, F ? 0.018 : 0], [0.745, tx, F ? 0.70 : 0.66, F ? 0.008 : 0],
-      [0.785, tx * (F ? 1.02 : 1.10), 0.46, 0], [0.815, tx * (F ? 0.80 : 0.88), 0.42, 0], [0.835, pe * 1.25, 0.9, 0], [0.86, pe, 0.95, 0], [0.885, pe * 0.97, 0.95, 0.004], [0.905, pe * 0.9, 0.95, 0.008],
-    ].map(([f, C, k, dz]) => { const [ax, bz] = ell(C, k); return { y: y(f), cx: 0, cz: dz * H / 1.65, a: ax, b: bz, key: null }; });
-    const tag = { 3: 'quad', 4: 'abdo', 5: 'cint', 7: 'tx', 8: 'tx', 12: 'pe' };
-    T[3].key = 'quad'; T[5].key = 'abdo'; T[6].key = 'cint'; T[9].key = 'tx'; T[13].key = 'pe';
+    const abdo = m('abdo') ?? cint + 3, tx = m('tx') ?? (F ? 94 : 100), pe = m('pe') ?? (F ? 34 : 39);
+    const P = []; let KK = 0.09; const E = (key, c, r, k) => P.push({ t: 'e', key, c, r, k: k ?? KK }), K = (key, A, B, ra, rb, k) => P.push({ t: 'c', key, a: A, b: B, ra, rb, k: k ?? KK });
+    const Y = v => v * s;
+    // tronco
+    const [hx, hz] = eAx(quad, F ? 0.74 : 0.70); E('quad', [0, Y(0.875), -0.01 * s], [hx * 0.95, Y(0.13), hz * 0.93]);
+    if (F) { const gr = rC(quad) * 0.43; E('quad', [-0.066 * s, Y(0.85), -hz * 0.4], [gr, gr * 1.05, gr * 0.95], 0.05); E('quad', [0.066 * s, Y(0.85), -hz * 0.4], [gr, gr * 1.05, gr * 0.95], 0.05); }
+    const [ax, az] = eAx(abdo, 0.78); E('abdo', [0, Y(0.975), 0.01 * s], [ax * 0.93, Y(0.11), az * 0.93]);
+    const [wx, wz] = eAx(cint, 0.72); E('cint', [0, Y(1.06), 0], [wx * 0.94, Y(0.11), wz * 0.94]);
+    const [tx_, tz] = eAx(tx * (F ? 0.93 : 0.96), F ? 0.66 : 0.64); E('tx', [0, Y(1.2), -0.006 * s], [tx_ * 0.95, Y(0.14), tz * 0.97]);
+    if (F) { const br = 0.055 * s * Math.max(0.8, Math.min(1.35, tx / 94)); E('tx', [-0.058 * s, Y(1.2), tz * 0.6], [br * 1.05, br * 0.95, br * 0.88], 0.045); E('tx', [0.058 * s, Y(1.2), tz * 0.6], [br * 1.05, br * 0.95, br * 0.88], 0.045); }
+    else { E('tx', [-0.06 * s, Y(1.26), tz * 0.45], [0.075 * s, 0.05 * s, 0.045 * s], 0.05); E('tx', [0.06 * s, Y(1.26), tz * 0.45], [0.075 * s, 0.05 * s, 0.045 * s], 0.05); }
+    const shW = (F ? 0.155 : 0.19) * s * Math.max(0.9, Math.min(1.15, tx / (F ? 94 : 100)));
+    E('tx', [0, Y(1.345), -0.01 * s], [shW, Y(0.05), 0.065 * s]);
+    K('pe', [0, Y(1.34), -0.005 * s], [0, Y(1.5), 0.005 * s], rC(pe) * 1.02, rC(pe) * 0.9, 0.05);
+    E(null, [0, Y(1.585), 0.01 * s], [0.072 * s, 0.098 * s, 0.087 * s], 0.035);
+    E(null, [0, Y(1.53), 0.045 * s], [0.045 * s, 0.038 * s, 0.04 * s], 0.03); // queixo/mandíbula
     // pernas
-    const legX = (F ? 0.088 : 0.092) * H / 1.65;
-    const leg = s => {
-      const cs = side('cs' + s, F ? 60 : 56), cm = side('cm' + s, cs * 0.88), ci = side('ci' + s, cs * 0.72), su = side('su' + s, F ? 36 : 38), to = side('to' + s, 22);
-      const R = [[0.035, to * 1.05, 1.1], [0.06, to, 0.95], [0.12, su * 0.72, 0.9], [0.2, su, 0.92], [0.255, su * 0.86, 0.9], [0.29, ci * 0.78, 0.92],
-        [0.33, ci, 0.92], [0.39, cm, 0.93], [0.445, cs, 0.92], [0.49, cs * 1.03, 0.9], [0.515, cs * 0.95, 0.88]];
-      const keys = { 1: 'to' + s, 3: 'su' + s, 6: 'ci' + s, 7: 'cm' + s, 8: 'cs' + s };
-      return R.map(([f, C, k], i) => { const [ax, bz] = ell(C, k); const sx = (s === 'D' ? -1 : 1); return { y: y(f), cx: sx * (legX + (f - 0.45) * -0.02), cz: 0, a: ax, b: bz, key: keys[i] || null }; });
-    };
-    // braços (pendurados, levemente abertos)
-    const shoulderA = ell(tx * (F ? 1.02 : 1.10), 0.46)[0];
-    const arm = s => {
-      const br = side('br' + s, F ? 27 : 30), ab = side('ab' + s, br * 0.86), pu = side('pu' + s, F ? 15.5 : 17);
-      const sx = s === 'D' ? -1 : 1, top = 0.785, len = 0.435;
-      const R = [[0, br * 1.12, 0.95], [0.1, br * 1.04, 0.95], [0.25, br, 0.95], [0.42, ab * 0.82, 0.9], [0.55, ab, 0.85], [0.78, pu * 1.12, 0.75], [0.86, pu, 0.7], [0.93, pu * 1.25, 0.45], [1, pu * 0.95, 0.4]];
-      const keys = { 2: 'br' + s, 4: 'ab' + s, 6: 'pu' + s };
-      return R.map(([t, C, k], i) => { const [ax, bz] = ell(C, k); return { y: y(top - t * len), cx: sx * (shoulderA * 0.92 + t * 0.055 * H / 1.65), cz: 0, a: ax, b: bz, key: keys[i] || null }; });
-    };
-    const A1 = arm('D'), A2 = arm('E'), L1 = leg('D'), L2 = leg('E');
-    // juntas arredondadas: ombros (deltoide) e pés
-    const joints = [A1, A2].map(a => ({ x: a[0].cx * 0.97, y: a[0].y + 0.004 * H, z: 0, sx: a[0].a * 1.08, sy: a[0].a * 1.15, sz: a[0].b * 1.08 }))
-      .concat([L1, L2].map(l => ({ x: l[0].cx, y: 0.022 * H, z: 0.045 * H / 1.65, sx: l[0].a * 0.95, sy: 0.022 * H, sz: 0.11 * H / 1.65 })));
-    return { H, parts: [T, L1, L2, A1, A2], joints, headR: (F ? 0.064 : 0.068) * H / 1.65, headY: y(0.94) };
+    KK = 0.022; const lx = (F ? 0.088 : 0.092) * s;
+    for (const [S, sg] of [['D', -1], ['E', 1]]) {
+      const cs = side('cs' + S, F ? 60 : 56), cm = side('cm' + S, cs * 0.88), ci = side('ci' + S, cs * 0.72), su = side('su' + S, F ? 36 : 38), to = side('to' + S, 22);
+      const hip = [sg * lx, Y(0.83), 0], mid = [sg * lx * 0.97, Y(0.66), 0.004 * s], knee = [sg * lx * 0.86, Y(0.49), 0.012 * s], calf = [sg * lx * 0.84, Y(0.35), -0.016 * s], ank = [sg * lx * 0.82, Y(0.075), -0.01 * s];
+      K('cs' + S, hip, mid, rC(cs) * 0.97, rC(cm) * 0.97);
+      K('cm' + S, mid, knee, rC(cm) * 0.97, rC(ci) * 0.82);
+      K('ci' + S, knee, calf, rC(ci) * 0.8, rC(su) * 0.98);
+      K('su' + S, calf, [ank[0], Y(0.2), ank[2]], rC(su) * 0.98, rC(to) * 1.15);
+      K('to' + S, [ank[0], Y(0.2), ank[2]], ank, rC(to) * 1.15, rC(to) * 0.95);
+      E('to' + S, [ank[0] * 1.02, Y(0.035), 0.045 * s], [0.042 * s, 0.033 * s, 0.115 * s], 0.03); // pé
+    }
+    // braços
+    for (const [S, sg] of [['D', -1], ['E', 1]]) {
+      const br = side('br' + S, F ? 27 : 30), ab = side('ab' + S, br * 0.88), pu = side('pu' + S, F ? 15.5 : 17);
+      const sh = [sg * (shW * 0.93), Y(1.335), -0.012 * s], el = [sg * (shW * 0.93 + 0.045 * s), Y(1.065), -0.03 * s], fm = [sg * (shW * 0.93 + 0.058 * s), Y(0.97), -0.012 * s], wr = [sg * (shW * 0.93 + 0.072 * s), Y(0.81), 0.01 * s];
+      E('br' + S, [sh[0] * 1.0, sh[1] - 0.012 * s, sh[2]], [rC(br) * 1.22, rC(br) * 1.18, rC(br) * 1.12], 0.05); // deltoide
+      K('br' + S, sh, el, rC(br) * 1.08, rC(ab) * 0.82);
+      K('ab' + S, el, fm, rC(ab) * 0.82, rC(ab) * 1.0);
+      K('pu' + S, fm, wr, rC(ab) * 1.0, rC(pu) * 0.95);
+      E('pu' + S, [wr[0] + sg * 0.006 * s, Y(0.735), 0.016 * s], [0.026 * s, 0.07 * s, 0.045 * s]); // mão
+    }
+    return { P, H };
+  }
+  // distâncias com sinal
+  function sdE(px, py, pz, p) { const [cx, cy, cz] = p.c, [rx, ry, rz] = p.r, x = px - cx, y = py - cy, z = pz - cz;
+    const k0 = Math.hypot(x / rx, y / ry, z / rz), k1 = Math.hypot(x / (rx * rx), y / (ry * ry), z / (rz * rz)); return k1 ? k0 * (k0 - 1) / k1 : -Math.min(rx, ry, rz); }
+  function sdC(px, py, pz, p) { // cone arredondado (aproximação por interpolação linear do raio)
+    const [ax, ay, az] = p.a, [bx, by, bz] = p.b, bax = bx - ax, bay = by - ay, baz = bz - az, l2 = bax * bax + bay * bay + baz * baz;
+    let t = ((px - ax) * bax + (py - ay) * bay + (pz - az) * baz) / l2; t = t < 0 ? 0 : t > 1 ? 1 : t;
+    const qx = px - ax - bax * t, qy = py - ay - bay * t, qz = pz - az - baz * t; return Math.hypot(qx, qy, qz) - (p.ra + (p.rb - p.ra) * t); }
+  const smin = (a, b, k) => { const h = Math.max(k - Math.abs(a - b), 0) / k; return Math.min(a, b) - h * h * k * 0.25; };
+
+  const RES = 96;
+  function buildGeometry(spec, colorOf) {
+    const mc = three.mc, n = mc.size, half = mc.halfsize, S = spec.H * 0.56, yc = spec.H * 0.5, field = mc.field, pal = mc.palette, P = spec.P;
+    const cols = P.map(p => colorOf(p.key));
+    for (let z = 0; z < n; z++) { const wz = (z - half) / half * S;
+      for (let y = 0; y < n; y++) { const wy = (y - half) / half * S + yc;
+        for (let x = 0; x < n; x++) { const wx = (x - half) / half * S, q = x + y * n + z * n * n;
+          if (Math.abs(wz) > 0.24 * spec.H / 1.65 || Math.abs(wx) > 0.46 * spec.H / 1.65 || wy < -0.01 || wy > spec.H * 1.08) { field[q] = -0.05; pal[q * 3] = pal[q * 3 + 1] = pal[q * 3 + 2] = 0.8; continue; }
+          let d = 1e9, wr = 0, wg = 0, wb = 0, ws = 0;
+          for (let i = 0; i < P.length; i++) { const p = P[i], di = p.t === 'e' ? sdE(wx, wy, wz, p) : sdC(wx, wy, wz, p);
+            d = d === 1e9 ? di : smin(d, di, p.k);
+            if (di < 0.06) { const w = Math.exp(-Math.max(di, 0) / 0.012) * (di < 0 ? 1 + Math.min(4, -di * 60) : 1), c = cols[i]; wr += w * c[0]; wg += w * c[1]; wb += w * c[2]; ws += w; } }
+          field[q] = -d; if (ws) { pal[q * 3] = wr / ws; pal[q * 3 + 1] = wg / ws; pal[q * 3 + 2] = wb / ws; } else { pal[q * 3] = BASE[0]; pal[q * 3 + 1] = BASE[1]; pal[q * 3 + 2] = BASE[2]; }
+        } } }
+    mc.isolation = 0;
+    const g = mc.generateBufferGeometry();
+    g.scale(S, S, S); g.translate(0, yc, 0); // de volta para metros
+    return g;
   }
 
-  const SEG = 28, SUB = 4;
-  function loftGeom(rings) {
-    // interpola anéis (Catmull-Rom simples) para suavizar
-    const R = [];
-    const lerp = (p0, p1, p2, p3, t) => 0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t * t + (-p0 + 3 * p1 - 3 * p2 + p3) * t * t * t);
-    for (let i = 0; i < rings.length - 1; i++) {
-      const r0 = rings[Math.max(0, i - 1)], r1 = rings[i], r2 = rings[i + 1], r3 = rings[Math.min(rings.length - 1, i + 2)];
-      for (let s = 0; s < SUB; s++) {
-        const t = s / SUB, o = {};
-        for (const k of ['y', 'cx', 'cz', 'a', 'b']) o[k] = lerp(r0[k], r1[k], r2[k], r3[k], t);
-        o.src = [i, t]; R.push(o);
-      }
-    }
-    R.push({ ...rings[rings.length - 1], src: [rings.length - 1, 0] });
-    return R;
-  }
-  function buildMesh(rings, colorOf) {
-    const R = loftGeom(rings), n = R.length;
-    const pos = new Float32Array((n * (SEG + 1) + 2) * 3), col = new Float32Array((n * (SEG + 1) + 2) * 3), idx = [];
-    const g = new THREE.BufferGeometry();
-    g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setAttribute('color', new THREE.BufferAttribute(col, 3));
-    for (let i = 0; i < n - 1; i++) for (let j = 0; j < SEG; j++) {
-      const a = i * (SEG + 1) + j, b = a + SEG + 1;
-      idx.push(a, b, a + 1, b, b + 1, a + 1);
-    }
-    const c0 = n * (SEG + 1), c1 = c0 + 1;
-    for (let j = 0; j < SEG; j++) { idx.push(c0, j + 1, j); const t = (n - 1) * (SEG + 1); idx.push(c1, t + j, t + j + 1); }
-    g.setIndex(idx);
-    const mesh = new THREE.Mesh(g, three.mat); mesh.userData = { n };
-    updateMesh(mesh, rings, colorOf);
-    return mesh;
-  }
-  function updateMesh(mesh, rings, colorOf) {
-    const R = loftGeom(rings), n = R.length, g = mesh.geometry, pos = g.attributes.position.array, col = g.attributes.color.array;
-    for (let i = 0; i < n; i++) {
-      const r = R[i], [ri, t] = r.src;
-      const ca = colorOf(rings[ri]), cb = colorOf(rings[Math.min(rings.length - 1, ri + 1)]);
-      const c = [ca[0] + (cb[0] - ca[0]) * t, ca[1] + (cb[1] - ca[1]) * t, ca[2] + (cb[2] - ca[2]) * t];
-      for (let j = 0; j <= SEG; j++) {
-        const th = j / SEG * Math.PI * 2, k = (i * (SEG + 1) + j) * 3;
-        pos[k] = r.cx + Math.cos(th) * r.a; pos[k + 1] = r.y; pos[k + 2] = r.cz + Math.sin(th) * r.b;
-        col[k] = c[0]; col[k + 1] = c[1]; col[k + 2] = c[2];
-      }
-    }
-    const c0 = n * (SEG + 1) * 3;
-    pos[c0] = R[0].cx; pos[c0 + 1] = R[0].y; pos[c0 + 2] = R[0].cz; pos[c0 + 3] = R[n - 1].cx; pos[c0 + 4] = R[n - 1].y; pos[c0 + 5] = R[n - 1].cz;
-    for (let q = 0; q < 6; q++) col[c0 + q] = col[q % 3];
-    g.attributes.position.needsUpdate = true; g.attributes.color.needsUpdate = true; g.computeVertexNormals(); g.computeBoundingSphere();
-  }
-
-  const BASE = [0.86, 0.86, 0.9], GREEN = [0.25, 0.85, 0.23], RED = [0.93, 0.17, 0.17];
+  const BASE = [0.88, 0.87, 0.9], GREEN = [0.24, 0.84, 0.22], RED = [0.93, 0.18, 0.18];
   function colorFn(dmap) {
-    return ring => {
-      if (!cmpPrev || !ring.key || dmap[ring.key] == null) return BASE;
-      const d = dmap[ring.key]; if (Math.abs(d) < 0.25) return BASE;
-      const t = Math.min(1, Math.abs(d) / 3), C = d < 0 ? GREEN : RED;
-      return [BASE[0] + (C[0] - BASE[0]) * (0.45 + 0.55 * t), BASE[1] + (C[1] - BASE[1]) * (0.45 + 0.55 * t), BASE[2] + (C[2] - BASE[2]) * (0.45 + 0.55 * t)];
+    return key => {
+      if (!cmpPrev || !key || dmap[key] == null) return BASE;
+      const d = dmap[key]; if (Math.abs(d) < 0.25) return BASE;
+      const t = 0.5 + 0.5 * Math.min(1, Math.abs(d) / 3), C = d < 0 ? GREEN : RED;
+      return [BASE[0] + (C[0] - BASE[0]) * t, BASE[1] + (C[1] - BASE[1]) * t, BASE[2] + (C[2] - BASE[2]) * t];
     };
   }
-
   function initThree(el) {
     const W = el.clientWidth || 320, Hh = el.clientHeight || 460;
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
     renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1)); renderer.setSize(W, Hh);
+    renderer.outputEncoding = THREE.sRGBEncoding;
     el.innerHTML = ''; el.appendChild(renderer.domElement);
-    const scene = new THREE.Scene(), cam = new THREE.PerspectiveCamera(30, W / Hh, 0.1, 20);
-    scene.add(new THREE.HemisphereLight(0xffffff, 0x303038, 0.85));
-    const d1 = new THREE.DirectionalLight(0xffffff, 0.75); d1.position.set(1.5, 2.5, 2.5); scene.add(d1);
-    const d2 = new THREE.DirectionalLight(0xa95ee8, 0.35); d2.position.set(-2, 1, -1.5); scene.add(d2);
+    const scene = new THREE.Scene(), cam = new THREE.PerspectiveCamera(28, W / Hh, 0.1, 20);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x2a2a33, 0.75));
+    const key = new THREE.DirectionalLight(0xffffff, 0.95); key.position.set(1.6, 2.6, 2.4); scene.add(key);
+    const rim = new THREE.DirectionalLight(0xa95ee8, 0.55); rim.position.set(-2.2, 1.4, -1.8); scene.add(rim);
+    const rim2 = new THREE.DirectionalLight(0x3fd93a, 0.18); rim2.position.set(2.2, 0.8, -2); scene.add(rim2);
     const grp = new THREE.Group(); scene.add(grp);
-    const floor = new THREE.Mesh(new THREE.CircleGeometry(0.55, 48), new THREE.MeshBasicMaterial({ color: 0x1d1d21 })); floor.rotation.x = -Math.PI / 2; scene.add(floor);
-    const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.55, metalness: 0.05 });
-    three = { renderer, scene, cam, grp, mat, el, meshes: [], head: null, rotY: 0.35, auto: true, cur: null, target: null, anim: 0 };
-    // arrastar para girar
-    let drag = null;
-    const cv = renderer.domElement; cv.style.touchAction = 'pan-y'; cv.style.cursor = 'grab';
+    const floor = new THREE.Mesh(new THREE.RingGeometry(0.2, 0.42, 64), new THREE.MeshBasicMaterial({ color: 0x24242b, transparent: true, opacity: 0.9 }));
+    floor.rotation.x = -Math.PI / 2; floor.position.y = 0.001; scene.add(floor);
+    const shadow = new THREE.Mesh(new THREE.CircleGeometry(0.2, 48), new THREE.MeshBasicMaterial({ color: 0x050507, transparent: true, opacity: 0.65 })); shadow.rotation.x = -Math.PI / 2; scene.add(shadow);
+    const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.48, metalness: 0.04 });
+    const mc = new THREE.MarchingCubes(RES, mat, false, true);
+    three = { renderer, scene, cam, grp, mat, mc, el, mesh: null, rotY: 0.5, auto: true, job: 0 };
+    window.__atp3d = () => three;
+    let drag = null; const cv = renderer.domElement; cv.style.touchAction = 'pan-y'; cv.style.cursor = 'grab';
     cv.addEventListener('pointerdown', e => { drag = { x: e.clientX, r: three.rotY }; three.auto = false; cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; });
     cv.addEventListener('pointermove', e => { if (drag) three.rotY = drag.r + (e.clientX - drag.x) * 0.012; });
     cv.addEventListener('pointerup', () => { drag = null; cv.style.cursor = 'grab'; });
+    cv.addEventListener('dblclick', () => { three.auto = !three.auto; });
     new ResizeObserver(() => { const w = el.clientWidth, h = el.clientHeight; if (!w || !h) return; renderer.setSize(w, h); cam.aspect = w / h; cam.updateProjectionMatrix(); }).observe(el);
-    const loop = () => {
-      requestAnimationFrame(loop);
-      if (!el.isConnected || el.offsetParent === null) return;
-      if (three.auto) three.rotY += 0.004;
-      grp.rotation.y = three.rotY;
-      if (three.anim < 1 && three.from && three.target) { three.anim = Math.min(1, three.anim + 0.05); applySpec(mix(three.from, three.target, ease(three.anim))); }
-      renderer.render(scene, cam);
-    };
+    const loop = () => { requestAnimationFrame(loop); if (!el.isConnected || el.offsetParent === null) return; if (three.auto) three.rotY += 0.005; grp.rotation.y = three.rotY; renderer.render(scene, cam); };
     loop();
   }
-  const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-  function mix(A, B, t) {
-    return { H: A.H + (B.H - A.H) * t, headR: A.headR + (B.headR - A.headR) * t, headY: A.headY + (B.headY - A.headY) * t, col: B.col,
-      joints: A.joints.map((j, i) => { const q = B.joints[i], o = {}; for (const k in j) o[k] = j[k] + (q[k] - j[k]) * t; return o; }),
-      parts: A.parts.map((p, i) => p.map((r, j) => { const q = B.parts[i][j], o = { key: r.key }; for (const k of ['y', 'cx', 'cz', 'a', 'b']) o[k] = r[k] + (q[k] - r[k]) * t; return o; })) };
-  }
-  function applySpec(S) {
-    const col = colorFn(S.col || {});
-    if (!three.meshes.length) {
-      S.parts.forEach(p => { const m = buildMesh(p, col); three.grp.add(m); three.meshes.push(m); });
-      three.head = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 24), new THREE.MeshStandardMaterial({ color: 0xdcdce6, roughness: 0.55 }));
-      three.grp.add(three.head);
-      three.jm = S.joints.map(() => { const m = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 16), three.head.material); three.grp.add(m); return m; });
-    } else S.parts.forEach((p, i) => updateMesh(three.meshes[i], p, col));
-    S.joints.forEach((j, i) => { three.jm[i].position.set(j.x, j.y, j.z); three.jm[i].scale.set(j.sx, j.sy, j.sz); });
-    three.head.position.set(0, S.headY, 0.004); three.head.scale.set(S.headR * 0.86, S.headR * 1.08, S.headR * 0.98);
-    three.cam.position.set(0, S.H * 0.52, S.H * 2.15); three.cam.lookAt(0, S.H * 0.49, 0);
-    three.cur = S;
+  const mixP = (A, B, t) => ({ H: A.H + (B.H - A.H) * t, P: A.P.map((p, i) => { const q = B.P[i], o = { ...p }; for (const k of ['c', 'r', 'a', 'b']) if (p[k]) o[k] = p[k].map((v, j) => v + (q[k][j] - v) * t); if (p.ra != null) { o.ra = p.ra + (q.ra - p.ra) * t; o.rb = p.rb + (q.rb - p.rb) * t; } return o; }) });
+  function setMesh(spec, colorOf) {
+    const g = buildGeometry(spec, colorOf);
+    if (three.mesh) { three.grp.remove(three.mesh); three.mesh.geometry.dispose(); }
+    three.mesh = new THREE.Mesh(g, three.mat); three.grp.add(three.mesh);
+    three.cam.position.set(0, spec.H * 0.55, spec.H * 2.25); three.cam.lookAt(0, spec.H * 0.5, 0);
+    three.spec = spec;
   }
   async function show3D(a, prev, sexo, rootEl) {
     const el = rootEl.querySelector('.av3d'); if (!el) return;
     try { await loadThree(); } catch (e) { el.innerHTML = '<div class="empty">Não consegui carregar o 3D. Verifique a internet.</div>'; return; }
     if (!three || three.el !== el) { three = null; initThree(el); }
-    const S = bodySpec(a, sexo); S.col = prev ? deltas(a, prev).d : {};
-    if (!three.cur || three.sexo !== sexo) { three.meshes.forEach(m => three.grp.remove(m)); three.meshes = []; if (three.head) three.grp.remove(three.head); (three.jm || []).forEach(m => three.grp.remove(m)); three.jm = []; three.cur = null; three.sexo = sexo; applySpec(S); three.target = S; three.anim = 1; return; }
-    three.from = three.cur; three.target = S; three.anim = 0;
+    const spec = bodyPrims(a, sexo), col = colorFn(prev ? deltas(a, prev).d : {}), job = ++three.job;
+    const from = three.spec && three.sexo === sexo && three.spec.P.length === spec.P.length ? three.spec : null; three.sexo = sexo;
+    if (!from) return setMesh(spec, col);
+    // transição suave: alguns quadros intermediários
+    const steps = [0.25, 0.5, 0.75, 1]; let i = 0;
+    const next = () => { if (job !== three.job) return; setMesh(i < steps.length - 1 ? mixP(from, spec, steps[i]) : spec, col); if (i < steps.length - 1) { i++; setTimeout(next, 30); } };
+    next();
   }
 
   // ---------- gráfico de evolução ----------
@@ -250,7 +222,7 @@
     el.innerHTML = `
      <div class="avtop">
        <div class="avdates" role="tablist" aria-label="Avaliações">${L.map((x, i) => `<button role="tab" aria-selected="${i === sel}" data-sel="${i}">${fmtD(x.data).slice(0, 5)}<small>${x.data.slice(0, 4)}</small></button>`).join('')}</div>
-       ${coach ? `<div class="avact"><button class="mini ghost" data-av="sexo">Modelo: ${sexo === 'M' ? 'Masculino' : 'Feminino'}</button><label class="mini ghost" style="cursor:pointer">Importar PDF<input type="file" accept=".pdf,application/pdf,.json,application/json" data-avimp hidden></label><button class="mini ghost" data-av="edit">Editar</button><button class="mini" data-av="new">+ Nova avaliação</button></div>` : ''}
+       ${coach ? `<div class="avact"><button class="mini ghost" data-av="sexo">Modelo: ${sexo === 'M' ? 'Masculino' : 'Feminino'}</button><label class="mini ghost" style="cursor:pointer">Importar PDF<input type="file" accept=".pdf,application/pdf,.json,application/json" data-avimp hidden></label><button class="mini ghost" data-av="edit">Editar</button><button class="mini ghost" data-av="pdf">Gerar ficha (PDF)</button><button class="mini" data-av="new">+ Nova avaliação</button></div>` : ''}
      </div>
      <div class="avgrid">
        <div class="card av3card">
@@ -275,7 +247,7 @@
          </div>${a.extra ? `<p class="avobs"><b>${esc(a.extra)}</b></p>` : ''}${a.cooperObs ? `<p class="avobs"><b>Cooper:</b> ${esc(a.cooperObs)}</p>` : ''}${a.shuttleObs ? `<p class="avobs"><b>Shuttle:</b> ${esc(a.shuttleObs)}</p>` : ''}</div>
        </div>
      </div>
-     <div class="card" style="margin-top:16px"><h3 class="avh3">Perimetria corporal (cm)</h3><div class="pertab">${PER.map(([k, l]) => { const v = num(a.per && a.per[k]); const d = D && D.d[k]; const cls = d == null ? '' : Math.abs(d) < 0.25 ? 'z' : d < 0 ? 'g' : 'r'; return `<div class="pr"><span>${l}</span><b class="${cls}">${v == null ? '–' : f1(v, 2)}</b><i class="${cls}">${d == null || Math.abs(d) < 0.25 ? (d == null ? '' : '=') : (d > 0 ? '+' : '') + f1(d, 2)}</i></div>`; }).join('')}</div></div>
+     <div class="card" style="margin-top:16px"><div class="rhead"><h3 class="avh3" style="margin:0">Perimetria corporal (cm)</h3>${coach ? '<small style="color:var(--mute)">Toque num valor para editar. Salva sozinho.</small>' : ''}</div><div class="pertab">${PER.map(([k, l]) => { const v = num(a.per && a.per[k]); const d = D && D.d[k]; const cls = d == null ? '' : Math.abs(d) < 0.25 ? 'z' : d < 0 ? 'g' : 'r'; return `<div class="pr"><span>${l}</span>${coach ? `<input class="pin ${cls}" data-pk="${k}" inputmode="decimal" value="${v == null ? '' : String(v).replace('.', ',')}" placeholder="–" aria-label="${l} em cm">` : `<b class="${cls}">${v == null ? '–' : f1(v, 2)}</b>`}<i class="${cls}">${d == null || Math.abs(d) < 0.25 ? (d == null ? '' : '=') : (d > 0 ? '+' : '') + f1(d, 2)}</i></div>`; }).join('')}</div></div>
      ${a.obs || a.saude || a.medic ? `<div class="card" style="margin-top:16px"><h3 class="avh3">Observações</h3>${a.obs ? `<p class="avobs" style="white-space:pre-line">${esc(a.obs)}</p>` : ''}<div class="avmeta">${a.avaliador ? `<span><b>Avaliador:</b> ${esc(a.avaliador)}</span>` : ''}${a.saude ? `<span><b>Histórico de saúde:</b> ${esc(a.saude)}</span>` : ''}${a.medic ? `<span><b>Medicamentos:</b> ${esc(a.medic)}</span>` : ''}${a.risco ? `<span><b>Risco cardiovascular:</b> ${esc(a.risco)}</span>` : ''}${a.consid ? `<span><b>Considerações:</b> ${esc(a.consid)}</span>` : ''}</div></div>` : ''}
      <div class="card" style="margin-top:16px"><div class="rhead"><h3 class="avh3" style="margin:0">Evolução</h3><select id="av-metric" aria-label="Escolha o dado">${METRICS.map(([k, l]) => `<option value="${k}" ${k === metric ? 'selected' : ''}>${l}</option>`).join('')}</select></div><div id="av-evo">${evoChart(L, metric, (METRICS.find(m => m[0] === metric) || [, ''])[1])}</div></div>`;
     show3D(a, prev, sexo, el);
@@ -299,7 +271,7 @@
       <div style="display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap;margin-top:8px">${isNew ? '<span></span>' : `<button class="mini ghost warn" id="fa-del">Excluir avaliação</button>`}<button class="big" id="fa-save" style="padding:12px 22px">Salvar avaliação</button></div></div>`;
     modal.hidden = false;
     const g = id => document.getElementById(id);
-    g('fa-del') && (g('fa-del').onclick = e => { const b = e.target; if (!b.dataset.arm) { b.dataset.arm = 1; b.textContent = 'Toque de novo para excluir'; return; } saveList(avals().filter(x => x.id !== a.id)).then(() => { sel = -1; close(); }); });
+    g('fa-del') && (g('fa-del').onclick = e => { const b = e.target; if (!b.dataset.arm) { b.dataset.arm = 1; b.textContent = 'Toque de novo para excluir'; return; } sel = -1; saveList(avals().filter(x => x.id !== a.id)).then(() => { close(); renderAvals('av-root'); }); });
     g('fa-save').onclick = async () => {
       const o = { ...a, per: {} };
       for (const k of ['data', 'tipo', 'avaliador', 'flexaoCl', 'abdRemCl', 'extra', 'cooperObs', 'shuttleObs', 'saude', 'medic', 'risco', 'consid']) o[k] = g('fa-' + k).value.trim();
@@ -312,7 +284,7 @@
       if (!o.data) { g('fa-msg').className = 'amsg err'; g('fa-msg').textContent = 'Preencha a data.'; return; }
       o.id = o.id || rid();
       const L = avals().filter(x => x.id !== o.id); L.push(o);
-      await saveList(L); sel = avals().findIndex(x => x.id === o.id); close();
+      await saveList(L); sel = avals().findIndex(x => x.id === o.id); close(); renderAvals('av-root');
     };
   }
   async function saveList(L) {
@@ -320,6 +292,38 @@
     CURATH.avals = clean; renderAvals('av-root');
     setSync('Salvando…');
     try { await FS.collection('athletes').doc(AID).update({ avals: clean }); setSync('Salvo ✓'); } catch (e) { setSync('Não consegui salvar a avaliação.', 1); }
+  }
+
+  // ---------- ficha para imprimir / salvar em PDF ----------
+  function ficha() {
+    fixSel(); const L = avals(), a = L[sel]; if (!a) return; const prev = sel > 0 ? L[sel - 1] : null, D = prev ? deltas(a, prev) : null, I = imc(a);
+    let img = ''; try { if (three && three.renderer) { three.renderer.render(three.scene, three.cam); img = three.renderer.domElement.toDataURL('image/png'); } } catch (e) {}
+    const col = d => d == null ? '' : Math.abs(d) < 0.25 ? '#777' : d < 0 ? '#1f9d1a' : '#d81e1e';
+    const rows = PER.map(([k, l]) => { const v = num(a.per && a.per[k]), pv = prev && num(prev.per && prev.per[k]), d = D && D.d[k];
+      return `<tr><td>${l}</td><td>${pv == null ? '–' : f1(pv, 2)}</td><td style="color:${col(d)};font-weight:700">${v == null ? '–' : f1(v, 2)}</td><td style="color:${col(d)}">${d == null ? '' : Math.abs(d) < 0.25 ? '=' : (d > 0 ? '+' : '') + f1(d, 2)}</td></tr>`; }).join('');
+    const kv = (l, v) => `<div class="kv"><span>${l}</span><b>${v}</b></div>`;
+    const nome = esc((CURATH && CURATH.nome) || '');
+    const html = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Avaliação ${nome} ${fmtD(a.data)}</title><style>
+      @page{size:A4;margin:12mm}*{box-sizing:border-box}body{font-family:Arial,Helvetica,sans-serif;color:#111;margin:0;font-size:12px}
+      header{display:flex;align-items:center;gap:14px;border-bottom:4px solid;border-image:linear-gradient(90deg,#ee2b2b 33%,#3fd93a 33% 66%,#a95ee8 66%) 1;padding-bottom:10px;margin-bottom:12px}
+      header img{width:56px;height:56px}header h1{margin:0;font-size:20px;font-style:italic}header p{margin:2px 0 0;color:#555}
+      .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:12px}.kv{border:1px solid #ddd;border-radius:6px;padding:6px 8px}.kv span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#666}.kv b{font-size:15px}
+      .two{display:grid;grid-template-columns:230px 1fr;gap:14px;align-items:start}.body{background:#111;border-radius:8px;text-align:center}.body img{width:100%}
+      table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #e3e3e3;padding:4px 6px;text-align:left}th{background:#111;color:#fff;font-size:10px;text-transform:uppercase}
+      .cnt{display:flex;gap:16px;font-weight:700;margin:8px 0}.g{color:#1f9d1a}.r{color:#d81e1e}h2{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;margin:14px 0 6px}
+      .obs{white-space:pre-line;color:#333;line-height:1.45}footer{margin-top:16px;color:#888;font-size:10px}</style></head><body>
+      <header><img src="${location.origin}/img/icon-192.png" alt=""><div><h1>ATP — AVALIAÇÃO FÍSICA</h1><p>${nome} · ${fmtD(a.data)} · ${esc(a.tipo || '')} · Avaliador: ${esc(a.avaliador || '')}</p></div></header>
+      <div class="grid">${kv('Peso', f1(num(a.peso)) + ' kg')}${kv('Altura', f1(num(a.altura), 3) + ' m')}${kv('Idade', a.idade ?? '–')}${kv('IMC', f1(I, 2) + ' · ' + clsImc(I))}${kv('Novo índice', f1(novoIdx(a), 2))}
+        ${kv('% Gordura', a.gordura != null ? f1(num(a.gordura)) + '%' : '–')}${kv('VO₂ máx', a.vo2 != null ? f1(num(a.vo2), 2) : '–')}${kv('Água/dia', a.agua != null ? f1(num(a.agua), 0) + ' ml' : '–')}${kv('Metab. basal', a.tmb != null ? f1(num(a.tmb), 0) : '–')}${kv('Cooper', a.cooper != null ? f1(num(a.cooper), 0) + ' m' : '–')}</div>
+      <div class="two"><div class="body">${img ? `<img src="${img}" alt="Corpo 3D">` : ''}</div><div>
+        ${D ? `<div class="cnt"><span class="g">${D.dim} diminuições</span><span>${D.seg} seguiram</span><span class="r">${D.aum} aumentos</span></div>` : '<div class="cnt">Avaliação base</div>'}
+        <table><thead><tr><th>Perimetria (cm)</th><th>${prev ? fmtD(prev.data) : 'Anterior'}</th><th>${fmtD(a.data)}</th><th>Δ</th></tr></thead><tbody>${rows}</tbody></table></div></div>
+      <h2>Testes</h2><div class="grid">${kv('Cooper (12 min)', a.cooper != null ? f1(num(a.cooper), 0) + ' m' : '–')}${kv('Shuttle Run', a.shuttle != null ? f1(num(a.shuttle), 2) + ' s' : '–')}${kv('Flexão', (a.flexao ?? '–') + (a.flexaoCl ? ' · ' + esc(a.flexaoCl) : ''))}${kv('Abd. remador', (a.abdRem ?? '–') + (a.abdRemCl ? ' · ' + esc(a.abdRemCl) : ''))}${kv('Outro', esc(a.extra || '–'))}</div>
+      ${a.obs || a.cooperObs || a.shuttleObs ? `<h2>Observações</h2><div class="obs">${esc([a.obs, a.cooperObs && 'Cooper: ' + a.cooperObs, a.shuttleObs && 'Shuttle: ' + a.shuttleObs].filter(Boolean).join('\n'))}</div>` : ''}
+      <footer>Amaral Training Performance · gerado em ${new Date().toLocaleDateString('pt-BR')}</footer>
+      <script>window.onload=()=>setTimeout(()=>window.print(),300)<\/script></body></html>`;
+    const w = window.open('', '_blank'); if (!w) { setSync('Libere pop-ups para gerar a ficha.', 1); return; }
+    w.document.open(); w.document.write(html); w.document.close();
   }
 
   // ---------- importar PDF da ficha de coleta ----------
@@ -400,7 +404,7 @@
         if (a.altura > 3) a.altura /= 100; a.id = rid(); add.push(a);
       });
       if (!add.length) { modal.querySelector('#imp-msg').className = 'amsg err'; modal.querySelector('#imp-msg').textContent = 'Nenhuma avaliação marcada.'; return; }
-      await saveList(avals().filter(x => !add.some(y => y.data === x.data)).concat(add)); sel = -1; close(); setSync(add.length + ' avaliações importadas ✓');
+      sel = -1; await saveList(avals().filter(x => !add.some(y => y.data === x.data)).concat(add)); close(); renderAvals('av-root'); setSync(add.length + ' avaliações importadas ✓');
     };
   }
 
@@ -410,8 +414,9 @@
     if (b.dataset.sel != null) { sel = +b.dataset.sel; return renderAvals(b.closest('#a-av-root') ? 'a-av-root' : 'av-root'); }
     const a = b.dataset.av;
     if (a === 'new') return form(null);
-    if (a === 'edit') return form(JSON.parse(JSON.stringify(avals()[sel])));
-    if (a === 'sexo') { const s = (CURATH.sexo || 'F') === 'F' ? 'M' : 'F'; CURATH.sexo = s; FS.collection('athletes').doc(AID).update({ sexo: s }).catch(() => {}); three = null; renderAvals('av-root'); }
+    if (a === 'edit') { fixSel(); return avals()[sel] && form(JSON.parse(JSON.stringify(avals()[sel]))); }
+    if (a === 'pdf') return ficha();
+    if (a === 'sexo') { const s = (CURATH.sexo || 'F') === 'F' ? 'M' : 'F'; CURATH.sexo = s; FS.collection('athletes').doc(AID).update({ sexo: s }).catch(() => {}); if (three) three.spec = null; renderAvals('av-root'); }
   });
   document.addEventListener('input', e => {
     const t = e.target, rt = t.closest && t.closest('#av-root,#a-av-root'); if (!rt) return;
@@ -419,6 +424,9 @@
   });
   document.addEventListener('change', e => {
     const t = e.target, rt = t.closest && t.closest('#av-root,#a-av-root'); if (!rt) return;
+    if (t.classList.contains('pin')) { fixSel(); const L = avals(), a = L[sel]; if (!a) return; a.per = a.per || {}; const v = num(t.value);
+      if (t.value.trim() === '') delete a.per[t.dataset.pk]; else if (v == null || v <= 0 || v > 250) { setSync('Valor inválido para ' + PERL[t.dataset.pk] + '.', 1); t.value = a.per[t.dataset.pk] ?? ''; return; } else a.per[t.dataset.pk] = v;
+      const id = a.id; saveList(L).then(() => { sel = avals().findIndex(x => x.id === id); const n = rt.querySelector(`[data-pk="${t.dataset.pk}"]`); }); return; }
     if (t.matches && t.matches('[data-avimp]') && t.files[0] && /\.pdf$/i.test(t.files[0].name)) { importPDF(t.files[0]); t.value = ''; return; }
     if (t.matches && t.matches('[data-avimp]') && t.files[0]) {
       t.files[0].text().then(txt => {
@@ -426,13 +434,14 @@
         if (!Array.isArray(L) || !L.every(x => x && x.data)) return setSync('Arquivo inválido: cada avaliação precisa ter data.', 1);
         const cur = avals(), seen = new Set(cur.map(x => x.data));
         const novas = L.filter(x => !seen.has(x.data)).map(x => ({ ...x, id: x.id || rid() }));
-        saveList(cur.concat(novas)).then(() => { sel = -1; renderAvals('av-root'); setSync(novas.length + ' avaliações importadas ✓'); });
+        sel = -1; saveList(cur.concat(novas)).then(() => { renderAvals('av-root'); setSync(novas.length + ' avaliações importadas ✓'); });
       });
       return;
     }
     if (t.id === 'av-cmp') { cmpPrev = t.checked; renderAvals(rt.id); }
     if (t.id === 'av-metric') { metric = t.value; const L = avals(); rt.querySelector('#av-evo').innerHTML = evoChart(L, metric, (METRICS.find(m => m[0] === metric) || [, ''])[1]); }
   });
+  document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('pin')) { e.preventDefault(); const all = [...document.querySelectorAll('#av-root .pin')], i = all.indexOf(e.target); e.target.blur(); setTimeout(() => { const n = document.querySelectorAll('#av-root .pin')[i + 1]; n && n.focus(); n && n.select(); }, 60); } });
   // redesenha quando os dados mudam ou quando a aba abre
   const _ra = window.renderAll;
   window.renderAll = function () { _ra.apply(this, arguments); const c = document.getElementById('av'), s = document.getElementById('a-av'); if (c && !c.hidden) renderAvals('av-root'); if (s && !s.hidden) renderAvals('a-av-root'); };
