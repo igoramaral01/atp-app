@@ -56,7 +56,7 @@
       return `<div class="rb"><span class="rv">${d.km ? f1(d.km) : ''}</span><i style="height:${Math.max(h, 3)}px;background:${c}"></i><b>${d.n}</b><small>${d.iso.slice(8)}</small></div>` }).join('');
     const linhas = D.porDia.map(d => d.rows.map(o => { const r = o.r, ds = typeKey(r.t) === 'descanso';
       const pill = ds ? '<span class="pill" style="background:#2a2a30">DESCANSO</span>' : r.s === '✓' ? '<span class="pill p-ok">FEITO</span>' : r.s === '✗' ? '<span class="pill p-no">NÃO FEZ</span>' : '<span class="pill" style="background:#2a2a30;color:#9a9aa3">PENDENTE</span>';
-      const ex = (r.ext || []).map(x => `<div class="ob">⌚ ${esc(SRC(x.src))}: ${f1(x.km)} km · ${Math.round(x.min)} min${pace(x.km, x.min) ? ' · ' + pace(x.km, x.min) : ''}${x.fc ? ' · FC ' + Math.round(x.fc) : ''}${x.kcal ? ' · ' + Math.round(x.kcal) + ' kcal' : ''}${x.alt ? ' · ↑' + Math.round(x.alt) + ' m' : ''}${x.tiros ? ' · tiros ' + x.tiros.n + '×' + f1(x.tiros.km) + ' km' + (x.tiros.media ? ' a ' + fmtT(x.tiros.media) + '/km' : '') : ''}</div>`).join('');
+      const ex = (r.ext || []).map(x => `<div class="ob">⌚ ${esc(SRC(x.src))}: ${f1(x.km)} km · ${Math.round(x.min)} min${pace(x.km, x.min) ? ' · ' + pace(x.km, x.min) : ''}${x.fc ? ' · FC ' + Math.round(x.fc) : ''}${x.kcal ? ' · ' + Math.round(x.kcal) + ' kcal' : ''}${x.alt ? ' · ↑' + Math.round(x.alt) + ' m' : ''}${x.tiros ? ' · tiros ' + x.tiros.n + '×' + f1(x.tiros.km) + ' km' + (x.tiros.media ? ' a ' + fmtT(x.tiros.media) + '/km' : '') : ''} <button class="mini ghost" data-rmext="${esc(r.id)}|${esc(x.id)}" style="padding:2px 8px;font-size:11px">remover</button></div>`).join('');
       return `<div class="rrow"><div class="dt">${d.iso.slice(8)}/${d.iso.slice(5, 7)}<small>${d.n}</small></div><div style="min-width:0"><b>${esc(r.t || '—')}</b><div class="ct">${esc(String(r.c || '').split('\n')[0])}</div>${kmN(r.kmd) ? `<div class="ob">📏 ${f1(kmN(r.kmd))} km${r.r ? ' · esforço ' + esc(r.r) : ''}</div>` : r.r ? `<div class="ob">Esforço ${esc(r.r)}</div>` : ''}${ex}${r.o ? `<div class="ob">💬 ${esc(r.o)}</div>` : ''}</div>${pill}</div>` }).join('')).join('');
     const tp = Object.entries(D.tipos).map(([k, v]) => `<span class="tchip"><i style="background:${v.c}"></i>${esc(k)} ${v.f}/${v.n}</span>`).join('');
     R.innerHTML = `<div class="relnav"><button class="btn" data-rw="-1" aria-label="Semana anterior">‹</button><div><div class="eyebrow">Relatório semanal</div><b>${dm(WK)} a ${dm(addD(WK, 6))}</b></div><button class="btn" data-rw="1" aria-label="Próxima semana">›</button></div>
@@ -144,7 +144,7 @@
     for (const a of acts) {
       const iso = String(a.data).slice(0, 10); const o = rows.find(o => o.iso === iso && o.r.t && typeKey(o.r.t) !== 'descanso') || rows.find(o => o.iso === iso);
       if (!o) { sem++; continue }
-      const r = o.r, L = (r.ext || []).filter(x => String(x.id) !== String(a.id)); const novo = !(r.ext || []).some(x => String(x.id) === String(a.id));
+      const r = o.r, L = (r.ext || []).filter(x => String(x.id) !== String(a.id) && !(a.src === 'print' && x.src === 'print')); // um print novo substitui o anterior do mesmo dia const novo = !(r.ext || []).some(x => String(x.id) === String(a.id));
       L.push({ id: a.id, src: a.src, tipo: a.tipo || '', nome: String(a.nome || '').slice(0, 60), km: a.km, min: a.min, fc: a.fc || null, kcal: a.kcal || null, alt: a.alt || null, tiros: a.tiros || null });
       r.ext = L; const km = L.filter(x => RUN.test(x.tipo || 'run')).reduce((t, x) => t + (x.km || 0), 0);
       if (km) r.kmd = String(Math.round(km * 100) / 100); if (!r.s) r.s = '✓'; if (novo) n++; mud.add(r) }
@@ -288,6 +288,15 @@
     return o;
   }
   window.__lerTexto = lerTexto;
+  // remover uma atividade importada (print/arquivo) de um dia
+  window.removerExt = function (rowId, extId) {
+    for (const m of months) for (const r of m.rows) if (r.id === rowId && r.ext) {
+      r.ext = r.ext.filter(x => String(x.id) !== String(extId)); const km = r.ext.filter(x => RUN.test(x.tipo || 'run')).reduce((t, x) => t + (x.km || 0), 0);
+      r.kmd = km ? String(Math.round(km * 100) / 100) : ''; if (!r.ext.length) r.ext = null;
+      if (isAth()) athFb(r); else if (typeof save === 'function') save(); renderAll(); return true }
+    return false };
+  document.addEventListener('click', e => { const b = e.target.closest('[data-rmext]'); if (!b) return; const [rid, xid] = b.dataset.rmext.split('|');
+    if (confirm('Remover esta atividade importada? Os km do dia serão recalculados.')) removerExt(rid, xid) });
   let TESS = null;
   const loadTess = () => TESS || (TESS = new Promise((ok, no) => { if (window.Tesseract) return ok(window.Tesseract); const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js'; s.onload = () => ok(window.Tesseract); s.onerror = () => { TESS = null; no(new Error('sem internet para carregar o leitor')) }; document.head.appendChild(s) }));
   async function prepImg(file) { // aumenta contraste e tamanho para ler melhor (inclusive prints em modo escuro)
