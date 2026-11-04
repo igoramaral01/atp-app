@@ -209,6 +209,7 @@ td select{background:var(--c,#ccc);color:#111;border:0;border-radius:4px;font:60
 @keyframes spBar{from{transform:translateX(-100%)}to{transform:translateX(260%)}}
 @keyframes spOut{to{transform:scale(2.4);opacity:0}}
 @media(prefers-reduced-motion:reduce){#splash *{animation:none!important;opacity:1!important}}
+.rmet{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px;margin:8px 0 4px}.rmet>div{background:var(--panel2);border-radius:8px;padding:6px 8px}.rmet small{display:block;font-size:10px;color:var(--mute);font-weight:700;letter-spacing:.05em}.rmet b{font-family:var(--mono);font-size:16px}.rmet i{font-style:normal;color:var(--mute);font-size:11px;margin-left:3px}
 .runner{position:fixed;inset:0;z-index:70;background:var(--bg);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 .r-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
 .r-top b{font-family:var(--display);font-style:italic;font-weight:900;text-transform:uppercase;font-size:15px}
@@ -839,10 +840,21 @@ function fillFilter(){const sel=document.getElementById('rf-x'),cur=sel.value;le
  else if(RG){const ex=[...new Set(sessoes().flatMap(s=>s.ex.filter(e=>e.sets.length).map(e=>e.n)))].sort();opts=ex.map(v=>[v,v]);if(!opts.length)opts=[['','Sem exercícios registrados']]}
  else{const f=[...new Set(sessoes().map(s=>s.ficha))].sort();opts=[['','Todas as fichas'],...f.map(v=>[v,'Ficha '+v])]}
  sel.innerHTML=opts.map(([v,l])=>`<option value="${esc(v)}">${esc(l)}</option>`).join('');if(opts.some(o=>o[0]===cur))sel.value=cur}
+// métricas de corrida vindas do print/arquivo (r.ext) ou do km digitado
+function runAgg(r){const E=(r.ext||[]).filter(x=>!/ride|bike/i.test(x.tipo||''));let km=E.reduce((t,x)=>t+(x.km||0),0),min=E.reduce((t,x)=>t+(x.min||0),0);const fc=E.filter(x=>x.fc),kc=E.reduce((t,x)=>t+(x.kcal||0),0),al=E.reduce((t,x)=>t+(x.alt||0),0);
+ if(!km)km=kmN(r.kmd)||0;return{km,min,fc:fc.length?fc.reduce((t,x)=>t+x.fc*(x.min||1),0)/fc.reduce((t,x)=>t+(x.min||1),0):null,kcal:kc||null,alt:al||null,src:[...new Set(E.map(x=>x.src==='print'?'Print':x.src==='strava'?'Strava':'Arquivo'))].join(', ')}}
+const paceF=(km,min)=>{if(!km||!min)return'–';const p=min/km;let m=Math.floor(p),sx=Math.round((p-m)*60);if(sx===60){m++;sx=0}return m+':'+String(sx).padStart(2,'0')};
+const tempoF=min=>{if(!min)return'–';const s=Math.round(min*60),h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return(h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0')};
+function runMet(r){const a=runAgg(r);if(!a.km&&!a.min)return'';const c=(l,v,u)=>`<div><small>${l}</small><b>${v}</b>${u?`<i>${u}</i>`:''}</div>`;
+ return`<div class="rmet">${c('DISTÂNCIA',a.km?kmF(a.km):'–','km')}${c('TEMPO',tempoF(a.min))}${c('PACE MÉDIO',paceF(a.km,a.min),'/km')}${a.fc?c('FC MÉDIA',Math.round(a.fc),'bpm'):''}${a.kcal?c('CALORIAS',Math.round(a.kcal),'kcal'):''}${a.alt?c('ELEVAÇÃO',Math.round(a.alt),'m'):''}</div>${a.src?`<div class="ob" style="font-size:11px">Fonte: ${esc(a.src)}${r.p?' · esforço previsto '+esc(r.p):''}</div>`:''}`}
+function runKpis(it){const A=it.filter(o=>o.r.s==='✓').map(o=>runAgg(o.r)),km=A.reduce((t,a)=>t+a.km,0),T=A.filter(a=>a.km&&a.min),kmT=T.reduce((t,a)=>t+a.km,0),mn=T.reduce((t,a)=>t+a.min,0),F=A.filter(a=>a.fc);
+ const best=T.slice().sort((a,b)=>a.min/a.km-b.min/b.km)[0],lg=A.slice().sort((a,b)=>b.km-a.km)[0];
+ const c=(l,v,d)=>`<div><small>${l}</small><b>${v}</b><span>${d||''}</span></div>`;
+ return`<div class="relk" style="margin:0 0 14px">${c('TREINOS FEITOS',A.length,it.length+' no período')}${c('KM TOTAL',kmF(km),'km')}${c('PACE MÉDIO',paceF(kmT,mn),'/km · '+tempoF(mn)+' no total')}${c('FC MÉDIA',F.length?Math.round(F.reduce((t,a)=>t+a.fc,0)/F.length):'–','bpm')}${c('MAIS LONGO',lg&&lg.km?kmF(lg.km):'–','km')}${c('MELHOR PACE',best?paceF(best.km,best.min):'–','/km'+(best?' em '+kmF(best.km)+' km':''))}</div>`}
 function renderReal(){const L=document.getElementById('real-l'),G=document.getElementById('real-g');if(!L)return;fillFilter();const fx=document.getElementById('rf-x').value;
  document.getElementById('rf-graf').hidden=RM!=='academia';document.getElementById('rf-graf').textContent=RG?'Lista':'Gráfico';G.hidden=!(RM==='academia'&&RG);L.hidden=RM==='academia'&&RG;
  if(RM==='corrida'){const it=realCorrida().filter(o=>!o.acad&&inRange(o.iso)&&(!fx||typeKey(o.r.t)===fx)).reverse();
-  L.innerHTML=it.length?`<div class="rcard">${it.map(o=>{const r=o.r;return`<div class="rrow"><div class="dt">${fmtBR(o.iso).slice(0,5)}<small>${esc(String(r.d).split(' ')[0].slice(0,3))} · ${esc(o.m)}</small></div><div style="min-width:0"><b>${esc(r.t)}</b><div class="ct">${esc(r.c)}</div>${r.o?`<div class="ob">💬 ${esc(r.o)}</div>`:''}</div><span class="pill ${r.s==='✓'?'p-ok':'p-no'}">${r.s==='✓'?(r.r?'RPE '+esc(r.r):'FEITO'):'NÃO FEZ'}</span></div>`}).join('')}</div>`
+  L.innerHTML=it.length?runKpis(it)+`<div class="rcard">${it.map(o=>{const r=o.r;return`<div class="rrow"><div class="dt">${fmtBR(o.iso).slice(0,5)}<small>${esc(String(r.d).split(' ')[0].slice(0,3))} · ${esc(o.m)}</small></div><div style="min-width:0"><b>${esc(r.t)}</b><div class="ct">${esc(r.c)}</div>${runMet(r)}${r.o?`<div class="ob">💬 ${esc(r.o)}</div>`:''}</div><span class="pill ${r.s==='✓'?'p-ok':'p-no'}">${r.s==='✓'?(r.r?'RPE '+esc(r.r):'FEITO'):'NÃO FEZ'}</span></div>`}).join('')}</div>`
    :'<div class="empty">Nenhum treino de corrida marcado como feito (✓) ou não feito (✗) neste período.</div>';return}
  const ss=sessoes().filter(s=>inRange(s.iso)&&(RG||!fx||s.ficha===fx));
  if(RG)return renderRealGraf(fx);
