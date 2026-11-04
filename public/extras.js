@@ -325,5 +325,5 @@ const setMsg=(id,t)=>{MSG[id]=t;const m=document.getElementById(id);if(m)m.textC
     renderRel(); renderCfg();
     if (!synced && isAth()) { synced = true; setTimeout(() => syncStrava(false), 1500) }
   };
-  if (typeof CURATH !== 'undefined' && CURATH) window.renderExtras();
+  try { if (CURATH) window.renderExtras() } catch (e) { }
 })();
