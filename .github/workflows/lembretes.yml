@@ -1,0 +1,22 @@
+name: Lembretes de treino
+on:
+  schedule:
+    - cron: '3 * * * *'   # de hora em hora; o script só envia nas horas escolhidas por cada aluno
+  workflow_dispatch:
+    inputs:
+      hora:
+        description: 'Simular hora (0-23, horário de Brasília). Vazio = hora atual'
+        required: false
+jobs:
+  lembretes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm i --no-save firebase-admin@12.7.0
+      - run: node scripts/lembretes.mjs
+        env:
+          FIREBASE_SA: ${{ secrets.FIREBASE_SA }}
+          HORA: ${{ github.event.inputs.hora }}

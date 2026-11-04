@@ -2,7 +2,8 @@ rules_version = '2';
 // Regras de segurança do ATP App.
 // - Treinador (dono de meta/coach) lê e edita tudo.
 // - Atleta lê só o próprio documento e só pode alterar feedback (fb),
-//   cargas (hist), sessões de treino (sessions) e o aceite dos termos.
+//   cargas (hist), sessões de treino (sessions), o aceite dos termos,
+//   a conexão com o Strava (strava) e os lembretes (push).
 service cloud.firestore {
   match /databases/{db}/documents {
     function signed() { return request.auth != null; }
@@ -24,7 +25,7 @@ service cloud.firestore {
       allow read, write: if isCoach();
       allow read: if isAthleteOf(id);
       allow update: if isAthleteOf(id)
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fb', 'hist', 'sessions', 'termos']);
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fb', 'hist', 'sessions', 'termos', 'strava', 'push']);
     }
     // vínculo e-mail -> conta de login (para recadastrar um aluno excluído)
     match /emails/{email} {

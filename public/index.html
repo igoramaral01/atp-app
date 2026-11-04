@@ -181,6 +181,15 @@ td select{background:var(--c,#ccc);color:#111;border:0;border-radius:4px;font:60
 .fitem:hover{border-color:var(--red)}
 .fitem .code{font-family:var(--display);font-style:italic;font-weight:900;font-size:26px;width:58px;text-align:center;color:var(--red)}
 .fitem small{display:block;color:var(--mute);font-size:12px}
+.relnav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;text-align:center}.relnav .btn{min-width:44px;font-size:20px}
+.relhero{display:flex;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.relk{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.relk>div{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:12px;padding:10px 12px}
+.relk small{display:block;color:var(--mute);font-size:11px;font-weight:700;letter-spacing:.06em}.relk b{display:block;font-family:var(--display);font-size:26px;font-weight:800}.relk span{color:var(--mute);font-size:12px}
+@media(min-width:700px){.relk{grid-template-columns:repeat(4,1fr)}}
+.relbar{height:8px;background:var(--line);border-radius:6px;margin-top:10px;overflow:hidden}.relbar i{display:block;height:100%;background:var(--green)}
+.rbars{display:flex;align-items:flex-end;gap:6px;height:140px;margin-top:10px}.rb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;font-size:11px}
+.rb i{display:block;width:70%;max-width:34px;border-radius:5px 5px 0 0}.rb .rv{color:var(--fg);font-weight:700}.rb small{color:var(--mute)}
+.tchip{display:inline-flex;align-items:center;gap:5px;background:var(--panel2);border-radius:20px;padding:3px 9px;font-size:12px}.tchip i{width:8px;height:8px;border-radius:50%}
 .runner{position:fixed;inset:0;z-index:70;background:var(--bg);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 .r-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
 .r-top b{font-family:var(--display);font-style:italic;font-weight:900;text-transform:uppercase;font-size:15px}
@@ -478,6 +487,8 @@ tr.hoje td{background:rgba(169,94,232,.12)}tr.hoje td.rn{background:var(--purple
     <button role="tab" aria-selected="false" data-t="treinos">Treinos</button>
     <button role="tab" aria-selected="false" data-t="cal">Calendário</button>
     <button role="tab" aria-selected="false" data-t="a-av">Avaliações</button>
+    <button role="tab" aria-selected="false" data-t="a-rel">Relatório</button>
+    <button role="tab" aria-selected="false" data-t="a-cfg">Conexões</button>
   </div>
   <div id="hoje" class="panel"><div class="phone today">
     <div id="a-treino"></div>
@@ -496,6 +507,8 @@ tr.hoje td{background:rgba(169,94,232,.12)}tr.hoje td.rn{background:var(--purple
   </div></div>
   <div id="treinos" class="panel" hidden><div class="flist" id="a-fichas"></div></div>
   <div id="a-av" class="panel" hidden><div id="a-av-root"></div></div>
+  <div id="a-rel" class="panel" hidden><div id="rel-root"></div></div>
+  <div id="a-cfg" class="panel" hidden><div id="cfg-root"></div></div>
   <div id="cal" class="panel" hidden><div class="card"><div class="eyebrow" style="margin-bottom:10px" id="cal-t"></div><div class="cal" id="calg"></div></div></div>
 </section>
 </div>
@@ -503,6 +516,8 @@ tr.hoje td{background:rgba(169,94,232,.12)}tr.hoje td.rn{background:var(--purple
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const TYPE_PAL=['#f4c9a0','#f0a070','#9fe39a','#f5df8a','#f2b36b','#c9a6f0','#9fd6f0','#f0a3c9','#b5e0a0','#e8c58a','#a8b8f0','#f0b3a3','#d6e88a','#8ae0d0'];
 const _nr=t=>String(t??'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
@@ -545,7 +560,7 @@ function renderTable(){const m=M(),cols=m.cols,n=cols.length,TYPES=allTypes(),TR
    return`<td class="${cls}${sc}" contenteditable data-i="${i}" data-c="${ci}" data-k="${c.id}">${esc(v)}</td>`}).join('')+'</tr>'}).join('');
  renderSheets()}
 function renderSheets(){document.getElementById('sheets').innerHTML=months.map((m,i)=>`<button class="${i===cur?'on':''}" data-m="${i}" title="Dois cliques para renomear">${esc(m.nome)}</button>`).join('')+'<button class="plus" data-m="new" title="Adicionar mês" aria-label="Adicionar mês">+</button>'}
-function renderAll(){renderTable();renderChart();renderHome();if(typeof renderReal==='function')renderReal();if(typeof renderFichasAluno==='function')renderFichasAluno();if(typeof renderAluno==='function'&&document.getElementById('calg'))renderAluno()}
+function renderAll(){if(typeof renderExtras==='function')setTimeout(renderExtras);renderTable();renderChart();renderHome();if(typeof renderReal==='function')renderReal();if(typeof renderFichasAluno==='function')renderFichasAluno();if(typeof renderAluno==='function'&&document.getElementById('calg'))renderAluno()}
 const blank=(d)=>({s:'',d:d?DIAS[d.getDay()]:'',dt:d?String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0'):'',t:'',c:'',p:'',r:'',o:''});
 function lastDate(){const D=datedRows();return D.length?new Date(D[D.length-1].dt):new Date(2026,10,1)}
 function lastWeekNum(){let w=0;for(const m of months)for(const r of m.rows)if(r.w!=null&&+r.w>w)w=+r.w;return w}
@@ -905,11 +920,11 @@ const clean=o=>JSON.parse(JSON.stringify(o));
 function athH(){const n=(CURATH&&CURATH.nome||'Aluno').trim().split(/\s+/);return esc(n[0])+(n.length>1?' <em>'+esc(n.slice(1).join(' '))+'</em>':'')}
 function setSync(t,err){syncEl.hidden=false;syncEl.textContent=t;syncEl.classList.toggle('err',!!err);clearTimeout(setSync.t);if(!err)setSync.t=setTimeout(()=>syncEl.hidden=true,2500)}
 function ensureIds(){const seen=new Set();for(const m of months)for(const r of m.rows)if(r.w==null&&r.sum==null){if(!r.id||seen.has(r.id))r.id=rid();seen.add(r.id)}}
-function fbFromRows(){const o={};for(const m of months)for(const r of m.rows)if(r.id&&(r.s||(r.r!==''&&r.r!=null)||r.o||(r.kmd!==''&&r.kmd!=null)))o[r.id]={s:r.s||'',r:r.r??'',o:r.o||'',kmd:r.kmd??''};return o}
+function fbFromRows(){const o={};for(const m of months)for(const r of m.rows)if(r.id&&(r.s||(r.r!==''&&r.r!=null)||r.o||(r.kmd!==''&&r.kmd!=null))){o[r.id]={s:r.s||'',r:r.r??'',o:r.o||'',kmd:r.kmd??''};if(r.ext)o[r.id].ext=r.ext}return o}
 const planStr=()=>JSON.stringify({months,pastas});
 const busy=()=>{const a=document.activeElement;return a&&(a.isContentEditable||/INPUT|TEXTAREA|SELECT/.test(a.tagName))&&!runner.contains(a)};
 function applyDoc(d){CURATH=d;LOADED=true;months.splice(0,months.length,...(d.months&&d.months.length?d.months:[newMonth('MÊS 1',new Date())]));normTypes();months.forEach(ensureKmCol);pastas.splice(0,pastas.length,...(d.pastas||[]));
- const fb=d.fb||{};for(const m of months)for(const r of m.rows)if(r.id&&fb[r.id])Object.assign(r,{s:fb[r.id].s||'',r:fb[r.id].r??'',o:fb[r.id].o||'',kmd:fb[r.id].kmd??r.kmd??''});
+ const fb=d.fb||{};for(const m of months)for(const r of m.rows)if(r.id&&fb[r.id])Object.assign(r,{s:fb[r.id].s||'',r:fb[r.id].r??'',o:fb[r.id].o||'',kmd:fb[r.id].kmd??r.kmd??'',ext:fb[r.id].ext||null});
  for(const k in HIST)delete HIST[k];Object.assign(HIST,d.hist||{});
  if(cur>=months.length)cur=0;if(pasta!=null&&pasta>=pastas.length)pasta=null;ensureIds();lastSaved=planStr();prevFb=fbFromRows();undoStack.length=0;document.getElementById('undo').disabled=true;
  renderAll();renderProgs();const ct=document.querySelector('#coach .tabs [aria-selected="true"]');if(ct&&ct.dataset.t!=='home')document.getElementById('c-h1').innerHTML=athH();
@@ -927,7 +942,7 @@ async function save(){if(!LOADED||!AID)return;saving=true;const s0=planStr(),now
  const p=FS.collection('athletes').doc(AID).update(upd);lastSaved=s0;prevFb=now;saving=false;
  try{await p;setSync('Salvo ✓')}catch(e){lastSaved='';setSync('Não consegui salvar. Tentando de novo…',1)}}
 window.addEventListener('beforeunload',e=>{if(ROLE==='coach'&&planStr()!==lastSaved){e.preventDefault();e.returnValue=''}});
-function athFb(row){if(ROLE!=='athlete'||!AID||!row.id)return;FS.collection('athletes').doc(AID).update({['fb.'+row.id]:{s:row.s||'',r:row.r??'',o:row.o||'',kmd:row.kmd??''}}).then(()=>setSync('Enviado ao treinador ✓')).catch(()=>setSync('Não consegui enviar. Tente de novo.',1))}
+function athFb(row){if(ROLE!=='athlete'||!AID||!row.id)return;FS.collection('athletes').doc(AID).update({['fb.'+row.id]:Object.assign({s:row.s||'',r:row.r??'',o:row.o||'',kmd:row.kmd??''},row.ext?{ext:row.ext}:{})}).then(()=>setSync('Enviado ao treinador ✓')).catch(()=>setSync('Não consegui enviar. Tente de novo.',1))}
 function athSession(R){if(ROLE!=='athlete'||!AID)return;const upd={sessions:FV.arrayUnion({ficha:R.f.nome,data:new Date().toISOString(),min:R.dur||0,rpe:R.rpe||null,ex:R.data.map((d,i)=>({n:R.f.ex[i].n,sets:d.sets.filter(s=>s.done).map(s=>({a:String(s.a),b:String(s.b)})),com:d.com||''}))})};
  R.data.forEach((d,i)=>{if(d.sets.some(s=>s.done))upd['hist.'+hk(R.f.ex[i].n)]=d.sets.map(s=>({b:String(s.b||'')}))});FS.collection('athletes').doc(AID).update(upd).catch(()=>{})}
 
@@ -1040,6 +1055,7 @@ AUTH.onAuthStateChanged(async u=>{if(RESET_CODE&&amode==='newpw'&&u&&!amsg.textC
  catch(e){noAccess('Não consegui conectar ('+(e.code||e.message)+'). Verifique a internet e as regras do banco.')}});
 </script>
 <script src="/aval.js"></script>
+<script src="/extras.js"></script>
 
 </body>
 </html>
