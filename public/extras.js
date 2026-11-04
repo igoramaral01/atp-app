@@ -4,6 +4,7 @@
   // Chave pública "Web Push" do Firebase (Configurações do projeto → Cloud Messaging → Certificados push da Web).
   const VAPID = 'BCeYsMH_cxAgAA69tTJqRs1Y1gskp2QypbyINtdDWar1j4E247Cb7D4v7_3kO_UHh2nFqzDuvog5OVDE9tZl39U';
   const RUN = /run|walk|hike|corrida|caminhada/i;
+  const SRC = s => s === 'strava' ? 'Strava' : s === 'print' ? 'Print' : 'Arquivo';
   const pad = n => String(n).padStart(2, '0');
   const isoOf = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
   const monday = d => { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x };
@@ -55,7 +56,7 @@
       return `<div class="rb"><span class="rv">${d.km ? f1(d.km) : ''}</span><i style="height:${Math.max(h, 3)}px;background:${c}"></i><b>${d.n}</b><small>${d.iso.slice(8)}</small></div>` }).join('');
     const linhas = D.porDia.map(d => d.rows.map(o => { const r = o.r, ds = typeKey(r.t) === 'descanso';
       const pill = ds ? '<span class="pill" style="background:#2a2a30">DESCANSO</span>' : r.s === '✓' ? '<span class="pill p-ok">FEITO</span>' : r.s === '✗' ? '<span class="pill p-no">NÃO FEZ</span>' : '<span class="pill" style="background:#2a2a30;color:#9a9aa3">PENDENTE</span>';
-      const ex = (r.ext || []).map(x => `<div class="ob">⌚ ${esc(x.src === 'strava' ? 'Strava' : 'Arquivo')}: ${f1(x.km)} km · ${Math.round(x.min)} min${pace(x.km, x.min) ? ' · ' + pace(x.km, x.min) : ''}${x.fc ? ' · FC ' + Math.round(x.fc) : ''}</div>`).join('');
+      const ex = (r.ext || []).map(x => `<div class="ob">⌚ ${esc(SRC(x.src))}: ${f1(x.km)} km · ${Math.round(x.min)} min${pace(x.km, x.min) ? ' · ' + pace(x.km, x.min) : ''}${x.fc ? ' · FC ' + Math.round(x.fc) : ''}${x.kcal ? ' · ' + Math.round(x.kcal) + ' kcal' : ''}${x.alt ? ' · ↑' + Math.round(x.alt) + ' m' : ''}</div>`).join('');
       return `<div class="rrow"><div class="dt">${d.iso.slice(8)}/${d.iso.slice(5, 7)}<small>${d.n}</small></div><div style="min-width:0"><b>${esc(r.t || '—')}</b><div class="ct">${esc(String(r.c || '').split('\n')[0])}</div>${kmN(r.kmd) ? `<div class="ob">📏 ${f1(kmN(r.kmd))} km${r.r ? ' · esforço ' + esc(r.r) : ''}</div>` : r.r ? `<div class="ob">Esforço ${esc(r.r)}</div>` : ''}${ex}${r.o ? `<div class="ob">💬 ${esc(r.o)}</div>` : ''}</div>${pill}</div>` }).join('')).join('');
     const tp = Object.entries(D.tipos).map(([k, v]) => `<span class="tchip"><i style="background:${v.c}"></i>${esc(k)} ${v.f}/${v.n}</span>`).join('');
     R.innerHTML = `<div class="relnav"><button class="btn" data-rw="-1" aria-label="Semana anterior">‹</button><div><div class="eyebrow">Relatório semanal</div><b>${dm(WK)} a ${dm(addD(WK, 6))}</b></div><button class="btn" data-rw="1" aria-label="Próxima semana">›</button></div>
@@ -116,7 +117,7 @@
     head();
     D.porDia.forEach(d => d.rows.forEach(o => { const r = o.r, ds = typeKey(r.t) === 'descanso';
       const desc = P.splitTextToSize((r.t ? r.t + ' — ' : '') + String(r.c || '').replace(/\n/g, ' · '), 90).slice(0, 3);
-      const extra = []; (r.ext || []).forEach(x => extra.push((x.src === 'strava' ? 'Strava: ' : 'Arquivo: ') + f1(x.km) + ' km · ' + Math.round(x.min) + ' min' + (pace(x.km, x.min) ? ' · ' + pace(x.km, x.min) : '') + (x.fc ? ' · FC ' + Math.round(x.fc) : '')));
+      const extra = []; (r.ext || []).forEach(x => extra.push((SRC(x.src) + ': ') + f1(x.km) + ' km · ' + Math.round(x.min) + ' min' + (pace(x.km, x.min) ? ' · ' + pace(x.km, x.min) : '') + (x.fc ? ' · FC ' + Math.round(x.fc) : '')));
       if (r.o) extra.push('Comentário: ' + r.o); const ex = extra.flatMap(t => P.splitTextToSize(t, 90)).slice(0, 4);
       const h = Math.max(9, 4 + (desc.length + ex.length) * 4); if (y + h > 280) { novaPag(); head() }
       P.setDrawColor(...LINE); P.line(14, y + h, W - 14, y + h);
@@ -144,7 +145,7 @@
       const iso = String(a.data).slice(0, 10); const o = rows.find(o => o.iso === iso && o.r.t && typeKey(o.r.t) !== 'descanso') || rows.find(o => o.iso === iso);
       if (!o) { sem++; continue }
       const r = o.r, L = (r.ext || []).filter(x => String(x.id) !== String(a.id)); const novo = !(r.ext || []).some(x => String(x.id) === String(a.id));
-      L.push({ id: a.id, src: a.src, tipo: a.tipo || '', nome: String(a.nome || '').slice(0, 60), km: a.km, min: a.min, fc: a.fc || null });
+      L.push({ id: a.id, src: a.src, tipo: a.tipo || '', nome: String(a.nome || '').slice(0, 60), km: a.km, min: a.min, fc: a.fc || null, kcal: a.kcal || null, alt: a.alt || null });
       r.ext = L; const km = L.filter(x => RUN.test(x.tipo || 'run')).reduce((t, x) => t + (x.km || 0), 0);
       if (km) r.kmd = String(Math.round(km * 100) / 100); if (!r.s) r.s = '✓'; if (novo) n++; mud.add(r) }
     mud.forEach(r => athFb(r)); if (mud.size) renderAll(); return { n, sem };
@@ -193,19 +194,98 @@
   }
   async function salvarHoras() { if (!CURATH.push) return; CURATH.push.horas = [...document.querySelectorAll('[data-hora]:checked')].map(i => +i.dataset.hora); await doc().update({ push: CURATH.push }); setMsg('pu-msg', 'Horários salvos ✓') }
 
-  const MSG={};const setMsg=(id,t)=>{MSG[id]=t;const m=document.getElementById(id);if(m)m.textContent=t};
+  const MSG={};
+  // ---------------- LEITURA DE PRINTS (OCR no próprio celular) ----------------
+  const tsec = t => { const p = String(t).split(':').map(Number); if (p.some(isNaN)) return null; return p.length === 3 ? p[0] * 3600 + p[1] * 60 + p[2] : p.length === 2 ? p[0] * 60 + p[1] : null };
+  const fmtT = s => { if (s == null) return ''; s = Math.round(s); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60; return (h ? h + ':' + pad(m) : m) + ':' + pad(x) };
+  function lerTexto(txt) {
+    const t = String(txt).replace(/[|]/g, ' ').replace(/(\d)\s*[,.]\s*(\d)/g, '$1,$2'), low = t.toLowerCase(), o = {};
+    // ritmo: tempo seguido de /km
+    const pc = [...low.matchAll(/(\d{1,2}:\d{2})\s*(?:min)?\s*\/\s*km/g)].map(m => tsec(m[1])).filter(v => v >= 150 && v <= 1200);
+    if (pc.length) o.pace = pc[0];
+    // distância
+    let km = [...low.matchAll(/(\d{1,3}(?:,\d{1,2})?)\s*(km|mi)\b(?!\s*\/|\/)/g)].map(m => { const v = parseFloat(m[1].replace(',', '.')); return m[2] === 'mi' ? v * 1.609 : v }).filter(v => v > 0.2 && v < 300);
+    if (!km.length) { const m = low.match(/dist[âa]ncia[^\d]{0,20}(\d{1,3},\d{1,2})/) || low.match(/(\d{1,3},\d{1,2})\s*(?:\n|\s)\s*(?:dist[âa]ncia|distance)/); if (m) km = [parseFloat(m[1].replace(',', '.'))] }
+    if (!o.pace) { const m = low.match(/(\d{1,2}:\d{2})\s*(?:\n|\s)\s*(?:ritmo|pace)/) || low.match(/(?:ritmo|pace)[^\d\n]{0,25}\n?\s*(\d{1,2}:\d{2})(?!:)/); if (m && tsec(m[1]) >= 150 && tsec(m[1]) <= 1200) o.pace = tsec(m[1]) }
+    if (km.length) o.km = km[0];
+    // tempo: maior duração que não seja ritmo nem horário do relógio do celular
+    const tm = [...low.matchAll(/(?<![\d:])(\d{1,2}:\d{2}(?::\d{2})?)(?![\d:])(?!\s*(?:min)?\s*\/\s*km)/g)].map(m => ({ s: tsec(m[1]), i: m.index }));
+    const lab = low.search(/tempo|dura[çc][ãa]o|moving|elapsed|time/);
+    let cand = tm.filter(x => x.s >= 120 && x.s <= 6 * 3600 && x.s !== o.pace);
+    if (lab >= 0) { const near = cand.filter(x => Math.abs(x.i - lab) < 60); if (near.length) cand = near }
+    if (cand.length) o.seg = Math.max(...cand.map(x => x.s));
+    const fc = low.match(/(\d{2,3})\s*bpm/) || low.match(/(?:fc|frequ[êe]ncia card[íi]aca|heart rate)[^\d]{0,25}(\d{2,3})/); if (fc && +fc[1] >= 60 && +fc[1] <= 220) o.fc = +fc[1];
+    const kc = low.match(/(\d[\d.]{1,5})\s*(?:kcal|cal\b|calorias)/) || low.match(/calorias[^\d]{0,20}(\d{2,4})/); if (kc) o.kcal = parseInt(kc[1].replace('.', ''));
+    const el = low.match(/(?:eleva[çc][ãa]o|ganho|elev\.?)[^\d]{0,25}(\d{1,4})\s*m\b/) || low.match(/(\d{1,4})\s*m\b[^\n]{0,15}(?:eleva|ganho)/); if (el) o.alt = +el[1];
+    if (!o.km && o.pace && o.seg) o.km = Math.round(o.seg / o.pace * 100) / 100;
+    if (!o.seg && o.pace && o.km) o.seg = o.pace * o.km;
+    if (!o.pace && o.km && o.seg) o.pace = o.seg / o.km;
+    return o;
+  }
+  window.__lerTexto = lerTexto;
+  let TESS = null;
+  const loadTess = () => TESS || (TESS = new Promise((ok, no) => { if (window.Tesseract) return ok(window.Tesseract); const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js'; s.onload = () => ok(window.Tesseract); s.onerror = () => { TESS = null; no(new Error('sem internet para carregar o leitor')) }; document.head.appendChild(s) }));
+  async function prepImg(file) { // aumenta contraste e tamanho para ler melhor (inclusive prints em modo escuro)
+    const url = URL.createObjectURL(file), im = new Image(); await new Promise((ok, no) => { im.onload = ok; im.onerror = no; im.src = url });
+    const sc = Math.min(2, 2000 / Math.max(im.width, im.height)) || 1, c = document.createElement('canvas'); c.width = im.width * sc; c.height = im.height * sc;
+    const g = c.getContext('2d'); g.drawImage(im, 0, 0, c.width, c.height); const d = g.getImageData(0, 0, c.width, c.height), a = d.data; let sum = 0;
+    for (let i = 0; i < a.length; i += 4) { const y = .3 * a[i] + .59 * a[i + 1] + .11 * a[i + 2]; a[i] = a[i + 1] = a[i + 2] = y; sum += y }
+    if (sum / (a.length / 4) < 120) for (let i = 0; i < a.length; i += 4) a[i] = a[i + 1] = a[i + 2] = 255 - a[i]; // fundo escuro → inverte
+    g.putImageData(d, 0, 0); return { c, thumb: url };
+  }
+  function diasRecentes() { const hoje = isoOf(new Date()), ini = isoOf(addD(new Date(), -21));
+    return datedRows().filter(o => o.iso >= ini && o.iso <= hoje && o.r.t && typeKey(o.r.t) !== 'descanso').reverse() }
+  function openPrint() {
+    const old = document.getElementById('pr-m'); if (old) old.remove();
+    const ds = diasRecentes(), hoje = isoOf(new Date()), def = (ds.find(o => o.iso === hoje) || ds[0] || {}).iso;
+    const m = document.createElement('div'); m.id = 'pr-m'; m.className = 'prm';
+    m.innerHTML = `<div class="prb" role="dialog" aria-label="Enviar print do treino"><div class="eyebrow">Print do treino</div><h2 style="margin:4px 0 8px">Strava ou ASICS Runkeeper</h2>
+      <p style="color:var(--mute);font-size:14px;margin:0 0 10px">Envie o print da tela de resumo da atividade (pode ser mais de um). Os números são lidos aqui no seu celular.</p>
+      <label class="btn b-ok" style="display:inline-block;cursor:pointer">📷 Escolher print(s)<input type="file" id="pr-f" accept="image/*" multiple hidden></label>
+      <div id="pr-th" class="prth"></div><div id="pr-st" style="font-size:13px;color:var(--mute);margin:8px 0"></div>
+      <div class="prg"><label>Dia do treino<select id="pr-d">${ds.map(o => `<option value="${o.iso}" ${o.iso === def ? 'selected' : ''}>${o.iso.slice(8)}/${o.iso.slice(5, 7)} · ${esc(o.r.t)}</option>`).join('') || '<option value="">Nenhum treino nos últimos dias</option>'}</select></label>
+      <label>Distância (km)<input id="pr-km" inputmode="decimal" placeholder="Ex.: 5,02"></label>
+      <label>Tempo (h:mm:ss)<input id="pr-t" inputmode="numeric" placeholder="Ex.: 27:36"></label>
+      <label>Ritmo médio (/km)<input id="pr-p" placeholder="automático" readonly></label>
+      <label>FC média (bpm)<input id="pr-fc" inputmode="numeric"></label>
+      <label>Calorias<input id="pr-kc" inputmode="numeric"></label>
+      <label>Elevação (m)<input id="pr-el" inputmode="numeric"></label></div>
+      <p style="font-size:12px;color:var(--mute)">Confira os números antes de salvar e corrija se algum vier errado.</p>
+      <div class="row" style="margin-top:8px"><button class="btn b-ok" id="pr-ok">Salvar no treino</button><button class="btn" id="pr-x">Cancelar</button></div></div>`;
+    document.body.appendChild(m);
+    const $ = id => document.getElementById(id), upP = () => { const k = num($('pr-km').value), s = tsec($('pr-t').value); $('pr-p').value = k && s ? fmtT(s / k) + '/km' : '' };
+    $('pr-km').oninput = upP; $('pr-t').oninput = upP; $('pr-x').onclick = () => m.remove(); m.onclick = e => { if (e.target === m) m.remove() };
+    $('pr-f').onchange = async e => {
+      const fs = [...e.target.files]; if (!fs.length) return; $('pr-st').textContent = 'Carregando leitor…'; let txt = '';
+      try { const T = await loadTess();
+        for (let i = 0; i < fs.length; i++) { const { c, thumb } = await prepImg(fs[i]); $('pr-th').insertAdjacentHTML('beforeend', `<img src="${thumb}" alt="print ${i + 1}">`);
+          const r = await T.recognize(c, 'por+eng', { logger: x => { if (x.status === 'recognizing text') $('pr-st').textContent = `Lendo print ${i + 1} de ${fs.length}… ${Math.round(x.progress * 100)}%` } });
+          txt += '\n' + r.data.text }
+        const o = lerTexto(txt);
+        if (o.km) $('pr-km').value = String(Math.round(o.km * 100) / 100).replace('.', ','); if (o.seg) $('pr-t').value = fmtT(o.seg);
+        if (o.fc) $('pr-fc').value = o.fc; if (o.kcal) $('pr-kc').value = o.kcal; if (o.alt) $('pr-el').value = o.alt; upP();
+        const d = txt.match(/(\d{1,2})\s+de\s+([a-zç]{3,})\.?\s+de\s+(\d{4})/i); // data do print, se aparecer
+        $('pr-st').textContent = o.km || o.seg ? 'Pronto! Confira os números abaixo.' : 'Não consegui achar os números. Preencha à mão ou tente um print mais nítido da tela de resumo.';
+      } catch (er) { $('pr-st').textContent = 'Não consegui ler: ' + er.message + '. Preencha os números à mão.' }
+    };
+    $('pr-ok').onclick = () => { const iso = $('pr-d').value, km = num($('pr-km').value), s = tsec($('pr-t').value);
+      if (!iso) return $('pr-st').textContent = 'Escolha o dia do treino.'; if (!km && !s) return $('pr-st').textContent = 'Informe pelo menos a distância ou o tempo.';
+      const r = aplicarAtividades([{ id: 'p' + Date.now(), src: 'print', tipo: 'Run', nome: 'Print', data: iso, km: km || 0, min: s ? Math.round(s / 6) / 10 : 0, fc: num($('pr-fc').value), kcal: num($('pr-kc').value), alt: num($('pr-el').value) }]);
+      m.remove(); setMsg('fi-msg', ''); if (typeof flash === 'function') flash(r.n ? 'Treino lançado ✓ ' + (km ? String(km).replace('.', ',') + ' km' : '') : 'Não achei esse dia na planilha.') };
+  }
+  document.addEventListener('click', e => { if (e.target.closest('[data-print-open]')) openPrint() });
+const setMsg=(id,t)=>{MSG[id]=t;const m=document.getElementById(id);if(m)m.textContent=t};
   // ---------------- TELA "CONEXÕES" ----------------
   function renderCfg() {
     const R = document.getElementById('cfg-root'); if (!R || !CURATH) return;
     const st = CURATH.strava, pu = CURATH.push, ath = isAth(), hs = (pu && pu.horas) || [7, 18];
-    R.innerHTML = `<div class="card"><div class="eyebrow" style="color:#fc4c02">Strava</div>
-      ${st && st.rt ? `<p>Conectado${st.nome ? ' como <b>' + esc(st.nome) + '</b>' : ''}. Suas corridas entram sozinhas no treino do dia (km, tempo, ritmo e frequência cardíaca).</p><p style="color:var(--mute);font-size:13px">Última sincronização: ${st.ult ? new Date(st.ult).toLocaleString('pt-BR') : 'ainda não'}</p>
-        ${ath ? '<div class="row"><button class="btn b-ok" id="st-sync">Sincronizar agora</button><button class="btn" id="st-off">Desconectar</button></div>' : ''}`
-      : `<p>Conecte sua conta para importar automaticamente as atividades feitas no relógio/celular para o treino do dia.</p>${ath ? '<button class="btn b-ok" id="st-on" style="background:#fc4c02;border-color:#fc4c02">Conectar com Strava</button>' : '<p style="color:var(--mute)">O aluno conecta pelo app dele.</p>'}`}
-      <div id="st-msg" style="font-size:13px;color:var(--mute);margin-top:8px">${esc(MSG['st-msg']||'')}</div></div>
-      <div class="card" style="margin-top:14px"><div class="eyebrow">ASICS Runkeeper, Garmin e outros</div>
+    R.innerHTML = `<div class="card"><div class="eyebrow" style="color:#fc4c02">Print do Strava / ASICS Runkeeper</div>
+      <p>Terminou o treino? Tire um print da tela de resumo da atividade e envie aqui. O app lê distância, tempo, ritmo, frequência cardíaca e calorias e lança no treino do dia.</p>
+      ${ath ? '<button class="btn b-ok" data-print-open style="background:#fc4c02;border-color:#fc4c02">📷 Enviar print</button>' : '<p style="color:var(--mute)">O aluno envia pelo app dele.</p>'}</div>
+      ${st && st.rt ? `<div class="card" style="margin-top:14px"><div class="eyebrow">Strava conectado</div><p>Conta ${esc(st.nome || '')}. Última sincronização: ${st.ult ? new Date(st.ult).toLocaleString('pt-BR') : 'ainda não'}</p>${ath ? '<div class="row"><button class="btn" id="st-sync">Sincronizar</button><button class="btn" id="st-off">Desconectar</button></div>' : ''}<div id="st-msg" style="font-size:13px;color:var(--mute);margin-top:8px">${esc(MSG['st-msg']||'')}</div></div>` : ''}
+      <div class="card" style="margin-top:14px"><div class="eyebrow">Arquivo GPX / TCX (Garmin, Runkeeper e outros)</div>
       <p>Exporte a atividade em arquivo <b>GPX</b> ou <b>TCX</b> e envie aqui: o app lê distância, tempo e data e lança no treino do dia.</p>
-      <p style="color:var(--mute);font-size:13px">Runkeeper: abra a atividade no site runkeeper.com → ⚙ → "Exportar GPX". Dica: se o Runkeeper estiver ligado ao Strava, basta conectar o Strava acima.</p>
+      <p style="color:var(--mute);font-size:13px">Opcional: mais preciso que o print. No Runkeeper: site runkeeper.com → atividade → ⚙ → "Exportar GPX".</p>
       ${ath ? '<label class="btn" style="display:inline-block;cursor:pointer">Escolher arquivo(s)<input type="file" id="fi-gpx" accept=".gpx,.tcx,application/gpx+xml" multiple hidden></label>' : ''}
       <div id="fi-msg" style="font-size:13px;color:var(--mute);margin-top:8px">${esc(MSG['fi-msg']||'')}</div></div>
       <div class="card" style="margin-top:14px"><div class="eyebrow">Lembretes no celular</div>

@@ -190,6 +190,12 @@ td select{background:var(--c,#ccc);color:#111;border:0;border-radius:4px;font:60
 .rbars{display:flex;align-items:flex-end;gap:6px;height:140px;margin-top:10px}.rb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;font-size:11px}
 .rb i{display:block;width:70%;max-width:34px;border-radius:5px 5px 0 0}.rb .rv{color:var(--fg);font-weight:700}.rb small{color:var(--mute)}
 .tchip{display:inline-flex;align-items:center;gap:5px;background:var(--panel2);border-radius:20px;padding:3px 9px;font-size:12px}.tchip i{width:8px;height:8px;border-radius:50%}
+.prm{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center}
+.prb{background:var(--panel);border:1px solid var(--line);border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));width:100%;max-width:560px;max-height:92vh;overflow:auto}
+@media(min-width:700px){.prm{align-items:center}.prb{border-radius:18px}}
+.prth{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.prth img{height:90px;border-radius:8px;border:1px solid var(--line)}
+.prg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.prg label{font-size:12px;color:var(--mute);display:flex;flex-direction:column;gap:4px}.prg label:first-child{grid-column:1/-1}
+.prg label{min-width:0}.prg input,.prg select{width:100%;min-width:0;box-sizing:border-box;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit;font-size:16px}
 .runner{position:fixed;inset:0;z-index:70;background:var(--bg);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 .r-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
 .r-top b{font-family:var(--display);font-style:italic;font-weight:900;text-transform:uppercase;font-size:15px}
@@ -501,6 +507,7 @@ tr.hoje td{background:rgba(169,94,232,.12)}tr.hoje td.rn{background:var(--purple
     <label for="f-km" style="font-size:13px;color:var(--mute);display:block;margin-top:10px">Distância percorrida (km) <small>· opcional</small></label>
     <input id="f-km" inputmode="decimal" placeholder="Ex.: 5,2" style="width:100%;box-sizing:border-box;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit;margin-bottom:10px">
     <textarea id="f-obs" rows="2" placeholder="Ex.: senti a perna no 4º km"></textarea>
+    <button class="btn" data-print-open style="display:block;margin-top:10px;border-color:#fc4c02;color:#fc4c02">📷 Anexar print do Strava / Runkeeper</button>
     <button class="btn b-ok" id="send" style="display:block;margin-top:10px">Enviar feedback</button>
     <div class="toast" id="toast" role="status"></div>
     </div>
