@@ -896,7 +896,7 @@ async function loadAthletes(){const q=await FS.collection('athletes').orderBy('n
   const d={nome:'Bianca Cândido',email:'',months:clean([m]),pastas:clean(SEED_PASTAS),fb:{},criado:FV.serverTimestamp()};await ref.set(d);ATHS=[{id:ref.id,...d}]}
  let last=null;try{last=localStorage.getItem('atp-aid')}catch(e){}subscribe(ATHS.some(a=>a.id===last)?last:ATHS[0].id)}
 function renderAlunos(){const el=document.getElementById('h-alunos');if(!el||ROLE!=='coach')return;
- el.innerHTML=ATHS.map(a=>{const ini=(a.nome||'?').split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();return`<div class="li ${a.id===AID?'sel':''}"><button class="pick" data-aid="${a.id}"><span class="av">${esc(ini)}</span><span style="min-width:0"><b>${esc(a.nome)}</b><small>${a.uid?esc(a.email)+' · com acesso':'Sem acesso ao app ainda'}</small></span></button>${a.id===AID?'<span class="pill p-ok">ABERTO</span>':''}</div>${a.uid?`<div class="inv"><button class="mini ghost" data-resend="${esc(a.email)}">Reenviar link de criar senha</button></div>`:''}${!a.uid?`<div class="inv"><input id="inv-${a.id}" type="email" placeholder="E-mail de ${esc(a.nome.split(' ')[0])}" value="${esc(a.email||'')}" aria-label="E-mail para convite"><button class="mini" data-inv="${a.id}">CONVIDAR</button></div>`:''}`}).join('')+
+ el.innerHTML=ATHS.map(a=>{const ini=(a.nome||'?').split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();return`<div class="li ${a.id===AID?'sel':''}"><button class="pick" data-aid="${a.id}"><span class="av">${esc(ini)}</span><span style="min-width:0"><b>${esc(a.nome)}</b><small>${a.uid?esc(a.email)+' · com acesso':'Sem acesso ao app ainda'}</small></span></button>${a.id===AID?'<span class="pill p-ok">ABERTO</span>':''}</div><div class="inv">${a.uid?`<button class="mini ghost" data-resend="${esc(a.email)}">Reenviar link de criar senha</button>`:''}<button class="mini ghost warn" data-del-aluno="${a.id}">Excluir aluno</button></div>${!a.uid?`<div class="inv"><input id="inv-${a.id}" type="email" placeholder="E-mail de ${esc(a.nome.split(' ')[0])}" value="${esc(a.email||'')}" aria-label="E-mail para convite"><button class="mini" data-inv="${a.id}">CONVIDAR</button></div>`:''}`}).join('')+
  `<div class="newbox" style="margin-top:12px"><label for="na-n" style="font-size:12px;color:var(--mute)">Novo aluno</label><input id="na-n" placeholder="Nome completo"><input id="na-e" type="email" placeholder="E-mail (para ele receber o acesso)"><button data-novo>CRIAR ALUNO</button><div class="amsg" id="na-msg"></div></div>`}
 function renderAlerts(){const el=document.getElementById('h-alert');if(!el)return;const it=[],today=new Date();today.setHours(0,0,0,0);
  const D=datedRows(),past=D.filter(o=>o.dt<today&&o.dt>=new Date(today.getTime()-7*864e5));
@@ -913,18 +913,36 @@ document.getElementById('h-alert').addEventListener('click',e=>{if(!e.target.clo
  document.getElementById('sn-go').onclick=go;document.getElementById('sn-n').onkeydown=k=>{if(k.key==='Enter')go()};setTimeout(()=>document.getElementById('sn-n').focus(),50)});
 async function convidar(aid,email,msgEl){email=(email||'').trim().toLowerCase();if(!/^\S+@\S+\.\S+$/.test(email)){msgEl.className='amsg err';msgEl.textContent='Digite um e-mail válido.';return false}
  msgEl.className='amsg';msgEl.textContent='Criando acesso…';const sec=firebase.apps.find(a=>a.name==='sec')||firebase.initializeApp(FB_CFG,'sec');
- try{const pw=Array.from(crypto.getRandomValues(new Uint8Array(18)),b=>b.toString(36)).join('')+'Aa1!';const cr=await sec.auth().createUserWithEmailAndPassword(email,pw);
-  await FS.collection('users').doc(cr.user.uid).set({role:'athlete',athleteId:aid,email});await FS.collection('athletes').doc(aid).update({uid:cr.user.uid,email});
+ try{const pw=Array.from(crypto.getRandomValues(new Uint8Array(18)),b=>b.toString(36)).join('')+'Aa1!';let uid=null;try{const cr=await sec.auth().createUserWithEmailAndPassword(email,pw);uid=cr.user.uid}
+  catch(err){if(err.code!=='auth/email-already-in-use')throw err;const m=await FS.collection('emails').doc(email).get();if(!m.exists)throw err;uid=m.data().uid;
+   const old=await FS.collection('users').doc(uid).get();if(old.exists&&old.data().athleteId&&old.data().athleteId!==aid){const oa=await FS.collection('athletes').doc(old.data().athleteId).get();if(oa.exists)throw{code:'email-em-uso-por-aluno',nome:oa.data().nome}}}
+  await FS.collection('users').doc(uid).set({role:'athlete',athleteId:aid,email});await FS.collection('athletes').doc(aid).update({uid,email});await FS.collection('emails').doc(email).set({uid}).catch(()=>{});
   try{sec.auth().languageCode='pt'}catch(e){}await sec.auth().sendPasswordResetEmail(email,ACS()).catch(err=>/continue-uri/.test(err.code||'')?sec.auth().sendPasswordResetEmail(email):Promise.reject(err));await sec.auth().signOut();msgEl.className='amsg ok';msgEl.textContent='Convite enviado para '+email+'. Peça para olhar o spam também.';return true}
- catch(e){msgEl.className='amsg err';msgEl.textContent=e.code==='auth/email-already-in-use'?'Esse e-mail já tem conta.':'Não consegui criar o acesso ('+(e.code||e.message)+').';return false}}
+ catch(e){msgEl.className='amsg err';msgEl.textContent=e.code==='email-em-uso-por-aluno'?'Esse e-mail já é de outro aluno ('+e.nome+').':e.code==='auth/email-already-in-use'?'Esse e-mail já tem conta.':'Não consegui criar o acesso ('+(e.code||e.message)+').';return false}}
 document.getElementById('h-alunos').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
  if(b.dataset.aid&&b.dataset.aid!==AID){if(ROLE==='coach'&&planStr()!==lastSaved)await save();subscribe(b.dataset.aid);pasta=null;cur=0;renderAlunos();return}
+ if(b.dataset.delAluno)return delAluno(b.dataset.delAluno);
  if(b.dataset.resend){b.disabled=true;try{await AUTH.sendPasswordResetEmail(b.dataset.resend,ACS()).catch(err=>/continue-uri/.test(err.code||'')?AUTH.sendPasswordResetEmail(b.dataset.resend):Promise.reject(err));b.textContent='Link reenviado para '+b.dataset.resend}catch(err){b.textContent='Não consegui reenviar ('+(err.code||err.message)+')';b.disabled=false}return}
  if(b.dataset.inv!=null){const m=document.createElement('div');b.parentElement.after(m);m.className='amsg';if(await convidar(b.dataset.inv,document.getElementById('inv-'+b.dataset.inv).value,m)){await loadAthletesList();setTimeout(renderAlunos,2500)}return}
  if(b.hasAttribute('data-novo')){const n=document.getElementById('na-n').value.trim(),em=document.getElementById('na-e').value.trim(),msg=document.getElementById('na-msg');if(!n){msg.className='amsg err';msg.textContent='Digite o nome.';return}
   b.disabled=true;const ref=FS.collection('athletes').doc();const m=newMonth('MÊS 1',new Date());m.rows.forEach(r=>{if(r.w==null&&r.sum==null)r.id=rid()});
   await ref.set({nome:n,email:em,months:clean([m]),pastas:[{nome:'MACROCICLO 1 - '+n.split(' ')[0],fichas:[]}],fb:{},criado:FV.serverTimestamp()});
   if(em)await convidar(ref.id,em,msg);await loadAthletesList();subscribe(ref.id);setTimeout(renderAlunos,em?2500:0)}});
+function delAluno(id){const a=ATHS.find(x=>x.id===id);if(!a)return;
+ if(ATHS.length<2){modal.innerHTML=`<div class="mbox" style="width:min(440px,100%)"><button class="x" aria-label="Fechar">×</button><p>Este é o único aluno cadastrado. Cadastre outro antes de excluir este.</p></div>`;modal.hidden=false;return}
+ const first=(a.nome||'').split(' ')[0].toUpperCase();
+ modal.innerHTML=`<div class="mbox" style="width:min(480px,100%)"><button class="x" aria-label="Fechar">×</button><div class="eyebrow" style="color:var(--red)">Excluir aluno</div><h3 style="margin:6px 0 10px">${esc(a.nome)}</h3>
+  <p style="color:var(--mute);font-size:13px;line-height:1.5">Isso apaga <b>todos os dados</b> deste aluno: planilhas, fichas, avaliações, treinos realizados e feedbacks. ${a.uid?'O acesso dele ao app é removido na hora.':''} Não dá para desfazer.<br>Antes, se quiser, use <b>⇩ Exportar Excel</b> na Planilha para guardar uma cópia. Os backups automáticos ainda guardam as últimas semanas.</p>
+  <label class="fl" style="margin-top:10px"><span>Para confirmar, digite ${esc(first)}</span><input id="del-conf" autocomplete="off"></label><div class="amsg" id="del-msg"></div>
+  <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px"><button class="mini ghost" id="del-no">Cancelar</button><button class="mini" id="del-go" style="background:var(--red)">EXCLUIR DEFINITIVAMENTE</button></div></div>`;modal.hidden=false;
+ const inp=document.getElementById('del-conf');setTimeout(()=>inp.focus(),50);document.getElementById('del-no').onclick=close;
+ document.getElementById('del-go').onclick=async()=>{const msg=document.getElementById('del-msg');if(_nr(inp.value.trim()).toUpperCase()!==_nr(first).toUpperCase()){msg.className='amsg err';msg.textContent='Digite '+first+' para confirmar.';return inp.focus()}
+  msg.className='amsg';msg.textContent='Excluindo…';try{
+   if(a.uid)await FS.collection('users').doc(a.uid).delete();
+   await FS.collection('athletes').doc(id).delete();
+   if(AID===id){unsub&&unsub();unsub=null;AID=null;LOADED=false;try{localStorage.removeItem('atp-aid')}catch(e){}}
+   await loadAthletesList();if(!AID&&ATHS.length)subscribe(ATHS[0].id);close();renderAlunos();setSync((a.nome||'Aluno')+' foi excluído.')}
+  catch(err){msg.className='amsg err';msg.textContent='Não consegui excluir ('+(err.code||err.message)+'). Confira se as regras do banco foram atualizadas.'}}}
 async function loadAthletesList(){const q=await FS.collection('athletes').orderBy('nome').get();ATHS=q.docs.map(d=>({id:d.id,...d.data()}))}
 
 // exportar Excel (backup manual)

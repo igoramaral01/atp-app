@@ -26,6 +26,10 @@ service cloud.firestore {
       allow update: if isAthleteOf(id)
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fb', 'hist', 'sessions', 'termos']);
     }
+    // vínculo e-mail -> conta de login (para recadastrar um aluno excluído)
+    match /emails/{email} {
+      allow read, write: if isCoach();
+    }
     match /{document=**} {
       allow read, write: if false;
     }
