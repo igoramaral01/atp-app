@@ -155,13 +155,14 @@
     const mc = new THREE.MarchingCubes(RES, mat, false, true);
     three = { renderer, scene, cam, grp, mat, mc, el, mesh: null, rotY: 0.5, auto: true, job: 0 };
     window.__atp3d = () => three;
+    const T = three;
     let drag = null; const cv = renderer.domElement; cv.style.touchAction = 'pan-y'; cv.style.cursor = 'grab';
-    cv.addEventListener('pointerdown', e => { drag = { x: e.clientX, r: three.rotY }; three.auto = false; cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; });
-    cv.addEventListener('pointermove', e => { if (drag) three.rotY = drag.r + (e.clientX - drag.x) * 0.012; });
+    cv.addEventListener('pointerdown', e => { drag = { x: e.clientX, r: T.rotY }; T.auto = false; cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; });
+    cv.addEventListener('pointermove', e => { if (drag) T.rotY = drag.r + (e.clientX - drag.x) * 0.012; });
     cv.addEventListener('pointerup', () => { drag = null; cv.style.cursor = 'grab'; });
-    cv.addEventListener('dblclick', () => { three.auto = !three.auto; });
+    cv.addEventListener('dblclick', () => { T.auto = !T.auto; });
     new ResizeObserver(() => { const w = el.clientWidth, h = el.clientHeight; if (!w || !h) return; renderer.setSize(w, h); cam.aspect = w / h; cam.updateProjectionMatrix(); }).observe(el);
-    const loop = () => { requestAnimationFrame(loop); if (!el.isConnected || el.offsetParent === null) return; if (three.auto) three.rotY += 0.005; grp.rotation.y = three.rotY; renderer.render(scene, cam); };
+    const loop = () => { if (T !== three) return; requestAnimationFrame(loop); if (!el.isConnected || el.offsetParent === null) return; if (T.auto) T.rotY += 0.005; grp.rotation.y = T.rotY; renderer.render(scene, cam); };
     loop();
   }
   const mixP = (A, B, t) => ({ H: A.H + (B.H - A.H) * t, P: A.P.map((p, i) => { const q = B.P[i], o = { ...p }; for (const k of ['c', 'r', 'a', 'b']) if (p[k]) o[k] = p[k].map((v, j) => v + (q[k][j] - v) * t); if (p.ra != null) { o.ra = p.ra + (q.ra - p.ra) * t; o.rb = p.rb + (q.rb - p.rb) * t; } return o; }) });
