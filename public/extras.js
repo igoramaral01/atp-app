@@ -207,7 +207,7 @@
     let km = [...low.matchAll(/(\d{1,3}(?:,\d{1,2})?)\s*(km|mi)\b(?!\s*\/|\/)/g)].map(m => { const v = parseFloat(m[1].replace(',', '.')); return m[2] === 'mi' ? v * 1.609 : v }).filter(v => v > 0.2 && v < 300);
     if (!km.length) { const m = low.match(/dist[âa]ncia[^\d]{0,20}(\d{1,3},\d{1,2})/) || low.match(/(\d{1,3},\d{1,2})\s*(?:\n|\s)\s*(?:dist[âa]ncia|distance)/); if (m) km = [parseFloat(m[1].replace(',', '.'))] }
     if (!o.pace) { const m = low.match(/(\d{1,2}:\d{2})\s*(?:\n|\s)\s*(?:ritmo|pace)/) || low.match(/(?:ritmo|pace)[^\d\n]{0,25}\n?\s*(\d{1,2}:\d{2})(?!:)/); if (m && tsec(m[1]) >= 150 && tsec(m[1]) <= 1200) o.pace = tsec(m[1]) }
-    if (km.length) o.km = km[0];
+    if (km.length) o.km = Math.max(...km); // sempre a distância total (ignora parciais e tiros)
     // tempo: maior duração que não seja ritmo nem horário do relógio do celular
     const tm = [...low.matchAll(/(?<![\d:])(\d{1,2}:\d{2}(?::\d{2})?)(?![\d:])(?!\s*(?:min)?\s*\/\s*km)/g)].map(m => ({ s: tsec(m[1]), i: m.index }));
     const lab = low.search(/tempo|dura[çc][ãa]o|moving|elapsed|time/);
@@ -217,6 +217,7 @@
     const fc = low.match(/(\d{2,3})\s*bpm/) || low.match(/(?:fc|frequ[êe]ncia card[íi]aca|heart rate)[^\d]{0,25}(\d{2,3})/); if (fc && +fc[1] >= 60 && +fc[1] <= 220) o.fc = +fc[1];
     const kc = low.match(/(\d[\d.]{1,5})\s*(?:kcal|cal\b|calorias)/) || low.match(/calorias[^\d]{0,20}(\d{2,4})/); if (kc) o.kcal = parseInt(kc[1].replace('.', ''));
     const el = low.match(/(?:eleva[çc][ãa]o|ganho|elev\.?)[^\d]{0,25}(\d{1,4})\s*m\b/) || low.match(/(\d{1,4})\s*m\b[^\n]{0,15}(?:eleva|ganho)/); if (el) o.alt = +el[1];
+    if (o.km && o.seg) o.pace = o.seg / o.km; // ritmo médio do treino todo, não o do tiro
     if (!o.km && o.pace && o.seg) o.km = Math.round(o.seg / o.pace * 100) / 100;
     if (!o.seg && o.pace && o.km) o.seg = o.pace * o.km;
     if (!o.pace && o.km && o.seg) o.pace = o.seg / o.km;
