@@ -535,7 +535,7 @@ function renderTable(){const m=M(),cols=m.cols,n=cols.length,TYPES=allTypes(),TR
 function renderSheets(){document.getElementById('sheets').innerHTML=months.map((m,i)=>`<button class="${i===cur?'on':''}" data-m="${i}" title="Dois cliques para renomear">${esc(m.nome)}</button>`).join('')+'<button class="plus" data-m="new" title="Adicionar mês" aria-label="Adicionar mês">+</button>'}
 function renderAll(){renderTable();renderChart();renderHome();if(typeof renderReal==='function')renderReal();if(typeof renderFichasAluno==='function')renderFichasAluno();if(typeof renderAluno==='function'&&document.getElementById('calg'))renderAluno()}
 const blank=(d)=>({s:'',d:d?DIAS[d.getDay()]:'',dt:d?String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0'):'',t:'',c:'',p:'',r:'',o:''});
-function lastDate(){let y=2026,last=null;for(const m of months)for(const r of m.rows){const x=String(r.dt||'').match(/^(\d{1,2})\/(\d{1,2})/);if(x){const d=new Date(y,+x[2]-1,+x[1]);if(last&&d<last-1e9){y++;d.setFullYear(y)}last=d}}return last||new Date(2026,10,1)}
+function lastDate(){const D=datedRows();return D.length?new Date(D[D.length-1].dt):new Date(2026,10,1)}
 function lastWeekNum(){let w=0;for(const m of months)for(const r of m.rows)if(r.w!=null&&+r.w>w)w=+r.w;return w}
 function newMonth(nome,start,cols){const rs=[],d=new Date(start);for(let w=1;w<=4;w++){rs.push(...makeWeek(d,w));d.setDate(d.getDate()+7)}return{nome,cols:(cols||BASE_COLS).map(c=>({...c})),rows:rs}}
 const weeksIn=m=>m.rows.filter(r=>r.w!=null).length;
@@ -554,7 +554,7 @@ function act(a){const m=M();
  if(a==='delMonth'){if(months.length<2)return flash('É preciso ter pelo menos um mês.');snap();const nm=m.nome;months.splice(cur,1);cur=Math.max(0,cur-1);sel=null;renderAll();return flash(nm+' excluído. Use Desfazer se foi sem querer.')}
  if(a==='dupMonth'){snap();const c=JSON.parse(JSON.stringify(m));c.nome=m.nome+' (cópia)';c.rows.forEach(r=>{if(r.sum==null&&r.w==null){r.s='';r.r='';r.o=''}});months.splice(cur+1,0,c);cur++;renderAll();return flash('Mês duplicado (sem os feedbacks).')}}
 months.push(newMonth('MÊS 1',new Date(2026,10,30)));
-function lastDateIn(m){let last=null;for(const r of m.rows){const x=String(r.dt||'').match(/^(\d{1,2})\/(\d{1,2})/);if(x)last=new Date(2026,+x[2]-1,+x[1])}return last||lastDate()}
+function lastDateIn(m){const D=datedRows().filter(o=>o.m===m);return D.length?new Date(D[D.length-1].dt):lastDate()}
 document.querySelector('.toolbar').addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b)act(b.dataset.a)});
 tbody.addEventListener('click',e=>{const td=e.target.closest('td');if(!td||td.dataset.i==null)return;const i=+td.dataset.i,c=td.dataset.c!=null?+td.dataset.c:null;
  if(td.dataset.k==='s'){snap();const r=M().rows[i];r.s=r.s==='✓'?'✗':r.s==='✗'?'':'✓';sel={i,c};renderAll();return}
@@ -651,6 +651,12 @@ function typesTool(){const cnt=new Map();for(const mo of months)for(const r of m
  const apply=(from,to)=>{to=canonType(to);if(!to)return;for(const mo of months)for(const r of mo.rows)if(r.t&&typeKey(r.t)===from)r.t=to};
  modal.querySelectorAll('[data-merge]').forEach(b=>b.onclick=()=>{snap();const[f,t]=b.dataset.merge.split('|');apply(f,cnt.get(t).name);renderAll();typesTool();flash('Tipos juntados.')});
  modal.querySelector('#ty-save').onclick=()=>{snap();modal.querySelectorAll('[data-ren]').forEach(i=>{if(canonType(i.value)!==cnt.get(i.dataset.ren).name)apply(i.dataset.ren,i.value)});close();renderAll();flash('Tipos atualizados em todos os meses.')}}
+// ao abrir a Planilha: vai para o mês de hoje (ou o mês mais próximo de hoje) e rola até a linha de hoje
+function openTodayMonth(){const D=datedRows();if(!D.length)return;const T=todayRow();let mi=-1;
+ if(T)mi=months.findIndex(m=>m.rows.includes(T));
+ if(mi<0){const t=new Date();t.setHours(0,0,0,0);let best=null;for(const o of D){const d=Math.abs(o.dt-t);if(!best||d<best.d)best={d,m:o.m}}mi=months.indexOf(best.m)}
+ if(mi<0)return;if(mi!==cur){cur=mi;sel=null}renderTable();
+ if(T){const i=months[cur].rows.indexOf(T);setTimeout(()=>{const tr=tbody.children[i];tr&&tr.scrollIntoView({block:'center'})},30)}}
 function goToday(){const k=KEY,T=todayRow();for(let mi=0;mi<months.length;mi++){const i=months[mi].rows.indexOf(T);if(i>=0){cur=mi;sel={i,c:null};renderTable();const tr=tbody.children[i];tr&&tr.scrollIntoView({block:'center',behavior:'smooth'});return flash('Hoje: '+k+' ('+months[mi].nome+')')}}flash('Não há treino com a data de hoje ('+k+') na planilha.')}
 
 // ---------- HOME ----------
@@ -668,7 +674,7 @@ function renderHome(){const t=todayRow();
  document.getElementById('h-alunos').innerHTML=`<div class="li"><div class="av">BC</div><div style="flex:1"><b>Bianca Cândido</b><small>Corrida + força · ${esc(M().nome)}</small></div><span class="pill p-ok">ATIVA</span></div><div class="li"><div class="av" style="background:var(--panel2);color:var(--mute)">+</div><div style="flex:1"><b style="color:var(--mute)">Novo aluno</b><small>Disponível quando o login estiver pronto</small></div></div>`}
 document.querySelector('#home .qa').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;const g=b.dataset.go;if(g==='import')return openImport();if(g==='mes'){goTab('plan');act('mes')}else goTab(g)});
 function goTab(t){document.querySelector(`#coach .tabs [data-t="${t}"]`).click()}
-document.querySelector('#coach .tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const h=b.dataset.t==='home';document.getElementById('c-h1').innerHTML=h?'Olá, <em>'+esc(CNAME)+'</em>':athH();document.getElementById('c-sub').textContent=h?DATA_LONGA:'Planilha · '+M().nome});
+document.querySelector('#coach .tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.t==='plan')openTodayMonth();const h=b.dataset.t==='home';document.getElementById('c-h1').innerHTML=h?'Olá, <em>'+esc(CNAME)+'</em>':athH();document.getElementById('c-sub').textContent=h?DATA_LONGA:'Planilha · '+M().nome});
 
 let ESC='borg';const peCol=m=>(m.cols.find(c=>/^p\.?\s?e\b|^pse\b|p\.e\s*\(1/i.test(_nr(c.l)))||{}).id;
 function peStats(m,i){const id=peCol(m),v=[];if(id)for(i++;m.rows[i]&&m.rows[i].sum==null&&m.rows[i].w==null;i++){const x=parseFloat(String(m.rows[i][id]||'').replace(',','.'));if(isFinite(x)&&x>=1&&x<=5)v.push(x)}return{pl:null,ex:v.length?v.reduce((s,z)=>s+z,0)/v.length:null}}
