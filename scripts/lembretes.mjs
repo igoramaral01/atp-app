@@ -17,7 +17,8 @@ for (const d of (await db.collection('athletes').get()).docs) {
   const a = d.data(), p = a.push; if (!p || !p.tokens || !p.tokens.length) continue;
   const enviados = (p.enviados && p.enviados[hojeK]) || [];
   // o GitHub às vezes atrasa a execução: envia a hora escolhida mais recente que já passou (até 2h) e ainda não foi enviada hoje
-  const hora = (p.horas || []).filter(h => h <= H && H - h <= 2 && !enviados.includes(h)).sort((x, y) => y - x)[0];
+  const horas = [...new Set((p.horas || [12, 18, 22]).filter(h => h !== 7).map(h => h === 21 ? 22 : h))]; // horários atuais: 12h, 18h e 22h
+  const hora = horas.filter(h => h <= H && H - h <= 2 && !enviados.includes(h)).sort((x, y) => y - x)[0];
   if (hora == null) continue;
   const fb = a.fb || {}, rows = [];
   for (const m of a.months || []) { let last = null; for (const r of m.rows || []) { if (r.w != null || r.sum != null) { last = null; continue }

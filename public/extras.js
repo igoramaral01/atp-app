@@ -177,7 +177,7 @@
   }
 
   // ---------------- LEMBRETES (push) ----------------
-  const HORAS = [[7, 'Manhã (7h)'], [12, 'Meio-dia (12h)'], [18, 'Fim de tarde (18h)'], [21, 'Noite (21h) · lembrar do feedback']];
+  const HORAS = [[12, 'Meio-dia (12h)'], [18, 'Fim de tarde (18h)'], [22, 'Noite (22h) · lembrar do feedback']], PADRAO = [12, 18, 22];
   async function ativarPush() {
     const say = t => setMsg('pu-msg', t);
     if (!VAPID) return say('Os lembretes ainda estão sendo configurados pelo treinador.');
@@ -189,7 +189,7 @@
       const reg = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
       const tk = await firebase.messaging().getToken({ vapidKey: VAPID, serviceWorkerRegistration: reg });
       const horas = [...document.querySelectorAll('[data-hora]:checked')].map(i => +i.dataset.hora);
-      const p = (CURATH.push = { tokens: [...new Set([...((CURATH.push && CURATH.push.tokens) || []), tk])].slice(-5), horas: horas.length ? horas : [7, 18], tz: 'America/Sao_Paulo' });
+      const p = (CURATH.push = { tokens: [...new Set([...((CURATH.push && CURATH.push.tokens) || []), tk])].slice(-5), horas: horas.length ? horas : PADRAO, tz: 'America/Sao_Paulo' });
       await doc().update({ push: p }); say('Lembretes ativados ✓'); renderCfg();
     } catch (e) { say('Não consegui ativar: ' + e.message) }
   }
@@ -360,7 +360,7 @@ const setMsg=(id,t)=>{MSG[id]=t;const m=document.getElementById(id);if(m)m.textC
   // ---------------- TELA "CONEXÕES" ----------------
   function renderCfg() {
     const R = document.getElementById('cfg-root'); if (!R || !CURATH) return;
-    const st = CURATH.strava, pu = CURATH.push, ath = isAth(), hs = (pu && pu.horas) || [7, 18];
+    const st = CURATH.strava, pu = CURATH.push, ath = isAth(), hs = (pu && pu.horas) || PADRAO;
     R.innerHTML = `<div class="card"><div class="eyebrow" style="color:#fc4c02">Print do Strava / ASICS Runkeeper</div>
       <p>Terminou o treino? Tire um print da tela de resumo da atividade e envie aqui. O app lê distância, tempo, ritmo, frequência cardíaca e calorias e lança no treino do dia.</p>
       ${ath ? '<button class="btn b-ok" data-print-open style="background:#fc4c02;border-color:#fc4c02">📷 Enviar print</button>' : '<p style="color:var(--mute)">O aluno envia pelo app dele.</p>'}</div>
