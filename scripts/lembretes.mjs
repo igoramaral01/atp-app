@@ -20,8 +20,9 @@ for (const d of (await db.collection('athletes').get()).docs) {
   const hora = (p.horas || []).filter(h => h <= H && H - h <= 2 && !enviados.includes(h)).sort((x, y) => y - x)[0];
   if (hora == null) continue;
   const fb = a.fb || {}, rows = [];
-  for (const m of a.months || []) for (const r of m.rows || []) { if (r.w != null || r.sum != null || !r.dt) continue;
-    const x = String(r.dt).match(/^(\d{1,2})\/(\d{1,2})/); if (x && +x[1] === D && +x[2] === M) rows.push({ ...r, ...(fb[r.id] || {}) }); }
+  for (const m of a.months || []) { let last = null; for (const r of m.rows || []) { if (r.w != null || r.sum != null) { last = null; continue }
+    const x = r.dt ? String(r.dt).match(/^(\d{1,2})\/(\d{1,2})/) : null; if (x) last = [+x[1], +x[2]]; else if (String(r.dt || '').trim() || !(r.t || r.c)) continue; // linha sem data = 2º treino do mesmo dia
+    if (last && last[0] === D && last[1] === M) rows.push({ ...r, ...(fb[r.id] || {}) }); } }
   const pend = rows.filter(r => r.t && !/descanso|off/.test(norm(r.t)) && !r.s);
   await d.ref.update({ ['push.enviados']: { [hojeK]: [...enviados, hora] } });
   if (!pend.length) continue;

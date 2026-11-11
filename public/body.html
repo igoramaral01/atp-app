@@ -826,7 +826,7 @@ function renderAluno(){if(!DAYISO)DAYISO=TODAY_ISO;const dd=new Date(DAYISO+'T12
 let RM='corrida',RG=false;const kg=v=>{const n=parseFloat(String(v).replace(',','.'));return isFinite(n)?n:null};
 // data completa (com ano) de cada dia da planilha. O ano inicial é o maior possível em que
 // nenhum dia com ✓/✗ fique no futuro e o plano não comece a mais de 2 meses de hoje.
-function datedRows(){const all=[];for(const m of months)for(const r of m.rows)if(r.w==null&&r.sum==null&&r.dt){const x=String(r.dt).match(/^(\d{1,2})\/(\d{1,2})/);if(x)all.push({m,r,d:+x[1],mo:+x[2]})}
+function datedRows(){const all=[];for(const m of months){let last=null;for(const r of m.rows){if(r.w!=null||r.sum!=null){last=null;continue}const x=r.dt?String(r.dt).match(/^(\d{1,2})\/(\d{1,2})/):null;if(x){last={d:+x[1],mo:+x[2]};all.push({m,r,...last})}else if(!String(r.dt||'').trim()&&last&&(r.t||r.c))all.push({m,r,...last,extra:1})}}
  if(!all.length)return[];const today=new Date(),lim=new Date(today.getTime()+3*864e5),lim2=new Date(today.getTime()+62*864e5);
  const build=y0=>{let cy=y0,pm=null;return all.map(o=>{if(pm!=null&&o.mo<pm-6)cy++;pm=o.mo;return{...o,dt:new Date(cy,o.mo-1,o.d),iso:cy+'-'+String(o.mo).padStart(2,'0')+'-'+String(o.d).padStart(2,'0')}})};
  let best=null;for(let y=today.getFullYear()+1;y>=today.getFullYear()-4;y--){const L=build(y);const fut=L.some(o=>(o.r.s==='✓'||o.r.s==='✗')&&o.dt>lim);if(fut)continue;if(L[0].dt>lim2)continue;best=L;break}
