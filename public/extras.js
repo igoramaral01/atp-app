@@ -142,13 +142,14 @@
   function aplicarAtividades(acts) {
     const rows = datedRows(); let n = 0, sem = 0; const mud = new Set();
     for (const a of acts) {
-      const iso = String(a.data).slice(0, 10); const o = rows.find(o => o.iso === iso && o.r.t && typeKey(o.r.t) !== 'descanso') || rows.find(o => o.iso === iso);
+      const iso = String(a.data).slice(0, 10); const o = (a.rowId && rows.find(o => o.r.id === a.rowId)) || rows.find(o => o.iso === iso && o.r.t && typeKey(o.r.t) !== 'descanso' && !(o.r.ext || []).length) || rows.find(o => o.iso === iso && o.r.t && typeKey(o.r.t) !== 'descanso') || rows.find(o => o.iso === iso);
       if (!o) { sem++; continue }
-      const r = o.r, L = (r.ext || []).filter(x => String(x.id) !== String(a.id) && !(a.src === 'print' && x.src === 'print')); // um print novo substitui o anterior do mesmo dia const novo = !(r.ext || []).some(x => String(x.id) === String(a.id));
+      const r = o.r, L = (r.ext || []).filter(x => String(x.id) !== String(a.id) && !(a.src === 'print' && x.src === 'print')); // um print novo substitui o anterior do mesmo dia
+      const novo = true;
       L.push({ id: a.id, src: a.src, tipo: a.tipo || '', nome: String(a.nome || '').slice(0, 60), km: a.km, min: a.min, fc: a.fc || null, kcal: a.kcal || null, alt: a.alt || null, tiros: a.tiros || null });
       r.ext = L; const km = L.filter(x => RUN.test(x.tipo || 'run')).reduce((t, x) => t + (x.km || 0), 0);
       if (km) r.kmd = String(Math.round(km * 100) / 100); if (!r.s) r.s = '✓'; if (novo) n++; mud.add(r) }
-    mud.forEach(r => athFb(r)); if (mud.size) renderAll(); return { n, sem };
+    const ps = [...mud].map(r => athFb(r)); if (mud.size) renderAll(); return { n, sem, salvo: Promise.all(ps).then(L => L.every(x => x !== false)) };
   }
   async function syncStrava(manual) {
     const st = CURATH && CURATH.strava; if (!isAth() || !st || !st.rt) return;
@@ -313,13 +314,13 @@
   function openPrint() {
     TIROS = null;
     const old = document.getElementById('pr-m'); if (old) old.remove();
-    const ds = diasRecentes(), hoje = isoOf(new Date()), def = (ds.find(o => o.iso === hoje) || ds[0] || {}).iso;
+    const ds = diasRecentes(), hoje = isoOf(new Date()), fr = (typeof FBROW !== 'undefined' && FBROW) || null; const def = ((fr && ds.find(o => o.r === fr)) || ds.find(o => o.iso === hoje && !(o.r.ext || []).length) || ds.find(o => o.iso === hoje) || ds[0] || {}).r;
     const m = document.createElement('div'); m.id = 'pr-m'; m.className = 'prm';
     m.innerHTML = `<div class="prb" role="dialog" aria-label="Enviar print do treino"><div class="eyebrow">Print do treino</div><h2 style="margin:4px 0 8px">Strava ou ASICS Runkeeper</h2>
       <p style="color:var(--mute);font-size:14px;margin:0 0 10px">Envie o print da tela de resumo da atividade (pode ser mais de um). Os números são lidos aqui no seu celular.</p>
       <label class="btn b-ok" style="display:inline-block;cursor:pointer">📷 Escolher print(s)<input type="file" id="pr-f" accept="image/*" multiple hidden></label>
       <div id="pr-th" class="prth"></div><div id="pr-tr" style="font-size:13px;margin-top:8px"></div><div id="pr-st" style="font-size:13px;color:var(--mute);margin:8px 0"></div>
-      <div class="prg"><label>Dia do treino<select id="pr-d">${ds.map(o => `<option value="${o.iso}" ${o.iso === def ? 'selected' : ''}>${o.iso.slice(8)}/${o.iso.slice(5, 7)} · ${esc(o.r.t)}</option>`).join('') || '<option value="">Nenhum treino nos últimos dias</option>'}</select></label>
+      <div class="prg"><label>Dia do treino<select id="pr-d">${ds.map(o => `<option value="${esc(o.r.id)}" data-iso="${o.iso}" ${o.r === def ? 'selected' : ''}>${o.iso.slice(8)}/${o.iso.slice(5, 7)} · ${esc(o.r.t)}${(o.r.ext || []).length ? ' (já tem print)' : ''}</option>`).join('') || '<option value="">Nenhum treino nos últimos dias</option>'}</select></label>
       <label>Distância (km)<input id="pr-km" inputmode="decimal" placeholder="Ex.: 5,02"></label>
       <label>Tempo (h:mm:ss)<input id="pr-t" inputmode="numeric" placeholder="Ex.: 27:36"></label>
       <label>Ritmo médio (/km)<input id="pr-p" placeholder="automático" readonly></label>
@@ -335,20 +336,24 @@
       const fs = [...e.target.files]; if (!fs.length) return; $('pr-st').textContent = 'Carregando leitor…'; let txt = '';
       try { const T = await loadTess();
         for (let i = 0; i < fs.length; i++) { const { c, thumb } = await prepImg(fs[i]); $('pr-th').insertAdjacentHTML('beforeend', `<img src="${thumb}" alt="print ${i + 1}">`);
-          const r = await T.recognize(c, 'por+eng', { logger: x => { if (x.status === 'recognizing text') $('pr-st').textContent = `Lendo print ${i + 1} de ${fs.length}… ${Math.round(x.progress * 100)}%` } });
+          const r = await Promise.race([new Promise((_, no) => setTimeout(() => no(new Error('a leitura demorou demais')), 120000)), T.recognize(c, 'por+eng', { logger: x => { if (x.status === 'recognizing text') $('pr-st').textContent = `Lendo print ${i + 1} de ${fs.length}… ${Math.round(x.progress * 100)}%` } })]);
           txt += '\n' + r.data.text }
         window.__ocrTxt = txt; const o = lerTexto(txt);
         if (o.km) $('pr-km').value = String(Math.round(o.km * 100) / 100).replace('.', ','); if (o.seg) $('pr-t').value = fmtT(o.seg);
         if (o.fc) $('pr-fc').value = o.fc; if (o.kcal) $('pr-kc').value = o.kcal; if (o.alt) $('pr-el').value = o.alt; upP();
-        TIROS = o.tiros || null; if (o.data && [...$('pr-d').options].some(x => x.value === o.data)) $('pr-d').value = o.data;
+        TIROS = o.tiros || null; if (o.data) { const op = [...$('pr-d').options].find(x => x.dataset.iso === o.data); const cur = $('pr-d').selectedOptions[0]; if (op && (!cur || cur.dataset.iso !== o.data)) $('pr-d').value = op.value }
         $('pr-tr').innerHTML = TIROS ? `<b>Tiros detectados:</b> ${TIROS.n} × ${String(TIROS.km).replace('.', ',')} km${TIROS.media ? ' · pace médio dos tiros ' + fmtT(TIROS.media) + '/km (' + TIROS.paces.map(fmtT).join(', ') + ')' : ''}` : '';
         $('pr-st').textContent = o.km || o.seg ? 'Pronto! Confira os números abaixo.' : TIROS ? 'Li os tiros, mas falta o resumo do treino. Envie também o print do topo (KM, DURATION, PACE) ou preencha à mão.' : 'Não consegui achar os números. Preencha à mão ou tente um print mais nítido da tela de resumo.';
       } catch (er) { $('pr-st').textContent = 'Não consegui ler: ' + er.message + '. Preencha os números à mão.' }
     };
-    $('pr-ok').onclick = () => { const iso = $('pr-d').value, km = num($('pr-km').value), s = tsec($('pr-t').value);
-      if (!iso) return $('pr-st').textContent = 'Escolha o dia do treino.'; if (!km && !s) return $('pr-st').textContent = 'Informe pelo menos a distância ou o tempo.';
-      const r = aplicarAtividades([{ id: 'p' + Date.now(), src: 'print', tipo: 'Run', nome: 'Print', data: iso, km: km || 0, min: s ? Math.round(s / 6) / 10 : 0, fc: num($('pr-fc').value), kcal: num($('pr-kc').value), alt: num($('pr-el').value), tiros: TIROS }]);
-      m.remove(); setMsg('fi-msg', ''); if (typeof flash === 'function') flash(r.n ? 'Treino lançado ✓ ' + (km ? String(km).replace('.', ',') + ' km' : '') : 'Não achei esse dia na planilha.') };
+    $('pr-ok').onclick = async () => { const op = $('pr-d').selectedOptions[0], rowId = op && op.value, iso = op && op.dataset.iso, km = num($('pr-km').value), s = tsec($('pr-t').value);
+      if (!rowId) return $('pr-st').textContent = 'Escolha o dia do treino.'; if (!km && !s) return $('pr-st').textContent = 'Informe pelo menos a distância ou o tempo.';
+      const b = $('pr-ok'); b.disabled = true; b.textContent = 'Salvando…';
+      const r = aplicarAtividades([{ id: 'p' + Date.now(), rowId, src: 'print', tipo: 'Run', nome: 'Print', data: iso, km: km || 0, min: s ? Math.round(s / 6) / 10 : 0, fc: num($('pr-fc').value), kcal: num($('pr-kc').value), alt: num($('pr-el').value), tiros: TIROS }]);
+      if (!r.n) { b.disabled = false; b.textContent = 'Salvar no treino'; return $('pr-st').textContent = 'Não achei esse treino na planilha. Escolha outro dia.' }
+      const okk = await r.salvo;
+      if (!okk) { b.disabled = false; b.textContent = 'Tentar salvar de novo'; $('pr-st').style.color = 'var(--red)'; return $('pr-st').textContent = 'Não consegui enviar ao treinador (sem internet?). Os números continuam aqui: toque para tentar de novo.' }
+      m.remove(); setMsg('fi-msg', ''); if (typeof flash === 'function') flash('Treino salvo ✓ ' + (km ? String(km).replace('.', ',') + ' km' : '')) };
   }
   document.addEventListener('click', e => { if (e.target.closest('[data-print-open]')) openPrint() });
 const setMsg=(id,t)=>{MSG[id]=t;const m=document.getElementById(id);if(m)m.textContent=t};

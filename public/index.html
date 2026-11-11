@@ -210,6 +210,12 @@ td select{background:var(--c,#ccc);color:#111;border:0;border-radius:4px;font:60
 @keyframes spOut{to{transform:scale(2.4);opacity:0}}
 @media(prefers-reduced-motion:reduce){#splash *{animation:none!important;opacity:1!important}}
 .rmet{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px;margin:8px 0 4px}.rmet>div{background:var(--panel2);border-radius:8px;padding:6px 8px}.rmet small{display:block;font-size:10px;color:var(--mute);font-weight:700;letter-spacing:.05em}.rmet b{font-family:var(--mono);font-size:16px}.rmet i{font-style:normal;color:var(--mute);font-size:11px;margin-left:3px}
+.daynav{display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:center;margin-bottom:10px}.daynav .btn{min-width:44px;font-size:20px}
+.wstrip{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px}.wday{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;border-radius:10px;background:var(--panel2);border:1px solid transparent}
+.wday small{font-size:10px;color:var(--mute)}.wday b{font-size:15px}.wday span{display:flex;gap:2px;height:6px}.wday i{width:6px;height:6px;border-radius:50%}.wday i.ok{box-shadow:0 0 0 1.5px var(--green)}.wday i.no{box-shadow:0 0 0 1.5px var(--red)}
+.wday.today{border-color:var(--line)}.wday.on{background:var(--fg);color:var(--bg)}.wday.on small{color:var(--bg)}
+.dcard{border-left:3px solid var(--c);padding-left:12px;margin-bottom:18px}.dcard.sel{background:rgba(255,255,255,.03);border-radius:0 12px 12px 0;padding:10px 12px}
+td.kx::after{content:attr(data-x);display:block;font-size:10px;color:var(--mute);white-space:nowrap;pointer-events:none}
 .runner{position:fixed;inset:0;z-index:70;background:var(--bg);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 .r-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
 .r-top b{font-family:var(--display);font-style:italic;font-weight:900;text-transform:uppercase;font-size:15px}
@@ -584,6 +590,7 @@ function renderTable(){const m=M(),cols=m.cols,n=cols.length,TYPES=allTypes(),TR
    if(c.id==='s')return`<td class="st ${v==='✓'?'ok':v==='✗'?'no':'pend'}${sc}" data-i="${i}" data-c="${ci}" data-k="s" title="Clique para mudar">${v||'·'}</td>`;
    if(c.id==='t')return`<td class="${sc}" data-i="${i}" data-c="${ci}"><select data-i="${i}" data-k="t" class="${v?'':'vazio'}" style="--c:${typeColor(v)}" aria-label="Tipo de treino">${['',...TYPES].map(o=>`<option ${o&&typeKey(o)===typeKey(v)||(!o&&!v)?'selected':''}>${esc(o)}</option>`).join('')}</select></td>`;
    const cls=['c','o'].includes(c.id)||c.id.startsWith('x')?'c':'num';
+   if(c.id==='kmd'&&r.ext&&r.ext.length){const A=runAgg(r);return`<td class="${cls}${sc} kx" contenteditable data-i="${i}" data-c="${ci}" data-k="${c.id}" data-x="${tempoF(A.min)} · ${paceF(A.km,A.min)}/km${A.fc?' · FC '+Math.round(A.fc):''}" title="Do print: ${tempoF(A.min)} · pace ${paceF(A.km,A.min)}/km${A.fc?' · FC '+Math.round(A.fc):''}">${esc(v)}</td>`}
    return`<td class="${cls}${sc}" contenteditable data-i="${i}" data-c="${ci}" data-k="${c.id}">${esc(v)}</td>`}).join('')+'</tr>'}).join('');
  renderSheets()}
 function renderSheets(){document.getElementById('sheets').innerHTML=months.map((m,i)=>`<button class="${i===cur?'on':''}" data-m="${i}" title="Dois cliques para renomear">${esc(m.nome)}</button>`).join('')+'<button class="plus" data-m="new" title="Adicionar mês" aria-label="Adicionar mês">+</button>'}
@@ -806,20 +813,32 @@ const ok=document.getElementById('f-ok'),no=document.getElementById('f-no');
 ok.onclick=()=>{done='✓';ok.setAttribute('aria-pressed',true);no.setAttribute('aria-pressed',false)};
 no.onclick=()=>{done='✗';no.setAttribute('aria-pressed',true);ok.setAttribute('aria-pressed',false)};
 document.getElementById('send').onclick=()=>{const t=document.getElementById('toast');if(!done){t.style.color='var(--red)';t.textContent='Marque se fez ou não o treino.';return}
- const r=todayRow();if(!r)return;r.s=done;r.r=done==='✓'&&rpe?rpe:'';r.o=document.getElementById('f-obs').value;{const k=kmN(document.getElementById('f-km').value);if(k!=null&&done==='✓')r.kmd=String(k)}renderAll();athFb(r);
- t.style.color='var(--green)';t.textContent='Feedback enviado. Veja na visão Treinador: planilha e gráfico atualizados.'};
+ const r=FBROW;if(!r)return;r.s=done;r.r=done==='✓'&&rpe?rpe:'';r.o=document.getElementById('f-obs').value;{const k=kmN(document.getElementById('f-km').value);if(k!=null&&done==='✓')r.kmd=String(k)}renderAll();
+ t.style.color='var(--green)';t.textContent='Enviando…';athFb(r,true).then(okk=>{t.style.color=okk?'var(--green)':'var(--red)';t.textContent=okk?'Feedback enviado ao treinador ✓':'Não consegui enviar (sem internet?). Tente de novo.'})};
 
 function fichaDe(txt){const t=norm(String(txt||''));for(const P of pastas)for(const f of P.fichas){const code=norm(f.nome).split(/[\s·\-]+/)[0];if(code&&new RegExp('(^|[^a-z0-9])'+code.replace(/[^a-z0-9]/g,'')+'([^a-z0-9]|$)').test(t))return f}return null}
-function renderAluno(){document.getElementById('a-sub').textContent=DATA_LONGA;const r=todayRow(),box=document.getElementById('a-treino');document.getElementById('a-fb').hidden=!r||typeKey(r.t)==='descanso';
- if(!r){box.innerHTML='<div class="eyebrow">Hoje</div><h2>Sem treino</h2><p style="color:var(--mute)">Nenhum treino lançado para hoje na planilha.</p>'}
- else{const linhas=String(r.c||'').split('\n'),f=fichaDe(r.c);
-  box.innerHTML=`<div class="eyebrow">${esc(r.t||'Treino')}</div><h2>${esc(linhas[0]||r.t||'Treino do dia')}</h2>${linhas.length>1?`<div class="block" style="--c:var(--red)"><h4>PARTE PRINCIPAL</h4><p>${esc(linhas.slice(1).join('\n'))}</p></div>`:''}
-  ${f?`<button class="big" style="display:block;margin:14px 0" data-start-today>Iniciar treino ${esc(f.nome)}</button><div class="block" style="--c:var(--purple)"><h4>FICHA ${esc(f.nome)}</h4>${f.ex.map((x,ei)=>`<div class="ex"><div class="vid">${anim(x)}</div><div><b>${esc(x.n)}</b><small>${esc(x.pres)}</small></div></div>`).join('')||'<p style="color:var(--mute)">Ficha ainda sem exercícios.</p>'}</div>`:''}`;
-  document.getElementById('a-prev').textContent='Esforço (escala de Borg 6–20)'+(r.p?' · previsto '+r.p:'')}
+let DAYISO=null,FBROW=null,FBSET=null;const WD=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const isoD=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+function dayRows(iso){return datedRows().filter(o=>o.iso===iso&&(o.r.t||o.r.c)).map(o=>o.r)}
+function fillFb(r){if(FBSET===r)return;FBSET=r;done=r&&(r.s==='✓'||r.s==='✗')?r.s:null;rpe=r&&r.r?+r.r:null;ok.setAttribute('aria-pressed',done==='✓');no.setAttribute('aria-pressed',done==='✗');[...borg.children].forEach(c=>c.setAttribute('aria-pressed',+c.textContent===rpe));
+ document.getElementById('f-obs').value=r&&r.o||'';document.getElementById('f-km').value=r&&r.kmd?String(r.kmd).replace('.',','):'';document.getElementById('toast').textContent=''}
+function renderAluno(){if(!DAYISO)DAYISO=TODAY_ISO;const dd=new Date(DAYISO+'T12:00:00'),hoje=DAYISO===TODAY_ISO,fut=DAYISO>TODAY_ISO;
+ document.getElementById('a-sub').textContent=DATA_LONGA;const box=document.getElementById('a-treino'),RS=dayRows(DAYISO),treinos=RS.filter(r=>typeKey(r.t)!=='descanso');
+ if(!FBROW||!RS.includes(FBROW))FBROW=treinos.find(r=>!r.s)||treinos[0]||null;fillFb(FBROW);
+ document.getElementById('a-fb').hidden=!FBROW||fut;
+ const mon=new Date(dd);mon.setDate(mon.getDate()-((mon.getDay()+6)%7));let strip='';
+ for(let i=0;i<7;i++){const x=new Date(mon);x.setDate(x.getDate()+i);const iso=isoD(x),rs=dayRows(iso);strip+=`<button class="wday ${iso===DAYISO?'on':''} ${iso===TODAY_ISO?'today':''}" data-day="${iso}"><small>${WD[x.getDay()]}</small><b>${x.getDate()}</b><span>${rs.map(r=>`<i style="background:${typeColor(r.t)}" class="${r.s==='✓'?'ok':r.s==='✗'?'no':''}"></i>`).join('')||'<i style="background:#2a2a30"></i>'}</span></button>`}
+ const nav=`<div class="daynav"><button class="btn" data-dstep="-1" aria-label="Dia anterior">‹</button><div><div class="eyebrow">${hoje?'Hoje':fut?'Próximo treino':'Dia anterior'}</div><b>${WD[dd.getDay()]}, ${String(dd.getDate()).padStart(2,'0')}/${String(dd.getMonth()+1).padStart(2,'0')}</b>${hoje?'':' <button class="mini ghost" data-day="'+TODAY_ISO+'">voltar para hoje</button>'}</div><button class="btn" data-dstep="1" aria-label="Próximo dia">›</button></div><div class="wstrip">${strip}</div>`;
+ if(!RS.length){box.innerHTML=nav+'<h2>Sem treino</h2><p style="color:var(--mute)">Nenhum treino lançado para este dia na planilha.</p>'}
+ else box.innerHTML=nav+(RS.length>1?`<div style="display:flex;flex-wrap:wrap;gap:6px;margin:-4px 0 14px">${RS.map((r,k)=>`<a href="#dc-${k}" class="tchip" style="text-decoration:none;color:inherit"><i style="background:${typeColor(r.t)}"></i>${k+1}. ${esc(r.t||'Treino')}</a>`).join('')}</div>`:'')+RS.map((r,k)=>{const linhas=String(r.c||'').split('\n'),f=fichaDe(r.c),sel=r===FBROW&&RS.length>1;
+  return`<div class="dcard ${sel?'sel':''}" id="dc-${k}" style="--c:${typeColor(r.t)}">${RS.length>1?`<div class="eyebrow" style="color:var(--mute)">TREINO ${k+1} DE ${RS.length}</div>`:''}<div class="eyebrow">${esc(r.t||'Treino')}${r.s==='✓'?' · <span style="color:var(--green)">FEITO</span>':r.s==='✗'?' · <span style="color:var(--red)">NÃO FEITO</span>':''}</div><h2>${esc(linhas[0]||r.t||'Treino do dia')}</h2>${linhas.length>1?`<div class="block" style="--c:var(--red)"><h4>PARTE PRINCIPAL</h4><p>${esc(linhas.slice(1).join('\n'))}</p></div>`:''}${r.p?`<p style="color:var(--mute);font-size:13px;margin:6px 0 0">Esforço previsto: ${esc(r.p)}</p>`:''}
+  ${f&&!fut?`<button class="big" style="display:block;margin:14px 0" data-start-row="${esc(r.id)}">Iniciar treino ${esc(f.nome)}</button>`:''}${f?`<div class="block" style="--c:var(--purple)"><h4>FICHA ${esc(f.nome)}</h4>${f.ex.map(x=>`<div class="ex"><div class="vid">${anim(x)}</div><div><b>${esc(x.n)}</b><small>${esc(x.pres)}</small></div></div>`).join('')||'<p style="color:var(--mute)">Ficha ainda sem exercícios.</p>'}</div>`:''}
+  ${RS.length>1&&typeKey(r.t)!=='descanso'&&!fut?`<button class="mini ${sel?'':'ghost'}" data-fbrow="${esc(r.id)}" style="margin-top:10px">${sel?'✓ Feedback abaixo é deste treino':'Dar feedback deste treino'}</button>`:''}</div>`}).join('');
+ if(FBROW)document.getElementById('a-prev').textContent='Esforço (escala de Borg 6–20)'+(FBROW.p?' · previsto '+FBROW.p:'')+(RS.length>1?' · '+(FBROW.t||''):'');
  const y=NOW.getFullYear(),mo=NOW.getMonth();document.getElementById('cal-t').textContent=NOW.toLocaleDateString('pt-BR',{month:'long',year:'numeric'}).replace(/^./,c=>c.toUpperCase());
- const ev={};for(const o of datedRows())if(o.r.t&&o.dt.getFullYear()===y&&o.dt.getMonth()===mo)ev[o.d]=o.r;
+ const ev={};for(const o of datedRows())if(o.r.t&&o.dt.getFullYear()===y&&o.dt.getMonth()===mo)(ev[o.d]=ev[o.d]||[]).push(o.r);
  let cg='';['D','S','T','Q','Q','S','S'].forEach(h=>cg+=`<div class="h">${h}</div>`);for(let i=0;i<new Date(y,mo,1).getDay();i++)cg+='<div></div>';
- for(let d=1;d<=new Date(y,mo+1,0).getDate();d++){const e=ev[d];cg+=`<div class="${d===NOW.getDate()?'now':''}"><span class="d">${d}</span>${e?`<span class="ev" style="background:${typeColor(e.t)}">${esc(e.t)}</span>`:''}</div>`}
+ for(let d=1;d<=new Date(y,mo+1,0).getDate();d++){const e=ev[d];cg+=`<div class="${d===NOW.getDate()?'now':''}" data-calday="${y}-${String(mo+1).padStart(2,'0')}-${String(d).padStart(2,'0')}" style="cursor:pointer"><span class="d">${d}</span>${(e||[]).map(x=>`<span class="ev" style="background:${typeColor(x.t)}">${esc(x.t)}</span>`).join('')}</div>`}
  document.getElementById('calg').innerHTML=cg}
 
 // ---------- TREINOS REALIZADOS (treinador) ----------
@@ -887,7 +906,11 @@ function beep(){try{audio=audio||new (window.AudioContext||window.webkitAudioCon
 function renderFichasAluno(){const el=document.getElementById('a-fichas');if(!el)return;const P=pastas[0];
  el.innerHTML=P?`<div class="eyebrow" style="margin-bottom:4px">${esc(P.nome)}</div>`+P.fichas.map((f,i)=>`<button class="fitem" data-ficha="${i}"><span class="code">${esc(f.nome)}</span><span style="min-width:0"><b>${f.ex.length} exercícios</b><small>${esc([...new Set(f.ex.flatMap(x=>x.m))].slice(0,5).join(' · '))}</small></span></button>`).join(''):'<div class="empty">Nenhum programa liberado ainda.</div>'}
 document.getElementById('a-fichas').addEventListener('click',e=>{const b=e.target.closest('[data-ficha]');if(b)openRunner(pastas[0].fichas[+b.dataset.ficha])});
-document.getElementById('a-treino').addEventListener('click',e=>{if(e.target.closest('[data-start-today]')){const f=fichaDe((todayRow()||{}).c);if(f)openRunner(f,true)}});
+document.getElementById('a-treino').addEventListener('click',e=>{const st=e.target.closest('[data-start-row]');if(st){const r=dayRows(DAYISO).find(x=>x.id===st.dataset.startRow);const f=r&&fichaDe(r.c);if(f){FBROW=r;START_ROW=r;openRunner(f,true)}return}
+ const d=e.target.closest('[data-day]');if(d){DAYISO=d.dataset.day;FBROW=null;renderAluno();return}const sp=e.target.closest('[data-dstep]');if(sp){const x=new Date(DAYISO+'T12:00:00');x.setDate(x.getDate()+ +sp.dataset.dstep);DAYISO=isoD(x);FBROW=null;renderAluno();return}
+ const fr=e.target.closest('[data-fbrow]');if(fr){FBROW=dayRows(DAYISO).find(x=>x.id===fr.dataset.fbrow)||FBROW;renderAluno();document.getElementById('a-fb').scrollIntoView({behavior:'smooth',block:'start'})}});
+let START_ROW=null;
+document.getElementById('calg').addEventListener('click',e=>{const c=e.target.closest('[data-calday]');if(!c)return;DAYISO=c.dataset.calday;FBROW=null;renderAluno();document.querySelector('#aluno .tabs [data-t="hoje"]').click()});
 const runner=document.createElement('div');runner.className='runner';runner.hidden=true;document.body.appendChild(runner);
 function openRunner(f,fromToday){RUN={f,stage:'intro',i:0,fromToday,data:f.ex.map(x=>{const pr=parsePres(x.pres),h=HIST[hk(x.n)]||[];if(x.desc!=null&&x.desc!=='')pr.rest=+x.desc;return{pr,cur:0,com:'',sets:Array.from({length:pr.sets},(_,k)=>({a:pr.val,b:(h[k]||h[h.length-1]||{b:''}).b,done:false}))}}),tab:'s',t0:null,rest:null};runner.hidden=false;draw()}
 function closeRunner(){clearInterval(RUN&&RUN.tick);RUN=null;runner.hidden=true;try{wake&&wake.release()}catch(e){}}
@@ -936,7 +959,7 @@ runner.addEventListener('click',async e=>{const b=e.target.closest('[data-r]');i
  if(a==='m10'||a==='p10'){if(R.rest){R.rest.end+=a==='m10'?-10000:10000;R.rest.total=Math.max(R.rest.total,(R.rest.end-Date.now())/1000);R.rest.fired=false}return tickRest()}
  if(a==='skip'){R.rest=null;return draw()}
  if(a==='next'){R.rest=null;R.tab='s';if(R.i<R.f.ex.length-1){R.i++;return draw()}R.stage='end';clearInterval(R.tick);return draw()}
- if(a==='finish'){const row=todayRow(),fe=R.fim||'';if(row&&R.fromToday!==false){row.s='✓';row.r=R.rpe;const coms=R.data.map((dd,i)=>dd.com?R.f.ex[i].n+': '+dd.com:'').filter(Boolean);row.o=[fe,...coms].filter(Boolean).join(' | ');athFb(row)}athSession(R);
+ if(a==='finish'){const row=START_ROW||todayRow(),fe=R.fim||'';START_ROW=null;if(row&&R.fromToday!==false){row.s='✓';row.r=R.rpe;const coms=R.data.map((dd,i)=>dd.com?R.f.ex[i].n+': '+dd.com:'').filter(Boolean);row.o=[fe,...coms].filter(Boolean).join(' | ');athFb(row)}athSession(R);
   closeRunner();renderAll();const t=document.getElementById('toast');t&&(t.style.color='var(--green)',t.textContent=row?'Treino enviado ao treinador.':'Treino concluído.')}});
 renderFichasAluno();
 
@@ -965,7 +988,7 @@ const busy=()=>{const a=document.activeElement;return a&&(a.isContentEditable||/
 function applyDoc(d){CURATH=d;LOADED=true;months.splice(0,months.length,...(d.months&&d.months.length?d.months:[newMonth('MÊS 1',new Date())]));normTypes();months.forEach(ensureKmCol);pastas.splice(0,pastas.length,...(d.pastas||[]));
  const fb=d.fb||{};for(const m of months)for(const r of m.rows)if(r.id&&fb[r.id])Object.assign(r,{s:fb[r.id].s||'',r:fb[r.id].r??'',o:fb[r.id].o||'',kmd:fb[r.id].kmd??r.kmd??'',ext:fb[r.id].ext||null});
  for(const k in HIST)delete HIST[k];Object.assign(HIST,d.hist||{});
- if(cur>=months.length)cur=0;if(pasta!=null&&pasta>=pastas.length)pasta=null;ensureIds();lastSaved=planStr();prevFb=fbFromRows();undoStack.length=0;document.getElementById('undo').disabled=true;
+ if(cur>=months.length)cur=0;if(pasta!=null&&pasta>=pastas.length)pasta=null;lastSaved=planStr();ensureIds();if(ROLE!=='coach')lastSaved=planStr();prevFb=fbFromRows();undoStack.length=0;document.getElementById('undo').disabled=true;
  renderAll();renderProgs();const ct=document.querySelector('#coach .tabs [aria-selected="true"]');if(ct&&ct.dataset.t!=='home')document.getElementById('c-h1').innerHTML=athH();
  document.getElementById('a-h1').innerHTML=(NOW.getHours()<12?'Bom dia':NOW.getHours()<18?'Boa tarde':'Boa noite')+', <em>'+esc((d.nome||'').split(' ')[0])+'</em>';}
 function subscribe(id){unsub&&unsub();LOADED=false;AID=id;try{localStorage.setItem('atp-aid',id)}catch(e){}
@@ -981,7 +1004,7 @@ async function save(){if(!LOADED||!AID)return;saving=true;const s0=planStr(),now
  const p=FS.collection('athletes').doc(AID).update(upd);lastSaved=s0;prevFb=now;saving=false;
  try{await p;setSync('Salvo ✓')}catch(e){lastSaved='';setSync('Não consegui salvar. Tentando de novo…',1)}}
 window.addEventListener('beforeunload',e=>{if(ROLE==='coach'&&planStr()!==lastSaved){e.preventDefault();e.returnValue=''}});
-function athFb(row){if(ROLE!=='athlete'||!AID||!row.id)return;FS.collection('athletes').doc(AID).update({['fb.'+row.id]:Object.assign({s:row.s||'',r:row.r??'',o:row.o||'',kmd:row.kmd??''},row.ext?{ext:row.ext}:{})}).then(()=>setSync('Enviado ao treinador ✓')).catch(()=>setSync('Não consegui enviar. Tente de novo.',1))}
+function athFb(row,ret){if(ROLE!=='athlete'||!AID||!row.id)return Promise.resolve(ROLE!=='athlete');return FS.collection('athletes').doc(AID).update({['fb.'+row.id]:Object.assign({s:row.s||'',r:row.r??'',o:row.o||'',kmd:row.kmd??''},row.ext?{ext:row.ext}:{})}).then(()=>{setSync('Enviado ao treinador ✓');return true}).catch(e=>{console.error(e);setSync('Não consegui enviar. Tente de novo.',1);return false})}
 function athSession(R){if(ROLE!=='athlete'||!AID)return;const upd={sessions:FV.arrayUnion({ficha:R.f.nome,data:new Date().toISOString(),min:R.dur||0,rpe:R.rpe||null,ex:R.data.map((d,i)=>({n:R.f.ex[i].n,sets:d.sets.filter(s=>s.done).map(s=>({a:String(s.a),b:String(s.b)})),com:d.com||''}))})};
  R.data.forEach((d,i)=>{if(d.sets.some(s=>s.done))upd['hist.'+hk(R.f.ex[i].n)]=d.sets.map(s=>({b:String(s.b||'')}))});FS.collection('athletes').doc(AID).update(upd).catch(()=>{})}
 

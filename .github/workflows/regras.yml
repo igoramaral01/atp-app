@@ -1,0 +1,18 @@
+name: Publicar regras do Firestore
+on:
+  push:
+    branches: [main]
+    paths: [firestore.rules]
+  workflow_dispatch: {}
+jobs:
+  regras:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm i --no-save firebase-admin@12.7.0
+      - run: node scripts/regras.mjs
+        env:
+          FIREBASE_SA: ${{ secrets.FIREBASE_SA }}

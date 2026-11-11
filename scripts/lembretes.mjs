@@ -12,17 +12,25 @@ const agora = new Date(Date.now() - 3 * 3600e3); // horário de Brasília
 const H = process.env.HORA ? Number(process.env.HORA) : agora.getUTCHours(), D = agora.getUTCDate(), M = agora.getUTCMonth() + 1;
 const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 let env = 0;
+const hojeK = agora.toISOString().slice(0, 10);
 for (const d of (await db.collection('athletes').get()).docs) {
-  const a = d.data(), p = a.push; if (!p || !p.tokens || !p.tokens.length || !(p.horas || []).includes(H)) continue;
-  const fb = a.fb || {}; let row = null;
+  const a = d.data(), p = a.push; if (!p || !p.tokens || !p.tokens.length) continue;
+  const enviados = (p.enviados && p.enviados[hojeK]) || [];
+  // o GitHub às vezes atrasa a execução: envia a hora escolhida mais recente que já passou (até 2h) e ainda não foi enviada hoje
+  const hora = (p.horas || []).filter(h => h <= H && H - h <= 2 && !enviados.includes(h)).sort((x, y) => y - x)[0];
+  if (hora == null) continue;
+  const fb = a.fb || {}, rows = [];
   for (const m of a.months || []) for (const r of m.rows || []) { if (r.w != null || r.sum != null || !r.dt) continue;
-    const x = String(r.dt).match(/^(\d{1,2})\/(\d{1,2})/); if (x && +x[1] === D && +x[2] === M) row = { ...r, ...(fb[r.id] || {}) }; }
-  if (!row || !row.t || /descanso|off/.test(norm(row.t)) || row.s) continue;
-  const nome = String(a.nome || '').split(' ')[0], desc = String(row.c || '').split('\n')[0];
-  const n = H < 12 ? { title: `Bom dia, ${nome}! Treino de hoje: ${row.t}`, body: desc || 'Abra o ATP para ver os detalhes.' }
-    : H < 20 ? { title: `${nome}, seu treino de hoje te espera`, body: `${row.t}${desc ? ' · ' + desc : ''}` }
-    : { title: 'Já treinou hoje?', body: `Marque o ${row.t} como feito e envie seu feedback ao treinador.` };
+    const x = String(r.dt).match(/^(\d{1,2})\/(\d{1,2})/); if (x && +x[1] === D && +x[2] === M) rows.push({ ...r, ...(fb[r.id] || {}) }); }
+  const pend = rows.filter(r => r.t && !/descanso|off/.test(norm(r.t)) && !r.s);
+  await d.ref.update({ ['push.enviados']: { [hojeK]: [...enviados, hora] } });
+  if (!pend.length) continue;
+  const nome = String(a.nome || '').split(' ')[0], lista = pend.map(r => r.t + (String(r.c || '').split('\n')[0] ? ' (' + String(r.c).split('\n')[0] + ')' : '')).join(' + ');
+  const n = hora < 12 ? { title: `Bom dia, ${nome}! Treino de hoje: ${pend.map(r => r.t).join(' + ')}`, body: lista }
+    : hora < 20 ? { title: `${nome}, seu treino de hoje te espera`, body: lista }
+    : { title: 'Já treinou hoje?', body: `Marque ${pend.map(r => r.t).join(' + ')} como feito e envie seu feedback ao treinador.` };
   const r = await msg.sendEachForMulticast({ tokens: p.tokens, notification: n, webpush: { fcmOptions: { link: 'https://atp-app-two.vercel.app/' }, notification: { icon: '/img/icon-192.png' } } });
+  r.responses.forEach((x, i) => { if (!x.success) console.log('falha token', i, x.error && x.error.code) });
   const ruins = p.tokens.filter((t, i) => !r.responses[i].success && /not-registered|invalid-registration|invalid-argument/.test(r.responses[i].error?.code || ''));
   if (ruins.length) await d.ref.update({ 'push.tokens': FieldValue.arrayRemove(...ruins) });
   env += r.successCount;

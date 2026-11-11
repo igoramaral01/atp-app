@@ -1,7 +1,7 @@
 name: Lembretes de treino
 on:
   schedule:
-    - cron: '3 * * * *'   # de hora em hora; o script só envia nas horas escolhidas por cada aluno
+    - cron: '7,37 * * * *'   # duas vezes por hora; o script não repete o mesmo lembrete no dia
   workflow_dispatch:
     inputs:
       hora:
