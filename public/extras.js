@@ -396,6 +396,38 @@ const setMsg=(id,t)=>{MSG[id]=t;const m=document.getElementById(id);if(m)m.textC
     e.target.value = '';
   });
 
+
+  // ---------------- NOTIFICAÇÕES DO TREINADOR ----------------
+  let CPUSH = null, CPUSH_OK = false;
+  async function carregaCoach() { if (CPUSH_OK || typeof AUTH === 'undefined' || !AUTH.currentUser) return; CPUSH_OK = true;
+    try { const d = await FS.collection('users').doc(AUTH.currentUser.uid).get(); CPUSH = (d.exists && d.data().push) || null } catch (e) { } renderCoachPush() }
+  function renderCoachPush() {
+    if (typeof ROLE === 'undefined' || ROLE !== 'coach') return; const al = document.getElementById('h-alunos'); if (!al) return;
+    let c = document.getElementById('cp-card'); if (!c) { c = document.createElement('div'); c.className = 'card'; c.id = 'cp-card'; al.closest('.card').after(c) }
+    const on = CPUSH && CPUSH.tokens && CPUSH.tokens.length, hs = (CPUSH && CPUSH.horas) || [12], fbk = !CPUSH || CPUSH.feedback !== false;
+    c.innerHTML = `<h3>🔔 Notificações no celular</h3><p style="font-size:13px;color:var(--mute);margin:4px 0 8px">${on ? '<b style="color:var(--green)">Ativadas</b> neste(s) aparelho(s).' : 'Receba no seu celular o que os alunos estão fazendo.'}</p>
+      <label style="display:block;margin:6px 0"><input type="checkbox" id="cp-fb" ${fbk ? 'checked' : ''}> Quando um aluno enviar o feedback do treino (feito/não feito, esforço, km)</label>
+      <label style="display:block;margin:6px 0"><input type="checkbox" data-chora="12" ${hs.includes(12) ? 'checked' : ''}> Resumo do dia às 12h (treinos de hoje de cada aluno)</label>
+      <label style="display:block;margin:6px 0"><input type="checkbox" data-chora="22" ${hs.includes(22) ? 'checked' : ''}> Resumo às 22h (quem treinou e quem ficou pendente)</label>
+      <div class="row" style="margin-top:8px">${on ? '<button class="btn" id="cp-save">Salvar</button> ' : ''}<button class="btn b-ok" id="cp-on">${on ? 'Ativar neste aparelho' : 'Ativar notificações'}</button></div>
+      <div id="cp-msg" style="font-size:13px;color:var(--mute);margin-top:8px">${esc(MSG['cp-msg'] || '')}</div>`;
+  }
+  async function obterToken(say) {
+    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent), inst = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+    if (ios && !inst) { say('No iPhone: toque em Compartilhar → "Adicionar à Tela de Início", abra o ATP pelo ícone e ative aqui.'); return null }
+    if (!('Notification' in window) || !('serviceWorker' in navigator) || !(await firebase.messaging.isSupported())) { say('Este navegador não aceita notificações. Use o Chrome (Android/computador) ou o app na Tela de Início (iPhone).'); return null }
+    if (await Notification.requestPermission() !== 'granted') { say('Permissão negada. Libere as notificações do ATP nas configurações do aparelho.'); return null }
+    const reg = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+    return await firebase.messaging().getToken({ vapidKey: VAPID, serviceWorkerRegistration: reg });
+  }
+  const coachPrefs = () => ({ horas: [...document.querySelectorAll('[data-chora]:checked')].map(i => +i.dataset.chora), feedback: document.getElementById('cp-fb').checked });
+  async function salvarCoach(tk) { const say = t => setMsg('cp-msg', t);
+    const p = Object.assign({ tokens: (CPUSH && CPUSH.tokens) || [], tz: 'America/Sao_Paulo' }, coachPrefs()); if (tk) p.tokens = [...new Set([...p.tokens, tk])].slice(-5);
+    await FS.collection('users').doc(AUTH.currentUser.uid).set({ role: 'coach', email: AUTH.currentUser.email || '', push: p }, { merge: true }); CPUSH = p; renderCoachPush(); say(tk ? 'Notificações ativadas ✓' : 'Preferências salvas ✓') }
+  document.addEventListener('click', async e => {
+    if (e.target.id === 'cp-save') { try { await salvarCoach(null) } catch (er) { setMsg('cp-msg', 'Não consegui salvar: ' + er.message) } }
+    if (e.target.id === 'cp-on') { const say = t => setMsg('cp-msg', t); try { const tk = await obterToken(say); if (tk) await salvarCoach(tk) } catch (er) { say('Não consegui ativar: ' + er.message) } }
+  });
   // retorno do Strava (#strava=...)
   let PEND = null;
   if (location.hash.startsWith('#strava=')) { const v = decodeURIComponent(location.hash.slice(8)); history.replaceState(null, '', location.pathname + location.search);
@@ -408,7 +440,7 @@ const setMsg=(id,t)=>{MSG[id]=t;const m=document.getElementById(id);if(m)m.textC
       if (p === 'erro') alert('A conexão com o Strava foi cancelada ou falhou.');
       else { CURATH.strava = { rt: p.rt, nome: p.nome || '', id: p.id || null, ult: 0 }; doc().update({ strava: CURATH.strava }).then(() => { syncStrava(true) }) }
       setTimeout(() => { const b = document.querySelector('#aluno .tabs [data-t="a-cfg"]'); b && b.click() }, 300) }
-    renderRel(); renderCfg();
+    renderRel(); renderCfg(); carregaCoach(); renderCoachPush();
     { const pu = CURATH.push, H = document.getElementById('hoje'); let bn = document.getElementById('pu-banner');
       const need = isAth() && !(pu && pu.tokens && pu.tokens.length);
       if (need && H && !bn) { bn = document.createElement('div'); bn.id = 'pu-banner'; bn.className = 'card'; bn.style.cssText = 'margin-bottom:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;border-color:var(--green)';
