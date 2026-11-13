@@ -15,7 +15,7 @@ const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ
 let env = 0;
 const hojeK = agora.toISOString().slice(0, 10);
 for (const d of (await db.collection('athletes').get()).docs) {
-  const a = d.data(), p0 = (a.fb && a.fb._push) || a.push; if (!p0 || !p0.tokens || !p0.tokens.length) continue;
+  const a = d.data(), p0 = (a.fb && a.fb._push) || a.push; console.log('aluno', String(a.nome || '').split(' ')[0], 'aparelhos:', (p0 && p0.tokens || []).length, 'horas:', p0 && p0.horas); if (!p0 || !p0.tokens || !p0.tokens.length) continue;
   const p = { ...p0, enviados: (a.push && a.push.enviados) || {} };
   const enviados = (p.enviados && p.enviados[hojeK]) || [];
   // o GitHub às vezes atrasa a execução: envia a hora escolhida mais recente que já passou (até 2h) e ainda não foi enviada hoje
@@ -44,6 +44,7 @@ for (const d of (await db.collection('athletes').get()).docs) {
 const mc = await db.collection('meta').doc('coach').get();
 const cu = mc.exists && mc.data().uid ? await db.collection('users').doc(mc.data().uid).get() : null;
 const cp = cu && cu.exists && cu.data().push;
+console.log('treinador aparelhos:', (cp && cp.tokens || []).length, 'horas:', cp && cp.horas, 'feedback:', cp && cp.feedback);
 if (cp && cp.tokens && cp.tokens.length) {
   const ATH = (await db.collection('athletes').get()).docs.map(d => ({ id: d.id, ...d.data() }));
   const enviar = async n => { const r = await msg.sendEachForMulticast({ tokens: cp.tokens, notification: n, webpush: { fcmOptions: { link: 'https://atp-app-two.vercel.app/' }, notification: { icon: '/img/icon-192.png' } } });
