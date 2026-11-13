@@ -14,7 +14,8 @@ const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ
 let env = 0;
 const hojeK = agora.toISOString().slice(0, 10);
 for (const d of (await db.collection('athletes').get()).docs) {
-  const a = d.data(), p = a.push; if (!p || !p.tokens || !p.tokens.length) continue;
+  const a = d.data(), p0 = (a.fb && a.fb._push) || a.push; if (!p0 || !p0.tokens || !p0.tokens.length) continue;
+  const p = { ...p0, enviados: (a.push && a.push.enviados) || {} };
   const enviados = (p.enviados && p.enviados[hojeK]) || [];
   // o GitHub às vezes atrasa a execução: envia a hora escolhida mais recente que já passou (até 2h) e ainda não foi enviada hoje
   const horas = [...new Set((p.horas || [12, 18, 22]).filter(h => h !== 7).map(h => h === 21 ? 22 : h))]; // horários atuais: 12h, 18h e 22h
@@ -34,7 +35,7 @@ for (const d of (await db.collection('athletes').get()).docs) {
   const r = await msg.sendEachForMulticast({ tokens: p.tokens, notification: n, webpush: { fcmOptions: { link: 'https://atp-app-two.vercel.app/' }, notification: { icon: '/img/icon-192.png' } } });
   r.responses.forEach((x, i) => { if (!x.success) console.log('falha token', i, x.error && x.error.code) });
   const ruins = p.tokens.filter((t, i) => !r.responses[i].success && /not-registered|invalid-registration|invalid-argument/.test(r.responses[i].error?.code || ''));
-  if (ruins.length) await d.ref.update({ 'push.tokens': FieldValue.arrayRemove(...ruins) });
+  if (ruins.length) await d.ref.update({ 'fb._push.tokens': FieldValue.arrayRemove(...ruins) });
   env += r.successCount;
 }
 console.log('Hora', H, '· notificações enviadas:', env);

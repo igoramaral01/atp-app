@@ -190,10 +190,13 @@
       const tk = await firebase.messaging().getToken({ vapidKey: VAPID, serviceWorkerRegistration: reg });
       const horas = [...document.querySelectorAll('[data-hora]:checked')].map(i => +i.dataset.hora);
       const p = (CURATH.push = { tokens: [...new Set([...((CURATH.push && CURATH.push.tokens) || []), tk])].slice(-5), horas: horas.length ? horas : PADRAO, tz: 'America/Sao_Paulo' });
-      await doc().update({ push: p }); say('Lembretes ativados ✓'); renderCfg();
+      await salvarPush(p); say('Lembretes ativados ✓ Você vai receber o treino do dia às ' + p.horas.map(h => h + 'h').join(', ') + '.'); renderCfg();
     } catch (e) { say('Não consegui ativar: ' + e.message) }
   }
-  async function salvarHoras() { if (!CURATH.push) return; CURATH.push.horas = [...document.querySelectorAll('[data-hora]:checked')].map(i => +i.dataset.hora); await doc().update({ push: CURATH.push }); setMsg('pu-msg', 'Horários salvos ✓') }
+  // grava no campo de feedback (sempre liberado para o aluno) e, se as regras permitirem, também em "push"
+  async function salvarPush(p) { const q = { tokens: p.tokens, horas: p.horas, tz: p.tz || 'America/Sao_Paulo', em: Date.now() };
+    await doc().update({ 'fb._push': q }); try { await doc().update({ push: q }) } catch (e) { } }
+  async function salvarHoras() { if (!CURATH.push) return; CURATH.push.horas = [...document.querySelectorAll('[data-hora]:checked')].map(i => +i.dataset.hora); await salvarPush(CURATH.push); setMsg('pu-msg', 'Horários salvos ✓') }
 
   const MSG={};
   // ---------------- LEITURA DE PRINTS (OCR no próprio celular) ----------------
@@ -360,7 +363,7 @@ const setMsg=(id,t)=>{MSG[id]=t;const m=document.getElementById(id);if(m)m.textC
   // ---------------- TELA "CONEXÕES" ----------------
   function renderCfg() {
     const R = document.getElementById('cfg-root'); if (!R || !CURATH) return;
-    const st = CURATH.strava, pu = CURATH.push, ath = isAth(), hs = (pu && pu.horas) || PADRAO;
+    const st = CURATH.strava, pu = CURATH.push || (CURATH.fb && CURATH.fb._push), ath = isAth(), hs = (pu && pu.horas) || PADRAO;
     R.innerHTML = `<div class="card"><div class="eyebrow" style="color:#fc4c02">Print do Strava / ASICS Runkeeper</div>
       <p>Terminou o treino? Tire um print da tela de resumo da atividade e envie aqui. O app lê distância, tempo, ritmo, frequência cardíaca e calorias e lança no treino do dia.</p>
       ${ath ? '<button class="btn b-ok" data-print-open style="background:#fc4c02;border-color:#fc4c02">📷 Enviar print</button>' : '<p style="color:var(--mute)">O aluno envia pelo app dele.</p>'}</div>
@@ -382,6 +385,7 @@ const setMsg=(id,t)=>{MSG[id]=t;const m=document.getElementById(id);if(m)m.textC
     if (id === 'st-sync') syncStrava(true);
     if (id === 'st-off' && confirm('Desconectar o Strava? As atividades já importadas continuam no app.')) { CURATH.strava = null; await doc().update({ strava: FV.delete() }); renderCfg() }
     if (id === 'pu-on') ativarPush();
+    if (id === 'pu-go') { const b = document.querySelector('#aluno .tabs [data-t="a-cfg"]'); b && b.click(); setTimeout(ativarPush, 200) }
     if (id === 'pu-save') salvarHoras();
   });
   document.addEventListener('change', async e => {
@@ -399,11 +403,17 @@ const setMsg=(id,t)=>{MSG[id]=t;const m=document.getElementById(id);if(m)m.textC
   let synced = false;
   window.renderExtras = function () {
     if (!CURATH) return;
+    if (!CURATH.push && CURATH.fb && CURATH.fb._push) CURATH.push = { ...CURATH.fb._push };
     if (PEND && isAth() && AID) { const p = PEND; PEND = null;
       if (p === 'erro') alert('A conexão com o Strava foi cancelada ou falhou.');
       else { CURATH.strava = { rt: p.rt, nome: p.nome || '', id: p.id || null, ult: 0 }; doc().update({ strava: CURATH.strava }).then(() => { syncStrava(true) }) }
       setTimeout(() => { const b = document.querySelector('#aluno .tabs [data-t="a-cfg"]'); b && b.click() }, 300) }
     renderRel(); renderCfg();
+    { const pu = CURATH.push, H = document.getElementById('hoje'); let bn = document.getElementById('pu-banner');
+      const need = isAth() && !(pu && pu.tokens && pu.tokens.length);
+      if (need && H && !bn) { bn = document.createElement('div'); bn.id = 'pu-banner'; bn.className = 'card'; bn.style.cssText = 'margin-bottom:12px;display:flex;gap:10px;align-items:center;justify-content:space-between;border-color:var(--green)';
+        bn.innerHTML = '<div><b>🔔 Lembretes do treino</b><div style="font-size:13px;color:var(--mute)">Receba no celular o treino do dia (12h, 18h e 22h).</div></div><button class="btn b-ok" id="pu-go">Ativar</button>'; H.prepend(bn) }
+      if (!need && bn) bn.remove() }
     if (!synced && isAth()) { synced = true; setTimeout(() => syncStrava(false), 1500) }
   };
   try { if (CURATH) window.renderExtras() } catch (e) { }
