@@ -14422,6 +14422,26 @@
       "r": 13,
       "o": "",
       "kmd": ""
+     },
+     "1pkc8n0dwka": {
+      "s": "✓",
+      "r": "",
+      "o": "",
+      "kmd": "3",
+      "ext": [
+       {
+        "id": "p1794476881479",
+        "src": "print",
+        "tipo": "Run",
+        "nome": "Print",
+        "km": 3,
+        "min": 23.8,
+        "fc": null,
+        "kcal": null,
+        "alt": null,
+        "tiros": null
+       }
+      ]
      }
     }
    },
