@@ -911,6 +911,7 @@ document.getElementById('a-treino').addEventListener('click',e=>{const st=e.targ
  const d=e.target.closest('[data-day]');if(d){DAYISO=d.dataset.day;FBROW=null;renderAluno();return}const sp=e.target.closest('[data-dstep]');if(sp){const x=new Date(DAYISO+'T12:00:00');x.setDate(x.getDate()+ +sp.dataset.dstep);DAYISO=isoD(x);FBROW=null;renderAluno();return}
  const fr=e.target.closest('[data-fbrow]');if(fr){FBROW=dayRows(DAYISO).find(x=>x.id===fr.dataset.fbrow)||FBROW;renderAluno();document.getElementById('a-fb').scrollIntoView({behavior:'smooth',block:'center'})}});
 let START_ROW=null;
+const IS_IOS=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 document.getElementById('calg').addEventListener('click',e=>{const c=e.target.closest('[data-calday]');if(!c)return;DAYISO=c.dataset.calday;FBROW=null;renderAluno();document.querySelector('#aluno .tabs [data-t="hoje"]').click()});
 const runner=document.createElement('div');runner.className='runner';runner.hidden=true;document.body.appendChild(runner);
 function openRunner(f,fromToday){RUN={f,stage:'intro',i:0,fromToday,data:f.ex.map(x=>{const pr=parsePres(x.pres),h=HIST[hk(x.n)]||[];if(x.desc!=null&&x.desc!=='')pr.rest=+x.desc;return{pr,cur:0,com:'',sets:Array.from({length:pr.sets},(_,k)=>({a:pr.val,b:(h[k]||h[h.length-1]||{b:''}).b,done:false}))}}),tab:'s',t0:null,rest:null};runner.hidden=false;draw()}
@@ -929,6 +930,8 @@ function draw(){const R=RUN;if(!R)return;const f=R.f;
   <div class="card"><div style="font-weight:600;margin-bottom:6px">Como foi o seu treino? (escala de Borg)</div><div class="borgval" id="bv">${R.rpe||13}<small id="bl"></small></div>
   <input type="range" class="borgr" id="br" min="6" max="20" step="1" value="${R.rpe||13}" aria-label="Esforço de 6 a 20"><div class="ticks">${[6,8,10,12,14,16,18,20].map(v=>`<span>${v}</span>`).join('')}</div>
   <label for="bc" style="display:block;font-size:13px;color:var(--mute);margin:12px 0 4px">Comentário para o treinador</label><textarea id="bc" rows="3" placeholder="Como se sentiu, dores, cargas…">${esc(R.fim||'')}</textarea></div>
+  ${IS_IOS?`<div class="card"><div style="font-weight:600;margin-bottom:6px">Fitness do iPhone</div><div style="font-size:13px;color:var(--mute);margin-bottom:10px">Conte este treino nos seus anéis do app Fitness.</div><button class="btn" data-r="fitness" style="width:100%">Registrar no Fitness (${dur}min)</button><button class="mini ghost" data-r="fithelp" style="display:block;margin:8px auto 0">${R.fitHelp?'Fechar instruções':'Primeira vez? Como configurar'}</button>
+   ${R.fitHelp?`<ol style="font-size:13px;line-height:1.5;padding-left:18px;margin:10px 0 0"><li>Abra o app <b>Atalhos</b> e toque em <b>+</b> para criar um atalho.</li><li>Dê o nome exato: <b>ATP Treino</b>.</li><li>Toque nos detalhes (ⓘ) e ative <b>Mostrar na Folha de Compartilhamento</b>, aceitando <b>Texto</b>.</li><li>Adicione a ação <b>Registrar Treino</b> (ou <b>Registrar Amostra de Saúde</b>): tipo <b>Treino Funcional / Musculação</b>, duração = <b>Entrada do Atalho</b> em minutos.</li><li>Salve. Na primeira vez, permita o acesso ao Saúde.</li></ol>`:''}</div>`:''}
   </div></div><div class="r-foot"><div class="in"><button class="big" data-r="finish">Enviar e fechar</button></div></div>`;
   const BL={6:'Nenhum esforço',7:'Extremamente leve',9:'Muito leve',11:'Leve',13:'Um pouco intenso',15:'Intenso',17:'Muito intenso',19:'Extremamente intenso',20:'Esforço máximo'};
   const br=runner.querySelector('#br'),upd=()=>{R.rpe=+br.value;runner.querySelector('#bv').firstChild.textContent=br.value;let l='';for(const k in BL)if(+br.value>=+k)l=BL[k];runner.querySelector('#bl').textContent=l};br.oninput=upd;upd();runner.querySelector('#bc').oninput=e=>R.fim=e.target.value;return}
@@ -951,6 +954,8 @@ function draw(){const R=RUN;if(!R)return;const f=R.f;
 runner.addEventListener('input',e=>{const R=RUN,t=e.target;if(!R)return;if(t.dataset.s!=null)R.data[R.i].sets[+t.dataset.s][t.dataset.f]=t.value;if(t.id==='rc')R.data[R.i].com=t.value});
 runner.addEventListener('click',async e=>{const b=e.target.closest('[data-r]');if(!b||!RUN)return;const R=RUN,a=b.dataset.r,d=R.data[R.i];
  if(a==='close')return closeRunner();
+ if(a==='fithelp'){R.fitHelp=!R.fitHelp;return draw()}
+ if(a==='fitness'){const back=location.origin+location.pathname;location.href='shortcuts://x-callback-url/run-shortcut?name='+encodeURIComponent('ATP Treino')+'&input=text&text='+encodeURIComponent(String(Math.max(1,R.dur||1)))+'&x-success='+encodeURIComponent(back)+'&x-cancel='+encodeURIComponent(back);return}
  if(a==='go'){try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();audio.resume()}catch(e){}try{wake=await navigator.wakeLock.request('screen')}catch(e){}R.stage='run';R.t0=Date.now();clearInterval(R.tick);R.tick=setInterval(tickRest,250);return draw()}
  if(a==='quit'){if(b.dataset.arm){return closeRunner()}b.dataset.arm=1;b.textContent='Toque de novo para sair';setTimeout(()=>{if(b.isConnected){delete b.dataset.arm;b.textContent='✕ Sair'}},3000);return}
  if(a==='tab-s'||a==='tab-c'){R.tab=a.slice(-1);return draw()}
