@@ -409,6 +409,7 @@ td select{max-width:190px;width:100%}
 #sheet thead th{position:sticky;top:0;z-index:3;padding:10px 12px;white-space:nowrap}
 #sheet td{padding:9px 12px;line-height:1.45}
 #sheet td.c{min-width:var(--w,200px);max-width:520px}
+@media(min-width:1200px){.wrap{max-width:min(2400px,calc(100vw - 48px))}#sheet td.c{max-width:none}}
 #sheet .rn{position:sticky;left:0;z-index:2}
 #sheet thead th.rn{z-index:4}
 #sheet.grab{cursor:grabbing;user-select:none}
