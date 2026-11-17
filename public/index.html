@@ -847,7 +847,7 @@ function renderAluno(){if(!DAYISO)DAYISO=TODAY_ISO;const dd=new Date(DAYISO+'T12
  document.getElementById('a-fb').hidden=!FBROW||fut||(!!FBROW.s&&EDITROW!==FBROW.id);document.getElementById('f-fit').innerHTML=FBROW&&!fut?fitBox():'';
  const mon=new Date(dd);mon.setDate(mon.getDate()-((mon.getDay()+6)%7));let strip='';
  for(let i=0;i<7;i++){const x=new Date(mon);x.setDate(x.getDate()+i);const iso=isoD(x),rs=dayRows(iso);strip+=`<button class="wday ${iso===DAYISO?'on':''} ${iso===TODAY_ISO?'today':''}" data-day="${iso}"><small>${WD[x.getDay()]}</small><b>${x.getDate()}</b><span>${rs.map(r=>`<i style="background:${typeColor(r.t)}" class="${r.s==='✓'?'ok':r.s==='✗'?'no':''}"></i>`).join('')||'<i style="background:#2a2a30"></i>'}</span></button>`}
- const nav=`<div class="daynav"><button class="btn" data-dstep="-1" aria-label="Dia anterior">‹</button><div><div class="eyebrow">${hoje?'Hoje':fut?'Próximo treino':'Dia anterior'}</div><b>${WD[dd.getDay()]}, ${String(dd.getDate()).padStart(2,'0')}/${String(dd.getMonth()+1).padStart(2,'0')}</b>${hoje?'':' <button class="mini ghost" data-day="'+TODAY_ISO+'">voltar para hoje</button>'}</div><button class="btn" data-dstep="1" aria-label="Próximo dia">›</button></div><div class="wstrip">${strip}</div>`;
+ const nav=resumeBanner()+`<div class="daynav"><button class="btn" data-dstep="-1" aria-label="Dia anterior">‹</button><div><div class="eyebrow">${hoje?'Hoje':fut?'Próximo treino':'Dia anterior'}</div><b>${WD[dd.getDay()]}, ${String(dd.getDate()).padStart(2,'0')}/${String(dd.getMonth()+1).padStart(2,'0')}</b>${hoje?'':' <button class="mini ghost" data-day="'+TODAY_ISO+'">voltar para hoje</button>'}</div><button class="btn" data-dstep="1" aria-label="Próximo dia">›</button></div><div class="wstrip">${strip}</div>`;
  if(!RS.length){box.innerHTML=nav+'<h2>Sem treino</h2><p style="color:var(--mute)">Nenhum treino lançado para este dia na planilha.</p>'}
  else box.innerHTML=nav+(RS.length>1?`<div style="display:flex;flex-wrap:wrap;gap:6px;margin:-4px 0 14px">${RS.map((r,k)=>`<a href="#dc-${k}" class="tchip" style="text-decoration:none;color:inherit"><i style="background:${typeColor(r.t)}"></i>${k+1}. ${esc(r.t||'Treino')}</a>`).join('')}</div>`:'')+RS.map((r,k)=>{const linhas=String(r.c||'').split('\n'),f=fichaDe(r.c),sel=r===FBROW&&RS.length>1;
   if(r.s&&EDITROW!==r.id)return`<div class="dcard" id="dc-${k}" data-rowid="${esc(r.id)}" style="--c:${typeColor(r.t)};opacity:.85"><div class="eyebrow">${esc(r.t||'Treino')}</div><h2 style="margin-bottom:6px">${esc(linhas[0]||r.t||'Treino do dia')}</h2><div style="font-weight:700;color:${r.s==='✓'?'var(--green)':'var(--red)'}">${r.s==='✓'?'✓ Treino concluído'+(r.r?' · esforço '+esc(r.r):''):'✗ Marcado como não feito'} · feedback enviado</div><button class="mini ghost" data-fbedit="${esc(r.id)}" style="margin-top:8px">Corrigir feedback</button></div>`;
@@ -981,11 +981,20 @@ async function shareGo(R,dl){const c=drawShare(R),blob=await new Promise(ok=>c.t
  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
 const runner=document.createElement('div');runner.className='runner';runner.hidden=true;document.body.appendChild(runner);
 function openRunner(f,fromToday){RUN={f,stage:'intro',i:0,fromToday,data:f.ex.map(x=>{const pr=parsePres(x.pres),h=HIST[hk(x.n)]||[];if(x.desc!=null&&x.desc!=='')pr.rest=+x.desc;return{pr,cur:0,com:'',sets:Array.from({length:pr.sets},(_,k)=>({a:pr.val,b:x.kg!=null&&x.kg!==''?String(x.kg):(h[k]||h[h.length-1]||{b:''}).b,done:false}))}}),tab:'s',t0:null,rest:null};runner.hidden=false;draw()}
-function closeRunner(){clearInterval(RUN&&RUN.tick);RUN=null;runner.hidden=true;try{wake&&wake.release()}catch(e){}}
+const RUNKEY=()=>'atp-run-'+(AID||'x');
+function saveRun(){const R=RUN;if(!R||R.stage==='intro')return;try{const o={};for(const k in R)if(k!=='tick')o[k]=R[k];o.rowId=START_ROW&&START_ROW.id;o.savedAt=Date.now();localStorage.setItem(RUNKEY(),JSON.stringify(o))}catch(e){}}
+function getSaved(){try{const o=JSON.parse(localStorage.getItem(RUNKEY())||'null');if(o&&Date.now()-o.savedAt<18*3600e3)return o;localStorage.removeItem(RUNKEY())}catch(e){}return null}
+function dropSaved(){try{localStorage.removeItem(RUNKEY())}catch(e){}}
+function resumeRun(){const o=getSaved();if(!o)return;START_ROW=o.rowId?(datedRows().find(x=>x.r.id===o.rowId)||{}).r||null:null;delete o.rowId;delete o.savedAt;RUN=o;runner.hidden=false;if(RUN.stage!=='intro'){clearInterval(RUN.tick);RUN.tick=setInterval(tickRest,250)}try{navigator.wakeLock&&navigator.wakeLock.request('screen').then(w=>wake=w).catch(()=>{})}catch(e){}draw()}
+function resumeBanner(){const o=getSaved();if(!o||RUN)return'';const sets=o.data.reduce((t,d)=>t+d.sets.filter(x=>x.done).length,0);
+ return`<div class="card" style="border:1px solid var(--red);margin-bottom:14px"><div class="eyebrow" style="color:var(--red)">Treino em andamento</div><b style="display:block;margin:4px 0">Treino ${esc(o.f.nome)} · ${o.stage==='end'?'falta enviar o feedback':sets+' série'+(sets===1?'':'s')+' feita'+(sets===1?'':'s')}</b><div class="row" style="margin-top:8px"><button class="btn b-ok" data-resume>Retomar atividade</button><button class="btn" data-resume-drop>Descartar</button></div></div>`}
+document.addEventListener('click',e=>{if(e.target.closest('[data-resume]')){resumeRun();return}const d=e.target.closest('[data-resume-drop]');if(d){if(!d.dataset.arm){d.dataset.arm=1;d.textContent='Toque de novo';return}dropSaved();renderAluno()}});
+addEventListener('visibilitychange',()=>{if(document.hidden)saveRun()});addEventListener('pagehide',saveRun);
+function closeRunner(){dropSaved();clearInterval(RUN&&RUN.tick);RUN=null;runner.hidden=true;try{wake&&wake.release()}catch(e){}try{renderAluno()}catch(e){}}
 function startRest(sec){const R=RUN;R.rest={total:sec,end:Date.now()+sec*1000,fired:false};clearInterval(R.tick);R.tick=setInterval(tickRest,250);tickRest()}
 function tickRest(){const R=RUN;if(!R)return;if(R.work){const left=(R.work.end-Date.now())/1000;if(left<=0){beep();return endWork(R)}const t=runner.querySelector('.work .t');if(t)t.textContent=mmss(Math.ceil(left));const bar=runner.querySelector('.workbar i');if(bar)bar.style.width=Math.max(0,left/R.work.total*100)+'%'}if(R.rest){const left=(R.rest.end-Date.now())/1000;if(left<=0&&!R.rest.fired){R.rest.fired=true;beep()}const t=runner.querySelector('.rest .t');if(t){t.textContent=left>0?mmss(left):'00:00';t.parentElement.classList.toggle('end',left<=0);const bar=runner.querySelector('.restbar i');if(bar)bar.style.width=Math.max(0,left/R.rest.total*100)+'%'}if(left<=-4){R.rest=null;draw()}}
  const el=runner.querySelector('.timer-el');if(el&&R.t0)el.textContent=mmss((Date.now()-R.t0)/1000)}
-function draw(){const R=RUN;if(!R)return;const f=R.f;
+function draw(){const R=RUN;if(!R)return;const f=R.f;saveRun();
  if(R.stage==='intro'){runner.innerHTML=`<div class="r-top"><button data-r="close">← Voltar</button><b>Treino ${esc(f.nome)}</b><span style="width:50px"></span></div><div class="r-body"><div class="r-wrap">
   <div><div class="r-h" style="text-align:left">${esc(f.nome)}</div><div style="color:var(--mute);font-size:13px">${esc([...new Set(f.ex.flatMap(x=>x.m))].join(' · '))}</div></div>
   ${f.obs&&f.obs.trim()?`<div class="card" style="border-left:3px solid var(--red)"><div style="font-weight:600;margin-bottom:4px">Observações do treinador</div><div style="font-size:14px;white-space:pre-wrap">${esc(f.obs)}</div></div>`:''}
@@ -1019,7 +1028,7 @@ function draw(){const R=RUN;if(!R)return;const f=R.f;
   ${all?`<button class="big ${last?'':'alt'}" data-r="next">${last?'Concluir treino':'Próximo exercício'}</button>`:R.work?'':d.pr.time&&toSec(d.sets[d.cur]&&d.sets[d.cur].a)>0?`<button class="big" data-r="wgo">▶ Iniciar série ${d.cur+1} · ${esc(d.sets[d.cur].a)}</button><button class="mini ghost" data-r="reg" style="justify-self:center">Só registrar (sem cronômetro)</button>`:`<button class="big" data-r="reg">Registrar série ${d.cur+1}</button>`}
   ${!all?`<button class="mini ghost" data-r="next" style="justify-self:center">${last?'Finalizar treino agora':'Pular exercício'}</button>`:''}
  </div></div>`;tickRest()}
-runner.addEventListener('input',e=>{const R=RUN,t=e.target;if(!R)return;if(t.dataset.s!=null)R.data[R.i].sets[+t.dataset.s][t.dataset.f]=t.value;if(t.id==='rc')R.data[R.i].com=t.value});
+runner.addEventListener('input',e=>{const R=RUN,t=e.target;if(!R)return;if(t.dataset.s!=null)R.data[R.i].sets[+t.dataset.s][t.dataset.f]=t.value;if(t.id==='rc')R.data[R.i].com=t.value;if(t.id==='bc')R.fim=t.value;if(t.id==='br')R.rpe=+t.value;saveRun()});
 runner.addEventListener('click',async e=>{const b=e.target.closest('[data-r]');if(!b||!RUN)return;const R=RUN,a=b.dataset.r,d=R.data[R.i];
  if(a==='close')return closeRunner();
  if(a==='sh-prev'||a==='sh-next'){R.shIdx=((R.shIdx||0)+(a==='sh-next'?1:2))%3;return draw()}
@@ -1194,6 +1203,7 @@ AUTH.onAuthStateChanged(async u=>{if(RESET_CODE&&amode==='newpw'&&u&&!amsg.textC
   else{document.querySelector('.mode').hidden=true;document.getElementById('coach').hidden=true;mode('aluno');subscribe(AID)}}
  catch(e){noAccess('Não consegui conectar ('+(e.code||e.message)+'). Verifique a internet e as regras do banco.')}});
 </script>
+<script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/firebase-messaging-sw.js').catch(()=>{}))</script>
 <script src="/aval.js"></script>
 <script src="/extras.js"></script>
 
