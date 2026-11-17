@@ -103,7 +103,19 @@ textarea{width:100%;background:var(--panel2);color:var(--fg);border:1px solid va
 .kpis{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:12px}
 .kpis div b{display:block;font-family:var(--display);font-style:italic;font-weight:900;font-size:32px}
 .kpis div span{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--mute)}
-@media(prefers-reduced-motion:no-preference){.panel{animation:in .25s ease}@keyframes in{from{opacity:.4;transform:translateY(4px)}}}
+html{-webkit-tap-highlight-color:transparent}
+@media(prefers-reduced-motion:no-preference){
+html{scroll-behavior:smooth}
+:root{--ease:cubic-bezier(.22,.8,.3,1)}
+.panel{animation:in .28s var(--ease)}@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.btn,.big,.mini,.add,.wday,.tabs button,.r-tabs button,.tchip,.info,.exdel,.vid{transition:background-color .18s ease,color .18s ease,border-color .18s ease,opacity .18s ease,transform .12s var(--ease),box-shadow .18s ease}
+.btn:active,.big:active,.mini:active,.add:active,.wday:active,.r-tabs button:active,.info:active{transform:scale(.97)}
+@media(hover:hover){.btn:hover,.mini:hover,.add:hover{filter:brightness(1.12)}.big:hover{filter:brightness(1.08)}}
+.runner:not([hidden]){animation:rIn .26s var(--ease)}@keyframes rIn{from{opacity:0;transform:translateY(14px)}}
+.modal:not([hidden]){animation:fIn .2s ease}.modal:not([hidden])>*{animation:mIn .24s var(--ease)}@keyframes fIn{from{opacity:0}}@keyframes mIn{from{opacity:0;transform:translateY(10px) scale(.98)}}
+.toast:not(:empty){animation:fIn .25s ease}
+.done-ic.pop{animation:pop .45s var(--ease)}@keyframes pop{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.08)}}
+}
 
 [hidden]{display:none!important}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:grid;place-items:center;z-index:50;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));overflow:auto}
@@ -248,7 +260,7 @@ td.kx::after{content:attr(data-x);display:block;font-size:10px;color:var(--mute)
 .rest .skip{color:var(--green);background:none;font-weight:800}
 .rest .t{font-family:var(--display);font-style:italic;font-weight:900;font-size:40px;color:var(--green);font-variant-numeric:tabular-nums;min-width:120px;text-align:center}
 .rest.end .t{color:var(--red)}
-.restbar{height:4px;background:var(--panel2);border-radius:2px;overflow:hidden}.restbar i{display:block;height:100%;background:var(--green);transition:width 1s linear}
+.restbar{height:4px;background:var(--panel2);border-radius:2px;overflow:hidden}.restbar i{display:block;height:100%;background:var(--green);transition:width .25s linear}
 .big{all:unset;cursor:pointer;text-align:center;padding:15px;border-radius:12px;background:var(--red);color:#fff;font-weight:800;letter-spacing:1px;text-transform:uppercase}
 .big.alt{background:none;border:2px solid var(--red);color:var(--fg)}
 .big:disabled{opacity:.4;cursor:default}
@@ -980,7 +992,7 @@ function draw(){const R=RUN;if(!R)return;const f=R.f;
   ${f.ex.map((x,i)=>`<div class="r-ex"><div class="vid">${anim(x)}</div><div style="min-width:0"><b>${esc(x.n)}</b><small style="color:var(--mute)">Séries x reps · descanso ${esc(x.desc??60)}s</small><div class="num" style="margin-top:4px;background:var(--panel2);border-radius:6px;padding:6px 10px;display:inline-block">${esc(x.pres)}${x.kg?' · '+esc(x.kg)+' kg':''}</div></div></div>`).join('')}
  </div></div><div class="r-foot"><div class="in"><button class="big" data-r="go">Iniciar treino</button></div></div>`;return}
  if(R.stage==='end'){const sets=R.data.reduce((s,d)=>s+d.sets.filter(x=>x.done).length,0),exs=R.data.filter(d=>d.sets.some(x=>x.done)).length,dur=R.dur??Math.round((Date.now()-R.t0)/60000);R.dur=dur;
-  runner.innerHTML=`<div class="r-top"><span></span><b>ATP</b><span></span></div><div class="r-body"><div class="r-wrap"><div class="done-ic">✓</div><div class="r-h">Treino concluído</div>
+  runner.innerHTML=`<div class="r-top"><span></span><b>ATP</b><span></span></div><div class="r-body"><div class="r-wrap"><div class="done-ic${R.popped?'':' pop'}">✓</div><div class="r-h">Treino concluído</div>
   <div class="r-stats"><div><b>${dur}min</b><span>Duração</span></div><div><b>${exs}</b><span>Exercícios</span></div><div><b>${sets}</b><span>Séries</span></div></div>
   <div class="card"><div style="font-weight:600;margin-bottom:6px">Como foi o seu treino? (escala de Borg)</div><div class="borgval" id="bv">${R.rpe||13}<small id="bl"></small></div>
   <input type="range" class="borgr" id="br" min="6" max="20" step="1" value="${R.rpe||13}" aria-label="Esforço de 6 a 20"><div class="ticks">${[6,8,10,12,14,16,18,20].map(v=>`<span>${v}</span>`).join('')}</div>
@@ -988,7 +1000,7 @@ function draw(){const R=RUN;if(!R)return;const f=R.f;
   ${shareHtml(R)}
   ${fitBox()}
   </div></div><div class="r-foot"><div class="in"><button class="big" data-r="finish">Enviar e fechar</button></div></div>`;
-  const BL={6:'Nenhum esforço',7:'Extremamente leve',9:'Muito leve',11:'Leve',13:'Um pouco intenso',15:'Intenso',17:'Muito intenso',19:'Extremamente intenso',20:'Esforço máximo'};
+  R.popped=1;const BL={6:'Nenhum esforço',7:'Extremamente leve',9:'Muito leve',11:'Leve',13:'Um pouco intenso',15:'Intenso',17:'Muito intenso',19:'Extremamente intenso',20:'Esforço máximo'};
   const br=runner.querySelector('#br'),upd=()=>{R.rpe=+br.value;runner.querySelector('#bv').firstChild.textContent=br.value;let l='';for(const k in BL)if(+br.value>=+k)l=BL[k];runner.querySelector('#bl').textContent=l};br.oninput=upd;upd();runner.querySelector('#bc').oninput=e=>R.fim=e.target.value;return}
  const x=f.ex[R.i],d=R.data[R.i],all=d.sets.every(s=>s.done),last=R.i===f.ex.length-1;
  runner.innerHTML=`<div class="r-top"><button data-r="quit">✕ Sair</button><b>Executando treino</b><span class="timer-el">${mmss((Date.now()-R.t0)/1000)}</span></div>
