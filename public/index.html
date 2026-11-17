@@ -904,9 +904,12 @@ document.getElementById('rf-graf').onclick=()=>{RG=!RG;document.getElementById('
 
 // ---------- EXECUTAR TREINO (aluno) ----------
 const HIST={};let RUN=null,audio=null,wake=null;
-function parsePres(t){t=String(t||'').toLowerCase();const m=t.match(/(\d+)\s*x\s*(\d+(?:[.,]\d+)?)\s*(reps?|s|seg|min|m)?/);const rest=(t.match(/desc\.?\s*(\d+)\s*(s|min|m)?/)||[]);
- const r={sets:3,val:'',time:false,rest:rest[1]?(+rest[1])*(/^m/.test(rest[2]||'')?60:1):60};if(!m)return r;r.sets=+m[1];const u=m[3]||'';
- if(u==='s'||u==='seg'){r.time=true;r.val='0:'+String(m[2]).padStart(2,'0')}else if(u==='m'||u==='min'){r.time=true;r.val=m[2]+':00'}else r.val=m[2];return r}
+function parsePres(t){t=String(t||'').toLowerCase();let m=t.match(/(\d+)\s*x\s*(\d+(?:[.,]\d+)?)\s*(reps?|s\b|seg|segundos?|"|''|min|minutos?|m\b|')?/);if(!m){const q=t.replace(/desc\.?\s*\d+\s*(s|seg\w*|min\w*|m)?/g,'').match(/(\d+)\s*(seg|segundos?|s\b|"|min|minutos?|')/);if(q)m=[q[0],'',q[1],q[2]]}const rest=(t.match(/desc\.?\s*(\d+)\s*(s|min|m)?/)||[]);
+ const r={sets:3,val:'',time:false,rest:rest[1]?(+rest[1])*(/^m/.test(rest[2]||'')?60:1):60};if(!m)return r;if(m[1])r.sets=+m[1];const u=(m[3]||'').replace(/^seg.*|^"$|^''$/,'s').replace(/^min.*|^'$/,'m');
+ if(u==='s'){r.time=true;r.val='0:'+String(m[2]).padStart(2,'0')}else if(u==='m'||u==='min'){r.time=true;r.val=m[2]+':00'}else r.val=m[2];return r}
+const toSec=v=>{const p=String(v||'').trim().split(':');return p.length>1?(+p[0]||0)*60+(+p[1]||0):(+String(v).replace(',','.')||0)};
+function startWork(R){const d=R.data[R.i],sec=toSec(d.sets[d.cur]&&d.sets[d.cur].a);if(!(sec>0))return;R.rest=null;R.work={total:sec,end:Date.now()+sec*1000};clearInterval(R.tick);R.tick=setInterval(tickRest,250);draw()}
+function endWork(R){const d=R.data[R.i];R.work=null;if(d.sets[d.cur]){d.sets[d.cur].done=true;const nx=d.sets.findIndex(s=>!s.done);d.cur=nx<0?d.sets.length:nx;HIST[hk(R.f.ex[R.i].n)]=d.sets.map(s=>({b:s.b}))}startRest(d.pr.rest);draw()}
 const mmss=s=>{s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
 function beep(){try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();[0,.35,.7].forEach((t,i)=>{const o=audio.createOscillator(),g=audio.createGain();o.type='square';o.frequency.value=i===2?1320:880;g.gain.setValueAtTime(.0001,audio.currentTime+t);g.gain.exponentialRampToValueAtTime(.3,audio.currentTime+t+.02);g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+t+.25);o.connect(g).connect(audio.destination);o.start(audio.currentTime+t);o.stop(audio.currentTime+t+.3)})}catch(e){}try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}}
 function renderFichasAluno(){const el=document.getElementById('a-fichas');if(!el)return;const P=pastas[0];
@@ -965,7 +968,7 @@ const runner=document.createElement('div');runner.className='runner';runner.hidd
 function openRunner(f,fromToday){RUN={f,stage:'intro',i:0,fromToday,data:f.ex.map(x=>{const pr=parsePres(x.pres),h=HIST[hk(x.n)]||[];if(x.desc!=null&&x.desc!=='')pr.rest=+x.desc;return{pr,cur:0,com:'',sets:Array.from({length:pr.sets},(_,k)=>({a:pr.val,b:x.kg!=null&&x.kg!==''?String(x.kg):(h[k]||h[h.length-1]||{b:''}).b,done:false}))}}),tab:'s',t0:null,rest:null};runner.hidden=false;draw()}
 function closeRunner(){clearInterval(RUN&&RUN.tick);RUN=null;runner.hidden=true;try{wake&&wake.release()}catch(e){}}
 function startRest(sec){const R=RUN;R.rest={total:sec,end:Date.now()+sec*1000,fired:false};clearInterval(R.tick);R.tick=setInterval(tickRest,250);tickRest()}
-function tickRest(){const R=RUN;if(!R)return;if(R.rest){const left=(R.rest.end-Date.now())/1000;if(left<=0&&!R.rest.fired){R.rest.fired=true;beep()}const t=runner.querySelector('.rest .t');if(t){t.textContent=left>0?mmss(left):'00:00';t.parentElement.classList.toggle('end',left<=0);const bar=runner.querySelector('.restbar i');if(bar)bar.style.width=Math.max(0,left/R.rest.total*100)+'%'}if(left<=-4){R.rest=null;draw()}}
+function tickRest(){const R=RUN;if(!R)return;if(R.work){const left=(R.work.end-Date.now())/1000;if(left<=0){beep();return endWork(R)}const t=runner.querySelector('.work .t');if(t)t.textContent=mmss(Math.ceil(left));const bar=runner.querySelector('.workbar i');if(bar)bar.style.width=Math.max(0,left/R.work.total*100)+'%'}if(R.rest){const left=(R.rest.end-Date.now())/1000;if(left<=0&&!R.rest.fired){R.rest.fired=true;beep()}const t=runner.querySelector('.rest .t');if(t){t.textContent=left>0?mmss(left):'00:00';t.parentElement.classList.toggle('end',left<=0);const bar=runner.querySelector('.restbar i');if(bar)bar.style.width=Math.max(0,left/R.rest.total*100)+'%'}if(left<=-4){R.rest=null;draw()}}
  const el=runner.querySelector('.timer-el');if(el&&R.t0)el.textContent=mmss((Date.now()-R.t0)/1000)}
 function draw(){const R=RUN;if(!R)return;const f=R.f;
  if(R.stage==='intro'){runner.innerHTML=`<div class="r-top"><button data-r="close">← Voltar</button><b>Treino ${esc(f.nome)}</b><span style="width:50px"></span></div><div class="r-body"><div class="r-wrap">
@@ -997,7 +1000,8 @@ function draw(){const R=RUN;if(!R)return;const f=R.f;
  </div></div>
  <div class="r-foot"><div class="in">
   ${R.rest?`<div class="restbar"><i style="width:100%"></i></div><div class="rest"><button data-r="m10">−10s</button><span class="t">${mmss(R.rest.total)}</span><button data-r="p10">+10s</button><button class="skip" data-r="skip">Pular</button></div>`:''}
-  ${all?`<button class="big ${last?'':'alt'}" data-r="next">${last?'Concluir treino':'Próximo exercício'}</button>`:`<button class="big" data-r="reg">Registrar série ${d.cur+1}</button>`}
+  ${R.work?`<div class="workbar restbar"><i style="width:100%;background:var(--green)"></i></div><div class="work rest"><span style="font-size:13px;color:var(--mute)">Série ${d.cur+1}</span><span class="t" style="color:var(--green)">${mmss(R.work.total)}</span><button class="skip" data-r="wstop">Concluir</button></div>`:''}
+  ${all?`<button class="big ${last?'':'alt'}" data-r="next">${last?'Concluir treino':'Próximo exercício'}</button>`:R.work?'':d.pr.time&&toSec(d.sets[d.cur]&&d.sets[d.cur].a)>0?`<button class="big" data-r="wgo">▶ Iniciar série ${d.cur+1} · ${esc(d.sets[d.cur].a)}</button><button class="mini ghost" data-r="reg" style="justify-self:center">Só registrar (sem cronômetro)</button>`:`<button class="big" data-r="reg">Registrar série ${d.cur+1}</button>`}
   ${!all?`<button class="mini ghost" data-r="next" style="justify-self:center">${last?'Finalizar treino agora':'Pular exercício'}</button>`:''}
  </div></div>`;tickRest()}
 runner.addEventListener('input',e=>{const R=RUN,t=e.target;if(!R)return;if(t.dataset.s!=null)R.data[R.i].sets[+t.dataset.s][t.dataset.f]=t.value;if(t.id==='rc')R.data[R.i].com=t.value});
@@ -1011,10 +1015,12 @@ runner.addEventListener('click',async e=>{const b=e.target.closest('[data-r]');i
  if(a==='tab-s'||a==='tab-c'){R.tab=a.slice(-1);return draw()}
  if(a==='info'){const x=R.f.ex[R.i];modal.style.zIndex=80;return showGif(x)}
  if(a==='addset'){d.sets.push({a:d.pr.val,b:(d.sets[d.sets.length-1]||{}).b||'',done:false});if(d.sets.every((s,k)=>k<d.sets.length-1?s.done:true))d.cur=d.sets.length-1;return draw()}
+ if(a==='wgo')return startWork(R);
+ if(a==='wstop')return endWork(R);
  if(a==='reg'){d.sets[d.cur].done=true;const nx=d.sets.findIndex(s=>!s.done);d.cur=nx<0?d.sets.length:nx;HIST[hk(R.f.ex[R.i].n)]=d.sets.map(s=>({b:s.b}));startRest(d.pr.rest);return draw()}
  if(a==='m10'||a==='p10'){if(R.rest){R.rest.end+=a==='m10'?-10000:10000;R.rest.total=Math.max(R.rest.total,(R.rest.end-Date.now())/1000);R.rest.fired=false}return tickRest()}
  if(a==='skip'){R.rest=null;return draw()}
- if(a==='next'){R.rest=null;R.tab='s';if(R.i<R.f.ex.length-1){R.i++;return draw()}R.stage='end';clearInterval(R.tick);return draw()}
+ if(a==='next'){R.rest=null;R.work=null;R.tab='s';if(R.i<R.f.ex.length-1){R.i++;return draw()}R.stage='end';clearInterval(R.tick);return draw()}
  if(a==='finish'){const row=START_ROW||todayRow(),fe=R.fim||'';START_ROW=null;if(row&&R.fromToday!==false){row.s='✓';row.r=R.rpe;const coms=R.data.map((dd,i)=>dd.com?R.f.ex[i].n+': '+dd.com:'').filter(Boolean);row.o=[fe,...coms].filter(Boolean).join(' | ');athFb(row)}athSession(R);
   const fm=R.dur;closeRunner();renderAll();if(IS_IOS&&fitOn())setTimeout(()=>runFit('musculacao',fm),400);const t=document.getElementById('toast');t&&(t.style.color='var(--green)',t.textContent=row?'Treino enviado ao treinador.':'Treino concluído.')}});
 renderFichasAluno();
