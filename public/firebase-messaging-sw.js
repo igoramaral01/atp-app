@@ -8,11 +8,12 @@ firebase.messaging();
 self.addEventListener('notificationclick', e => { e.notification.close(); e.waitUntil(clients.matchAll({ type: 'window' }).then(L => { for (const c of L) if ('focus' in c) return c.focus(); return clients.openWindow('/') })) });
 
 // ---------- App offline: abre mesmo sem internet ----------
-const CACHE = 'atp-v1';
+const CACHE = 'atp-v2';
 const SHELL = ['/', '/aval.js', '/extras.js', '/manifest.webmanifest', '/img/swirl.png', '/img/icon-192.png', '/img/apple-touch-icon.png'];
-self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => Promise.all(SHELL.map(u => c.add(u).catch(() => {}))))) });
+const LIBS = ['app', 'auth', 'firestore', 'messaging'].map(n => 'https://www.gstatic.com/firebasejs/10.12.2/firebase-' + n + '-compat.js').concat(['https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js']);
+self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => Promise.all(SHELL.map(u => c.add(u).catch(() => {})).concat(LIBS.map(u => fetch(new Request(u, { mode: 'no-cors' })).then(r => c.put(u, r)).catch(() => {})))))) });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(K => Promise.all(K.filter(k => k.startsWith('atp-') && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())) });
-const CDN = /^https:\/\/(www\.gstatic\.com\/firebasejs\/|cdnjs\.cloudflare\.com\/|fonts\.googleapis\.com\/|fonts\.gstatic\.com\/)/;
+const CDN = /^https:\/\/(www\.gstatic\.com\/firebasejs\/|cdnjs\.cloudflare\.com\/|cdn\.jsdelivr\.net\/gh\/yuhonas\/|fonts\.googleapis\.com\/|fonts\.gstatic\.com\/)/;
 function put(req, res) { if (res && (res.ok || res.type === 'opaque')) { const cp = res.clone(); caches.open(CACHE).then(c => c.put(req, cp)).catch(() => {}) } return res }
 self.addEventListener('fetch', e => {
   const r = e.request; if (r.method !== 'GET') return;
@@ -31,5 +32,5 @@ self.addEventListener('fetch', e => {
     return;
   }
   // Imagens, fontes e bibliotecas: cópia salva primeiro, atualiza por trás
-  e.respondWith(caches.match(r).then(c => { const net = fetch(r).then(res => put(r, res)).catch(() => c); return c || net }));
+  e.respondWith(caches.match(r, { ignoreVary: true }).then(c => { const net = fetch(r).then(res => put(r, res)).catch(() => c); return c || net }));
 });
