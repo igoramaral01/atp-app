@@ -1192,16 +1192,19 @@ function noAccess(t){appEl.hidden=true;authEl.hidden=false;amsg.className='amsg 
  catch(err){setAMode('first');amsg.className='amsg err';amsg.textContent=AERR[err.code]||'Link inválido. Peça um novo abaixo.'}})();
 AUTH.onAuthStateChanged(async u=>{if(RESET_CODE&&amode==='newpw'&&u&&!amsg.textContent.startsWith('Senha criada'))return;ME=u;if(!u){appEl.hidden=true;authEl.hidden=false;return}
  amsg.className='amsg';amsg.textContent='Carregando…';
- try{const mc=await FS.collection('meta').doc('coach').get();
+ const RK='atp-role-'+u.uid;let cached=null;try{cached=JSON.parse(localStorage.getItem(RK)||'null')}catch(e){}
+ const openApp=async()=>{authEl.hidden=true;appEl.hidden=false;
+  if(ROLE==='coach'){coachName();await loadAthletes();mode('coach')}
+  else{document.querySelector('.mode').hidden=true;document.getElementById('coach').hidden=true;mode('aluno');subscribe(AID)}};
+ try{if(cached&&!navigator.onLine){ROLE=cached.ROLE;AID=cached.AID}else{const mc=await FS.collection('meta').doc('coach').get();
   if(mc.exists&&mc.data().uid===u.uid)ROLE='coach';
   else{const ud=await FS.collection('users').doc(u.uid).get().catch(()=>null);
    if(ud&&ud.exists&&ud.data().athleteId){ROLE='athlete';AID=ud.data().athleteId}
    else if(!mc.exists){await FS.collection('meta').doc('coach').set({uid:u.uid,email:u.email,criado:FV.serverTimestamp()});ROLE='coach'}
-   else return noAccess('Esta conta não tem acesso. Peça um convite ao seu treinador.')}
-  authEl.hidden=true;appEl.hidden=false;
-  if(ROLE==='coach'){coachName();await loadAthletes();mode('coach')}
-  else{document.querySelector('.mode').hidden=true;document.getElementById('coach').hidden=true;mode('aluno');subscribe(AID)}}
- catch(e){noAccess('Não consegui conectar ('+(e.code||e.message)+'). Verifique a internet e as regras do banco.')}});
+   else return noAccess('Esta conta não tem acesso. Peça um convite ao seu treinador.')}}
+  try{localStorage.setItem(RK,JSON.stringify({ROLE,AID}))}catch(e){}
+  await openApp()}
+ catch(e){if(cached&&cached.ROLE){ROLE=cached.ROLE;AID=cached.AID;amsg.textContent='';try{return await openApp()}catch(e2){}}noAccess('Não consegui conectar ('+(e.code||e.message)+'). Verifique a internet e as regras do banco.')}});
 </script>
 <script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/firebase-messaging-sw.js').catch(()=>{}))</script>
 <script src="/aval.js"></script>
