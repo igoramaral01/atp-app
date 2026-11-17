@@ -1076,7 +1076,11 @@ function athSession(R){if(ROLE!=='athlete'||!AID)return;const upd={sessions:FV.a
  R.data.forEach((d,i)=>{if(d.sets.some(s=>s.done))upd['hist.'+hk(R.f.ex[i].n)]=d.sets.map(s=>({b:String(s.b||'')}))});FS.collection('athletes').doc(AID).update(upd).catch(()=>{})}
 
 // alunos (treinador)
-async function loadAthletes(){const q=await FS.collection('athletes').orderBy('nome').get();ATHS=q.docs.map(d=>({id:d.id,...d.data()}));
+async function athQuery(){const c=FS.collection('athletes').orderBy('nome');let srv=true,q;
+ try{q=await Promise.race([c.get({source:'server'}),new Promise((_,no)=>setTimeout(()=>no(new Error('lento')),8000))])}catch(e){srv=false;q=await c.get({source:'cache'}).catch(()=>null)}
+ return{srv,docs:q?q.docs:[]}}
+async function loadAthletes(){const A=await athQuery();ATHS=A.docs.map(d=>({id:d.id,...d.data()}));
+ if(!ATHS.length&&!A.srv){setSync('Sem conexão: não consegui carregar seus alunos. Tentando de novo…',1);setTimeout(loadAthletes,5000);return}
  if(!ATHS.length){const ref=FS.collection('athletes').doc();const m=newMonth('MÊS 1',new Date(2026,10,30));m.rows.forEach(r=>{if(r.w==null&&r.sum==null)r.id=rid()});
   const d={nome:'Bianca Cândido',email:'',months:clean([m]),pastas:clean(SEED_PASTAS),fb:{},criado:FV.serverTimestamp()};await ref.set(d);ATHS=[{id:ref.id,...d}]}
  let last=null;try{last=localStorage.getItem('atp-aid')}catch(e){}subscribe(ATHS.some(a=>a.id===last)?last:ATHS[0].id)}
@@ -1129,7 +1133,7 @@ function delAluno(id){const a=ATHS.find(x=>x.id===id);if(!a)return;
    if(AID===id){unsub&&unsub();unsub=null;AID=null;LOADED=false;try{localStorage.removeItem('atp-aid')}catch(e){}}
    await loadAthletesList();if(!AID&&ATHS.length)subscribe(ATHS[0].id);close();renderAlunos();setSync((a.nome||'Aluno')+' foi excluído.')}
   catch(err){msg.className='amsg err';msg.textContent='Não consegui excluir ('+(err.code||err.message)+'). Confira se as regras do banco foram atualizadas.'}}}
-async function loadAthletesList(){const q=await FS.collection('athletes').orderBy('nome').get();ATHS=q.docs.map(d=>({id:d.id,...d.data()}))}
+async function loadAthletesList(){const A=await athQuery();if(A.docs.length||A.srv)ATHS=A.docs.map(d=>({id:d.id,...d.data()}))}
 
 // exportar Excel (backup manual)
 async function exportXLSX(){try{await loadXLSX()}catch(e){return flash('Não consegui carregar o exportador. Verifique a internet.')}
