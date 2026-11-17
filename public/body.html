@@ -904,6 +904,44 @@ function fitBox(){if(!IS_IOS)return'';if(fitOn())return`<div style="font-size:12
  return`<div style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px"><div style="font-weight:600">Contar no Apple Saúde / Fitness</div><button class="mini ghost" data-fithelp style="display:block;margin:6px 0">${FIT_HELP?'Fechar instruções':'Como configurar (uma vez só)'}</button>${FIT_HELP?fitSteps():''}<button class="btn" data-fiton style="display:block;width:100%;margin-top:10px">Já criei o atalho, ativar</button></div>`}
 document.addEventListener('click',e=>{const t=e.target.closest('[data-fithelp],[data-fiton],[data-fitoff]');if(!t)return;if(t.dataset.fithelp!=null)FIT_HELP=!FIT_HELP;else try{localStorage.setItem('atpFit',t.dataset.fiton!=null?'1':'0')}catch(err){}if(RUN&&RUN.stage==='end')draw();else renderAluno()});
 document.getElementById('calg').addEventListener('click',e=>{const c=e.target.closest('[data-calday]');if(!c)return;DAYISO=c.dataset.calday;FBROW=null;renderAluno();document.querySelector('#aluno .tabs [data-t="hoje"]').click()});
+// ---------- CARD DE COMPARTILHAMENTO (fim do treino) ----------
+const SWIRL=new Image();SWIRL.src='/img/swirl.png';
+const kgN=v=>{const n=parseFloat(String(v??'').replace(',','.'));return isFinite(n)?n:0};
+function shareStats(R){const ex=R.data.map((d,i)=>({n:R.f.ex[i].n,sets:d.sets.filter(s=>s.done),time:d.pr.time})).filter(e=>e.sets.length);
+ const vol=Math.round(ex.reduce((t,e)=>t+(e.time?0:e.sets.reduce((u,s)=>u+kgN(s.a)*kgN(s.b),0)),0));
+ return{nome:R.f.nome,dur:R.dur||0,vol,sets:ex.reduce((t,e)=>t+e.sets.length,0),ex}}
+const fmtKg=v=>v.toLocaleString('pt-BR')+' kg';
+function comparaKg(v){const L=[[120000,'uma baleia jubarte'],[40000,'um caminhão carregado'],[12000,'um ônibus'],[5000,'um elefante'],[2000,'uma caminhonete'],[1200,'um carro popular'],[500,'um piano de cauda'],[200,'uma moto'],[60,'uma geladeira']];for(const[k,n]of L)if(v>=k){const q=Math.round(v/k*10)/10;return q>=2?`Isso é como erguer ${String(q).replace('.',',')}× ${n}!`:`Isso é como erguer ${n}!`}return'Cada quilo conta!'}
+function drawShare(R){const S=shareStats(R),W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');
+ const dark=R.shBg!=='light',FG=dark?'#f2f2f2':'#111',MU=dark?'#9a9aa2':'#666',RED='#ee2b2b',F=(w,s)=>`${w} ${s}px Archivo, "Arial Black", system-ui, sans-serif`;
+ if(dark){const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#17171b');gr.addColorStop(1,'#0b0b0d');g.fillStyle=gr}else g.fillStyle='#ffffff';g.fillRect(0,0,W,H);
+ g.fillStyle=RED;g.fillRect(0,0,W,14);
+ const T=(t,x,y,f,col,al)=>{g.font=f;g.fillStyle=col;g.textAlign=al||'left';g.fillText(t,x,y)};
+ const fit=(t,max,size,w)=>{let s=size;g.font=F(w,s);while(g.measureText(t).width>max&&s>30){s-=4;g.font=F(w,s)}return s};
+ const stat=(x,y,lab,val,al)=>{T(lab.toUpperCase(),x,y,F(700,30),MU,al);T(val,x,y+64,F(900,58),FG,al)};
+ const k=R.shIdx||0;
+ if(k===0){T('TREINO CONCLUÍDO',80,150,F(800,34),RED);const s=fit(S.nome,W-160,96,900);T(S.nome,80,250,F(900,s),FG);
+  stat(80,350,'Duração',S.dur+' min');stat(420,350,'Volume',fmtKg(S.vol));stat(800,350,'Séries',String(S.sets));
+  g.fillStyle=dark?'#2a2a30':'#e5e5e5';g.fillRect(80,470,W-160,3);let y=560;const max=Math.min(S.ex.length,9);
+  for(let i=0;i<max;i++){const e=S.ex[i];T(e.sets.length+'×',80,y,F(900,44),RED);let n=e.n;g.font=F(600,42);while(g.measureText(n).width>W-260&&n.length>4)n=n.slice(0,-2);if(n!==e.n)n=n.trim()+'…';T(n,170,y,F(600,42),FG);y+=70}
+  if(S.ex.length>max)T('+ '+(S.ex.length-max)+' exercícios',170,y,F(600,36),MU)}
+ else if(k===1){const s=fit(S.nome,W-160,80,900);T(S.nome,W/2,230,F(900,s),FG,'center');
+  [[S.dur+' min','Duração'],[fmtKg(S.vol),'Volume levantado'],[String(S.sets),'Séries']].forEach(([v,l],i)=>{const y=470+i*230;T(v,W/2,y,F(900,120),i===1?RED:FG,'center');T(l.toUpperCase(),W/2,y+60,F(700,32),MU,'center')})}
+ else{T('Você levantou um total de',W/2,330,F(600,48),FG,'center');T(fmtKg(S.vol),W/2,500,F(900,fit(fmtKg(S.vol),W-140,170,900)),RED,'center');
+  T(comparaKg(S.vol),W/2,610,F(600,40),MU,'center');T(S.nome,W/2,820,F(900,fit(S.nome,W-160,64,900)),FG,'center');T(S.dur+' min  ·  '+S.sets+' séries',W/2,900,F(700,40),MU,'center')}
+ // marca d'água ATP
+ const ly=H-110;try{if(SWIRL.complete&&SWIRL.naturalWidth)g.drawImage(SWIRL,80,ly-62,84,84)}catch(e){}
+ T('ATP',182,ly,F(900,64),FG);T('AMARAL TRAINING PERFORMANCE',184,ly+36,F(700,20),MU);
+ T(new Date().toLocaleDateString('pt-BR'),W-80,ly,F(600,30),MU,'right');return c}
+function shareHtml(R){if(!shareStats(R).ex.length)return'';R.shIdx=R.shIdx||0;let src='';try{src=drawShare(R).toDataURL('image/jpeg',.85)}catch(e){}
+ return`<div class="card"><div style="font-weight:600;margin-bottom:8px">Compartilhar treino</div>
+ <div style="position:relative"><img src="${src}" alt="Card do treino para compartilhar" style="width:100%;border-radius:12px;display:block">
+ <button class="mini ghost" data-r="sh-prev" aria-label="Modelo anterior" style="position:absolute;left:6px;top:50%;transform:translateY(-50%)">◀</button><button class="mini ghost" data-r="sh-next" aria-label="Próximo modelo" style="position:absolute;right:6px;top:50%;transform:translateY(-50%)">▶</button></div>
+ <div style="text-align:center;font-size:12px;color:var(--mute);margin:6px 0">Modelo ${R.shIdx+1} de 3</div>
+ <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px"><button class="btn" data-r="sh-bg">${R.shBg==='light'?'Fundo escuro':'Fundo claro'}</button><button class="btn" data-r="sh-dl">Baixar</button><button class="btn b-ok" data-r="sh-go">Compartilhar</button></div></div>`}
+async function shareGo(R,dl){const c=drawShare(R),blob=await new Promise(ok=>c.toBlob(ok,'image/png')),name='treino-atp-'+isoD(new Date())+'.png';
+ if(!dl){try{const file=new File([blob],name,{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Treino ATP'});return}}catch(e){if(e&&e.name==='AbortError')return}}
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
 const runner=document.createElement('div');runner.className='runner';runner.hidden=true;document.body.appendChild(runner);
 function openRunner(f,fromToday){RUN={f,stage:'intro',i:0,fromToday,data:f.ex.map(x=>{const pr=parsePres(x.pres),h=HIST[hk(x.n)]||[];if(x.desc!=null&&x.desc!=='')pr.rest=+x.desc;return{pr,cur:0,com:'',sets:Array.from({length:pr.sets},(_,k)=>({a:pr.val,b:x.kg!=null&&x.kg!==''?String(x.kg):(h[k]||h[h.length-1]||{b:''}).b,done:false}))}}),tab:'s',t0:null,rest:null};runner.hidden=false;draw()}
 function closeRunner(){clearInterval(RUN&&RUN.tick);RUN=null;runner.hidden=true;try{wake&&wake.release()}catch(e){}}
@@ -916,12 +954,13 @@ function draw(){const R=RUN;if(!R)return;const f=R.f;
   ${f.obs&&f.obs.trim()?`<div class="card" style="border-left:3px solid var(--red)"><div style="font-weight:600;margin-bottom:4px">Observações do treinador</div><div style="font-size:14px;white-space:pre-wrap">${esc(f.obs)}</div></div>`:''}
   ${f.ex.map((x,i)=>`<div class="r-ex"><div class="vid">${anim(x)}</div><div style="min-width:0"><b>${esc(x.n)}</b><small style="color:var(--mute)">Séries x reps · descanso ${esc(x.desc??60)}s</small><div class="num" style="margin-top:4px;background:var(--panel2);border-radius:6px;padding:6px 10px;display:inline-block">${esc(x.pres)}${x.kg?' · '+esc(x.kg)+' kg':''}</div></div></div>`).join('')}
  </div></div><div class="r-foot"><div class="in"><button class="big" data-r="go">Iniciar treino</button></div></div>`;return}
- if(R.stage==='end'){const sets=R.data.reduce((s,d)=>s+d.sets.filter(x=>x.done).length,0),exs=R.data.filter(d=>d.sets.some(x=>x.done)).length,dur=Math.round((Date.now()-R.t0)/60000);R.dur=dur;
+ if(R.stage==='end'){const sets=R.data.reduce((s,d)=>s+d.sets.filter(x=>x.done).length,0),exs=R.data.filter(d=>d.sets.some(x=>x.done)).length,dur=R.dur??Math.round((Date.now()-R.t0)/60000);R.dur=dur;
   runner.innerHTML=`<div class="r-top"><span></span><b>ATP</b><span></span></div><div class="r-body"><div class="r-wrap"><div class="done-ic">✓</div><div class="r-h">Treino concluído</div>
   <div class="r-stats"><div><b>${dur}min</b><span>Duração</span></div><div><b>${exs}</b><span>Exercícios</span></div><div><b>${sets}</b><span>Séries</span></div></div>
   <div class="card"><div style="font-weight:600;margin-bottom:6px">Como foi o seu treino? (escala de Borg)</div><div class="borgval" id="bv">${R.rpe||13}<small id="bl"></small></div>
   <input type="range" class="borgr" id="br" min="6" max="20" step="1" value="${R.rpe||13}" aria-label="Esforço de 6 a 20"><div class="ticks">${[6,8,10,12,14,16,18,20].map(v=>`<span>${v}</span>`).join('')}</div>
   <label for="bc" style="display:block;font-size:13px;color:var(--mute);margin:12px 0 4px">Comentário para o treinador</label><textarea id="bc" rows="3" placeholder="Como se sentiu, dores, cargas…">${esc(R.fim||'')}</textarea></div>
+  ${shareHtml(R)}
   ${fitBox()}
   </div></div><div class="r-foot"><div class="in"><button class="big" data-r="finish">Enviar e fechar</button></div></div>`;
   const BL={6:'Nenhum esforço',7:'Extremamente leve',9:'Muito leve',11:'Leve',13:'Um pouco intenso',15:'Intenso',17:'Muito intenso',19:'Extremamente intenso',20:'Esforço máximo'};
@@ -945,6 +984,9 @@ function draw(){const R=RUN;if(!R)return;const f=R.f;
 runner.addEventListener('input',e=>{const R=RUN,t=e.target;if(!R)return;if(t.dataset.s!=null)R.data[R.i].sets[+t.dataset.s][t.dataset.f]=t.value;if(t.id==='rc')R.data[R.i].com=t.value});
 runner.addEventListener('click',async e=>{const b=e.target.closest('[data-r]');if(!b||!RUN)return;const R=RUN,a=b.dataset.r,d=R.data[R.i];
  if(a==='close')return closeRunner();
+ if(a==='sh-prev'||a==='sh-next'){R.shIdx=((R.shIdx||0)+(a==='sh-next'?1:2))%3;return draw()}
+ if(a==='sh-bg'){R.shBg=R.shBg==='light'?'dark':'light';return draw()}
+ if(a==='sh-go'||a==='sh-dl')return shareGo(R,a==='sh-dl');
  if(a==='go'){try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();audio.resume()}catch(e){}try{wake=await navigator.wakeLock.request('screen')}catch(e){}R.stage='run';R.t0=Date.now();clearInterval(R.tick);R.tick=setInterval(tickRest,250);return draw()}
  if(a==='quit'){if(b.dataset.arm){return closeRunner()}b.dataset.arm=1;b.textContent='Toque de novo para sair';setTimeout(()=>{if(b.isConnected){delete b.dataset.arm;b.textContent='✕ Sair'}},3000);return}
  if(a==='tab-s'||a==='tab-c'){R.tab=a.slice(-1);return draw()}
