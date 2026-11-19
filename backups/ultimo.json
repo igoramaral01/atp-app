@@ -1,541 +1,722 @@
 {
  "athletes": {
-  "cImpA9hrIAaK2NwEjt9d": {
+  "BwDxSaOlECTdpwbcegeM": {
    "data": {
-    "nome": "Igor Amaral",
-    "email": "igoramaral.edfisica@gmail.com",
+    "criado": {
+     "_seconds": 1795003310,
+     "_nanoseconds": 343000000
+    },
+    "nome": "Talita Magalhães",
     "pastas": [
      {
-      "nome": "MACROCICLO 1 - Igor",
-      "fichas": []
+      "fichas": [
+       {
+        "ex": [
+         {
+          "en": "Leg Press",
+          "eq": "máquina",
+          "pres": "3 x 10 ",
+          "pt": 1,
+          "n": "Leg press",
+          "img": [
+           "Leg_Press/0.jpg",
+           "Leg_Press/1.jpg"
+          ],
+          "ins": [
+           "Sente-se no leg press e apoie os pés na plataforma na largura dos ombros.",
+           "Solte as travas de segurança e empurre a plataforma até estender as pernas, sem travar os joelhos. Tronco e pernas formam 90 graus. Esta é a posição inicial.",
+           "Puxando o ar, desça a plataforma devagar até os joelhos formarem 90 graus.",
+           "Empurrando principalmente com os calcanhares, volte à posição inicial soltando o ar.",
+           "Repita pelo número de repetições recomendado e, ao terminar, trave bem a plataforma."
+          ],
+          "id": "Leg_Press",
+          "m": [
+           "quadríceps"
+          ]
+         },
+         {
+          "pt": 1,
+          "img": [
+           "Lying_Leg_Curls/0.jpg",
+           "Lying_Leg_Curls/1.jpg"
+          ],
+          "ins": [
+           "Ajuste a máquina à sua altura e deite-se de bruços na mesa flexora, com o rolo na parte de trás das pernas, alguns centímetros abaixo das panturrilhas.",
+           "Com o tronco apoiado, pernas estendidas, segure as pegadas laterais. Pontas dos pés retas. Esta é a posição inicial.",
+           "Soltando o ar, flexione as pernas o máximo possível sem tirar as coxas do apoio. Segure 1 segundo na contração.",
+           "Puxando o ar, volte as pernas à posição inicial. Repita pelo número de repetições recomendado."
+          ],
+          "m": [
+           "posteriores de coxa"
+          ],
+          "eq": "máquina",
+          "en": "Lying Leg Curls",
+          "n": "Mesa flexora",
+          "pres": "3 x 10 ",
+          "id": "Lying_Leg_Curls"
+         },
+         {
+          "pt": 1,
+          "img": [
+           "Wide-Grip_Lat_Pulldown/0.jpg",
+           "Wide-Grip_Lat_Pulldown/1.jpg"
+          ],
+          "ins": [
+           "Sente-se no puxador (pulley) com a barra longa na polia alta. Ajuste o apoio dos joelhos à sua altura, para o corpo não subir com a carga.",
+           "Segure a barra com as palmas para a frente, mãos mais afastadas que a largura dos ombros (pegada aberta).",
+           "Com os braços estendidos segurando a barra, incline o tronco cerca de 30 graus para trás, arqueando levemente a lombar e abrindo o peito. Esta é a posição inicial.",
+           "Soltando o ar, puxe a barra até tocar a parte de cima do peito, levando ombros e braços para baixo e para trás. Dica: contraia bem as costas no final; o tronco fica parado e só os braços se movem. Os antebraços apenas seguram a barra.",
+           "Após 1 segundo de contração unindo as escápulas, suba a barra devagar até estender totalmente os braços e alongar as dorsais, puxando o ar.",
+           "Repita pelo número de repetições prescrito."
+          ],
+          "pres": "3 x 10 ",
+          "eq": "polia",
+          "m": [
+           "dorsais"
+          ],
+          "n": "Puxada aberto pegada",
+          "en": "Wide-Grip Lat Pulldown",
+          "id": "Wide-Grip_Lat_Pulldown"
+         },
+         {
+          "id": "Leverage_Incline_Chest_Press",
+          "n": "Supino inclinado na máquina articulada",
+          "pres": "3 x 10",
+          "img": [
+           "Leverage_Incline_Chest_Press/0.jpg",
+           "Leverage_Incline_Chest_Press/1.jpg"
+          ],
+          "ins": [
+           "Coloque a carga e ajuste o banco. As pegadas devem ficar perto da parte de cima do peitoral no início, com peito e cabeça erguidos e escápulas unidas. Esta é a posição inicial.",
+           "Empurre as pegadas à frente estendendo os cotovelos.",
+           "Após uma pausa breve, volte até logo antes do ponto inicial, sem apoiar o peso até terminar a série."
+          ],
+          "m": [
+           "peitoral"
+          ],
+          "eq": "máquina",
+          "pt": 1,
+          "en": "Leverage Incline Chest Press"
+         },
+         {
+          "en": "Decline Crunch",
+          "img": [
+           "Decline_Crunch/0.jpg",
+           "Decline_Crunch/1.jpg"
+          ],
+          "ins": [
+           "Prenda as pernas na ponta do banco declinado e deite-se.",
+           "Coloque as mãos levemente ao lado da cabeça, cotovelos fechados, sem entrelaçar os dedos atrás da cabeça.",
+           "Pressionando a lombar contra o banco, comece a tirar os ombros do banco.",
+           "Contraia o abdômen soltando o ar, subindo os ombros só uns 10 cm, com a lombar no banco. Segure a contração 1 segundo. Faça devagar, sem impulso.",
+           "Desça devagar à posição inicial puxando o ar.",
+           "Repita pelo número de repetições recomendado."
+          ],
+          "eq": "peso corporal",
+          "pt": 1,
+          "n": "Abdominal no banco declinado",
+          "pres": "3 x 10",
+          "id": "Decline_Crunch",
+          "m": [
+           "abdômen"
+          ]
+         }
+        ],
+        "obs": "Full Body (Corpo todo) - Variação 1",
+        "nome": "F1"
+       },
+       {
+        "ex": [
+         {
+          "img": [
+           "Leg_Extensions/0.jpg",
+           "Leg_Extensions/1.jpg"
+          ],
+          "ins": [
+           "Escolha a carga e sente-se na cadeira extensora com as pernas sob o rolo (pés para a frente) e as mãos nas pegadas laterais. Ajuste o rolo para ficar sobre a parte de baixo da canela, logo acima dos pés, com joelho a 90 graus. Esta é a posição inicial.",
+           "Usando o quadríceps, estenda as pernas ao máximo soltando o ar, com o resto do corpo parado no banco. Segure 1 segundo.",
+           "Desça devagar à posição inicial puxando o ar, sem passar dos 90 graus.",
+           "Repita pelo número de repetições recomendado."
+          ],
+          "id": "Leg_Extensions",
+          "en": "Leg Extensions",
+          "m": [
+           "quadríceps"
+          ],
+          "pres": "3 x 10",
+          "pt": 1,
+          "n": "Cadeira extensora",
+          "eq": "máquina"
+         },
+         {
+          "pres": "3 x 10",
+          "img": [
+           "Hack_Squat/0.jpg",
+           "Hack_Squat/1.jpg"
+          ],
+          "ins": [
+           "Apoie as costas no encosto da máquina e encaixe os ombros sob as almofadas.",
+           "Coloque os pés na plataforma na largura dos ombros com as pontas levemente para fora, cabeça erguida e costas sempre no encosto.",
+           "Segure as pegadas laterais e solte as travas de segurança.",
+           "Estenda as pernas sem travar os joelhos. Esta é a posição inicial.",
+           "Desça devagar flexionando os joelhos, com as costas no encosto, até o ângulo entre coxa e panturrilha ficar um pouco menor que 90 graus, puxando o ar. Os joelhos acompanham a direção dos pés.",
+           "Suba soltando o ar, empurrando principalmente com os calcanhares, até a posição inicial.",
+           "Repita pelo número de repetições recomendado."
+          ],
+          "id": "Hack_Squat",
+          "en": "Hack Squat",
+          "m": [
+           "quadríceps"
+          ],
+          "pt": 1,
+          "n": "Agachamento hack na máquina",
+          "eq": "máquina"
+         },
+         {
+          "n": "Remada sentado na polia",
+          "id": "Seated_Cable_Rows",
+          "m": [
+           "costas (meio)"
+          ],
+          "eq": "polia",
+          "pt": 1,
+          "img": [
+           "Seated_Cable_Rows/0.jpg",
+           "Seated_Cable_Rows/1.jpg"
+          ],
+          "ins": [
+           "Use a remada baixa na polia com o puxador triângulo, que deixa as palmas voltadas uma para a outra. Sente-se no aparelho e apoie os pés na plataforma, com os joelhos levemente flexionados (não travados).",
+           "Incline-se à frente, mantendo o alinhamento natural das costas, e segure o triângulo.",
+           "Com os braços estendidos, leve o tronco para trás até formar 90 graus com as pernas, peito aberto e lombar levemente arqueada. Você deve sentir alongar as costas (dorsais). Esta é a posição inicial.",
+           "Com o tronco parado, puxe o triângulo em direção ao abdômen, com os braços próximos ao corpo, soltando o ar. No final, contraia bem as costas por 1 segundo e volte devagar à posição inicial, puxando o ar.",
+           "Repita pelo número de repetições recomendado."
+          ],
+          "pres": "3 x 10",
+          "en": "Seated Cable Rows"
+         },
+         {
+          "pres": "3 x 10 ",
+          "img": [
+           "Leverage_Shoulder_Press/0.jpg",
+           "Leverage_Shoulder_Press/1.jpg"
+          ],
+          "ins": [
+           "Coloque a carga e ajuste o banco. As pegadas devem ficar perto da parte de cima dos ombros no início, peito e cabeça erguidos, pegada pronada. Esta é a posição inicial.",
+           "Empurre as pegadas para cima estendendo os cotovelos.",
+           "Após uma pausa breve, volte até logo antes do ponto inicial, sem apoiar o peso até terminar a série."
+          ],
+          "id": "Leverage_Shoulder_Press",
+          "en": "Leverage Shoulder Press",
+          "m": [
+           "ombros"
+          ],
+          "pt": 1,
+          "n": "Desenvolvimento na máquina articulada",
+          "eq": "máquina"
+         },
+         {
+          "en": "Plank",
+          "pres": "3  x 30 segundos",
+          "img": [
+           "Plank/0.jpg",
+           "Plank/1.jpg"
+          ],
+          "ins": [
+           "Fique de bruços no chão, apoiando o peso nas pontas dos pés e nos antebraços, com os cotovelos logo abaixo dos ombros.",
+           "Mantenha o corpo reto o tempo todo, sem subir nem deixar o quadril cair, e segure a posição pelo tempo pedido. Para dificultar, tire um braço ou uma perna do chão."
+          ],
+          "pt": 1,
+          "desc": 50,
+          "eq": "peso corporal",
+          "m": [
+           "abdômen"
+          ],
+          "n": "Prancha",
+          "id": "Plank",
+          "kg": "-"
+         }
+        ],
+        "nome": "F2",
+        "obs": "Full Body (Corpo todo) - Variação 2"
+       },
+       {
+        "nome": "I1",
+        "ex": [
+         {
+          "pres": "4 x 10 ",
+          "en": "Seated Calf Raise",
+          "img": [
+           "Seated_Calf_Raise/0.jpg",
+           "Seated_Calf_Raise/1.jpg"
+          ],
+          "ins": [
+           "Sente-se na máquina com as pontas dos pés na plataforma e os calcanhares para fora. Escolha a posição das pontas (retas, para dentro ou para fora).",
+           "Coloque a parte baixa das coxas sob a almofada, ajustada à sua altura, e apoie as mãos sobre ela.",
+           "Suba levemente os calcanhares e solte a trava de segurança. Esta é a posição inicial.",
+           "Puxando o ar, desça os calcanhares devagar até alongar totalmente a panturrilha.",
+           "Soltando o ar, suba os calcanhares o máximo possível contraindo a panturrilha. Segure 1 segundo.",
+           "Repita pelo número de repetições recomendado."
+          ],
+          "eq": "máquina",
+          "pt": 1,
+          "desc": 70,
+          "n": "Panturrilha sentado na máquina",
+          "id": "Seated_Calf_Raise",
+          "m": [
+           "panturrilhas"
+          ]
+         },
+         {
+          "m": [
+           "abdutores"
+          ],
+          "id": "Thigh_Abductor",
+          "img": [
+           "Thigh_Abductor/0.jpg",
+           "Thigh_Abductor/1.jpg"
+          ],
+          "ins": [
+           "Sente-se na cadeira abdutora e escolha a carga. Com as pernas bem posicionadas, segure as pegadas laterais. Da cintura para cima, o corpo fica parado. Esta é a posição inicial.",
+           "Soltando o ar, empurre devagar afastando as pernas.",
+           "Sinta a contração 1 segundo e volte à posição inicial puxando o ar, sem mexer o tronco.",
+           "Repita pelo número de repetições recomendado."
+          ],
+          "n": "Cadeira abdutora",
+          "pt": 1,
+          "pres": "4 x 10 ",
+          "eq": "máquina",
+          "en": "Thigh Abductor",
+          "desc": 70
+         },
+         {
+          "n": "Leg press",
+          "id": "Leg_Press",
+          "pres": "4 x 10",
+          "desc": 70,
+          "img": [
+           "Leg_Press/0.jpg",
+           "Leg_Press/1.jpg"
+          ],
+          "ins": [
+           "Sente-se no leg press e apoie os pés na plataforma na largura dos ombros.",
+           "Solte as travas de segurança e empurre a plataforma até estender as pernas, sem travar os joelhos. Tronco e pernas formam 90 graus. Esta é a posição inicial.",
+           "Puxando o ar, desça a plataforma devagar até os joelhos formarem 90 graus.",
+           "Empurrando principalmente com os calcanhares, volte à posição inicial soltando o ar.",
+           "Repita pelo número de repetições recomendado e, ao terminar, trave bem a plataforma."
+          ],
+          "m": [
+           "quadríceps"
+          ],
+          "eq": "máquina",
+          "pt": 1,
+          "en": "Leg Press"
+         },
+         {
+          "id": "Smith_Machine_Squat",
+          "img": [
+           "Smith_Machine_Squat/0.jpg",
+           "Smith_Machine_Squat/1.jpg"
+          ],
+          "ins": [
+           "Ajuste a barra à sua altura, carregue-a, entre embaixo dela e apoie-a atrás dos ombros, logo abaixo do pescoço.",
+           "Segure a barra com as palmas para a frente, destrave e tire-a do suporte empurrando com as pernas e endireitando o tronco.",
+           "Pés na largura dos ombros, pontas levemente para fora, cabeça erguida e costas retas. Esta é a posição inicial.",
+           "Puxando o ar, desça devagar flexionando os joelhos até o ângulo entre coxa e panturrilha ficar um pouco menor que 90 graus (coxa abaixo da paralela). Os joelhos não devem passar muito da ponta dos pés.",
+           "Soltando o ar, suba empurrando o chão com os calcanhares até a posição inicial.",
+           "Repita pelo número de repetições recomendado."
+          ],
+          "en": "Smith Machine Squat",
+          "pres": "4 x 10",
+          "n": "Agachamento no Smith",
+          "desc": 70,
+          "m": [
+           "quadríceps"
+          ],
+          "eq": "máquina",
+          "pt": 1
+         },
+         {
+          "eq": "máquina",
+          "n": "Bicicleta ergométrica",
+          "pt": 1,
+          "m": [
+           "quadríceps"
+          ],
+          "en": "Bicycling, Stationary",
+          "id": "Bicycling_Stationary",
+          "img": [
+           "Bicycling_Stationary/0.jpg",
+           "Bicycling_Stationary/1.jpg"
+          ],
+          "ins": [
+           "Sente-se na bicicleta e ajuste o banco à sua altura (joelho levemente flexionado com o pedal embaixo).",
+           "Escolha o programa no painel ou use o modo manual; em muitos aparelhos é preciso começar a pedalar para ligar. Ajuste a resistência ao longo do treino conforme a intensidade pedida. As pegadas com sensor ajudam a acompanhar a frequência cardíaca."
+          ],
+          "desc": 0,
+          "pres": "8 minutos"
+         }
+        ],
+        "obs": "Membros Inferiores - Variação 1"
+       },
+       {
+        "nome": "I2",
+        "obs": "Membros Inferiores - Variação 2",
+        "ex": [
+         {
+          "n": "Panturrilha em pé na máquina",
+          "eq": "máquina",
+          "img": [
+           "Standing_Calf_Raises/0.jpg",
+           "Standing_Calf_Raises/1.jpg"
+          ],
+          "ins": [
+           "Ajuste a altura das almofadas da máquina à sua altura.",
+           "Coloque os ombros sob as almofadas e a parte da frente dos pés no apoio, com os calcanhares para fora. Empurre estendendo quadril e joelhos até ficar ereto, joelhos levemente flexionados (nunca travados). Pontas dos pés retas, para fora ou para dentro. Esta é a posição inicial.",
+           "Soltando o ar, suba os calcanhares o máximo possível contraindo a panturrilha, sem mexer os joelhos. Segure 1 segundo.",
+           "Puxando o ar, desça os calcanhares devagar até alongar a panturrilha.",
+           "Repita pelo número de repetições recomendado."
+          ],
+          "pt": 1,
+          "en": "Standing Calf Raises",
+          "m": [
+           "panturrilhas"
+          ],
+          "pres": "4 x 10",
+          "id": "Standing_Calf_Raises",
+          "desc": 70
+         },
+         {
+          "desc": 70,
+          "en": "Thigh Adductor",
+          "eq": "máquina",
+          "pres": "4 x 12 ",
+          "pt": 1,
+          "n": "Cadeira adutora",
+          "img": [
+           "Thigh_Adductor/0.jpg",
+           "Thigh_Adductor/1.jpg"
+          ],
+          "ins": [
+           "Sente-se na cadeira adutora e escolha a carga. Com as pernas bem apoiadas nas almofadas, segure as pegadas laterais. Da cintura para cima, o corpo fica parado. Esta é a posição inicial.",
+           "Soltando o ar, empurre devagar aproximando as pernas.",
+           "Sinta a contração 1 segundo e volte à posição inicial puxando o ar, sem mexer o tronco e sem trancos.",
+           "Repita pelo número de repetições recomendado."
+          ],
+          "id": "Thigh_Adductor",
+          "m": [
+           "adutores"
+          ]
+         },
+         {
+          "m": [
+           "posteriores de coxa"
+          ],
+          "pt": 1,
+          "eq": "máquina",
+          "desc": 70,
+          "pres": "4 x 10",
+          "en": "Seated Leg Curl",
+          "n": "Cadeira flexora",
+          "img": [
+           "Seated_Leg_Curl/0.jpg",
+           "Seated_Leg_Curl/1.jpg"
+          ],
+          "ins": [
+           "Ajuste a máquina à sua altura e sente-se com as costas no encosto.",
+           "Apoie a parte de trás das pernas no rolo, alguns centímetros abaixo das panturrilhas, e trave a almofada sobre as coxas, logo acima dos joelhos. Segure as pegadas laterais, pontas dos pés retas e pernas estendidas. Esta é a posição inicial.",
+           "Soltando o ar, flexione os joelhos levando o rolo o máximo possível para trás, com o tronco parado. Segure 1 segundo.",
+           "Volte devagar à posição inicial puxando o ar.",
+           "Repita pelo número de repetições recomendado."
+          ],
+          "id": "Seated_Leg_Curl"
+         },
+         {
+          "pres": "4 x 10",
+          "eq": "halter",
+          "img": [
+           "Split_Squat_with_Dumbbells/0.jpg",
+           "Split_Squat_with_Dumbbells/1.jpg"
+          ],
+          "ins": [
+           "Fique em base afastada, com o pé de trás apoiado em um banco e o pé da frente à frente.",
+           "Segure um halter em cada mão, com os braços estendidos ao lado do corpo. Esta é a posição inicial.",
+           "Desça flexionando joelho e quadril, com boa postura durante todo o movimento. Mantenha o joelho da frente alinhado com o pé.",
+           "Embaixo, empurre o chão com o calcanhar da frente, estendendo joelho e quadril para voltar à posição inicial."
+          ],
+          "n": "Agachamento búlgaro com halteres",
+          "pt": 1,
+          "m": [
+           "quadríceps"
+          ],
+          "desc": 70,
+          "en": "Split Squat with Dumbbells",
+          "id": "Split_Squat_with_Dumbbells"
+         },
+         {
+          "pres": "8 minutos",
+          "en": "Bicycling, Stationary",
+          "img": [
+           "Bicycling_Stationary/0.jpg",
+           "Bicycling_Stationary/1.jpg"
+          ],
+          "ins": [
+           "Sente-se na bicicleta e ajuste o banco à sua altura (joelho levemente flexionado com o pedal embaixo).",
+           "Escolha o programa no painel ou use o modo manual; em muitos aparelhos é preciso começar a pedalar para ligar. Ajuste a resistência ao longo do treino conforme a intensidade pedida. As pegadas com sensor ajudam a acompanhar a frequência cardíaca."
+          ],
+          "eq": "máquina",
+          "desc": 0,
+          "pt": 1,
+          "n": "Bicicleta ergométrica",
+          "id": "Bicycling_Stationary",
+          "m": [
+           "quadríceps"
+          ]
+         }
+        ]
+       },
+       {
+        "ex": [
+         {
+          "m": [
+           "tríceps"
+          ],
+          "id": "Triceps_Pushdown",
+          "n": "Tríceps na polia (pulley) com barra",
+          "pt": 1,
+          "eq": "polia",
+          "img": [
+           "Triceps_Pushdown/0.jpg",
+           "Triceps_Pushdown/1.jpg"
+          ],
+          "ins": [
+           "Prenda uma barra reta ou angulada na polia alta e segure com pegada pronada (palmas para baixo) na largura dos ombros.",
+           "Em pé, tronco ereto com leve inclinação à frente, braços junto ao corpo e perpendiculares ao chão, antebraços apontando para a polia. Esta é a posição inicial.",
+           "Com o tríceps, desça a barra até tocar a frente das coxas, braços estendidos. Os braços ficam parados ao lado do tronco; só os antebraços se movem. Solte o ar.",
+           "Segure 1 segundo e suba a barra devagar puxando o ar.",
+           "Repita pelo número de repetições recomendado."
+          ],
+          "en": "Triceps Pushdown",
+          "pres": "4 x 8"
+         },
+         {
+          "id": "Side_Lateral_Raise",
+          "n": "Elevação lateral com halteres",
+          "en": "Side Lateral Raise",
+          "eq": "halter",
+          "m": [
+           "ombros"
+          ],
+          "pt": 1,
+          "pres": "4 x 8",
+          "img": [
+           "Side_Lateral_Raise/0.jpg",
+           "Side_Lateral_Raise/1.jpg"
+          ],
+          "ins": [
+           "Em pé, tronco ereto, segure os halteres ao lado do corpo com os braços estendidos e as palmas voltadas para você. Esta é a posição inicial.",
+           "Sem balançar o tronco, eleve os halteres para os lados com os cotovelos levemente flexionados e as mãos um pouco inclinadas à frente, como quem despeja água, até os braços ficarem paralelos ao chão. Solte o ar e pause 1 segundo.",
+           "Desça devagar puxando o ar.",
+           "Repita pelo número de repetições recomendado."
+          ]
+         },
+         {
+          "pt": 1,
+          "m": [
+           "peitoral"
+          ],
+          "eq": "halter",
+          "en": "Dumbbell Flyes",
+          "n": "Crucifixo reto com halteres",
+          "img": [
+           "Dumbbell_Flyes/0.jpg",
+           "Dumbbell_Flyes/1.jpg"
+          ],
+          "ins": [
+           "Deite-se em um banco reto com um halter em cada mão sobre as coxas, palmas voltadas uma para a outra.",
+           "Usando as coxas, leve os halteres à sua frente na largura dos ombros, palmas uma para a outra. Suba como em um supino, parando pouco antes de estender totalmente. Esta é a posição inicial.",
+           "Com os cotovelos levemente flexionados, abra os braços para os lados em um arco amplo até sentir alongar o peito, puxando o ar. O movimento acontece só no ombro.",
+           "Volte pelo mesmo arco contraindo o peito e soltando o ar.",
+           "Segure 1 segundo e repita pelo número de repetições prescrito."
+          ],
+          "id": "Dumbbell_Flyes",
+          "pres": "4 x 8"
+         },
+         {
+          "img": [
+           "Wide-Grip_Lat_Pulldown/0.jpg",
+           "Wide-Grip_Lat_Pulldown/1.jpg"
+          ],
+          "ins": [
+           "Sente-se no puxador (pulley) com a barra longa na polia alta. Ajuste o apoio dos joelhos à sua altura, para o corpo não subir com a carga.",
+           "Segure a barra com as palmas para a frente, mãos mais afastadas que a largura dos ombros (pegada aberta).",
+           "Com os braços estendidos segurando a barra, incline o tronco cerca de 30 graus para trás, arqueando levemente a lombar e abrindo o peito. Esta é a posição inicial.",
+           "Soltando o ar, puxe a barra até tocar a parte de cima do peito, levando ombros e braços para baixo e para trás. Dica: contraia bem as costas no final; o tronco fica parado e só os braços se movem. Os antebraços apenas seguram a barra.",
+           "Após 1 segundo de contração unindo as escápulas, suba a barra devagar até estender totalmente os braços e alongar as dorsais, puxando o ar.",
+           "Repita pelo número de repetições prescrito."
+          ],
+          "pt": 1,
+          "m": [
+           "dorsais"
+          ],
+          "eq": "polia",
+          "en": "Wide-Grip Lat Pulldown",
+          "n": "Puxada aberto pegada",
+          "pres": "4 x 8",
+          "id": "Wide-Grip_Lat_Pulldown"
+         }
+        ],
+        "obs": "Membros Superiores - Variação 1",
+        "nome": "S1"
+       },
+       {
+        "ex": [
+         {
+          "pt": 1,
+          "eq": "barra",
+          "m": [
+           "peitoral"
+          ],
+          "pres": "4 x 8",
+          "n": "Supino reto com pegada aberta",
+          "en": "Wide-Grip Barbell Bench Press",
+          "img": [
+           "Wide-Grip_Barbell_Bench_Press/0.jpg",
+           "Wide-Grip_Barbell_Bench_Press/1.jpg"
+          ],
+          "ins": [
+           "Deite-se em um banco reto com os pés firmes no chão. Com pegada pronada aberta (cada mão uns 8 cm além da largura dos ombros), tire a barra do suporte e segure-a acima de você com os braços estendidos. Esta é a posição inicial.",
+           "Puxando o ar, desça devagar até a barra tocar o meio do peito.",
+           "Após 1 segundo, empurre a barra com o peitoral soltando o ar. Contraia o peito 1 segundo no alto e desça devagar (a descida deve levar o dobro da subida).",
+           "Repita pelo número de repetições prescrito."
+          ],
+          "id": "Wide-Grip_Barbell_Bench_Press"
+         },
+         {
+          "pres": "4 x 8",
+          "id": "Seated_Cable_Rows",
+          "img": [
+           "Seated_Cable_Rows/0.jpg",
+           "Seated_Cable_Rows/1.jpg"
+          ],
+          "ins": [
+           "Use a remada baixa na polia com o puxador triângulo, que deixa as palmas voltadas uma para a outra. Sente-se no aparelho e apoie os pés na plataforma, com os joelhos levemente flexionados (não travados).",
+           "Incline-se à frente, mantendo o alinhamento natural das costas, e segure o triângulo.",
+           "Com os braços estendidos, leve o tronco para trás até formar 90 graus com as pernas, peito aberto e lombar levemente arqueada. Você deve sentir alongar as costas (dorsais). Esta é a posição inicial.",
+           "Com o tronco parado, puxe o triângulo em direção ao abdômen, com os braços próximos ao corpo, soltando o ar. No final, contraia bem as costas por 1 segundo e volte devagar à posição inicial, puxando o ar.",
+           "Repita pelo número de repetições recomendado."
+          ],
+          "m": [
+           "costas (meio)"
+          ],
+          "en": "Seated Cable Rows",
+          "pt": 1,
+          "eq": "polia",
+          "n": "Remada sentado na polia"
+         },
+         {
+          "id": "Zottman_Preacher_Curl",
+          "n": "Rosca Zottman no banco Scott",
+          "m": [
+           "bíceps"
+          ],
+          "pres": "4 x 8",
+          "eq": "halter",
+          "pt": 1,
+          "img": [
+           "Zottman_Preacher_Curl/0.jpg",
+           "Zottman_Preacher_Curl/1.jpg"
+          ],
+          "ins": [
+           "Segure um halter em cada mão e apoie os braços no banco Scott ou inclinado, halteres na altura dos ombros, cotovelos flexionados e palmas para baixo. Esta é a posição inicial.",
+           "Puxando o ar, desça os halteres devagar com as palmas para baixo até estender os braços.",
+           "Embaixo, gire os punhos para as palmas ficarem para cima.",
+           "Soltando o ar, suba os pesos até contrair totalmente o bíceps, na altura dos ombros, levando o dedo mínimo mais alto que o polegar.",
+           "Contraia forte 1 segundo e gire os punhos para as palmas ficarem para baixo de novo.",
+           "Repita pelo número de repetições recomendado."
+          ],
+          "en": "Zottman Preacher Curl"
+         },
+         {
+          "pres": "4 x 8",
+          "en": "Leverage Shoulder Press",
+          "img": [
+           "Leverage_Shoulder_Press/0.jpg",
+           "Leverage_Shoulder_Press/1.jpg"
+          ],
+          "ins": [
+           "Coloque a carga e ajuste o banco. As pegadas devem ficar perto da parte de cima dos ombros no início, peito e cabeça erguidos, pegada pronada. Esta é a posição inicial.",
+           "Empurre as pegadas para cima estendendo os cotovelos.",
+           "Após uma pausa breve, volte até logo antes do ponto inicial, sem apoiar o peso até terminar a série."
+          ],
+          "eq": "máquina",
+          "pt": 1,
+          "n": "Desenvolvimento na máquina articulada",
+          "id": "Leverage_Shoulder_Press",
+          "m": [
+           "ombros"
+          ]
+         }
+        ],
+        "obs": "Membros Superiores - Variação 2",
+        "nome": "S2"
+       }
+      ],
+      "nome": "MACROCICLO 1 - Talita"
      }
     ],
-    "criado": {
-     "_seconds": 1794274889,
-     "_nanoseconds": 674000000
+    "uid": "43asGGQKYbfFy7ZCQSEfI2zNHgD2",
+    "email": "tallysm@gmail.com",
+    "fb": {
+     "o3r5f76oicc": {
+      "s": "",
+      "r": "\n",
+      "o": "",
+      "kmd": ""
+     },
+     "ocf8glcjicc": {
+      "s": "",
+      "r": "\n",
+      "o": "",
+      "kmd": ""
+     },
+     "ir3f0lq1icc": {
+      "s": "",
+      "r": "\n",
+      "o": "",
+      "kmd": ""
+     },
+     "qigekm3picc": {
+      "s": "",
+      "r": "\n",
+      "o": "",
+      "kmd": ""
+     }
     },
     "months": [
      {
-      "rows": [
-       {
-        "w": 1
-       },
-       {
-        "d": "SEGUNDA",
-        "kmd": "",
-        "o": "",
-        "ext": null,
-        "p": "",
-        "s": "",
-        "t": "Descanso",
-        "c": "",
-        "id": "63x85840wl2",
-        "r": "-",
-        "dt": "19/10"
-       },
-       {
-        "c": "Academia - FI1",
-        "dt": "20/10",
-        "r": "11",
-        "id": "nh9fa0xlwl2",
-        "t": "Força",
-        "p": "12 - 15",
-        "ext": null,
-        "s": "✓",
-        "d": "Terça\nManhã",
-        "kmd": "",
-        "o": "Me senti bem e com uma percepção legal do esforço, fiz com cargas altas e me senti confortável na realização da explosão concêntrica."
-       },
-       {
-        "s": "✓",
-        "p": "13 - 16",
-        "kmd": "",
-        "ext": null,
-        "o": "",
-        "d": "Terça\nTarde",
-        "r": "14",
-        "c": "Teste Sprints\n5 x 30 M",
-        "dt": "",
-        "t": "Específico",
-        "id": "u4t8ww4uwl2"
-       },
-       {
-        "dt": "21/10",
-        "r": "13",
-        "id": "vauho5igwl2",
-        "c": "Academia - S1",
-        "ext": null,
-        "kmd": "",
-        "t": "Força",
-        "s": "✓",
-        "p": "",
-        "o": "Fazendo com cargas altas e me sentindo bem.",
-        "d": "QUARTA"
-       },
-       {
-        "s": "✗",
-        "ext": null,
-        "p": "",
-        "dt": "22/10",
-        "o": "Chuva impossibilitou a realização",
-        "id": "7w0l04ilwl2",
-        "kmd": "",
-        "d": "QUINTA",
-        "r": "-",
-        "c": "Sprint - 16 x 8 metros\n(perna dominante e não dominante)",
-        "t": "Específico"
-       },
-       {
-        "r": "11",
-        "kmd": "",
-        "c": "Academia  - PI1",
-        "t": "Potência",
-        "ext": null,
-        "dt": "23/10",
-        "s": "✓",
-        "id": "7s38cxnzwl2",
-        "p": "",
-        "o": "Novos exercícios, carga bem baixa para criar memória motora de como realizar",
-        "d": "SEXTA\nManhã"
-       },
-       {
-        "ext": null,
-        "o": "Por conta da chuva, não rolou treino de pista.",
-        "d": "SEXTA\nTarde",
-        "id": "99he38m8wl2",
-        "s": "✓",
-        "dt": "",
-        "kmd": "",
-        "p": "",
-        "t": "Específico",
-        "r": "12",
-        "c": "Sprint - 10 x 5 metros\n(perna dominante)"
-       },
-       {
-        "p": "8 - 12",
-        "s": "✓",
-        "kmd": "",
-        "ext": null,
-        "d": "SÁBADO",
-        "o": "Por conta do calor e horário que fomos estava bem calor e acabou exigindo mais, porém um bom treino, confortável",
-        "c": "Rodagem Leve\n10 KM apé",
-        "r": "14",
-        "t": "Recuperação",
-        "dt": "24/10",
-        "id": "ti7k6ckxwl2"
-       },
-       {
-        "p": "",
-        "s": "✓",
-        "d": "DOMINGO",
-        "dt": "25/10",
-        "o": "",
-        "id": "ybtr8sqfwl2",
-        "ext": null,
-        "c": "-",
-        "r": "-",
-        "t": "Descanso",
-        "kmd": ""
-       },
-       {
-        "sum": 1,
-        "km": ""
-       },
-       {
-        "w": 2
-       },
-       {
-        "r": "12",
-        "dt": "26/10",
-        "id": "oty7hylhwl2",
-        "c": "Academia FI2",
-        "t": "Força",
-        "s": "✓",
-        "ext": null,
-        "p": "14 - 17",
-        "o": "",
-        "kmd": "",
-        "d": "SEGUNDA"
-       },
-       {
-        "c": "Sprint - 16 x 5 metros\n(perna dominante e não dominante)",
-        "r": "",
-        "t": "Específico",
-        "dt": "27/10",
-        "kmd": "",
-        "p": "13 - 17",
-        "s": "✗",
-        "id": "q70d4cyhwl2",
-        "d": "Terça\nManhã",
-        "ext": null,
-        "o": ""
-       },
-       {
-        "s": "✓",
-        "p": "",
-        "kmd": "",
-        "ext": null,
-        "o": "Ótimo treino, me senti leve na pista e consegui fazer largadas boas, elogiado pelo treinador justamente na parte que estamos treinando, que é a potência e explosão da pedalada para entrar no grio rápido, feedback muito positivo",
-        "d": "Terça\nTarde",
-        "r": "18",
-        "c": "Pista BMX, 4 pistas inteiras com Gate, sendo:\n\n1° - Somente 1a reta forte, o resto no embalo \n2° - Somente 1a e 2a reta forte, resto no embalo\n3° - 1a 2a e 3a forte, resto no embalo\n4° - volta completa 100%",
-        "dt": "",
-        "t": "Específico",
-        "id": "5p314lk5wl2"
-       },
-       {
-        "dt": "28/10",
-        "c": "Academia S2",
-        "r": "12",
-        "ext": null,
-        "id": "w18s2kzowl2",
-        "t": "Força",
-        "kmd": "",
-        "p": "12 - 16",
-        "s": "✓",
-        "d": "QUARTA",
-        "o": ""
-       },
-       {
-        "d": "QUINTA",
-        "o": "",
-        "kmd": "",
-        "p": "12 - 16",
-        "ext": null,
-        "s": "✗",
-        "t": "Potência",
-        "c": "Academia PI2",
-        "id": "zee9qceqwl2",
-        "r": "",
-        "dt": "29/10"
-       },
-       {
-        "c": "Academia PI2",
-        "dt": "30/10",
-        "r": "13",
-        "id": "glu2zfr0wl2",
-        "t": "Potência",
-        "p": "10 - 12",
-        "ext": null,
-        "s": "✓",
-        "d": "Sexta\nManhã",
-        "kmd": "",
-        "o": ""
-       },
-       {
-        "r": "",
-        "dt": "",
-        "id": "1dnd5fg1wl2",
-        "c": "Pista BMX",
-        "t": "Específico",
-        "s": "✗",
-        "p": "",
-        "ext": null,
-        "o": "Chuva",
-        "kmd": "",
-        "d": "Sexta\nTarde"
-       },
-       {
-        "r": "12",
-        "kmd": "",
-        "c": "Corrida 10 Km",
-        "ext": null,
-        "t": "Recuperação",
-        "s": "✓",
-        "dt": "31/10",
-        "id": "1cgf9re5wl2",
-        "p": "10 - 12",
-        "o": "",
-        "d": "SÁBADO"
-       },
-       {
-        "r": "-",
-        "c": "-",
-        "t": "Descanso",
-        "s": "",
-        "dt": "01/11",
-        "kmd": "",
-        "id": "4lw6j4p3wl2",
-        "p": "",
-        "o": "",
-        "ext": null,
-        "d": "DOMINGO"
-       },
-       {
-        "sum": 1,
-        "km": ""
-       },
-       {
-        "w": 3
-       },
-       {
-        "d": "SEGUNDA",
-        "kmd": "",
-        "o": "Chuva e preguiça",
-        "ext": null,
-        "p": "",
-        "s": "✗",
-        "t": "Específico",
-        "c": "Sprints 15m",
-        "id": "n3y96z27wl2",
-        "r": "-",
-        "dt": "02/11"
-       },
-       {
-        "s": "✗",
-        "p": "",
-        "o": "",
-        "d": "Terça\nManhã",
-        "r": "",
-        "c": "PI1",
-        "kmd": "",
-        "dt": "03/11",
-        "ext": null,
-        "id": "ywhsmzv2wl2",
-        "t": "Potência"
-       },
-       {
-        "dt": "",
-        "c": "Pista",
-        "r": "14",
-        "ext": null,
-        "id": "qi4o2zccwl2",
-        "t": "Específico",
-        "kmd": "",
-        "p": "",
-        "s": "✓",
-        "d": "Terça\nTarde",
-        "o": "Treino técnico de retas separadas com saltos e passagens específicas."
-       },
-       {
-        "p": "",
-        "ext": null,
-        "s": "✓",
-        "d": "QUARTA",
-        "dt": "04/11",
-        "o": "",
-        "kmd": "",
-        "id": "b41oaak2wl2",
-        "c": "S1",
-        "r": "",
-        "t": "Força"
-       },
-       {
-        "p": "",
-        "s": "✗",
-        "dt": "05/11",
-        "d": "QUINTA",
-        "o": "e",
-        "id": "ke11n16twl2",
-        "ext": null,
-        "c": "FI1",
-        "r": "",
-        "t": "Força",
-        "kmd": ""
-       },
-       {
-        "id": "vhsshdrmwl2",
-        "dt": "06/11",
-        "t": "Recuperação",
-        "ext": null,
-        "r": "",
-        "kmd": "",
-        "c": "GIRO BIKE - 15 / 20km",
-        "o": "",
-        "d": "Sexta\nManhã",
-        "s": "✗",
-        "p": ""
-       },
-       {
-        "s": "✓",
-        "p": "",
-        "o": "",
-        "d": "Sexta\nTarde",
-        "r": "17",
-        "c": "Pista",
-        "kmd": "",
-        "dt": "",
-        "ext": null,
-        "id": "m4usoxcxwl2",
-        "t": "Específico"
-       },
-       {
-        "t": "Recuperação",
-        "kmd": "",
-        "c": "Rodagem apé 4km",
-        "r": "13",
-        "ext": null,
-        "d": "SÁBADO",
-        "id": "mlfhpk36wl2",
-        "o": "",
-        "dt": "07/11",
-        "p": "",
-        "s": "✓"
-       },
-       {
-        "p": "",
-        "s": "✓",
-        "d": "DOMINGO",
-        "o": "",
-        "c": "",
-        "r": "",
-        "kmd": "",
-        "ext": null,
-        "t": "Descanso",
-        "dt": "08/11",
-        "id": "qb9hvmz7wl2"
-       },
-       {
-        "km": "",
-        "sum": 1
-       },
-       {
-        "w": 4
-       },
-       {
-        "r": "",
-        "c": "",
-        "t": "",
-        "dt": "09/11",
-        "s": "✗",
-        "kmd": "",
-        "id": "ly6xhddhwl2",
-        "p": "",
-        "o": "",
-        "d": "SEGUNDA",
-        "ext": null
-       },
-       {
-        "s": "✗",
-        "p": "\n",
-        "kmd": "",
-        "o": "",
-        "ext": null,
-        "d": "Terça\nManhã",
-        "r": "",
-        "c": "PI1",
-        "dt": "10/11",
-        "id": "tmzlg37lwl2",
-        "t": "Potência"
-       },
-       {
-        "t": "Específico",
-        "r": "14",
-        "c": "Pista",
-        "o": "",
-        "id": "7d7wjknlwl2",
-        "dt": "",
-        "d": "Terça\nTarde",
-        "s": "✓",
-        "p": "",
-        "kmd": "",
-        "ext": null
-       },
-       {
-        "t": "Força",
-        "id": "ez77m7ddwl2",
-        "dt": "11/11",
-        "c": "S1",
-        "r": "",
-        "d": "QUARTA",
-        "o": "",
-        "p": "\n",
-        "s": ""
-       },
-       {
-        "s": "",
-        "p": "",
-        "o": "",
-        "d": "QUINTA",
-        "r": "",
-        "c": "FI1",
-        "dt": "12/11",
-        "t": "Força",
-        "id": "nirss7bwwl2"
-       },
-       {
-        "s": "",
-        "p": "",
-        "o": "",
-        "d": "Sexta\nManhã",
-        "r": "",
-        "c": "Rodagem Bike",
-        "dt": "13/11",
-        "id": "heqihcfmwl2",
-        "t": "Recuperação"
-       },
-       {
-        "p": "",
-        "s": "",
-        "d": "Sexta\nTarde",
-        "o": "",
-        "c": "Pista Bike",
-        "r": "",
-        "t": "Específico",
-        "dt": "",
-        "id": "o22bielhwl2"
-       },
-       {
-        "d": "Sábado Manhã",
-        "o": "",
-        "p": "",
-        "id": "ggi54j5picf",
-        "s": "",
-        "dt": "",
-        "t": "Recuperação",
-        "c": "10 KM apé",
-        "r": ""
-       },
-       {
-        "c": "6 KM apé",
-        "dt": "14/11",
-        "r": "",
-        "id": "01ir98nhwl2",
-        "t": "Prova",
-        "p": "",
-        "s": "",
-        "d": "SÁBADO Tarde",
-        "o": ""
-       },
-       {
-        "t": "Descanso",
-        "id": "j5i1vpbcwl2",
-        "dt": "15/11",
-        "c": "",
-        "r": "",
-        "d": "DOMINGO",
-        "o": "",
-        "p": "",
-        "s": ""
-       },
-       {
-        "km": "",
-        "sum": 1
-       }
-      ],
       "cols": [
        {
-        "l": "✔/❌",
+        "l": "✓/✗",
         "id": "s"
        },
        {
-        "l": "DIA",
+        "l": "Dia",
         "id": "d"
        },
        {
-        "l": "DATA",
+        "l": "Data",
         "id": "dt"
        },
        {
-        "l": "TREINO",
+        "l": "Treino",
         "id": "t"
        },
        {
-        "id": "c",
-        "l": "CONTEÚDO"
+        "l": "Conteúdo",
+        "id": "c"
        },
        {
-        "l": "PREVISTO",
+        "l": "Previsto",
         "id": "p"
        },
        {
@@ -543,15 +724,363 @@
         "id": "r"
        },
        {
-        "l": "OBSERVAÇÃO",
-        "id": "o"
-       },
-       {
         "l": "KM",
         "id": "kmd"
+       },
+       {
+        "l": "Observação",
+        "id": "o"
        }
       ],
-      "nome": "MÊS 1"
+      "nome": "MÊS 1",
+      "rows": [
+       {
+        "w": 1
+       },
+       {
+        "d": "SEGUNDA",
+        "s": "",
+        "c": "F1\n",
+        "o": "",
+        "t": "Res. de Força",
+        "ext": null,
+        "dt": "23/11",
+        "p": "13",
+        "id": "ocf8glcjicc",
+        "r": "\n",
+        "kmd": ""
+       },
+       {
+        "p": "",
+        "r": "",
+        "id": "k75ersg7icc",
+        "s": "",
+        "dt": "24/11\n",
+        "d": "TERÇA",
+        "t": "Descanso",
+        "c": "-",
+        "o": ""
+       },
+       {
+        "t": "Força",
+        "o": "",
+        "c": "I1",
+        "dt": "25/11",
+        "kmd": "",
+        "s": "",
+        "d": "QUARTA",
+        "id": "o3r5f76oicc",
+        "r": "\n",
+        "p": "12",
+        "ext": null
+       },
+       {
+        "p": "-",
+        "r": "",
+        "dt": "26/11",
+        "s": "",
+        "d": "QUINTA",
+        "t": "Descanso",
+        "c": "-",
+        "id": "89vnb2emicc",
+        "o": ""
+       },
+       {
+        "c": "S2",
+        "id": "ir3f0lq1icc",
+        "kmd": "",
+        "o": "",
+        "t": "Força",
+        "d": "SEXTA",
+        "s": "",
+        "ext": null,
+        "dt": "27/11",
+        "p": "12",
+        "r": "\n"
+       },
+       {
+        "p": "-",
+        "ext": null,
+        "r": "\n",
+        "id": "qigekm3picc",
+        "s": "",
+        "dt": "28/11",
+        "d": "SÁBADO",
+        "kmd": "",
+        "t": "Específico",
+        "c": "Muay-Thai",
+        "o": ""
+       },
+       {
+        "d": "DOMINGO",
+        "s": "",
+        "o": "",
+        "c": "-",
+        "t": "Descanso",
+        "dt": "29/11",
+        "r": "",
+        "id": "5v4y2mjpicc",
+        "p": "-"
+       },
+       {
+        "sum": 1,
+        "kmPlan": "0",
+        "km": ""
+       },
+       {
+        "w": 2
+       },
+       {
+        "t": "Res. de Força",
+        "c": "I2",
+        "o": "",
+        "dt": "30/11",
+        "s": "",
+        "d": "SEGUNDA",
+        "id": "j35hpq28icc",
+        "p": "12",
+        "r": ""
+       },
+       {
+        "c": "OPCIONAL: Caminhada leve de 3KM",
+        "id": "3paqoem5icc",
+        "o": "",
+        "t": "Descanso",
+        "d": "TERÇA",
+        "s": "",
+        "dt": "01/12",
+        "p": "12",
+        "r": ""
+       },
+       {
+        "t": "Força",
+        "id": "5ncj8qxficc",
+        "c": "S2",
+        "o": "",
+        "s": "",
+        "d": "QUARTA",
+        "p": "14",
+        "dt": "02/12",
+        "r": ""
+       },
+       {
+        "s": "",
+        "d": "QUINTA",
+        "t": "Descanso",
+        "dt": "03/12",
+        "c": "-",
+        "o": "",
+        "p": "-",
+        "r": "",
+        "id": "pnrreun5icc"
+       },
+       {
+        "o": "",
+        "id": "jf5rg889icc",
+        "c": "F2",
+        "t": "Res. de Força",
+        "d": "SEXTA",
+        "s": "",
+        "dt": "04/12",
+        "r": "",
+        "p": "12"
+       },
+       {
+        "t": "Específico",
+        "id": "dudm1pm3icc",
+        "c": "Muay-Thai",
+        "o": "",
+        "s": "",
+        "d": "SÁBADO",
+        "p": "-",
+        "dt": "05/12",
+        "r": ""
+       },
+       {
+        "t": "Descanso",
+        "c": "",
+        "o": "",
+        "s": "",
+        "dt": "06/12",
+        "d": "DOMINGO",
+        "id": "6sow6vmsicc",
+        "p": "-",
+        "r": ""
+       },
+       {
+        "kmPlan": "-",
+        "km": "",
+        "sum": 2
+       },
+       {
+        "w": 3
+       },
+       {
+        "dt": "07/12",
+        "p": "",
+        "r": "",
+        "c": "",
+        "o": "",
+        "t": "",
+        "id": "jkc2dz9ricc",
+        "d": "SEGUNDA",
+        "s": ""
+       },
+       {
+        "r": "",
+        "p": "",
+        "dt": "08/12",
+        "s": "",
+        "d": "TERÇA",
+        "t": "",
+        "o": "",
+        "c": "",
+        "id": "xw9dm7oaicc"
+       },
+       {
+        "s": "",
+        "d": "QUARTA",
+        "t": "",
+        "dt": "09/12",
+        "o": "",
+        "c": "",
+        "r": "",
+        "p": "",
+        "id": "kmh51pq6icc"
+       },
+       {
+        "d": "QUINTA",
+        "id": "0oqxevryicc",
+        "s": "",
+        "c": "",
+        "o": "",
+        "t": "",
+        "p": "",
+        "r": "",
+        "dt": "10/12"
+       },
+       {
+        "t": "",
+        "c": "",
+        "o": "",
+        "dt": "11/12",
+        "s": "",
+        "d": "SEXTA",
+        "id": "qlvgu3b9icc",
+        "p": "",
+        "r": ""
+       },
+       {
+        "d": "SÁBADO",
+        "s": "",
+        "o": "",
+        "c": "",
+        "t": "",
+        "dt": "12/12",
+        "id": "nehouv2cicc",
+        "r": "",
+        "p": ""
+       },
+       {
+        "p": "",
+        "r": "",
+        "id": "8irmal5jicc",
+        "d": "DOMINGO",
+        "s": "",
+        "dt": "13/12",
+        "c": "",
+        "o": "",
+        "t": ""
+       },
+       {
+        "sum": 3,
+        "km": ""
+       },
+       {
+        "w": 4
+       },
+       {
+        "t": "",
+        "id": "92xbvuegicc",
+        "o": "",
+        "c": "",
+        "s": "",
+        "d": "SEGUNDA",
+        "r": "",
+        "dt": "14/12",
+        "p": ""
+       },
+       {
+        "o": "",
+        "c": "",
+        "t": "",
+        "d": "TERÇA",
+        "dt": "15/12",
+        "s": "",
+        "id": "ka55mkv1icc",
+        "r": "",
+        "p": ""
+       },
+       {
+        "o": "",
+        "id": "9sf909apicc",
+        "c": "",
+        "t": "",
+        "d": "QUARTA",
+        "s": "",
+        "dt": "16/12",
+        "r": "",
+        "p": ""
+       },
+       {
+        "s": "",
+        "d": "QUINTA",
+        "id": "hlwlz496icc",
+        "t": "",
+        "o": "",
+        "c": "",
+        "r": "",
+        "p": "",
+        "dt": "17/12"
+       },
+       {
+        "c": "",
+        "id": "w6jjktd2icc",
+        "o": "",
+        "t": "",
+        "d": "SEXTA",
+        "s": "",
+        "dt": "18/12",
+        "p": "",
+        "r": ""
+       },
+       {
+        "p": "",
+        "id": "9z2m1gypicc",
+        "r": "",
+        "t": "",
+        "dt": "19/12",
+        "c": "",
+        "o": "",
+        "s": "",
+        "d": "SÁBADO"
+       },
+       {
+        "o": "",
+        "id": "v8haz0qoicc",
+        "c": "",
+        "t": "",
+        "d": "DOMINGO",
+        "s": "",
+        "dt": "20/12",
+        "r": "",
+        "p": ""
+       },
+       {
+        "sum": 4,
+        "km": ""
+       }
+      ]
      },
      {
       "rows": [
@@ -559,652 +1088,389 @@
         "w": 1
        },
        {
-        "s": "",
+        "dt": "21/12",
         "p": "",
-        "o": "",
-        "dt": "",
-        "id": "fenblbdjwl2",
-        "d": "SEGUNDA",
         "r": "",
-        "c": "",
-        "t": ""
-       },
-       {
-        "dt": "",
-        "r": "",
-        "c": "",
-        "id": "xl7jqovvwl2",
         "t": "",
-        "s": "",
-        "p": "",
-        "o": "",
-        "d": "Terça\nManhã"
-       },
-       {
-        "s": "",
-        "p": "",
-        "o": "",
-        "d": "Terça\nTarde",
-        "r": "",
         "c": "",
-        "dt": "",
-        "t": "",
-        "id": "8rjhl13owl2"
+        "o": "",
+        "s": "",
+        "id": "js747717h3z",
+        "d": "SEGUNDA"
        },
        {
+        "t": "",
+        "id": "7n3cxwe0h3z",
+        "c": "",
         "o": "",
+        "s": "",
+        "d": "TERÇA",
+        "dt": "22/12",
+        "p": "",
+        "r": ""
+       },
+       {
+        "p": "",
+        "dt": "23/12",
+        "r": "",
         "d": "QUARTA",
-        "id": "9vpgr57uwl2",
         "s": "",
-        "p": "",
-        "dt": "",
-        "t": "",
-        "r": "",
-        "c": ""
-       },
-       {
-        "r": "",
-        "c": "",
-        "t": "",
-        "dt": "",
-        "s": "",
-        "id": "ru0iwvqvwl2",
-        "p": "",
-        "o": "",
-        "d": "QUINTA"
-       },
-       {
-        "p": "",
-        "s": "",
-        "d": "SEXTA\nManhã",
-        "o": "",
-        "c": "",
-        "r": "",
-        "t": "",
-        "dt": "",
-        "id": "j1fqbzz8wl2"
-       },
-       {
-        "id": "jt9kbpflwl2",
-        "t": "",
-        "dt": "",
-        "r": "",
         "c": "",
         "o": "",
-        "d": "SEXTA\nTarde",
-        "s": "",
-        "p": ""
+        "t": "",
+        "id": "up4lk4d7h3z"
        },
        {
+        "s": "",
+        "d": "QUINTA",
         "t": "",
         "c": "",
+        "dt": "24/12",
+        "o": "",
+        "p": "",
         "r": "",
+        "id": "qosoox8hh3z"
+       },
+       {
+        "dt": "25/12",
+        "r": "",
+        "p": "",
+        "t": "",
+        "o": "",
+        "c": "",
+        "id": "ka5a07j7h3z",
+        "s": "",
+        "d": "SEXTA"
+       },
+       {
+        "s": "",
         "d": "SÁBADO",
-        "id": "uy31tm1hwl2",
-        "o": "",
-        "dt": "",
-        "p": "",
-        "s": ""
-       },
-       {
-        "d": "DOMINGO",
-        "o": "",
-        "p": "",
-        "s": "",
         "t": "",
+        "dt": "26/12",
+        "o": "",
         "c": "",
-        "id": "yvakhqx6wl2",
         "r": "",
-        "dt": ""
+        "p": "",
+        "id": "89vxfjwyh3z"
        },
        {
-        "km": "",
-        "sum": 1
+        "p": "",
+        "r": "",
+        "dt": "27/12",
+        "d": "DOMINGO",
+        "s": "",
+        "c": "",
+        "o": "",
+        "t": "",
+        "id": "by8lmq44h3z"
+       },
+       {
+        "sum": 1,
+        "km": ""
        },
        {
         "w": 2
        },
        {
+        "p": "",
         "r": "",
-        "dt": "26/10",
-        "id": "i7aacqhgwl2",
-        "c": "",
+        "dt": "28/12",
+        "s": "",
+        "d": "SEGUNDA",
         "t": "",
-        "s": "",
-        "p": "",
-        "o": "",
-        "d": "SEGUNDA"
+        "c": "",
+        "id": "43s1uopmh3z",
+        "o": ""
        },
        {
-        "s": "",
+        "id": "cnrk84wth3z",
         "p": "",
-        "o": "",
-        "dt": "27/10",
-        "id": "kwu2acjywl2",
-        "d": "Terça\nManhã",
         "r": "",
         "c": "",
-        "t": ""
-       },
-       {
-        "s": "",
-        "p": "",
-        "dt": "",
+        "dt": "29/12",
         "o": "",
-        "id": "kuwf4a97wl2",
-        "d": "Terça\nTarde",
-        "r": "",
-        "c": "",
-        "t": ""
-       },
-       {
-        "o": "",
-        "d": "QUARTA",
-        "id": "x1y0dw8pwl2",
-        "s": "",
-        "dt": "28/10",
-        "p": "",
         "t": "",
-        "r": "",
-        "c": ""
-       },
-       {
-        "s": "",
-        "p": "",
-        "dt": "29/10",
-        "o": "",
-        "id": "vaz9qh4hwl2",
-        "d": "QUINTA",
-        "r": "",
-        "c": "",
-        "t": ""
-       },
-       {
-        "t": "",
-        "r": "",
-        "c": "",
-        "o": "",
-        "id": "56eqjjx1wl2",
-        "dt": "30/10",
-        "d": "Sexta\nManhã",
-        "s": "",
-        "p": ""
-       },
-       {
-        "s": "",
-        "p": "",
-        "dt": "",
-        "o": "",
-        "id": "ahljvirtwl2",
-        "d": "Sexta\nTarde",
-        "r": "",
-        "c": "",
-        "t": ""
-       },
-       {
-        "id": "bmzc2cn9wl2",
-        "t": "",
-        "dt": "31/10",
-        "r": "",
-        "c": "",
-        "o": "",
-        "d": "SÁBADO",
-        "s": "",
-        "p": ""
-       },
-       {
-        "t": "",
-        "id": "nsx8w9u9wl2",
-        "dt": "01/11",
-        "c": "",
-        "r": "",
-        "d": "DOMINGO",
-        "o": "",
-        "p": "",
+        "d": "TERÇA",
         "s": ""
        },
        {
-        "sum": 1,
+        "p": "",
+        "r": "",
+        "id": "b10nle32h3z",
+        "d": "QUARTA",
+        "s": "",
+        "dt": "30/12",
+        "c": "",
+        "o": "",
+        "t": ""
+       },
+       {
+        "d": "QUINTA",
+        "s": "",
+        "id": "znxfds6qh3z",
+        "c": "",
+        "o": "",
+        "t": "",
+        "p": "",
+        "r": "",
+        "dt": "31/12"
+       },
+       {
+        "id": "d6z5tvf9h3z",
+        "r": "",
+        "p": "",
+        "o": "",
+        "c": "",
+        "dt": "01/01",
+        "t": "",
+        "d": "SEXTA",
+        "s": ""
+       },
+       {
+        "p": "",
+        "r": "",
+        "id": "gh5mk8dlh3z",
+        "d": "SÁBADO",
+        "s": "",
+        "dt": "02/01",
+        "c": "",
+        "o": "",
+        "t": ""
+       },
+       {
+        "r": "",
+        "p": "",
+        "id": "b2dozok3h3z",
+        "s": "",
+        "dt": "03/01",
+        "d": "DOMINGO",
+        "t": "",
+        "o": "",
+        "c": ""
+       },
+       {
+        "sum": 2,
         "km": ""
        },
        {
         "w": 3
        },
        {
-        "c": "",
-        "r": "",
-        "t": "",
+        "id": "gw7cvgefh3z",
         "p": "",
-        "dt": "02/11",
-        "s": "",
-        "id": "88k7zbo8wl2",
+        "r": "",
+        "c": "",
+        "o": "",
+        "dt": "04/01",
+        "t": "",
         "d": "SEGUNDA",
-        "o": ""
+        "s": ""
        },
        {
         "p": "",
-        "s": "",
-        "d": "Terça\nManhã",
-        "dt": "03/11",
-        "id": "yx1603m3wl2",
-        "o": "",
-        "c": "",
+        "id": "tqrnaag4h3z",
         "r": "",
-        "t": ""
-       },
-       {
-        "c": "",
-        "dt": "",
-        "r": "",
-        "id": "apdbmph0wl2",
         "t": "",
-        "p": "",
-        "s": "",
-        "d": "Terça\nTarde",
-        "o": ""
-       },
-       {
-        "dt": "04/11",
-        "r": "",
-        "id": "50i508dvwl2",
+        "dt": "05/01",
         "c": "",
-        "t": "",
-        "s": "",
-        "p": "",
         "o": "",
-        "d": "QUARTA"
+        "s": "",
+        "d": "TERÇA"
        },
        {
-        "s": "",
+        "r": "",
         "p": "",
-        "dt": "05/11",
+        "id": "2smh4pvah3z",
+        "s": "",
+        "dt": "06/01",
+        "d": "QUARTA",
+        "t": "",
         "o": "",
-        "id": "gobws9a3wl2",
+        "c": ""
+       },
+       {
+        "p": "",
+        "r": "",
+        "dt": "07/01",
         "d": "QUINTA",
-        "r": "",
-        "c": "",
-        "t": ""
-       },
-       {
-        "t": "",
-        "r": "",
-        "c": "",
-        "id": "3c3qfu5xwl2",
-        "o": "",
-        "dt": "06/11",
-        "d": "Sexta\nManhã",
         "s": "",
-        "p": ""
+        "c": "",
+        "o": "",
+        "t": "",
+        "id": "u6p3nrx2h3z"
        },
        {
-        "d": "Sexta\nTarde",
-        "o": "",
+        "id": "hblz1zx8h3z",
         "p": "",
-        "s": "",
-        "t": "",
-        "c": "",
-        "id": "fnt2trfawl2",
         "r": "",
-        "dt": ""
+        "c": "",
+        "dt": "08/01",
+        "o": "",
+        "t": "",
+        "d": "SEXTA",
+        "s": ""
        },
        {
+        "c": "",
+        "o": "",
+        "t": "",
         "d": "SÁBADO",
-        "o": "",
-        "p": "",
+        "dt": "09/01",
         "s": "",
-        "t": "",
-        "c": "",
-        "id": "befu835zwl2",
-        "r": "",
-        "dt": "07/11"
+        "id": "mc8yfpokh3z",
+        "p": "",
+        "r": ""
        },
        {
-        "o": "",
         "d": "DOMINGO",
         "s": "",
-        "p": "",
-        "t": "",
-        "id": "epk2krc8wl2",
-        "r": "",
         "c": "",
-        "dt": "08/11"
+        "o": "",
+        "t": "",
+        "dt": "10/01",
+        "p": "",
+        "id": "lj66y7ymh3z",
+        "r": ""
        },
        {
-        "sum": 1,
+        "sum": 3,
         "km": ""
        },
        {
         "w": 4
        },
        {
-        "c": "",
-        "dt": "09/11",
-        "r": "",
-        "id": "h9r9jw6owl2",
         "t": "",
-        "p": "",
+        "c": "",
+        "o": "",
+        "dt": "11/01",
         "s": "",
         "d": "SEGUNDA",
-        "o": ""
-       },
-       {
-        "o": "",
-        "d": "Terça\nManhã",
-        "id": "lk5you4bwl2",
-        "s": "",
-        "dt": "10/11",
+        "id": "tgg8n4frh3z",
         "p": "",
-        "t": "",
-        "r": "",
-        "c": ""
-       },
-       {
-        "c": "",
-        "dt": "",
-        "id": "olc74pjdwl2",
-        "r": "",
-        "t": "",
-        "p": "",
-        "s": "",
-        "d": "Terça\nTarde",
-        "o": ""
-       },
-       {
-        "id": "uovf398owl2",
-        "dt": "11/11",
-        "t": "",
-        "r": "",
-        "c": "",
-        "o": "",
-        "d": "QUARTA",
-        "s": "",
-        "p": ""
-       },
-       {
-        "o": "",
-        "d": "QUINTA",
-        "s": "",
-        "p": "",
-        "t": "",
-        "r": "",
-        "id": "758lxudbwl2",
-        "dt": "12/11",
-        "c": ""
-       },
-       {
-        "d": "Sexta\nManhã",
-        "o": "",
-        "p": "",
-        "s": "",
-        "t": "",
-        "id": "4c45immewl2",
-        "c": "",
-        "r": "",
-        "dt": "13/11"
-       },
-       {
-        "d": "Sexta\nTarde",
-        "o": "",
-        "p": "",
-        "id": "iu3d2c3wwl2",
-        "dt": "",
-        "s": "",
-        "t": "",
-        "c": "",
         "r": ""
        },
        {
-        "t": "",
-        "c": "",
+        "id": "soywadxdh3z",
         "r": "",
-        "id": "zt9jv7jowl2",
-        "d": "SÁBADO",
-        "o": "",
-        "dt": "14/11",
         "p": "",
+        "o": "",
+        "dt": "12/01",
+        "c": "",
+        "t": "",
+        "d": "TERÇA",
         "s": ""
        },
        {
-        "dt": "15/11",
-        "r": "",
-        "c": "",
-        "id": "3od33l0awl2",
-        "t": "Prova",
-        "s": "",
-        "p": "",
         "o": "",
+        "c": "",
+        "t": "",
+        "d": "QUARTA",
+        "dt": "13/01",
+        "s": "",
+        "id": "q3wb6esvh3z",
+        "r": "",
+        "p": ""
+       },
+       {
+        "p": "",
+        "r": "",
+        "dt": "14/01",
+        "s": "",
+        "d": "QUINTA",
+        "t": "",
+        "c": "",
+        "id": "rf2zaf60h3z",
+        "o": ""
+       },
+       {
+        "p": "",
+        "r": "",
+        "dt": "15/01",
+        "d": "SEXTA",
+        "s": "",
+        "c": "",
+        "o": "",
+        "t": "",
+        "id": "jvwd52r5h3z"
+       },
+       {
+        "r": "",
+        "p": "",
+        "id": "i035mgmoh3z",
+        "dt": "16/01",
+        "t": "",
+        "o": "",
+        "c": "",
+        "s": "",
+        "d": "SÁBADO"
+       },
+       {
+        "r": "",
+        "id": "hq6dthguh3z",
+        "p": "",
+        "dt": "17/01",
+        "t": "",
+        "o": "",
+        "c": "",
+        "s": "",
         "d": "DOMINGO"
        },
        {
-        "sum": 1,
+        "sum": 4,
         "km": ""
        }
       ],
+      "nome": "MÊS 2",
       "cols": [
        {
-        "l": "✔/❌",
+        "l": "✓/✗",
         "id": "s"
        },
        {
-        "id": "d",
-        "l": "DIA"
+        "l": "Dia",
+        "id": "d"
        },
        {
-        "l": "DATA",
+        "l": "Data",
         "id": "dt"
        },
        {
-        "l": "TREINO",
-        "id": "t"
+        "id": "t",
+        "l": "Treino"
        },
        {
-        "l": "CONTEÚDO",
+        "l": "Conteúdo",
         "id": "c"
        },
        {
-        "l": "PREVISTO",
-        "id": "p"
+        "id": "p",
+        "l": "Previsto"
        },
        {
-        "id": "r",
-        "l": "(6-20)"
-       },
-       {
-        "l": "OBSERVAÇÃO",
-        "id": "o"
+        "l": "(6-20)",
+        "id": "r"
        },
        {
         "l": "KM",
         "id": "kmd"
+       },
+       {
+        "l": "Observação",
+        "id": "o"
        }
-      ],
-      "nome": "MÊS 2"
+      ]
      }
     ],
     "atualizado": {
-     "_seconds": 1794346644,
-     "_nanoseconds": 26000000
+     "_seconds": 1795017420,
+     "_nanoseconds": 846000000
     },
-    "fb": {
-     "1cgf9re5wl2": {
-      "s": "✓",
-      "r": "12",
-      "o": "",
-      "kmd": ""
-     },
-     "5p314lk5wl2": {
-      "s": "✓",
-      "r": "18",
-      "o": "Ótimo treino, me senti leve na pista e consegui fazer largadas boas, elogiado pelo treinador justamente na parte que estamos treinando, que é a potência e explosão da pedalada para entrar no grio rápido, feedback muito positivo",
-      "kmd": ""
-     },
-     "7w0l04ilwl2": {
-      "s": "✗",
-      "r": "-",
-      "o": "Chuva impossibilitou a realização",
-      "kmd": ""
-     },
-     "qi4o2zccwl2": {
-      "s": "✓",
-      "r": "14",
-      "o": "Treino técnico de retas separadas com saltos e passagens específicas.",
-      "kmd": ""
-     },
-     "63x85840wl2": {
-      "s": "",
-      "r": "-",
-      "o": "",
-      "kmd": ""
-     },
-     "7s38cxnzwl2": {
-      "s": "✓",
-      "r": "11",
-      "o": "Novos exercícios, carga bem baixa para criar memória motora de como realizar",
-      "kmd": ""
-     },
-     "99he38m8wl2": {
-      "s": "✓",
-      "r": "12",
-      "o": "Por conta da chuva, não rolou treino de pista.",
-      "kmd": ""
-     },
-     "oty7hylhwl2": {
-      "s": "✓",
-      "r": "12",
-      "o": "",
-      "kmd": ""
-     },
-     "ybtr8sqfwl2": {
-      "s": "✓",
-      "r": "-",
-      "o": "",
-      "kmd": ""
-     },
-     "u4t8ww4uwl2": {
-      "s": "✓",
-      "r": "14",
-      "o": "",
-      "kmd": ""
-     },
-     "vauho5igwl2": {
-      "s": "✓",
-      "r": "13",
-      "o": "Fazendo com cargas altas e me sentindo bem.",
-      "kmd": ""
-     },
-     "4lw6j4p3wl2": {
-      "s": "",
-      "r": "-",
-      "o": "",
-      "kmd": ""
-     },
-     "w18s2kzowl2": {
-      "s": "✓",
-      "r": "12",
-      "o": "",
-      "kmd": ""
-     },
-     "zee9qceqwl2": {
-      "s": "✗",
-      "r": "",
-      "o": "",
-      "kmd": ""
-     },
-     "nh9fa0xlwl2": {
-      "s": "✓",
-      "r": "11",
-      "o": "Me senti bem e com uma percepção legal do esforço, fiz com cargas altas e me senti confortável na realização da explosão concêntrica.",
-      "kmd": ""
-     },
-     "n3y96z27wl2": {
-      "s": "✗",
-      "r": "-",
-      "o": "Chuva e preguiça",
-      "kmd": ""
-     },
-     "glu2zfr0wl2": {
-      "s": "✓",
-      "r": "13",
-      "o": "",
-      "kmd": ""
-     },
-     "ti7k6ckxwl2": {
-      "s": "✓",
-      "r": "14",
-      "o": "Por conta do calor e horário que fomos estava bem calor e acabou exigindo mais, porém um bom treino, confortável",
-      "kmd": ""
-     },
-     "ywhsmzv2wl2": {
-      "s": "✗",
-      "r": "",
-      "o": "",
-      "kmd": ""
-     },
-     "1dnd5fg1wl2": {
-      "s": "✗",
-      "r": "",
-      "o": "Chuva",
-      "kmd": ""
-     },
-     "q70d4cyhwl2": {
-      "s": "✗",
-      "r": "",
-      "o": "",
-      "kmd": ""
-     },
-     "b41oaak2wl2": {
-      "s": "✓",
-      "r": "",
-      "o": "",
-      "kmd": ""
-     },
-     "ke11n16twl2": {
-      "s": "✗",
-      "r": "",
-      "o": "e",
-      "kmd": ""
-     },
-     "vhsshdrmwl2": {
-      "s": "✗",
-      "r": "",
-      "o": "",
-      "kmd": ""
-     },
-     "mlfhpk36wl2": {
-      "s": "✓",
-      "r": "13",
-      "o": "",
-      "kmd": ""
-     },
-     "qb9hvmz7wl2": {
-      "s": "✓",
-      "r": "",
-      "o": "",
-      "kmd": ""
-     },
-     "m4usoxcxwl2": {
-      "s": "✓",
-      "r": "17",
-      "o": "",
-      "kmd": ""
-     },
-     "ly6xhddhwl2": {
-      "s": "✗",
-      "r": "",
-      "o": "",
-      "kmd": ""
-     },
-     "tmzlg37lwl2": {
-      "s": "✗",
-      "r": "",
-      "o": "",
-      "kmd": ""
-     },
-     "7d7wjknlwl2": {
-      "s": "✓",
-      "r": "14",
-      "o": "",
-      "kmd": ""
+    "termos": {
+     "aceito": true,
+     "em": {
+      "_seconds": 1795017889,
+      "_nanoseconds": 945000000
      }
     }
    },
@@ -2912,2681 +3178,6 @@
       ]
      }
     ],
-    "hist": {
-     "Rosca_tri_ceps_neutra_na_polia_alta__corda_": [
-      {
-       "b": "16"
-      },
-      {
-       "b": "16"
-      },
-      {
-       "b": "16"
-      },
-      {
-       "b": "16"
-      }
-     ],
-     "Desenvolvimento_de_ombros_com_halteres": [
-      {
-       "b": "10"
-      },
-      {
-       "b": "10"
-      },
-      {
-       "b": "10"
-      },
-      {
-       "b": "10"
-      }
-     ],
-     "Puxada_no_puxador_anilhado": [
-      {
-       "b": "36"
-      },
-      {
-       "b": "36"
-      },
-      {
-       "b": "36"
-      },
-      {
-       "b": "36"
-      }
-     ],
-     "Pallof_Press_na_polia_me_dia__manopla_": [
-      {
-       "b": "20"
-      },
-      {
-       "b": "20"
-      },
-      {
-       "b": "20"
-      },
-      {
-       "b": "20"
-      }
-     ],
-     "Remada_serrote_no_banco_com_halter": [
-      {
-       "b": "16"
-      },
-      {
-       "b": "16"
-      },
-      {
-       "b": "16"
-      },
-      {
-       "b": "16"
-      }
-     ],
-     "Pedalada_na_bicicleta_spinning": [
-      {
-       "b": ""
-      }
-     ],
-     "Bom_dia_com_kettlebell_atra_s_do_pescoc_o": [
-      {
-       "b": "26"
-      },
-      {
-       "b": "26"
-      },
-      {
-       "b": "26"
-      }
-     ],
-     "Levantamento_terra_sumo__com_barra": [
-      {
-       "b": "20"
-      },
-      {
-       "b": "20"
-      },
-      {
-       "b": "20"
-      }
-     ],
-     "Descida_lateral_do_banco": [
-      {
-       "b": "20"
-      },
-      {
-       "b": "20"
-      },
-      {
-       "b": ""
-      }
-     ],
-     "Elevac_a_o_de_quadril_unilateral_no_banco_com_barra": [
-      {
-       "b": ""
-      },
-      {
-       "b": ""
-      },
-      {
-       "b": ""
-      }
-     ],
-     "Abdominal_remador": [
-      {
-       "b": ""
-      },
-      {
-       "b": ""
-      },
-      {
-       "b": ""
-      },
-      {
-       "b": ""
-      }
-     ],
-     "Desenvolvimento_de_ombros_sentado_com_halteres_e_apoio_para_as_costas": [
-      {
-       "b": "25"
-      },
-      {
-       "b": "25"
-      },
-      {
-       "b": "25"
-      },
-      {
-       "b": "25"
-      }
-     ],
-     "Remada_serrote_aberta_no_banco_com_halter": [
-      {
-       "b": "12"
-      },
-      {
-       "b": "12"
-      },
-      {
-       "b": "12"
-      },
-      {
-       "b": "12"
-      }
-     ],
-     "Prancha_baixa_em_isometria": [
-      {
-       "b": ""
-      },
-      {
-       "b": ""
-      },
-      {
-       "b": ""
-      },
-      {
-       "b": ""
-      }
-     ],
-     "Giro_russo_com_bola_medicinal": [
-      {
-       "b": "6"
-      },
-      {
-       "b": "6"
-      },
-      {
-       "b": "6"
-      },
-      {
-       "b": "6"
-      }
-     ]
-    },
-    "sessions": [
-     {
-      "ficha": "B1",
-      "data": "2026-11-11T00:08:10.437Z",
-      "min": 43,
-      "rpe": 13,
-      "ex": [
-       {
-        "n": "Remada serrote no banco com halter",
-        "sets": [
-         {
-          "a": "6",
-          "b": "16"
-         },
-         {
-          "a": "6",
-          "b": "16"
-         },
-         {
-          "a": "6",
-          "b": "16"
-         },
-         {
-          "a": "6",
-          "b": "16"
-         }
-        ],
-        "com": ""
-       },
-       {
-        "n": "Desenvolvimento de ombros com halteres",
-        "sets": [
-         {
-          "a": "6",
-          "b": "10"
-         },
-         {
-          "a": "6",
-          "b": "10"
-         },
-         {
-          "a": "6",
-          "b": "10"
-         },
-         {
-          "a": "6",
-          "b": "10"
-         }
-        ],
-        "com": ""
-       },
-       {
-        "n": "Rosca tríceps neutra na polia alta (corda)",
-        "sets": [
-         {
-          "a": "6",
-          "b": "16"
-         },
-         {
-          "a": "6",
-          "b": "16"
-         },
-         {
-          "a": "6",
-          "b": "16"
-         },
-         {
-          "a": "6",
-          "b": "16"
-         }
-        ],
-        "com": ""
-       },
-       {
-        "n": "Puxada no puxador anilhado",
-        "sets": [
-         {
-          "a": "6",
-          "b": "36"
-         },
-         {
-          "a": "6",
-          "b": "36"
-         },
-         {
-          "a": "6",
-          "b": "36"
-         },
-         {
-          "a": "6",
-          "b": "36"
-         }
-        ],
-        "com": ""
-       },
-       {
-        "n": "Pallof Press na polia média (manopla)",
-        "sets": [
-         {
-          "a": "12",
-          "b": "20"
-         },
-         {
-          "a": "12",
-          "b": "20"
-         },
-         {
-          "a": "12",
-          "b": "20"
-         },
-         {
-          "a": "12",
-          "b": "20"
-         }
-        ],
-        "com": ""
-       }
-      ]
-     },
-     {
-      "ficha": "A3",
-      "data": "2026-11-13T09:59:31.787Z",
-      "min": 34,
-      "rpe": 13,
-      "ex": [
-       {
-        "n": "Descida lateral do banco",
-        "sets": [
-         {
-          "a": "8",
-          "b": "20"
-         },
-         {
-          "a": "8",
-          "b": "20"
-         },
-         {
-          "a": "8",
-          "b": ""
-         }
-        ],
-        "com": ""
-       },
-       {
-        "n": "Bom dia com kettlebell atrás do pescoço",
-        "sets": [
-         {
-          "a": "8",
-          "b": "26"
-         },
-         {
-          "a": "8",
-          "b": "26"
-         },
-         {
-          "a": "8",
-          "b": "26"
-         }
-        ],
-        "com": ""
-       },
-       {
-        "n": "Levantamento terra sumô com barra",
-        "sets": [
-         {
-          "a": "8",
-          "b": "20"
-         },
-         {
-          "a": "8",
-          "b": "20"
-         },
-         {
-          "a": "8",
-          "b": "20"
-         }
-        ],
-        "com": ""
-       },
-       {
-        "n": "Elevação de quadril unilateral no banco com barra",
-        "sets": [
-         {
-          "a": "10",
-          "b": ""
-         },
-         {
-          "a": "10",
-          "b": ""
-         },
-         {
-          "a": "10",
-          "b": ""
-         }
-        ],
-        "com": ""
-       },
-       {
-        "n": "Pedalada na bicicleta spinning",
-        "sets": [
-         {
-          "a": "8:00",
-          "b": ""
-         }
-        ],
-        "com": ""
-       }
-      ]
-     },
-     {
-      "ficha": "B2",
-      "data": "2026-11-16T21:58:23.375Z",
-      "min": 27,
-      "rpe": 13,
-      "ex": [
-       {
-        "n": "Desenvolvimento de ombros sentado com halteres e apoio para as costas",
-        "sets": [
-         {
-          "a": "12",
-          "b": "25"
-         },
-         {
-          "a": "12",
-          "b": "25"
-         },
-         {
-          "a": "12",
-          "b": "25"
-         },
-         {
-          "a": "12",
-          "b": "25"
-         }
-        ],
-        "com": ""
-       },
-       {
-        "n": "Remada serrote aberta no banco com halter",
-        "sets": [
-         {
-          "a": "12",
-          "b": "12"
-         },
-         {
-          "a": "12",
-          "b": "12"
-         },
-         {
-          "a": "12",
-          "b": "12"
-         },
-         {
-          "a": "12",
-          "b": "12"
-         }
-        ],
-        "com": ""
-       },
-       {
-        "n": "Prancha baixa em isometria",
-        "sets": [
-         {
-          "a": "0:50",
-          "b": ""
-         },
-         {
-          "a": "0:50",
-          "b": ""
-         },
-         {
-          "a": "0:50",
-          "b": ""
-         },
-         {
-          "a": "0:50",
-          "b": ""
-         }
-        ],
-        "com": ""
-       },
-       {
-        "n": "Abdominal remador",
-        "sets": [
-         {
-          "a": "12",
-          "b": ""
-         },
-         {
-          "a": "12",
-          "b": ""
-         },
-         {
-          "a": "12",
-          "b": ""
-         },
-         {
-          "a": "12",
-          "b": ""
-         }
-        ],
-        "com": ""
-       },
-       {
-        "n": "Giro russo com bola medicinal",
-        "sets": [
-         {
-          "a": "16",
-          "b": "6"
-         },
-         {
-          "a": "16",
-          "b": "6"
-         },
-         {
-          "a": "16",
-          "b": "6"
-         },
-         {
-          "a": "16",
-          "b": "6"
-         }
-        ],
-        "com": ""
-       }
-      ]
-     }
-    ],
-    "fb": {
-     "gdqyg4egf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "gjh4phbff1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "px3xwfopf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "006sdtnyf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Semana iniciada mais focada na força muscular, trabalho de rampa servirá muito tanto para adquirir força e fortalecimento de áreas que correndo em percurso plano, acabam ficando em segundo plano."
-     },
-     "b8h4vk94f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "32xst7i1f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "OBJETIVO CONCLUÍDO!\n\nBatemos a marca de 5 kilômetros correndo seguido, e o melhor, o pós corrida não foi totalmente exaustiva, Bianca acabou inteira da corrida."
-     },
-     "jvkc0hncf1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "m5s7w7g8f1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "hle40v5kf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "ejt88n74f1q": {
-      "s": "",
-      "r": "",
-      "o": "-"
-     },
-     "0tbxx7qtf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "kahgdaf6f1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "rqdtuj9nf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "t46ub5x8f1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "1ywaxjuaf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Rodou bem, e fez na esteira."
-     },
-     "czhe57esf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "9tboik6mf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "tbzad431f1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "6ki6kh6yf1q": {
-      "s": "✓",
-      "r": "10",
-      "o": ""
-     },
-     "vha1n9muf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "774xyv2rf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "80rhsmqpf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou somente alongamento pois ainda está sentindo dores"
-     },
-     "yjefqc4af1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou e sentiu dificuldades ao realizar o afundo, muito desequilíbrio"
-     },
-     "dnjttaqhf1q": {
-      "s": "✓",
-      "r": "9",
-      "o": ""
-     },
-     "s8ypv9g3f1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "6z2pkpmbf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "c7tmaofvf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "f1lmze3zf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Gostou também desse treino, está se sentindo muito bem de forma geral."
-     },
-     "f8zfo1r6f1q": {
-      "s": "✗",
-      "r": "-",
-      "o": "Chuva"
-     },
-     "1zj54xg6f1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "58g9q538f1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "dlww58yvf1q": {
-      "s": "✓",
-      "r": "14",
-      "o": ""
-     },
-     "ayxpnwdzf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Foco na recuperação e deixar o corpo solto para o domingo."
-     },
-     "g5gcv4gxf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "jb0uulrzf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Mesclando o início forte da semana com o final mais leve, A1 será um fullbody com um número de séries mediana com cargas \"Leve/Média\"."
-     },
-     "tj2ih2wcf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "4utrjqwhf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou o treino proposto num ritmo de 7:43/km, relatou bastante disposição e não cansou muito. Ótimo treino!"
-     },
-     "pz8hawzgf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "lqwjgetgf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou em casa por conta da chuva"
-     },
-     "ylwezvb8f1q": {
-      "s": "✓",
-      "r": "16",
-      "o": "Não conseguiu concluir, fez 8 dos 10 tiros por conta de incômodos no joelho, achou melhor parar."
-     },
-     "xb33xgi8f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Priorizamos a diminuição das séries para aumento das cargas, Bianca se saiu bem nas cargas mesmo com pouco trabalho e academia até o momento. Essas cargas estão todas em uma escala \"Média/Alta\" que servirá de modelo para as semanas seguintes."
-     },
-     "fx8p4gh4f1q": {
-      "s": "✓",
-      "r": "Não recorda",
-      "o": ""
-     },
-     "bv03mpylf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Trabalhamos parte superior para não cansarmos mais ainda os músculos do esforço de ontem."
-     },
-     "kx5yvkn4f1q": {
-      "s": "✗",
-      "r": "-",
-      "o": "Acordou mal então não conseguiu comparecer, predominanteizar treinos indoor, por conta do clima e friagem"
-     },
-     "xccataszf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Conseguiu realizar tudo passado e sentiu bastante dores nas pernas, ativou bem.\nFez na quadra do parque que sempre treina"
-     },
-     "yc2735fzf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "c8wuwfnvf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "fcgtv81ff1q": {
-      "s": "✗",
-      "r": "-",
-      "o": "Acabou deixando para fazer o treinoa tarde e acabou não indo."
-     },
-     "h2lg73mkf1q": {
-      "s": "✓",
-      "r": "10",
-      "o": "Bom feedback, disse que conseguiu realizar todos os exercícios e não sentiu nenhum tipo de incômodo."
-     },
-     "6klsy9icf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "hlfucnyef1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Que seja um treino mais forte, com mais intensidade e administração do cansaço.\n\nREALIZOU, com perfeição! Administração ótima do ritmo durante os tiros e o melhor, disse que foi bem tranquilo. Correu 1,5 km a ritmo 6:30 e nem percebeu cansaço, estamos buscando!"
-     },
-     "x99t8bd3f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Uma boa rodagem, não batemos RP nem nada do tipo, porém a forma na qual realizamos o treino foi bem produtiva, focamos em a cada KM fazermos mais rápido que o anteriro baseado na percepção de esforço apenas, e fizemos bem inclusive tendo energias para fehcar o último KM a 06:50, treino bem positivo!!"
-     },
-     "uwlc2u4af1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Fizemos um ótimo treino focando nos membros inferiores com cargas um pouco mais elevadas que o normal, aproveitando que estava junto consegui avaliar a execução que estava sendo feita e realizar algumas correções."
-     },
-     "8q73hjcbf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "33pwxg6rf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "8lpm9mf6f1q": {
-      "s": "✓",
-      "r": "14",
-      "o": ""
-     },
-     "jfzbzr8sf1q": {
-      "s": "✗",
-      "r": "",
-      "o": "FOMOS ATRAPALHADOS PELA CHUVA"
-     },
-     "48stzkkkf1q": {
-      "s": "✗",
-      "r": "",
-      "o": "Por conta da chuva, acabou não conseguindo ir."
-     },
-     "39hi0i5rf1q": {
-      "s": "✓",
-      "r": "12",
-      "o": ""
-     },
-     "7pphduuof1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Cansou bastante pois não administrou bem o ritmo, mas um bom treino em geral."
-     },
-     "g3k52mjgf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "39ihyeopf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "c9gw4mjef1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizamos"
-     },
-     "kvkuv83vf1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "7tmr0baof1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "sndr06maf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Como planejado, Bianca realizou sem parar os dois blocos de 2km com excelência, controlou muito bem o ritmo não ficando totalmente exausta após termino da parte principal."
-     },
-     "iqdp3h9if1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "mxcnnopjf1q": {
-      "s": "",
-      "r": "",
-      "o": "-"
-     },
-     "tfrvxzpnf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Um bom treino de forma geral, seguiu na média durante os tiros de 06:50... 07:10, um pace realmente confortável para Bianca"
-     },
-     "1f9rvh7nf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Diminuição de repetições pois o treino da manhã já recrutou bastante dos membros inferiores"
-     },
-     "psqeen8zf1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "q69o9wm2f1q": {
-      "s": "✗",
-      "r": "",
-      "o": "Realizou um treino diferente, pois disse que a agenda não estava certa..."
-     },
-     "d4nnyshrf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "ppuuq28rf1q": {
-      "s": "✓",
-      "r": "10",
-      "o": ""
-     },
-     "iikteblwf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "bizyi82mf1q": {
-      "s": "✓",
-      "r": "10",
-      "o": ""
-     },
-     "1b5yioqaf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Bom treino, todos os 5 tiros abaixo de 5/km"
-     },
-     "10g9dzoif1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "6cqp4m71f1q": {
-      "s": "✓",
-      "r": "10",
-      "o": "Não conseguimos terminanr, finalizamos 3km por conta de dores no joelho"
-     },
-     "ddhhhn4bf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "e1hncq0qf1q": {
-      "s": "✓",
-      "r": "13",
-      "o": "Treino mais forte da semana, mas com moderação."
-     },
-     "r25w1493f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "y6o1a8k1f1q": {
-      "s": "",
-      "r": "",
-      "o": "-"
-     },
-     "84cztdxef1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Conseguiu realizar com tranquilidade as 2 janelas de trote"
-     },
-     "b7mavsw1f1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "0kyquy03f1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "up43u999f1q": {
-      "s": "✗",
-      "r": "-",
-      "o": "Chuva"
-     },
-     "42k8tt9cf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "bbcoks92f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Primeira vez que Bianca ira realizar tiros com descansos passivos, iremos ver o quão ela irá cansar, irei dar uma diminuida nas distâncias e aumentar um pouco as series, para que acabe sendo um pouco mais leve para ela já que está voltando de um desconforto no pé.\n\nApós realização tive feedbacks bem positivos, sinto que Bianca gostou desse treino, se saiu bem e recuperou a empolgação do projeto, mesmo no frio intenso feito no dia de hoje, realizou com excelência o treino."
-     },
-     "2zf2sj1df1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou e me informou bastante desgate ao realizar a prancha lateral e abdutor, logo oque significa"
-     },
-     "4rmnvi1uf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Conseguiu realizar tudo passado e sentiu bastante dores nas pernas, ativou bem.\nFez na quadra do parque que sempre treina"
-     },
-     "h5d9f5jzf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Treino mais \"leve\" e primeira vez de Bianca voltando a trotar após incômodos no pé no dia 12/10, em um momento aumentou o ritmo do trote e me disse que sentiu dores, porém que já estão quase 100% novamente."
-     },
-     "n5ewc18tf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou, com baixas cargas para iniciar as adaptações neurais"
-     },
-     "x69n4f5mf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "czdb8kwmf1q": {
-      "s": "✗",
-      "r": "",
-      "o": "Não foi"
-     },
-     "9kgu45i9f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Iniciamos um novo plano de treinos na academia.\n\nFeedback bom, bastante cansaço em relação aos que estava acostumada e muito suor, de forma geral, acredito que acertei..."
-     },
-     "m6pwu7n8f1q": {
-      "s": "",
-      "r": "",
-      "o": "Iamos realizar um treino juntos mais intensivo, porém tivemos de abortar por conta das condições climáticas e por dores no pé de Bianca, então optamos pelo descando visando a recuperação total para sequência da periodização."
-     },
-     "7y125w4mf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "ojgurodnf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "o4vdits4f1q": {
-      "s": "✓",
-      "r": "11",
-      "o": ""
-     },
-     "1w17q9vlf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "i68nuwx2f1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "kklgxjn4f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Disse que foi exaustivo um pouco e sentiu dores no quadril, focar nisso para não acumular desgate"
-     },
-     "v65124kvf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Segue focada e mantendo a sequência de treino"
-     },
-     "8rriwje2f1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "oehr5f5gf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou uma kilometragem de 3,33km de caminhada, reclamando de dores nas pernas por conta do treino de ontem, mas com certeza foi melhor do que dormir até mais tarde."
-     },
-     "3qapy2pvf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Bem produtivo para cada vez mais lapidarmos a técnica de corrida de Banca e sua econômia de movimento ao correr"
-     },
-     "9snt9rtkf1q": {
-      "s": "✓",
-      "r": "10",
-      "o": ""
-     },
-     "ihg63e1pf1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "dhz8ac2vf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou, me disse que está bem empolgada com o programa."
-     },
-     "su3303l5f1q": {
-      "s": "",
-      "r": "",
-      "o": "-"
-     },
-     "2ceekegvf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "20q8nhn0f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou bem tranquila, e até o momento nenhuma reclamação sobre dores, ótimo sinal."
-     },
-     "3fdi1cqlf1q": {
-      "s": "✓",
-      "r": "14",
-      "o": "Cansaço elevado... Pode ser que fez com cargas acima da sugerida."
-     },
-     "hun0v4vrf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou e conseguiu aguentar mais que semana passada correndo."
-     },
-     "9v640u6gf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "8yoi8ey2f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Disse que foi um treino mais tranquilo e tivemos a 1a conquista, Bianca conseguiu trotar em torno de 700 metros. sendo que sábado 27/09 não conseguiu dar 1 volta sequer.\nTambém me disse que está se sentindo mais disposta e com melhora na respiração durante o treino."
-     },
-     "cwc2x2fef1q": {
-      "s": "✓",
-      "r": "10",
-      "o": "Entendeu bem o treino e fez realmente oq foi proposto, com o corpo recuperado amanhã voltaremos a treinos fortes"
-     },
-     "w38qmkuzf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "un83l5g0f1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "wr6l3dhnf1q": {
-      "s": "✗",
-      "r": "",
-      "o": "-"
-     },
-     "of8iz0pvf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "f2jehwhpf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "otdngmj8f1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "cahs80off1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "6fxp53t2f1q": {
-      "s": "✓",
-      "r": "13",
-      "o": ""
-     },
-     "i73upe0zf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Ao contrário de quando iniciamos nossa periodização, Bianca já tem a consciência corporal de saber qual é um ritmo forte e um ritmo na qual ela consegue descansar, conseguiu seguir grande parte dos intervalos entre os ritmos alvos."
-     },
-     "dz0bklhmf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "mdn61uggf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "wmqfzftnf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "y278n9tpf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou com maestria, fez os tiros em uma média de 06:10/km, porém ficou bem exausta"
-     },
-     "12uvatjtf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "49s2g6qmf1q": {
-      "s": "✓",
-      "r": "10",
-      "o": "Desenvolvimento Ombro - 10kg\nRemada - 9 kg\nBola Russa - 6 kg"
-     },
-     "gz3poy1lf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": "Chuva impossibilitou a ida. Passado para amanhã em caso de chuva"
-     },
-     "ld5r9x21f1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "zry2j6dtf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": "Início da prescrição de treino + distância e - intensidade.\n\nMétodo que adotaremos para tentar buscar o sub30 nos 5km"
-     },
-     "smbwv65wf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "hy99xxbaf1q": {
-      "s": "✓",
-      "r": "14",
-      "o": "Mesmo eu dizendo para ela não realizar, realizou e me disse que o joelho diminuiu as dores..."
-     },
-     "wa98n5j9f1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "zepf1s7hf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "u94pxoi1f1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "yd0nb0b2f1q": {
-      "s": "✗",
-      "r": "",
-      "o": "Bianca iria fazer o treino Tempo RUN hoje, porém dormiu tarde e acordou de mal humor, passei para amanhã e hoje ficou descanso..."
-     },
-     "0ol0iafff1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "t8vikbi8f1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "z33geadpf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou bem, conseguiu ser constante: 1KM - 7:00, 2KM - 7:46, 3KM - 7:43, 4KM - 7:46, 5KM - 08:15\n\nReclamou do trajeto que fez, pois ao final pegou muita subida rs."
-     },
-     "ahhqky0zf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Disse que foi bem cansativo"
-     },
-     "z2xogbx4f1q": {
-      "s": "✓",
-      "r": "20",
-      "o": "Muito desgaste e muito resultado positivo, Bianca fez um total de 13 voltas de 1km em média de a cada 50 minutos e fez num ritmo de forma geral de 6:30 / KM, chegando a fazer voltas a 5:20 e 5:40, realmente um bom desempenho."
-     },
-     "zypi09q8f1q": {
-      "s": "",
-      "r": "",
-      "o": "Chuva..."
-     },
-     "leknu763f1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "8a2d24gsf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou, já iniciando a semana muito bem!\n\nRealizou os tiros mais rápidos do que foi pedido, única observação..."
-     },
-     "h8im2psrf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "g4mcksqef1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "f5z5qpyjf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "vwj05173f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "5km em 35:44 min, rp batido"
-     },
-     "g5b2bpswf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "h5st1r19f1q": {
-      "s": "✓",
-      "r": "-",
-      "o": "Nenhum relato de dores no joelho, ótimo sinal"
-     },
-     "46ki9i1pf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "mm5yxipif1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou 3,58 km pois teve problemas intestinais ao longo do treino, mas um bom treino de qualquer forma\n\nPace: 6:56"
-     },
-     "son87j5gf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "zwnvcg8rf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Ótimo treino, tiros de 5:55 chegamos, e disse que os 500m de descans foi perfeito, um ótimo treino"
-     },
-     "6nxlrjw7f1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "mjnf4e5hf1q": {
-      "s": "✓",
-      "r": "15",
-      "o": ""
-     },
-     "uy06ysdnf1q": {
-      "s": "✓",
-      "r": "8",
-      "o": ""
-     },
-     "1iywh5h2f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou e disse que a única coisa que sentiu mais cansaço foi a corrida pé no bumbum após os movimentos."
-     },
-     "tj1w483kf1q": {
-      "s": "",
-      "r": "",
-      "o": "Bianca estava doente"
-     },
-     "5hdxx5xkf1q": {
-      "s": "",
-      "r": "",
-      "o": "-"
-     },
-     "mgqpvcapf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": "Passei esse treino para amanhã"
-     },
-     "r7diek3rf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Me passou um feedback positivo, que sentiu melhoras instantaneas e segue bem animada com a evolução diária dela.\n\nCaso se reencontre com as dores irá me avisar para intensificarmos o fortalecimento."
-     },
-     "sa2zu3raf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "vj0ivfm8f1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "rsuuvhbrf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "zhrn0s5if1q": {
-      "s": "✓",
-      "r": "14",
-      "o": ""
-     },
-     "6o3qh0d9f1q": {
-      "s": "",
-      "r": "",
-      "o": "-"
-     },
-     "cui2kiyzf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "lpnpt329f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizamos um total de 5.6 km num ritmo de 8/km, ritmo alto porém constante pelo maior tempo de Bianca correndo em seguida, foram 45 min"
-     },
-     "rdicdhw0f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Fez ao entardecer, disse que teve um casaço grande."
-     },
-     "mkpckdxqf1q": {
-      "s": "✓",
-      "r": "15",
-      "o": ""
-     },
-     "1hdwzc32f1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "xo9nagwaf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "8r42z6d9f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Treino TOP!\n\nTrabalhamos bastnate coordenação, equilíbrio, explosão, potência além de ganharmos bastante consciência corporal.\n\nEm anexo vídeos do treinos na pasta em referência"
-     },
-     "owgusdtqf1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "qeeytmnnf1q": {
-      "s": "",
-      "r": "",
-      "o": "-"
-     },
-     "q3yrf3tlf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "oxstkuoff1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Conseguiu manter bem o tempo mas."
-     },
-     "37rhbh0hf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "2wc9qoxnf1q": {
-      "s": "✗",
-      "r": "",
-      "o": "Chuva nos atrapalhou"
-     },
-     "iipv48n7f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Achou o treino fácil e não teve nenhuma dor ou incômodo"
-     },
-     "e8iewmnmf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "zxnwb5aaf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou em pleno aniversário, uma conquista mental gigangte!\n\nAinda sofrendo com a manutenção do ritmo, com bastantes oscilações ocasionando no cansaço precoce, obviamente por falta de experiência na modalidade, mas vamos corrigindo isso com o tempo, está bem feliz com o processo e me relatou que conseguiu correr 2 voltas seguidas de 400m."
-     },
-     "vrprhvmtf1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "kd0989atf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": "Por conta da alta carga do treino, sentiu um pouco de dores no joelho."
-     },
-     "iki2lzmhf1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "j3vvvj2yf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "mwr2bmg7f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Teve um desgaste mas nada tão exaustivo"
-     },
-     "a9u9opzcf1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "gt6r79h7f1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "zbbqr72qf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "3ntb8xfuf1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "hzjaeb2sf1q": {
-      "s": "",
-      "r": "",
-      "o": "Descando visando a recuperação total para sequência da periodização."
-     },
-     "20osluf6f1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "6mn0w96ef1q": {
-      "s": "✓",
-      "r": "13",
-      "o": ""
-     },
-     "vfzu52j4f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "7njhxdihf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Conseguiu realizar e me relatou que ainda sente algumas dores, porém só de ter conseguido concluir o treino já é um avanço."
-     },
-     "lazlqdksf1q": {
-      "s": "✗",
-      "r": "",
-      "o": "Chuva..."
-     },
-     "x9gfphjvf1q": {
-      "s": "✓",
-      "r": "10",
-      "o": ""
-     },
-     "9pw9srz2f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizamos uma rodagem de 7,5 KM, maior distância já percorrida de corrida, reclamou de dores nos joelhos e pés ao final, porém passou logo após que descansamos."
-     },
-     "j8ica4v4f1q": {
-      "s": "✗",
-      "r": "",
-      "o": "Não foi..."
-     },
-     "czgfg2qtf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": "Chuva ainda mais forte impossibilitou a realização"
-     },
-     "ilbeq283f1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "62ehfs6mf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "arjohb5cf1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "0h6p89vff1q": {
-      "s": "✓",
-      "r": "10",
-      "o": ""
-     },
-     "ej1edzvzf1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "5plhfnmrf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "xkyvpc5bf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "1wqv65luf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": "Focando na academia em inferiores para fortalecermos o joelho"
-     },
-     "s9f5qltpf1q": {
-      "s": "✗",
-      "r": "",
-      "o": "Perdeu hora e não realizou"
-     },
-     "tid2jpamf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Um bom retorno após alguns dias parada, fez os tiros em um ritmo bem baixo e não teve um grande cansaço, bom sinal, onde mostra que esses dias off serviu muito para reparação total do corpo."
-     },
-     "kgrxdbxzf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "pmjfnt3wf1q": {
-      "s": "",
-      "r": "",
-      "o": "Por conta da falta de Quarta a tarde, passado para hoje eliminando o descanso"
-     },
-     "pk2j2gzqf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "fdoub1r7f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou muito bem, em uma média de pace 06:50 ao longo dos tiros, um ótimo ritmo sequente"
-     },
-     "5bc90r3sf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Não fomos atrapalhados pela chuva e conseguiu realizar muito bem, a maior vitória desse treino vou ter acordado cedo em uma segunda-feira e corrida 2.4km."
-     },
-     "vvwkuukyf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "7kap92stf1q": {
-      "s": "✗",
-      "r": "",
-      "o": "-"
-     },
-     "ecfzgl99f1q": {
-      "s": "✓",
-      "r": "13",
-      "o": ""
-     },
-     "2m1cxixpf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "amhemdodf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "niw9m532f1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "nunss9b0f1q": {
-      "s": "✓",
-      "r": "10",
-      "o": ""
-     },
-     "lg12d6bbf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou em um ritmo de 7:44/km, disse que conseguiu realizar sem muito esforço e bem. Ótima rodagem e bem constante: km1 - 7:45, km2 - 7:43, km3 - 7:34, km4 - 7:53"
-     },
-     "t0ppnyvef1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "wcj70jjwf1q": {
-      "s": "✓",
-      "r": "12",
-      "o": "Rodamos 6,4 KM num tempo de 50 minutos, rodagem confortável onde não tivemos nenhum incômodo de joelhos ou algo do tipo. Ótimo treino linear"
-     },
-     "8ssph4crf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Conseguimos finalizar a um ritmo de 7:47, batendo nosso RP nos Km em 39:04. Muito positivo"
-     },
-     "nebwgem6f1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "468klt61f1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "l5u1uyo2f1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "4kuui2erf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "stcjr32vf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Treino muito bom!!!\nTiros à:  1° - 6:16, 2° - 6:28, 3° - 6:33, 4° - 6:06\n\nDe forma bem constante ao longo dos tiros, disse que está um pouco com dores na panturilha. Mas se sentindo bem."
-     },
-     "x2gldczdf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "g5id3ngvf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "vm4w8n5ef1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Reclamou que estava com dores na parte anterior da coxa..."
-     },
-     "ifc68872f1q": {
-      "s": "✗",
-      "r": "",
-      "o": "-"
-     },
-     "019gfj60f1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "3smmzt57f1q": {
-      "s": "✓",
-      "r": "14",
-      "o": ""
-     },
-     "6we757baf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "uvnlpvxrf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "rcn4gt8if1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "rzvngo54f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "m0rv2fgvf1q": {
-      "s": "✓",
-      "r": "11",
-      "o": ""
-     },
-     "gpkny3bdf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "b1bu8usif1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Teve uma boa carga ao longo do treino, mas que foi um treino bom, está se sentindo muito bem."
-     },
-     "3l2ngy8tf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "50vd8durf1q": {
-      "s": "✓",
-      "r": "10",
-      "o": "Realizou 3 km por conta da chuva na esteira, pois iria se atrasar caso extendesse mais."
-     },
-     "84b38cylf1q": {
-      "s": "✓",
-      "r": "10",
-      "o": ""
-     },
-     "cpvmiocsf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Não teve um desgate grande ao concluir, acabou bem sã e tranquila."
-     },
-     "rmv9yd1rf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Bianca realizou e conseguiu mais manter a constância de ritmo ao longo dos tiros, porém está apanhando ainda na manutenção do ritmo, correndo rápido ao invés de ritmo médio para baixo.\n\nMesmo eu não pedindo Bianca cronometrou os tiros: 1T - 58s, 2T 58s., 3T - 1:00m., 4T - 57s e 5T 1:00m."
-     },
-     "vqurnmdvf1q": {
-      "s": "✗",
-      "r": "",
-      "o": "Perdeu o treino, se atrasou"
-     },
-     "f80ono87f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Bom treino, conseguiu seguir bem os ritmos pedidos. Bela administração"
-     },
-     "sm1u2hmbf1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "fxz1vq9gf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "5ng7acdnf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Sentiu algumas dores como joelho e nas pernas ao concluir, fez um bom treino porém pecou na administração do Ritmo ao longo do treino, sendo um ritmo que não seguiu uma constância na qual havia dito que eu queria.\nVariou muito o ritmo, chegou ao um ritmo máximo de 4:29/km e mínimo de 12/km, então tornei a falar que esses diversos piques até a exaustão durante a rodagem é prejudicial e pode causar lesões com decorrer do tempo.\nIremos trabalhar o mental dela para aprender a correr devagar e constante."
-     },
-     "jrkbeelmf1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "s0uhwu5df1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou a um ritmo de 07:37.\nEmbora foi um treino tranquilo comentou comigo sobre dores na coxa, uma dor de início tardía do dia anterior"
-     },
-     "8erxiybwf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Não fomos atrapalhados pela chuva e conseguimos realizar o treino, não soube administrar as velocidades novamente e foi bem mais rápido do que foi preescrito para ela realizar, por esse motivo me disse que sentiu dores no pé quando estava brigando com a fadiga, mas está animada e com certeza esse treino de hoje vai impactar muito nossa rodagem do domingo"
-     },
-     "gj359fcrf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "yk51rf7af1q": {
-      "s": "✓",
-      "r": "12",
-      "o": ""
-     },
-     "7wrxw30ef1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "i8e06k2yf1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "orv5ekjlf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "jatb48rff1q": {
-      "s": "✗",
-      "r": "-",
-      "o": "Chegaremos em Cuiaba-MT e teremos academia à disposição ao longo da viagem"
-     },
-     "hkj4bu48f1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "c1mql2nhf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "vc5jlqllf1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "emorwvy1f1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "kozdkhngf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Disse que teve muito cansaço, porém não entendeu totalmente a atividade e fez os tiros em alta intensidade, e por isso ocasionou na fádiga extrema. Mesmo assim nos deu um feedback que já está se sentindo mais diposta ao decorrer dos dias, pretende sim continuar o projeto."
-     },
-     "bx4jgj6qf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Me disse que gosta desse estilo de treino, porém foi dolorido, teve grande dores de início tardío."
-     },
-     "n34x1pkaf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "0uqcg5gif1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Gostou muito e disse que foi bem puxado, mas sentiu bastante ao longo do treino"
-     },
-     "20mp5k0vf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "cl4n8fygf1q": {
-      "s": "✗",
-      "r": "",
-      "o": "Por conta da chuva não conseguimos fazer"
-     },
-     "d15nfvylf1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "w2qdcrkmf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou no período da noite"
-     },
-     "4eehn0hof1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "w2yk3gmcf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "zjyjlkb7f1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "2bu7pfm6f1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "9j5o5k3wf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "plfrjygmf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "5lfiirtlf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "f690yn9cf1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "juh8p64of1q": {
-      "s": "✗",
-      "r": "",
-      "o": "-"
-     },
-     "z2ukrouwf1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "ma2kglr6f1q": {
-      "s": "",
-      "r": "",
-      "o": "-"
-     },
-     "166thlk0f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Voltando à academia, um bom treino para retomarmos à rotina."
-     },
-     "f3rj5t7xf1q": {
-      "s": "✓",
-      "r": "13",
-      "o": ""
-     },
-     "8mticuqdf1q": {
-      "s": "✓",
-      "r": "-",
-      "o": ""
-     },
-     "zcl2z48hf1q": {
-      "s": "✗",
-      "r": "",
-      "o": "-"
-     },
-     "c7ybkf7jf1q": {
-      "s": "",
-      "r": "",
-      "o": "-"
-     },
-     "aalw0ggvf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "ulr0jle6f1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "vwy9ys9tf1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "094svga0f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizamos, fizemos 5km em um termpo de 46 minutos com ritmo de 8/59 +-, Bianca conseguiu administrar a respiração com muita motivação, conseguiu correr seguidamente do km 1,1 ao 2 e depois do 3,9 aos 5. Um avanço e tanto. Postura e pisadas perfeitas"
-     },
-     "dz6rteekf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "07iesubgf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Tranquilo, testes também realizados"
-     },
-     "6dcea2ttf1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "tg0j9i2cf1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "gz5u4ijwf1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "u5x7fgmlf1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "c8e39hnpf1q": {
-      "s": "✗",
-      "r": "",
-      "o": "Bianca não realizou, passarei esse treino para a próxima semana."
-     },
-     "lfqb32nlf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "59hn5devf1q": {
-      "s": "",
-      "r": "",
-      "o": "-"
-     },
-     "hs0b8zukf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "xufabmovf1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "ea8lhv96f1q": {
-      "s": "✓",
-      "r": "15",
-      "o": "Muito frio, um pouco de sono e respiração ruim segundo ela, por esse motivo o maior cansaço"
-     },
-     "ysn1vitef1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "fer728rmf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "s5tosv9cf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Tiros muito bons, todos a uma média de 05:40, explicado o quão cansativo foi."
-     },
-     "lwd7rvtvf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Bom treino! Tiros todos na média de 5/km, progessão constante"
-     },
-     "rszs3saxf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "xtkfiqyzf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Gostou do trajeto e disse que deu uma boa aliviada nas dores e seguiu disposta aos demias dias."
-     },
-     "thmyi6raf1q": {
-      "s": "✗",
-      "r": "",
-      "o": "Será a primeira vez pós 1 mês que irei ver de perto na prática o quanto foi benéfico essa periodização para Bianca.\n\nNão conseguimos fazer devido a muita chuva durante o dia todo, faremos na próxima semana."
-     },
-     "kmahql3jf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "e1n6hi33f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Gostou muito do desenvolvimento Ombro."
-     },
-     "319em2c0f1q": {
-      "s": "✓",
-      "r": "14",
-      "o": ""
-     },
-     "31c5ovuvf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "-"
-     },
-     "o7pyl6g7f1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Muito produtivo! Embora todo cansaço por ter feito o 1° tiro a pace 5:40 e consequentemente o cansaço maior para os futuros, porém realizou, o mais importante"
-     },
-     "nyddib28f1q": {
-      "s": "✓",
-      "r": "13",
-      "o": ""
-     },
-     "aum5zchbf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Gostou do treino, me disse que foi muito produtivo, iniciamos essa semana importante da melhor forma!"
-     },
-     "jywkjcq9f1q": {
-      "s": "",
-      "r": "-",
-      "o": ""
-     },
-     "e4xspfagf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "okt0kboaf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizado na Esteira da academia por conta do temo chuvoso, e me passou um feedback bom, gostou."
-     },
-     "j4wq3kx8f1q": {
-      "s": "✓",
-      "r": "13",
-      "o": ""
-     },
-     "9g8ye3eaf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Realizou fortalecimento e mobilidade de quadril por conta de problemas intestinais, passamos os educativos para amanhã ao invés do Tempo RUN"
-     },
-     "cre0fbi9f1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "rwbmmjkhf1q": {
-      "s": "",
-      "r": "",
-      "o": "OFF"
-     },
-     "kgcoboylf1q": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "4eaqyi3lf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Fez incríveis 4,32 KM em 30 minutos, isso sem demonstrar grande cansaço. Um ótimo sinal na qual estamos progredindo e os treinos estão surtindo efeito"
-     },
-     "1b3veqnmf1q": {
-      "s": "✓",
-      "r": "",
-      "o": "Acabou fazendo ao contrário, achando que Z1 seria o ritmo mais forte, por isso acabou tendo um cansaço elevado... Porém foi bem mesmo assim."
-     },
-     "6jyqs87af1q": {
-      "s": "✗",
-      "r": "-",
-      "o": ""
-     },
-     "duf2fy09f1q": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "zewqn2kmwka": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "bt9tzijswka": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "pjlf1rygwka": {
-      "s": "✓",
-      "r": "16",
-      "o": "ritmo 7:17"
-     },
-     "vyrth2qbwka": {
-      "s": "✓",
-      "r": "",
-      "o": "MANHÃ"
-     },
-     "f78xnoomwka": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "6gay8pfowka": {
-      "s": "✓",
-      "r": "13",
-      "o": ""
-     },
-     "7jx2mqzlwka": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "8i7mff0ywka": {
-      "s": "✓",
-      "r": "12",
-      "o": ""
-     },
-     "zp64is2pwka": {
-      "s": "✓",
-      "r": "12",
-      "o": ""
-     },
-     "2k8cs8dowka": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "qw7npvnqwka": {
-      "s": "✗",
-      "r": "",
-      "o": "TARDE"
-     },
-     "vfeymg4nwka": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "x4sgq90nwka": {
-      "s": "✓",
-      "r": "18",
-      "o": "Ótima corrida, 5km - Pace 6:28/km"
-     },
-     "zbxynjlvwka": {
-      "s": "✓",
-      "r": "10",
-      "o": ""
-     },
-     "383g5g9owka": {
-      "s": "✓",
-      "r": "16",
-      "o": "Ganhou um novo tenis (Fila Aero e está muito empolgada para seguir treinando)\nPACE: 7:07 /km"
-     },
-     "px8iia3wwka": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "t4qquybjwka": {
-      "s": "✓",
-      "r": "13",
-      "o": "Realizou exatamente oque foi pedido, ótimo treino e boa constância"
-     },
-     "pwikjyilwka": {
-      "s": "✗",
-      "r": "",
-      "o": "Por motivos de chuva, acabou não conseguindo realizar."
-     },
-     "jfpx5aeiwka": {
-      "s": "✓",
-      "r": "",
-      "o": ""
-     },
-     "l4u9ddidwka": {
-      "s": "✓",
-      "r": "15",
-      "o": ""
-     },
-     "zinniaicwka": {
-      "s": "✗",
-      "r": "",
-      "o": "Chuva, acabou não indo."
-     },
-     "kehat9fxwka": {
-      "s": "✓",
-      "r": "15",
-      "o": ""
-     },
-     "jat0lnhwwka": {
-      "s": "✗",
-      "r": "",
-      "o": ""
-     },
-     "j6gbnggwwka": {
-      "s": "✓",
-      "r": "",
-      "o": "TARDE"
-     },
-     "jfi79834wka": {
-      "s": "✓",
-      "r": "",
-      "o": "TARDE"
-     },
-     "c13chodnwka": {
-      "s": "✓",
-      "r": "11",
-      "o": ""
-     },
-     "7oqtv8tlwka": {
-      "s": "✗",
-      "r": "",
-      "o": "MANHÃ"
-     },
-     "arjkb212wka": {
-      "s": "✓",
-      "r": "12",
-      "o": ""
-     },
-     "a9tdnwg2wka": {
-      "s": "✗",
-      "r": "",
-      "o": "Virou descanso por conta que treinou no dia de ontem."
-     },
-     "us8dl3e2wka": {
-      "s": "✓",
-      "r": "12",
-      "o": ""
-     },
-     "28hmxw3owka": {
-      "s": "✓",
-      "r": "14",
-      "o": "Muito bom treino, realizou todos os 5 tiros num ritmo abaixo de 6:08/km, e o melhor foi 5:57. \nMuita boa sessão"
-     },
-     "fu137ks1wka": {
-      "s": "✓",
-      "r": "16",
-      "o": "Bom treino, fez 4 tiros... \nMédia PACE: 6:58"
-     },
-     "w2e9dl7xwka": {
-      "s": "✗",
-      "r": "",
-      "o": "Não foi, passado para dia seguinte"
-     },
-     "nox9bxudwka": {
-      "s": "✗",
-      "r": "",
-      "o": "Era seu descanso, porém vamos repor o treino da Segunda-feira"
-     },
-     "3vk4zijjwka": {
-      "s": "✓",
-      "r": "12",
-      "o": ""
-     },
-     "7pyvr6e1wka": {
-      "s": "✓",
-      "r": "",
-      "o": "TARDE"
-     },
-     "uf4muj5wwka": {
-      "s": "✓",
-      "r": "15",
-      "o": "MANHÃ"
-     },
-     "866p22jqwka": {
-      "s": "✓",
-      "r": "13",
-      "o": "Muita concistência durante os tiros, todos os 6 entre 5:52/km - 6:45/km. Ótimo treino porém ressalva na respiração, onde disse que sentiu dores laterais e acabou atrapalhando ela."
-     },
-     "9aycmq3fwka": {
-      "s": "✗",
-      "r": "",
-      "o": "Chegamos tarde por conta de um evento ontem e por isso não teve o descanso adequado"
-     },
-     "4xxrdf6twka": {
-      "s": "✓",
-      "r": "14",
-      "o": ""
-     },
-     "9sb46sw7wka": {
-      "s": "✓",
-      "r": "14",
-      "o": ""
-     },
-     "jcgbebsbwka": {
-      "s": "✓",
-      "r": "12",
-      "o": ""
-     },
-     "37b8cpeqwka": {
-      "s": "✗",
-      "r": "",
-      "o": "MANHÃ"
-     },
-     "i2ent1jrwka": {
-      "s": "✓",
-      "r": "16",
-      "o": "Disse que não aguentou terminar tudo pois teve problemas intestinais, e acabou concluindo 3km"
-     },
-     "pv32922cwka": {
-      "s": "✓",
-      "r": "15",
-      "o": "Ótimo treino, KMs fortes:\n2° - 6.11/km \n4° - 6.28/km"
-     },
-     "huqnb7zgwka": {
-      "s": "✓",
-      "r": "15",
-      "o": ""
-     },
-     "nm9mvlcewka": {
-      "s": "✓",
-      "r": "14",
-      "o": "Ótima sessão, realizou 8 tiros ao invés de 10 em um ritmo médio durante tiros de 5.06/KM"
-     },
-     "qdhz0n66wka": {
-      "s": "✓",
-      "r": "0",
-      "o": ""
-     },
-     "apo0xg3fwka": {
-      "s": "✓",
-      "r": "20\n",
-      "o": ""
-     },
-     "thoirktzwka": {
-      "s": "✓",
-      "r": 16,
-      "o": "",
-      "kmd": "2.6",
-      "ext": [
-       {
-        "tipo": "Run",
-        "src": "print",
-        "tiros": {
-         "media": 332.7142857142857,
-         "paces": [
-          322,
-          340,
-          315,
-          316,
-          316,
-          363,
-          357
-         ],
-         "n": 7,
-         "km": 0.3
-        },
-        "id": "p1793815308412",
-        "nome": "Print",
-        "alt": null,
-        "km": 2.6,
-        "fc": null,
-        "min": 29.2,
-        "kcal": 199
-       }
-      ]
-     },
-     "3ndf9798wka": {
-      "s": "✗",
-      "r": "-",
-      "o": "",
-      "kmd": ""
-     },
-     "ldckbf37wka": {
-      "s": "✗",
-      "r": "-",
-      "o": "",
-      "kmd": ""
-     },
-     "dxutxgbbwka": {
-      "s": "✗",
-      "r": "-",
-      "o": "",
-      "kmd": ""
-     },
-     "3radmediwka": {
-      "s": "✓",
-      "r": "17",
-      "o": "Sentiu no 4° km e tivemos de abaixar o ritmo",
-      "kmd": "4",
-      "ext": [
-       {
-        "min": 26.4,
-        "fc": null,
-        "km": 4,
-        "id": "p1794056359114",
-        "kcal": 317,
-        "nome": "Print",
-        "alt": null,
-        "tipo": "Run",
-        "src": "print"
-       }
-      ]
-     },
-     "h9ygbucvwka": {
-      "s": "✗",
-      "r": "\n",
-      "o": "",
-      "kmd": ""
-     },
-     "qwm5qbzmh73": {
-      "s": "✓",
-      "r": "13",
-      "o": "Conseguiu encaixar após a faculdade, pagou treino que não fez anteriormente",
-      "kmd": ""
-     },
-     "ylpv8rlvwka": {
-      "s": "✗",
-      "r": "",
-      "o": "",
-      "kmd": ""
-     },
-     "1pkc8n0dwka": {
-      "s": "✓",
-      "r": "",
-      "o": "",
-      "kmd": "3",
-      "ext": [
-       {
-        "id": "p1794476881479",
-        "src": "print",
-        "tipo": "Run",
-        "nome": "Print",
-        "km": 3,
-        "min": 23.8,
-        "fc": null,
-        "kcal": null,
-        "alt": null,
-        "tiros": null
-       }
-      ]
-     },
-     "wmo19oqwwka": {
-      "s": "✓",
-      "r": 13,
-      "o": "",
-      "kmd": "1",
-      "ext": [
-       {
-        "id": "p1794564021506",
-        "src": "print",
-        "tipo": "Run",
-        "nome": "Print",
-        "km": 1,
-        "min": 0,
-        "fc": null,
-        "kcal": null,
-        "alt": null,
-        "tiros": null
-       }
-      ]
-     },
-     "tzqobonvwka": {
-      "s": "✗",
-      "r": "",
-      "o": "",
-      "kmd": ""
-     },
-     "_push": {
-      "tokens": [
-       "d6fxQT8rmJ4u_3lSmgBTPr:APA91bHf-kBPXTOgjX3NnquqiumqEiwsIbWpC2c7uQWK9w18eVs3vNpmCx-2uNs0y5zi-t7ka3-Zzk7Wmty6IF9kvZasIgdE1HdhDma4RSK_MltMYEfCV6A"
-      ],
-      "horas": [
-       12,
-       18,
-       22
-      ],
-      "tz": "America/Sao_Paulo",
-      "em": 1794590319505
-     },
-     "lu3cu1skwka": {
-      "s": "✓",
-      "r": "",
-      "o": "",
-      "kmd": ""
-     },
-     "tqhc8wzjwka": {
-      "s": "✓",
-      "r": 12,
-      "o": "",
-      "kmd": "5",
-      "ext": [
-       {
-        "nome": "Print",
-        "fc": null,
-        "src": "print",
-        "kcal": null,
-        "km": 0,
-        "id": "p1794778888317",
-        "alt": null,
-        "tipo": "Run",
-        "tiros": null,
-        "min": 35
-       }
-      ]
-     },
-     "i8qgbnhjwka": {
-      "s": "✓",
-      "r": 13,
-      "o": "",
-      "kmd": "3"
-     },
-     "3n5l0obrwka": {
-      "s": "✓",
-      "r": 13,
-      "o": "",
-      "kmd": ""
-     },
-     "t6ltdigywka": {
-      "s": "✓",
-      "r": 13,
-      "o": "",
-      "kmd": "4.64",
-      "ext": [
-       {
-        "kcal": null,
-        "alt": null,
-        "min": 44.7,
-        "km": 4.64,
-        "fc": null,
-        "tipo": "Run",
-        "id": "p1794909846371",
-        "nome": "Print",
-        "src": "print",
-        "tiros": null
-       }
-      ]
-     }
-    },
     "months": [
      {
       "nome": "MÊS 1",
@@ -14952,6 +12543,2868 @@
      "_seconds": 1794935489,
      "_nanoseconds": 933000000
     },
+    "fb": {
+     "gdqyg4egf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "gjh4phbff1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "px3xwfopf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "006sdtnyf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Semana iniciada mais focada na força muscular, trabalho de rampa servirá muito tanto para adquirir força e fortalecimento de áreas que correndo em percurso plano, acabam ficando em segundo plano."
+     },
+     "b8h4vk94f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "32xst7i1f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "OBJETIVO CONCLUÍDO!\n\nBatemos a marca de 5 kilômetros correndo seguido, e o melhor, o pós corrida não foi totalmente exaustiva, Bianca acabou inteira da corrida."
+     },
+     "jvkc0hncf1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "m5s7w7g8f1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "hle40v5kf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "ejt88n74f1q": {
+      "s": "",
+      "r": "",
+      "o": "-"
+     },
+     "0tbxx7qtf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "kahgdaf6f1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "rqdtuj9nf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "t46ub5x8f1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "1ywaxjuaf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Rodou bem, e fez na esteira."
+     },
+     "czhe57esf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "9tboik6mf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "tbzad431f1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "6ki6kh6yf1q": {
+      "s": "✓",
+      "r": "10",
+      "o": ""
+     },
+     "vha1n9muf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "774xyv2rf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "80rhsmqpf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou somente alongamento pois ainda está sentindo dores"
+     },
+     "yjefqc4af1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou e sentiu dificuldades ao realizar o afundo, muito desequilíbrio"
+     },
+     "dnjttaqhf1q": {
+      "s": "✓",
+      "r": "9",
+      "o": ""
+     },
+     "s8ypv9g3f1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "6z2pkpmbf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "c7tmaofvf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "f1lmze3zf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Gostou também desse treino, está se sentindo muito bem de forma geral."
+     },
+     "f8zfo1r6f1q": {
+      "s": "✗",
+      "r": "-",
+      "o": "Chuva"
+     },
+     "1zj54xg6f1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "58g9q538f1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "dlww58yvf1q": {
+      "s": "✓",
+      "r": "14",
+      "o": ""
+     },
+     "ayxpnwdzf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Foco na recuperação e deixar o corpo solto para o domingo."
+     },
+     "g5gcv4gxf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "jb0uulrzf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Mesclando o início forte da semana com o final mais leve, A1 será um fullbody com um número de séries mediana com cargas \"Leve/Média\"."
+     },
+     "tj2ih2wcf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "4utrjqwhf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou o treino proposto num ritmo de 7:43/km, relatou bastante disposição e não cansou muito. Ótimo treino!"
+     },
+     "pz8hawzgf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "lqwjgetgf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou em casa por conta da chuva"
+     },
+     "ylwezvb8f1q": {
+      "s": "✓",
+      "r": "16",
+      "o": "Não conseguiu concluir, fez 8 dos 10 tiros por conta de incômodos no joelho, achou melhor parar."
+     },
+     "xb33xgi8f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Priorizamos a diminuição das séries para aumento das cargas, Bianca se saiu bem nas cargas mesmo com pouco trabalho e academia até o momento. Essas cargas estão todas em uma escala \"Média/Alta\" que servirá de modelo para as semanas seguintes."
+     },
+     "fx8p4gh4f1q": {
+      "s": "✓",
+      "r": "Não recorda",
+      "o": ""
+     },
+     "bv03mpylf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Trabalhamos parte superior para não cansarmos mais ainda os músculos do esforço de ontem."
+     },
+     "kx5yvkn4f1q": {
+      "s": "✗",
+      "r": "-",
+      "o": "Acordou mal então não conseguiu comparecer, predominanteizar treinos indoor, por conta do clima e friagem"
+     },
+     "xccataszf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Conseguiu realizar tudo passado e sentiu bastante dores nas pernas, ativou bem.\nFez na quadra do parque que sempre treina"
+     },
+     "yc2735fzf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "c8wuwfnvf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "fcgtv81ff1q": {
+      "s": "✗",
+      "r": "-",
+      "o": "Acabou deixando para fazer o treinoa tarde e acabou não indo."
+     },
+     "h2lg73mkf1q": {
+      "s": "✓",
+      "r": "10",
+      "o": "Bom feedback, disse que conseguiu realizar todos os exercícios e não sentiu nenhum tipo de incômodo."
+     },
+     "6klsy9icf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "hlfucnyef1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Que seja um treino mais forte, com mais intensidade e administração do cansaço.\n\nREALIZOU, com perfeição! Administração ótima do ritmo durante os tiros e o melhor, disse que foi bem tranquilo. Correu 1,5 km a ritmo 6:30 e nem percebeu cansaço, estamos buscando!"
+     },
+     "x99t8bd3f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Uma boa rodagem, não batemos RP nem nada do tipo, porém a forma na qual realizamos o treino foi bem produtiva, focamos em a cada KM fazermos mais rápido que o anteriro baseado na percepção de esforço apenas, e fizemos bem inclusive tendo energias para fehcar o último KM a 06:50, treino bem positivo!!"
+     },
+     "uwlc2u4af1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Fizemos um ótimo treino focando nos membros inferiores com cargas um pouco mais elevadas que o normal, aproveitando que estava junto consegui avaliar a execução que estava sendo feita e realizar algumas correções."
+     },
+     "8q73hjcbf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "33pwxg6rf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "8lpm9mf6f1q": {
+      "s": "✓",
+      "r": "14",
+      "o": ""
+     },
+     "jfzbzr8sf1q": {
+      "s": "✗",
+      "r": "",
+      "o": "FOMOS ATRAPALHADOS PELA CHUVA"
+     },
+     "48stzkkkf1q": {
+      "s": "✗",
+      "r": "",
+      "o": "Por conta da chuva, acabou não conseguindo ir."
+     },
+     "39hi0i5rf1q": {
+      "s": "✓",
+      "r": "12",
+      "o": ""
+     },
+     "7pphduuof1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Cansou bastante pois não administrou bem o ritmo, mas um bom treino em geral."
+     },
+     "g3k52mjgf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "39ihyeopf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "c9gw4mjef1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizamos"
+     },
+     "kvkuv83vf1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "7tmr0baof1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "sndr06maf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Como planejado, Bianca realizou sem parar os dois blocos de 2km com excelência, controlou muito bem o ritmo não ficando totalmente exausta após termino da parte principal."
+     },
+     "iqdp3h9if1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "mxcnnopjf1q": {
+      "s": "",
+      "r": "",
+      "o": "-"
+     },
+     "tfrvxzpnf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Um bom treino de forma geral, seguiu na média durante os tiros de 06:50... 07:10, um pace realmente confortável para Bianca"
+     },
+     "1f9rvh7nf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Diminuição de repetições pois o treino da manhã já recrutou bastante dos membros inferiores"
+     },
+     "psqeen8zf1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "q69o9wm2f1q": {
+      "s": "✗",
+      "r": "",
+      "o": "Realizou um treino diferente, pois disse que a agenda não estava certa..."
+     },
+     "d4nnyshrf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "ppuuq28rf1q": {
+      "s": "✓",
+      "r": "10",
+      "o": ""
+     },
+     "iikteblwf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "bizyi82mf1q": {
+      "s": "✓",
+      "r": "10",
+      "o": ""
+     },
+     "1b5yioqaf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Bom treino, todos os 5 tiros abaixo de 5/km"
+     },
+     "10g9dzoif1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "6cqp4m71f1q": {
+      "s": "✓",
+      "r": "10",
+      "o": "Não conseguimos terminanr, finalizamos 3km por conta de dores no joelho"
+     },
+     "ddhhhn4bf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "e1hncq0qf1q": {
+      "s": "✓",
+      "r": "13",
+      "o": "Treino mais forte da semana, mas com moderação."
+     },
+     "r25w1493f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "y6o1a8k1f1q": {
+      "s": "",
+      "r": "",
+      "o": "-"
+     },
+     "84cztdxef1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Conseguiu realizar com tranquilidade as 2 janelas de trote"
+     },
+     "b7mavsw1f1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "0kyquy03f1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "up43u999f1q": {
+      "s": "✗",
+      "r": "-",
+      "o": "Chuva"
+     },
+     "42k8tt9cf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "bbcoks92f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Primeira vez que Bianca ira realizar tiros com descansos passivos, iremos ver o quão ela irá cansar, irei dar uma diminuida nas distâncias e aumentar um pouco as series, para que acabe sendo um pouco mais leve para ela já que está voltando de um desconforto no pé.\n\nApós realização tive feedbacks bem positivos, sinto que Bianca gostou desse treino, se saiu bem e recuperou a empolgação do projeto, mesmo no frio intenso feito no dia de hoje, realizou com excelência o treino."
+     },
+     "2zf2sj1df1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou e me informou bastante desgate ao realizar a prancha lateral e abdutor, logo oque significa"
+     },
+     "4rmnvi1uf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Conseguiu realizar tudo passado e sentiu bastante dores nas pernas, ativou bem.\nFez na quadra do parque que sempre treina"
+     },
+     "h5d9f5jzf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Treino mais \"leve\" e primeira vez de Bianca voltando a trotar após incômodos no pé no dia 12/10, em um momento aumentou o ritmo do trote e me disse que sentiu dores, porém que já estão quase 100% novamente."
+     },
+     "n5ewc18tf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou, com baixas cargas para iniciar as adaptações neurais"
+     },
+     "x69n4f5mf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "czdb8kwmf1q": {
+      "s": "✗",
+      "r": "",
+      "o": "Não foi"
+     },
+     "9kgu45i9f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Iniciamos um novo plano de treinos na academia.\n\nFeedback bom, bastante cansaço em relação aos que estava acostumada e muito suor, de forma geral, acredito que acertei..."
+     },
+     "m6pwu7n8f1q": {
+      "s": "",
+      "r": "",
+      "o": "Iamos realizar um treino juntos mais intensivo, porém tivemos de abortar por conta das condições climáticas e por dores no pé de Bianca, então optamos pelo descando visando a recuperação total para sequência da periodização."
+     },
+     "7y125w4mf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "ojgurodnf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "o4vdits4f1q": {
+      "s": "✓",
+      "r": "11",
+      "o": ""
+     },
+     "1w17q9vlf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "i68nuwx2f1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "kklgxjn4f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Disse que foi exaustivo um pouco e sentiu dores no quadril, focar nisso para não acumular desgate"
+     },
+     "v65124kvf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Segue focada e mantendo a sequência de treino"
+     },
+     "8rriwje2f1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "oehr5f5gf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou uma kilometragem de 3,33km de caminhada, reclamando de dores nas pernas por conta do treino de ontem, mas com certeza foi melhor do que dormir até mais tarde."
+     },
+     "3qapy2pvf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Bem produtivo para cada vez mais lapidarmos a técnica de corrida de Banca e sua econômia de movimento ao correr"
+     },
+     "9snt9rtkf1q": {
+      "s": "✓",
+      "r": "10",
+      "o": ""
+     },
+     "ihg63e1pf1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "dhz8ac2vf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou, me disse que está bem empolgada com o programa."
+     },
+     "su3303l5f1q": {
+      "s": "",
+      "r": "",
+      "o": "-"
+     },
+     "2ceekegvf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "20q8nhn0f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou bem tranquila, e até o momento nenhuma reclamação sobre dores, ótimo sinal."
+     },
+     "3fdi1cqlf1q": {
+      "s": "✓",
+      "r": "14",
+      "o": "Cansaço elevado... Pode ser que fez com cargas acima da sugerida."
+     },
+     "hun0v4vrf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou e conseguiu aguentar mais que semana passada correndo."
+     },
+     "9v640u6gf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "8yoi8ey2f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Disse que foi um treino mais tranquilo e tivemos a 1a conquista, Bianca conseguiu trotar em torno de 700 metros. sendo que sábado 27/09 não conseguiu dar 1 volta sequer.\nTambém me disse que está se sentindo mais disposta e com melhora na respiração durante o treino."
+     },
+     "cwc2x2fef1q": {
+      "s": "✓",
+      "r": "10",
+      "o": "Entendeu bem o treino e fez realmente oq foi proposto, com o corpo recuperado amanhã voltaremos a treinos fortes"
+     },
+     "w38qmkuzf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "un83l5g0f1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "wr6l3dhnf1q": {
+      "s": "✗",
+      "r": "",
+      "o": "-"
+     },
+     "of8iz0pvf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "f2jehwhpf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "otdngmj8f1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "cahs80off1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "6fxp53t2f1q": {
+      "s": "✓",
+      "r": "13",
+      "o": ""
+     },
+     "i73upe0zf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Ao contrário de quando iniciamos nossa periodização, Bianca já tem a consciência corporal de saber qual é um ritmo forte e um ritmo na qual ela consegue descansar, conseguiu seguir grande parte dos intervalos entre os ritmos alvos."
+     },
+     "dz0bklhmf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "mdn61uggf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "wmqfzftnf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "y278n9tpf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou com maestria, fez os tiros em uma média de 06:10/km, porém ficou bem exausta"
+     },
+     "12uvatjtf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "49s2g6qmf1q": {
+      "s": "✓",
+      "r": "10",
+      "o": "Desenvolvimento Ombro - 10kg\nRemada - 9 kg\nBola Russa - 6 kg"
+     },
+     "gz3poy1lf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": "Chuva impossibilitou a ida. Passado para amanhã em caso de chuva"
+     },
+     "ld5r9x21f1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "zry2j6dtf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": "Início da prescrição de treino + distância e - intensidade.\n\nMétodo que adotaremos para tentar buscar o sub30 nos 5km"
+     },
+     "smbwv65wf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "hy99xxbaf1q": {
+      "s": "✓",
+      "r": "14",
+      "o": "Mesmo eu dizendo para ela não realizar, realizou e me disse que o joelho diminuiu as dores..."
+     },
+     "wa98n5j9f1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "zepf1s7hf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "u94pxoi1f1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "yd0nb0b2f1q": {
+      "s": "✗",
+      "r": "",
+      "o": "Bianca iria fazer o treino Tempo RUN hoje, porém dormiu tarde e acordou de mal humor, passei para amanhã e hoje ficou descanso..."
+     },
+     "0ol0iafff1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "t8vikbi8f1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "z33geadpf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou bem, conseguiu ser constante: 1KM - 7:00, 2KM - 7:46, 3KM - 7:43, 4KM - 7:46, 5KM - 08:15\n\nReclamou do trajeto que fez, pois ao final pegou muita subida rs."
+     },
+     "ahhqky0zf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Disse que foi bem cansativo"
+     },
+     "z2xogbx4f1q": {
+      "s": "✓",
+      "r": "20",
+      "o": "Muito desgaste e muito resultado positivo, Bianca fez um total de 13 voltas de 1km em média de a cada 50 minutos e fez num ritmo de forma geral de 6:30 / KM, chegando a fazer voltas a 5:20 e 5:40, realmente um bom desempenho."
+     },
+     "zypi09q8f1q": {
+      "s": "",
+      "r": "",
+      "o": "Chuva..."
+     },
+     "leknu763f1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "8a2d24gsf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou, já iniciando a semana muito bem!\n\nRealizou os tiros mais rápidos do que foi pedido, única observação..."
+     },
+     "h8im2psrf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "g4mcksqef1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "f5z5qpyjf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "vwj05173f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "5km em 35:44 min, rp batido"
+     },
+     "g5b2bpswf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "h5st1r19f1q": {
+      "s": "✓",
+      "r": "-",
+      "o": "Nenhum relato de dores no joelho, ótimo sinal"
+     },
+     "46ki9i1pf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "mm5yxipif1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou 3,58 km pois teve problemas intestinais ao longo do treino, mas um bom treino de qualquer forma\n\nPace: 6:56"
+     },
+     "son87j5gf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "zwnvcg8rf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Ótimo treino, tiros de 5:55 chegamos, e disse que os 500m de descans foi perfeito, um ótimo treino"
+     },
+     "6nxlrjw7f1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "mjnf4e5hf1q": {
+      "s": "✓",
+      "r": "15",
+      "o": ""
+     },
+     "uy06ysdnf1q": {
+      "s": "✓",
+      "r": "8",
+      "o": ""
+     },
+     "1iywh5h2f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou e disse que a única coisa que sentiu mais cansaço foi a corrida pé no bumbum após os movimentos."
+     },
+     "tj1w483kf1q": {
+      "s": "",
+      "r": "",
+      "o": "Bianca estava doente"
+     },
+     "5hdxx5xkf1q": {
+      "s": "",
+      "r": "",
+      "o": "-"
+     },
+     "mgqpvcapf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": "Passei esse treino para amanhã"
+     },
+     "r7diek3rf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Me passou um feedback positivo, que sentiu melhoras instantaneas e segue bem animada com a evolução diária dela.\n\nCaso se reencontre com as dores irá me avisar para intensificarmos o fortalecimento."
+     },
+     "sa2zu3raf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "vj0ivfm8f1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "rsuuvhbrf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "zhrn0s5if1q": {
+      "s": "✓",
+      "r": "14",
+      "o": ""
+     },
+     "6o3qh0d9f1q": {
+      "s": "",
+      "r": "",
+      "o": "-"
+     },
+     "cui2kiyzf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "lpnpt329f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizamos um total de 5.6 km num ritmo de 8/km, ritmo alto porém constante pelo maior tempo de Bianca correndo em seguida, foram 45 min"
+     },
+     "rdicdhw0f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Fez ao entardecer, disse que teve um casaço grande."
+     },
+     "mkpckdxqf1q": {
+      "s": "✓",
+      "r": "15",
+      "o": ""
+     },
+     "1hdwzc32f1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "xo9nagwaf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "8r42z6d9f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Treino TOP!\n\nTrabalhamos bastnate coordenação, equilíbrio, explosão, potência além de ganharmos bastante consciência corporal.\n\nEm anexo vídeos do treinos na pasta em referência"
+     },
+     "owgusdtqf1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "qeeytmnnf1q": {
+      "s": "",
+      "r": "",
+      "o": "-"
+     },
+     "q3yrf3tlf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "oxstkuoff1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Conseguiu manter bem o tempo mas."
+     },
+     "37rhbh0hf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "2wc9qoxnf1q": {
+      "s": "✗",
+      "r": "",
+      "o": "Chuva nos atrapalhou"
+     },
+     "iipv48n7f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Achou o treino fácil e não teve nenhuma dor ou incômodo"
+     },
+     "e8iewmnmf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "zxnwb5aaf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou em pleno aniversário, uma conquista mental gigangte!\n\nAinda sofrendo com a manutenção do ritmo, com bastantes oscilações ocasionando no cansaço precoce, obviamente por falta de experiência na modalidade, mas vamos corrigindo isso com o tempo, está bem feliz com o processo e me relatou que conseguiu correr 2 voltas seguidas de 400m."
+     },
+     "vrprhvmtf1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "kd0989atf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": "Por conta da alta carga do treino, sentiu um pouco de dores no joelho."
+     },
+     "iki2lzmhf1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "j3vvvj2yf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "mwr2bmg7f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Teve um desgaste mas nada tão exaustivo"
+     },
+     "a9u9opzcf1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "gt6r79h7f1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "zbbqr72qf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "3ntb8xfuf1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "hzjaeb2sf1q": {
+      "s": "",
+      "r": "",
+      "o": "Descando visando a recuperação total para sequência da periodização."
+     },
+     "20osluf6f1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "6mn0w96ef1q": {
+      "s": "✓",
+      "r": "13",
+      "o": ""
+     },
+     "vfzu52j4f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "7njhxdihf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Conseguiu realizar e me relatou que ainda sente algumas dores, porém só de ter conseguido concluir o treino já é um avanço."
+     },
+     "lazlqdksf1q": {
+      "s": "✗",
+      "r": "",
+      "o": "Chuva..."
+     },
+     "x9gfphjvf1q": {
+      "s": "✓",
+      "r": "10",
+      "o": ""
+     },
+     "9pw9srz2f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizamos uma rodagem de 7,5 KM, maior distância já percorrida de corrida, reclamou de dores nos joelhos e pés ao final, porém passou logo após que descansamos."
+     },
+     "j8ica4v4f1q": {
+      "s": "✗",
+      "r": "",
+      "o": "Não foi..."
+     },
+     "czgfg2qtf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": "Chuva ainda mais forte impossibilitou a realização"
+     },
+     "ilbeq283f1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "62ehfs6mf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "arjohb5cf1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "0h6p89vff1q": {
+      "s": "✓",
+      "r": "10",
+      "o": ""
+     },
+     "ej1edzvzf1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "5plhfnmrf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "xkyvpc5bf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "1wqv65luf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": "Focando na academia em inferiores para fortalecermos o joelho"
+     },
+     "s9f5qltpf1q": {
+      "s": "✗",
+      "r": "",
+      "o": "Perdeu hora e não realizou"
+     },
+     "tid2jpamf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Um bom retorno após alguns dias parada, fez os tiros em um ritmo bem baixo e não teve um grande cansaço, bom sinal, onde mostra que esses dias off serviu muito para reparação total do corpo."
+     },
+     "kgrxdbxzf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "pmjfnt3wf1q": {
+      "s": "",
+      "r": "",
+      "o": "Por conta da falta de Quarta a tarde, passado para hoje eliminando o descanso"
+     },
+     "pk2j2gzqf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "fdoub1r7f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou muito bem, em uma média de pace 06:50 ao longo dos tiros, um ótimo ritmo sequente"
+     },
+     "5bc90r3sf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Não fomos atrapalhados pela chuva e conseguiu realizar muito bem, a maior vitória desse treino vou ter acordado cedo em uma segunda-feira e corrida 2.4km."
+     },
+     "vvwkuukyf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "7kap92stf1q": {
+      "s": "✗",
+      "r": "",
+      "o": "-"
+     },
+     "ecfzgl99f1q": {
+      "s": "✓",
+      "r": "13",
+      "o": ""
+     },
+     "2m1cxixpf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "amhemdodf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "niw9m532f1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "nunss9b0f1q": {
+      "s": "✓",
+      "r": "10",
+      "o": ""
+     },
+     "lg12d6bbf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou em um ritmo de 7:44/km, disse que conseguiu realizar sem muito esforço e bem. Ótima rodagem e bem constante: km1 - 7:45, km2 - 7:43, km3 - 7:34, km4 - 7:53"
+     },
+     "t0ppnyvef1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "wcj70jjwf1q": {
+      "s": "✓",
+      "r": "12",
+      "o": "Rodamos 6,4 KM num tempo de 50 minutos, rodagem confortável onde não tivemos nenhum incômodo de joelhos ou algo do tipo. Ótimo treino linear"
+     },
+     "8ssph4crf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Conseguimos finalizar a um ritmo de 7:47, batendo nosso RP nos Km em 39:04. Muito positivo"
+     },
+     "nebwgem6f1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "468klt61f1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "l5u1uyo2f1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "4kuui2erf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "stcjr32vf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Treino muito bom!!!\nTiros à:  1° - 6:16, 2° - 6:28, 3° - 6:33, 4° - 6:06\n\nDe forma bem constante ao longo dos tiros, disse que está um pouco com dores na panturilha. Mas se sentindo bem."
+     },
+     "x2gldczdf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "g5id3ngvf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "vm4w8n5ef1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Reclamou que estava com dores na parte anterior da coxa..."
+     },
+     "ifc68872f1q": {
+      "s": "✗",
+      "r": "",
+      "o": "-"
+     },
+     "019gfj60f1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "3smmzt57f1q": {
+      "s": "✓",
+      "r": "14",
+      "o": ""
+     },
+     "6we757baf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "uvnlpvxrf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "rcn4gt8if1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "rzvngo54f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "m0rv2fgvf1q": {
+      "s": "✓",
+      "r": "11",
+      "o": ""
+     },
+     "gpkny3bdf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "b1bu8usif1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Teve uma boa carga ao longo do treino, mas que foi um treino bom, está se sentindo muito bem."
+     },
+     "3l2ngy8tf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "50vd8durf1q": {
+      "s": "✓",
+      "r": "10",
+      "o": "Realizou 3 km por conta da chuva na esteira, pois iria se atrasar caso extendesse mais."
+     },
+     "84b38cylf1q": {
+      "s": "✓",
+      "r": "10",
+      "o": ""
+     },
+     "cpvmiocsf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Não teve um desgate grande ao concluir, acabou bem sã e tranquila."
+     },
+     "rmv9yd1rf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Bianca realizou e conseguiu mais manter a constância de ritmo ao longo dos tiros, porém está apanhando ainda na manutenção do ritmo, correndo rápido ao invés de ritmo médio para baixo.\n\nMesmo eu não pedindo Bianca cronometrou os tiros: 1T - 58s, 2T 58s., 3T - 1:00m., 4T - 57s e 5T 1:00m."
+     },
+     "vqurnmdvf1q": {
+      "s": "✗",
+      "r": "",
+      "o": "Perdeu o treino, se atrasou"
+     },
+     "f80ono87f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Bom treino, conseguiu seguir bem os ritmos pedidos. Bela administração"
+     },
+     "sm1u2hmbf1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "fxz1vq9gf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "5ng7acdnf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Sentiu algumas dores como joelho e nas pernas ao concluir, fez um bom treino porém pecou na administração do Ritmo ao longo do treino, sendo um ritmo que não seguiu uma constância na qual havia dito que eu queria.\nVariou muito o ritmo, chegou ao um ritmo máximo de 4:29/km e mínimo de 12/km, então tornei a falar que esses diversos piques até a exaustão durante a rodagem é prejudicial e pode causar lesões com decorrer do tempo.\nIremos trabalhar o mental dela para aprender a correr devagar e constante."
+     },
+     "jrkbeelmf1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "s0uhwu5df1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou a um ritmo de 07:37.\nEmbora foi um treino tranquilo comentou comigo sobre dores na coxa, uma dor de início tardía do dia anterior"
+     },
+     "8erxiybwf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Não fomos atrapalhados pela chuva e conseguimos realizar o treino, não soube administrar as velocidades novamente e foi bem mais rápido do que foi preescrito para ela realizar, por esse motivo me disse que sentiu dores no pé quando estava brigando com a fadiga, mas está animada e com certeza esse treino de hoje vai impactar muito nossa rodagem do domingo"
+     },
+     "gj359fcrf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "yk51rf7af1q": {
+      "s": "✓",
+      "r": "12",
+      "o": ""
+     },
+     "7wrxw30ef1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "i8e06k2yf1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "orv5ekjlf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "jatb48rff1q": {
+      "s": "✗",
+      "r": "-",
+      "o": "Chegaremos em Cuiaba-MT e teremos academia à disposição ao longo da viagem"
+     },
+     "hkj4bu48f1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "c1mql2nhf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "vc5jlqllf1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "emorwvy1f1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "kozdkhngf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Disse que teve muito cansaço, porém não entendeu totalmente a atividade e fez os tiros em alta intensidade, e por isso ocasionou na fádiga extrema. Mesmo assim nos deu um feedback que já está se sentindo mais diposta ao decorrer dos dias, pretende sim continuar o projeto."
+     },
+     "bx4jgj6qf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Me disse que gosta desse estilo de treino, porém foi dolorido, teve grande dores de início tardío."
+     },
+     "n34x1pkaf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "0uqcg5gif1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Gostou muito e disse que foi bem puxado, mas sentiu bastante ao longo do treino"
+     },
+     "20mp5k0vf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "cl4n8fygf1q": {
+      "s": "✗",
+      "r": "",
+      "o": "Por conta da chuva não conseguimos fazer"
+     },
+     "d15nfvylf1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "w2qdcrkmf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou no período da noite"
+     },
+     "4eehn0hof1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "w2yk3gmcf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "zjyjlkb7f1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "2bu7pfm6f1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "9j5o5k3wf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "plfrjygmf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "5lfiirtlf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "f690yn9cf1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "juh8p64of1q": {
+      "s": "✗",
+      "r": "",
+      "o": "-"
+     },
+     "z2ukrouwf1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "ma2kglr6f1q": {
+      "s": "",
+      "r": "",
+      "o": "-"
+     },
+     "166thlk0f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Voltando à academia, um bom treino para retomarmos à rotina."
+     },
+     "f3rj5t7xf1q": {
+      "s": "✓",
+      "r": "13",
+      "o": ""
+     },
+     "8mticuqdf1q": {
+      "s": "✓",
+      "r": "-",
+      "o": ""
+     },
+     "zcl2z48hf1q": {
+      "s": "✗",
+      "r": "",
+      "o": "-"
+     },
+     "c7ybkf7jf1q": {
+      "s": "",
+      "r": "",
+      "o": "-"
+     },
+     "aalw0ggvf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "ulr0jle6f1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "vwy9ys9tf1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "094svga0f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizamos, fizemos 5km em um termpo de 46 minutos com ritmo de 8/59 +-, Bianca conseguiu administrar a respiração com muita motivação, conseguiu correr seguidamente do km 1,1 ao 2 e depois do 3,9 aos 5. Um avanço e tanto. Postura e pisadas perfeitas"
+     },
+     "dz6rteekf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "07iesubgf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Tranquilo, testes também realizados"
+     },
+     "6dcea2ttf1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "tg0j9i2cf1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "gz5u4ijwf1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "u5x7fgmlf1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "c8e39hnpf1q": {
+      "s": "✗",
+      "r": "",
+      "o": "Bianca não realizou, passarei esse treino para a próxima semana."
+     },
+     "lfqb32nlf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "59hn5devf1q": {
+      "s": "",
+      "r": "",
+      "o": "-"
+     },
+     "hs0b8zukf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "xufabmovf1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "ea8lhv96f1q": {
+      "s": "✓",
+      "r": "15",
+      "o": "Muito frio, um pouco de sono e respiração ruim segundo ela, por esse motivo o maior cansaço"
+     },
+     "ysn1vitef1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "fer728rmf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "s5tosv9cf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Tiros muito bons, todos a uma média de 05:40, explicado o quão cansativo foi."
+     },
+     "lwd7rvtvf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Bom treino! Tiros todos na média de 5/km, progessão constante"
+     },
+     "rszs3saxf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "xtkfiqyzf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Gostou do trajeto e disse que deu uma boa aliviada nas dores e seguiu disposta aos demias dias."
+     },
+     "thmyi6raf1q": {
+      "s": "✗",
+      "r": "",
+      "o": "Será a primeira vez pós 1 mês que irei ver de perto na prática o quanto foi benéfico essa periodização para Bianca.\n\nNão conseguimos fazer devido a muita chuva durante o dia todo, faremos na próxima semana."
+     },
+     "kmahql3jf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "e1n6hi33f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Gostou muito do desenvolvimento Ombro."
+     },
+     "319em2c0f1q": {
+      "s": "✓",
+      "r": "14",
+      "o": ""
+     },
+     "31c5ovuvf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "-"
+     },
+     "o7pyl6g7f1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Muito produtivo! Embora todo cansaço por ter feito o 1° tiro a pace 5:40 e consequentemente o cansaço maior para os futuros, porém realizou, o mais importante"
+     },
+     "nyddib28f1q": {
+      "s": "✓",
+      "r": "13",
+      "o": ""
+     },
+     "aum5zchbf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Gostou do treino, me disse que foi muito produtivo, iniciamos essa semana importante da melhor forma!"
+     },
+     "jywkjcq9f1q": {
+      "s": "",
+      "r": "-",
+      "o": ""
+     },
+     "e4xspfagf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "okt0kboaf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizado na Esteira da academia por conta do temo chuvoso, e me passou um feedback bom, gostou."
+     },
+     "j4wq3kx8f1q": {
+      "s": "✓",
+      "r": "13",
+      "o": ""
+     },
+     "9g8ye3eaf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Realizou fortalecimento e mobilidade de quadril por conta de problemas intestinais, passamos os educativos para amanhã ao invés do Tempo RUN"
+     },
+     "cre0fbi9f1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "rwbmmjkhf1q": {
+      "s": "",
+      "r": "",
+      "o": "OFF"
+     },
+     "kgcoboylf1q": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "4eaqyi3lf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Fez incríveis 4,32 KM em 30 minutos, isso sem demonstrar grande cansaço. Um ótimo sinal na qual estamos progredindo e os treinos estão surtindo efeito"
+     },
+     "1b3veqnmf1q": {
+      "s": "✓",
+      "r": "",
+      "o": "Acabou fazendo ao contrário, achando que Z1 seria o ritmo mais forte, por isso acabou tendo um cansaço elevado... Porém foi bem mesmo assim."
+     },
+     "6jyqs87af1q": {
+      "s": "✗",
+      "r": "-",
+      "o": ""
+     },
+     "duf2fy09f1q": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "zewqn2kmwka": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "bt9tzijswka": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "pjlf1rygwka": {
+      "s": "✓",
+      "r": "16",
+      "o": "ritmo 7:17"
+     },
+     "vyrth2qbwka": {
+      "s": "✓",
+      "r": "",
+      "o": "MANHÃ"
+     },
+     "f78xnoomwka": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "6gay8pfowka": {
+      "s": "✓",
+      "r": "13",
+      "o": ""
+     },
+     "7jx2mqzlwka": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "8i7mff0ywka": {
+      "s": "✓",
+      "r": "12",
+      "o": ""
+     },
+     "zp64is2pwka": {
+      "s": "✓",
+      "r": "12",
+      "o": ""
+     },
+     "2k8cs8dowka": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "qw7npvnqwka": {
+      "s": "✗",
+      "r": "",
+      "o": "TARDE"
+     },
+     "vfeymg4nwka": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "x4sgq90nwka": {
+      "s": "✓",
+      "r": "18",
+      "o": "Ótima corrida, 5km - Pace 6:28/km"
+     },
+     "zbxynjlvwka": {
+      "s": "✓",
+      "r": "10",
+      "o": ""
+     },
+     "383g5g9owka": {
+      "s": "✓",
+      "r": "16",
+      "o": "Ganhou um novo tenis (Fila Aero e está muito empolgada para seguir treinando)\nPACE: 7:07 /km"
+     },
+     "px8iia3wwka": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "t4qquybjwka": {
+      "s": "✓",
+      "r": "13",
+      "o": "Realizou exatamente oque foi pedido, ótimo treino e boa constância"
+     },
+     "pwikjyilwka": {
+      "s": "✗",
+      "r": "",
+      "o": "Por motivos de chuva, acabou não conseguindo realizar."
+     },
+     "jfpx5aeiwka": {
+      "s": "✓",
+      "r": "",
+      "o": ""
+     },
+     "l4u9ddidwka": {
+      "s": "✓",
+      "r": "15",
+      "o": ""
+     },
+     "zinniaicwka": {
+      "s": "✗",
+      "r": "",
+      "o": "Chuva, acabou não indo."
+     },
+     "kehat9fxwka": {
+      "s": "✓",
+      "r": "15",
+      "o": ""
+     },
+     "jat0lnhwwka": {
+      "s": "✗",
+      "r": "",
+      "o": ""
+     },
+     "j6gbnggwwka": {
+      "s": "✓",
+      "r": "",
+      "o": "TARDE"
+     },
+     "jfi79834wka": {
+      "s": "✓",
+      "r": "",
+      "o": "TARDE"
+     },
+     "c13chodnwka": {
+      "s": "✓",
+      "r": "11",
+      "o": ""
+     },
+     "7oqtv8tlwka": {
+      "s": "✗",
+      "r": "",
+      "o": "MANHÃ"
+     },
+     "arjkb212wka": {
+      "s": "✓",
+      "r": "12",
+      "o": ""
+     },
+     "a9tdnwg2wka": {
+      "s": "✗",
+      "r": "",
+      "o": "Virou descanso por conta que treinou no dia de ontem."
+     },
+     "us8dl3e2wka": {
+      "s": "✓",
+      "r": "12",
+      "o": ""
+     },
+     "28hmxw3owka": {
+      "s": "✓",
+      "r": "14",
+      "o": "Muito bom treino, realizou todos os 5 tiros num ritmo abaixo de 6:08/km, e o melhor foi 5:57. \nMuita boa sessão"
+     },
+     "fu137ks1wka": {
+      "s": "✓",
+      "r": "16",
+      "o": "Bom treino, fez 4 tiros... \nMédia PACE: 6:58"
+     },
+     "w2e9dl7xwka": {
+      "s": "✗",
+      "r": "",
+      "o": "Não foi, passado para dia seguinte"
+     },
+     "nox9bxudwka": {
+      "s": "✗",
+      "r": "",
+      "o": "Era seu descanso, porém vamos repor o treino da Segunda-feira"
+     },
+     "3vk4zijjwka": {
+      "s": "✓",
+      "r": "12",
+      "o": ""
+     },
+     "7pyvr6e1wka": {
+      "s": "✓",
+      "r": "",
+      "o": "TARDE"
+     },
+     "uf4muj5wwka": {
+      "s": "✓",
+      "r": "15",
+      "o": "MANHÃ"
+     },
+     "866p22jqwka": {
+      "s": "✓",
+      "r": "13",
+      "o": "Muita concistência durante os tiros, todos os 6 entre 5:52/km - 6:45/km. Ótimo treino porém ressalva na respiração, onde disse que sentiu dores laterais e acabou atrapalhando ela."
+     },
+     "9aycmq3fwka": {
+      "s": "✗",
+      "r": "",
+      "o": "Chegamos tarde por conta de um evento ontem e por isso não teve o descanso adequado"
+     },
+     "4xxrdf6twka": {
+      "s": "✓",
+      "r": "14",
+      "o": ""
+     },
+     "9sb46sw7wka": {
+      "s": "✓",
+      "r": "14",
+      "o": ""
+     },
+     "jcgbebsbwka": {
+      "s": "✓",
+      "r": "12",
+      "o": ""
+     },
+     "37b8cpeqwka": {
+      "s": "✗",
+      "r": "",
+      "o": "MANHÃ"
+     },
+     "i2ent1jrwka": {
+      "s": "✓",
+      "r": "16",
+      "o": "Disse que não aguentou terminar tudo pois teve problemas intestinais, e acabou concluindo 3km"
+     },
+     "pv32922cwka": {
+      "s": "✓",
+      "r": "15",
+      "o": "Ótimo treino, KMs fortes:\n2° - 6.11/km \n4° - 6.28/km"
+     },
+     "huqnb7zgwka": {
+      "s": "✓",
+      "r": "15",
+      "o": ""
+     },
+     "nm9mvlcewka": {
+      "s": "✓",
+      "r": "14",
+      "o": "Ótima sessão, realizou 8 tiros ao invés de 10 em um ritmo médio durante tiros de 5.06/KM"
+     },
+     "qdhz0n66wka": {
+      "s": "✓",
+      "r": "0",
+      "o": ""
+     },
+     "apo0xg3fwka": {
+      "s": "✓",
+      "r": "20\n",
+      "o": ""
+     },
+     "thoirktzwka": {
+      "s": "✓",
+      "r": 16,
+      "o": "",
+      "kmd": "2.6",
+      "ext": [
+       {
+        "tipo": "Run",
+        "src": "print",
+        "tiros": {
+         "media": 332.7142857142857,
+         "paces": [
+          322,
+          340,
+          315,
+          316,
+          316,
+          363,
+          357
+         ],
+         "n": 7,
+         "km": 0.3
+        },
+        "id": "p1793815308412",
+        "nome": "Print",
+        "alt": null,
+        "km": 2.6,
+        "fc": null,
+        "min": 29.2,
+        "kcal": 199
+       }
+      ]
+     },
+     "3ndf9798wka": {
+      "s": "✗",
+      "r": "-",
+      "o": "",
+      "kmd": ""
+     },
+     "ldckbf37wka": {
+      "s": "✗",
+      "r": "-",
+      "o": "",
+      "kmd": ""
+     },
+     "dxutxgbbwka": {
+      "s": "✗",
+      "r": "-",
+      "o": "",
+      "kmd": ""
+     },
+     "3radmediwka": {
+      "s": "✓",
+      "r": "17",
+      "o": "Sentiu no 4° km e tivemos de abaixar o ritmo",
+      "kmd": "4",
+      "ext": [
+       {
+        "min": 26.4,
+        "fc": null,
+        "km": 4,
+        "id": "p1794056359114",
+        "kcal": 317,
+        "nome": "Print",
+        "alt": null,
+        "tipo": "Run",
+        "src": "print"
+       }
+      ]
+     },
+     "h9ygbucvwka": {
+      "s": "✗",
+      "r": "\n",
+      "o": "",
+      "kmd": ""
+     },
+     "qwm5qbzmh73": {
+      "s": "✓",
+      "r": "13",
+      "o": "Conseguiu encaixar após a faculdade, pagou treino que não fez anteriormente",
+      "kmd": ""
+     },
+     "ylpv8rlvwka": {
+      "s": "✗",
+      "r": "",
+      "o": "",
+      "kmd": ""
+     },
+     "1pkc8n0dwka": {
+      "s": "✓",
+      "r": "",
+      "o": "",
+      "kmd": "3",
+      "ext": [
+       {
+        "id": "p1794476881479",
+        "src": "print",
+        "tipo": "Run",
+        "nome": "Print",
+        "km": 3,
+        "min": 23.8,
+        "fc": null,
+        "kcal": null,
+        "alt": null,
+        "tiros": null
+       }
+      ]
+     },
+     "wmo19oqwwka": {
+      "s": "✓",
+      "r": 13,
+      "o": "",
+      "kmd": "1",
+      "ext": [
+       {
+        "id": "p1794564021506",
+        "src": "print",
+        "tipo": "Run",
+        "nome": "Print",
+        "km": 1,
+        "min": 0,
+        "fc": null,
+        "kcal": null,
+        "alt": null,
+        "tiros": null
+       }
+      ]
+     },
+     "tzqobonvwka": {
+      "s": "✗",
+      "r": "",
+      "o": "",
+      "kmd": ""
+     },
+     "_push": {
+      "tokens": [
+       "d6fxQT8rmJ4u_3lSmgBTPr:APA91bHf-kBPXTOgjX3NnquqiumqEiwsIbWpC2c7uQWK9w18eVs3vNpmCx-2uNs0y5zi-t7ka3-Zzk7Wmty6IF9kvZasIgdE1HdhDma4RSK_MltMYEfCV6A"
+      ],
+      "horas": [
+       12,
+       18,
+       22
+      ],
+      "tz": "America/Sao_Paulo",
+      "em": 1794590319505
+     },
+     "lu3cu1skwka": {
+      "s": "✓",
+      "r": "",
+      "o": "",
+      "kmd": ""
+     },
+     "tqhc8wzjwka": {
+      "s": "✓",
+      "r": 12,
+      "o": "",
+      "kmd": "5",
+      "ext": [
+       {
+        "nome": "Print",
+        "fc": null,
+        "src": "print",
+        "kcal": null,
+        "km": 0,
+        "id": "p1794778888317",
+        "alt": null,
+        "tipo": "Run",
+        "tiros": null,
+        "min": 35
+       }
+      ]
+     },
+     "i8qgbnhjwka": {
+      "s": "✓",
+      "r": 13,
+      "o": "",
+      "kmd": "3"
+     },
+     "3n5l0obrwka": {
+      "s": "✓",
+      "r": 13,
+      "o": "",
+      "kmd": ""
+     },
+     "t6ltdigywka": {
+      "s": "✓",
+      "r": 13,
+      "o": "",
+      "kmd": "4.64",
+      "ext": [
+       {
+        "kcal": null,
+        "alt": null,
+        "min": 44.7,
+        "km": 4.64,
+        "fc": null,
+        "tipo": "Run",
+        "id": "p1794909846371",
+        "nome": "Print",
+        "src": "print",
+        "tiros": null
+       }
+      ]
+     },
+     "axpl5lppwka": {
+      "s": "✓",
+      "r": 13,
+      "o": "",
+      "kmd": ""
+     }
+    },
+    "hist": {
+     "Rosca_tri_ceps_neutra_na_polia_alta__corda_": [
+      {
+       "b": "16"
+      },
+      {
+       "b": "16"
+      },
+      {
+       "b": "16"
+      },
+      {
+       "b": "16"
+      }
+     ],
+     "Desenvolvimento_de_ombros_com_halteres": [
+      {
+       "b": "10"
+      },
+      {
+       "b": "10"
+      },
+      {
+       "b": "10"
+      },
+      {
+       "b": "10"
+      }
+     ],
+     "Puxada_no_puxador_anilhado": [
+      {
+       "b": "36"
+      },
+      {
+       "b": "36"
+      },
+      {
+       "b": "36"
+      },
+      {
+       "b": "36"
+      }
+     ],
+     "Pallof_Press_na_polia_me_dia__manopla_": [
+      {
+       "b": "20"
+      },
+      {
+       "b": "20"
+      },
+      {
+       "b": "20"
+      },
+      {
+       "b": "20"
+      }
+     ],
+     "Remada_serrote_no_banco_com_halter": [
+      {
+       "b": "16"
+      },
+      {
+       "b": "16"
+      },
+      {
+       "b": "16"
+      },
+      {
+       "b": "16"
+      }
+     ],
+     "Pedalada_na_bicicleta_spinning": [
+      {
+       "b": ""
+      }
+     ],
+     "Bom_dia_com_kettlebell_atra_s_do_pescoc_o": [
+      {
+       "b": "26"
+      },
+      {
+       "b": "26"
+      },
+      {
+       "b": "26"
+      }
+     ],
+     "Levantamento_terra_sumo__com_barra": [
+      {
+       "b": "20"
+      },
+      {
+       "b": "20"
+      },
+      {
+       "b": "20"
+      }
+     ],
+     "Descida_lateral_do_banco": [
+      {
+       "b": "20"
+      },
+      {
+       "b": "20"
+      },
+      {
+       "b": ""
+      }
+     ],
+     "Elevac_a_o_de_quadril_unilateral_no_banco_com_barra": [
+      {
+       "b": ""
+      },
+      {
+       "b": ""
+      },
+      {
+       "b": ""
+      }
+     ],
+     "Abdominal_remador": [
+      {
+       "b": ""
+      },
+      {
+       "b": ""
+      },
+      {
+       "b": ""
+      },
+      {
+       "b": ""
+      }
+     ],
+     "Desenvolvimento_de_ombros_sentado_com_halteres_e_apoio_para_as_costas": [
+      {
+       "b": "25"
+      },
+      {
+       "b": "25"
+      },
+      {
+       "b": "25"
+      },
+      {
+       "b": "25"
+      }
+     ],
+     "Remada_serrote_aberta_no_banco_com_halter": [
+      {
+       "b": "12"
+      },
+      {
+       "b": "12"
+      },
+      {
+       "b": "12"
+      },
+      {
+       "b": "12"
+      }
+     ],
+     "Prancha_baixa_em_isometria": [
+      {
+       "b": ""
+      },
+      {
+       "b": ""
+      },
+      {
+       "b": ""
+      },
+      {
+       "b": ""
+      }
+     ],
+     "Giro_russo_com_bola_medicinal": [
+      {
+       "b": "6"
+      },
+      {
+       "b": "6"
+      },
+      {
+       "b": "6"
+      },
+      {
+       "b": "6"
+      }
+     ],
+     "Marcha_lateral_com_miniband__monster_walk_": [
+      {
+       "b": "-"
+      },
+      {
+       "b": "-"
+      },
+      {
+       "b": "-"
+      }
+     ],
+     "Agachamento_sumo__com_halter_nos_steps": [
+      {
+       "b": "26"
+      },
+      {
+       "b": "26"
+      },
+      {
+       "b": "26"
+      },
+      {
+       "b": "26"
+      }
+     ],
+     "Levantamento_Stiff_unilateral_com_halter": [
+      {
+       "b": "8/8"
+      },
+      {
+       "b": "8/8"
+      },
+      {
+       "b": "8/8"
+      },
+      {
+       "b": "8/8"
+      }
+     ],
+     "Elevac_a_o_de_quadril_no_banco_com_barra": [
+      {
+       "b": "40"
+      },
+      {
+       "b": "40"
+      },
+      {
+       "b": "40"
+      },
+      {
+       "b": "40"
+      }
+     ],
+     "Flexa_o_plantar_na_ma_quina_c_placas_de_agachamento_hack": [
+      {
+       "b": "10"
+      },
+      {
+       "b": "10"
+      },
+      {
+       "b": "10"
+      },
+      {
+       "b": "10"
+      }
+     ]
+    },
+    "sessions": [
+     {
+      "ficha": "B1",
+      "data": "2026-11-11T00:08:10.437Z",
+      "min": 43,
+      "rpe": 13,
+      "ex": [
+       {
+        "n": "Remada serrote no banco com halter",
+        "sets": [
+         {
+          "a": "6",
+          "b": "16"
+         },
+         {
+          "a": "6",
+          "b": "16"
+         },
+         {
+          "a": "6",
+          "b": "16"
+         },
+         {
+          "a": "6",
+          "b": "16"
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Desenvolvimento de ombros com halteres",
+        "sets": [
+         {
+          "a": "6",
+          "b": "10"
+         },
+         {
+          "a": "6",
+          "b": "10"
+         },
+         {
+          "a": "6",
+          "b": "10"
+         },
+         {
+          "a": "6",
+          "b": "10"
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Rosca tríceps neutra na polia alta (corda)",
+        "sets": [
+         {
+          "a": "6",
+          "b": "16"
+         },
+         {
+          "a": "6",
+          "b": "16"
+         },
+         {
+          "a": "6",
+          "b": "16"
+         },
+         {
+          "a": "6",
+          "b": "16"
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Puxada no puxador anilhado",
+        "sets": [
+         {
+          "a": "6",
+          "b": "36"
+         },
+         {
+          "a": "6",
+          "b": "36"
+         },
+         {
+          "a": "6",
+          "b": "36"
+         },
+         {
+          "a": "6",
+          "b": "36"
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Pallof Press na polia média (manopla)",
+        "sets": [
+         {
+          "a": "12",
+          "b": "20"
+         },
+         {
+          "a": "12",
+          "b": "20"
+         },
+         {
+          "a": "12",
+          "b": "20"
+         },
+         {
+          "a": "12",
+          "b": "20"
+         }
+        ],
+        "com": ""
+       }
+      ]
+     },
+     {
+      "ficha": "A3",
+      "data": "2026-11-13T09:59:31.787Z",
+      "min": 34,
+      "rpe": 13,
+      "ex": [
+       {
+        "n": "Descida lateral do banco",
+        "sets": [
+         {
+          "a": "8",
+          "b": "20"
+         },
+         {
+          "a": "8",
+          "b": "20"
+         },
+         {
+          "a": "8",
+          "b": ""
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Bom dia com kettlebell atrás do pescoço",
+        "sets": [
+         {
+          "a": "8",
+          "b": "26"
+         },
+         {
+          "a": "8",
+          "b": "26"
+         },
+         {
+          "a": "8",
+          "b": "26"
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Levantamento terra sumô com barra",
+        "sets": [
+         {
+          "a": "8",
+          "b": "20"
+         },
+         {
+          "a": "8",
+          "b": "20"
+         },
+         {
+          "a": "8",
+          "b": "20"
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Elevação de quadril unilateral no banco com barra",
+        "sets": [
+         {
+          "a": "10",
+          "b": ""
+         },
+         {
+          "a": "10",
+          "b": ""
+         },
+         {
+          "a": "10",
+          "b": ""
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Pedalada na bicicleta spinning",
+        "sets": [
+         {
+          "a": "8:00",
+          "b": ""
+         }
+        ],
+        "com": ""
+       }
+      ]
+     },
+     {
+      "ficha": "B2",
+      "data": "2026-11-16T21:58:23.375Z",
+      "min": 27,
+      "rpe": 13,
+      "ex": [
+       {
+        "n": "Desenvolvimento de ombros sentado com halteres e apoio para as costas",
+        "sets": [
+         {
+          "a": "12",
+          "b": "25"
+         },
+         {
+          "a": "12",
+          "b": "25"
+         },
+         {
+          "a": "12",
+          "b": "25"
+         },
+         {
+          "a": "12",
+          "b": "25"
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Remada serrote aberta no banco com halter",
+        "sets": [
+         {
+          "a": "12",
+          "b": "12"
+         },
+         {
+          "a": "12",
+          "b": "12"
+         },
+         {
+          "a": "12",
+          "b": "12"
+         },
+         {
+          "a": "12",
+          "b": "12"
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Prancha baixa em isometria",
+        "sets": [
+         {
+          "a": "0:50",
+          "b": ""
+         },
+         {
+          "a": "0:50",
+          "b": ""
+         },
+         {
+          "a": "0:50",
+          "b": ""
+         },
+         {
+          "a": "0:50",
+          "b": ""
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Abdominal remador",
+        "sets": [
+         {
+          "a": "12",
+          "b": ""
+         },
+         {
+          "a": "12",
+          "b": ""
+         },
+         {
+          "a": "12",
+          "b": ""
+         },
+         {
+          "a": "12",
+          "b": ""
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Giro russo com bola medicinal",
+        "sets": [
+         {
+          "a": "16",
+          "b": "6"
+         },
+         {
+          "a": "16",
+          "b": "6"
+         },
+         {
+          "a": "16",
+          "b": "6"
+         },
+         {
+          "a": "16",
+          "b": "6"
+         }
+        ],
+        "com": ""
+       }
+      ]
+     },
+     {
+      "ficha": "A2",
+      "data": "2026-11-18T09:52:03.251Z",
+      "min": 50,
+      "rpe": 13,
+      "ex": [
+       {
+        "n": "Marcha lateral com miniband (monster walk)",
+        "sets": [
+         {
+          "a": "8",
+          "b": "-"
+         },
+         {
+          "a": "8",
+          "b": "-"
+         },
+         {
+          "a": "8",
+          "b": "-"
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Agachamento sumô com halter nos steps",
+        "sets": [
+         {
+          "a": "5",
+          "b": "26"
+         },
+         {
+          "a": "5",
+          "b": "26"
+         },
+         {
+          "a": "5",
+          "b": "26"
+         },
+         {
+          "a": "5",
+          "b": "26"
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Levantamento Stiff unilateral com halter",
+        "sets": [
+         {
+          "a": "5",
+          "b": "8/8"
+         },
+         {
+          "a": "5",
+          "b": "8/8"
+         },
+         {
+          "a": "5",
+          "b": "8/8"
+         },
+         {
+          "a": "5",
+          "b": "8/8"
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Elevação de quadril no banco com barra",
+        "sets": [
+         {
+          "a": "5",
+          "b": "40"
+         },
+         {
+          "a": "5",
+          "b": "40"
+         },
+         {
+          "a": "5",
+          "b": "40"
+         },
+         {
+          "a": "5",
+          "b": "40"
+         }
+        ],
+        "com": ""
+       },
+       {
+        "n": "Flexão plantar na máquina c/placas de agachamento hack",
+        "sets": [
+         {
+          "a": "8",
+          "b": "10"
+         },
+         {
+          "a": "8",
+          "b": "10"
+         },
+         {
+          "a": "8",
+          "b": "10"
+         },
+         {
+          "a": "8",
+          "b": "10"
+         }
+        ],
+        "com": ""
+       }
+      ]
+     }
+    ],
     "push": {
      "tokens": [
       "d6fxQT8rmJ4u_3lSmgBTPr:APA91bHf-kBPXTOgjX3NnquqiumqEiwsIbWpC2c7uQWK9w18eVs3vNpmCx-2uNs0y5zi-t7ka3-Zzk7Wmty6IF9kvZasIgdE1HdhDma4RSK_MltMYEfCV6A"
@@ -14964,13 +15417,21 @@
      "tz": "America/Sao_Paulo",
      "em": 1794590319505,
      "enviados": {
-      "2026-11-17": [
+      "2026-11-18": [
        12,
        18,
        22
       ]
      }
     }
+   },
+   "sub": {}
+  }
+ },
+ "emails": {
+  "tallysm@gmail.com": {
+   "data": {
+    "uid": "43asGGQKYbfFy7ZCQSEfI2zNHgD2"
    },
    "sub": {}
   }
@@ -14990,36 +15451,7 @@
   "notif": {
    "data": {
     "vistos": {
-     "cImpA9hrIAaK2NwEjt9d": {
-      "1cgf9re5wl2": "✓|12|",
-      "5p314lk5wl2": "✓|18|",
-      "7w0l04ilwl2": "✗|-|",
-      "qi4o2zccwl2": "✓|14|",
-      "7s38cxnzwl2": "✓|11|",
-      "99he38m8wl2": "✓|12|",
-      "oty7hylhwl2": "✓|12|",
-      "ybtr8sqfwl2": "✓|-|",
-      "u4t8ww4uwl2": "✓|14|",
-      "vauho5igwl2": "✓|13|",
-      "w18s2kzowl2": "✓|12|",
-      "zee9qceqwl2": "✗||",
-      "nh9fa0xlwl2": "✓|11|",
-      "n3y96z27wl2": "✗|-|",
-      "glu2zfr0wl2": "✓|13|",
-      "ti7k6ckxwl2": "✓|14|",
-      "ywhsmzv2wl2": "✗||",
-      "1dnd5fg1wl2": "✗||",
-      "q70d4cyhwl2": "✗||",
-      "b41oaak2wl2": "✓||",
-      "ke11n16twl2": "✗||",
-      "vhsshdrmwl2": "✗||",
-      "mlfhpk36wl2": "✓|13|",
-      "qb9hvmz7wl2": "✓||",
-      "m4usoxcxwl2": "✓|17|",
-      "ly6xhddhwl2": "✗||",
-      "tmzlg37lwl2": "✗||",
-      "7d7wjknlwl2": "✓|14|"
-     },
+     "BwDxSaOlECTdpwbcegeM": {},
      "sosjXORp3QIuJsWhfRjv": {
       "gdqyg4egf1q": "✗|-|",
       "gjh4phbff1q": "✓||",
@@ -15358,10 +15790,11 @@
       "tqhc8wzjwka": "✓|12|5",
       "i8qgbnhjwka": "✓|13|3",
       "3n5l0obrwka": "✓|13|",
-      "t6ltdigywka": "✓|13|4.64"
+      "t6ltdigywka": "✓|13|4.64",
+      "axpl5lppwka": "✓|13|"
      }
     },
-    "em": "2026-11-18T07:23:00.459Z"
+    "em": "2026-11-19T06:33:09.017Z"
    },
    "sub": {}
   }
@@ -15382,12 +15815,20 @@
       22
      ],
      "enviados": {
-      "2026-11-17": [
+      "2026-11-18": [
        12,
        22
       ]
      }
     }
+   },
+   "sub": {}
+  },
+  "43asGGQKYbfFy7ZCQSEfI2zNHgD2": {
+   "data": {
+    "role": "athlete",
+    "athleteId": "BwDxSaOlECTdpwbcegeM",
+    "email": "tallysm@gmail.com"
    },
    "sub": {}
   },
