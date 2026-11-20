@@ -587,7 +587,7 @@ function renderTable(){const m=M(),cols=m.cols,n=cols.length,TYPES=allTypes(),TR
    let left=n,html='';for(const[t,c]of parts){if(left<=0)break;const cs=Math.min(c,left);left-=cs;html+=`<td colspan="${cs}" data-i="${i}">${t}</td>`}return`<tr class="sum">${rn}${html}</tr>`}
   return`<tr class="${r===TR?'hoje':''}">${rn}`+cols.map((c,ci)=>{const sc=sel&&sel.c===ci?' selc':'',v=r[c.id]??'';
    if(c.id==='s')return`<td class="st ${v==='✓'?'ok':v==='✗'?'no':'pend'}${sc}" data-i="${i}" data-c="${ci}" data-k="s" title="Clique para mudar">${v||'·'}</td>`;
-   if(c.id==='t')return`<td class="${sc}" data-i="${i}" data-c="${ci}"><select data-i="${i}" data-k="t" class="${v?'':'vazio'}" style="--c:${typeColor(v)}" aria-label="Tipo de treino">${['',...TYPES].map(o=>`<option ${o&&typeKey(o)===typeKey(v)||(!o&&!v)?'selected':''}>${esc(o)}</option>`).join('')}</select></td>`;
+   if(c.id==='t')return`<td class="${sc}" data-i="${i}" data-c="${ci}"><select data-i="${i}" data-k="t" class="${v?'':'vazio'}" style="--c:${typeColor(v)}" aria-label="Tipo de treino">${['',...TYPES].map(o=>`<option ${o&&typeKey(o)===typeKey(v)||(!o&&!v)?'selected':''}>${esc(o)}</option>`).join('')}<option value="__new">+ Nova categoria…</option></select></td>`;
    const cls=['c','o'].includes(c.id)||c.id.startsWith('x')?'c':'num';
    if(c.id==='kmd'&&r.ext&&r.ext.length){const A=runAgg(r);return`<td class="${cls}${sc} kx" contenteditable data-i="${i}" data-c="${ci}" data-k="${c.id}" data-x="${tempoF(A.min)} · ${paceF(A.km,A.min)}/km${A.fc?' · FC '+Math.round(A.fc):''}" title="Do print: ${tempoF(A.min)} · pace ${paceF(A.km,A.min)}/km${A.fc?' · FC '+Math.round(A.fc):''}">${esc(v)}</td>`}
    return`<td class="${cls}${sc}" contenteditable data-i="${i}" data-c="${ci}" data-k="${c.id}">${esc(v)}</td>`}).join('')+'</tr>'}).join('');
@@ -626,7 +626,9 @@ tbody.addEventListener('focusin',()=>{tbody._snap||(snap(),tbody._snap=1)});
 function refreshSums(){const m=M(),a=document.activeElement;[...tbody.children].forEach((tr,i)=>{const r=m.rows[i];if(!r||r.sum==null||tr.contains(a))return;const st=weekStats(m.rows,weekOf(m.rows,i)),td=tr.lastElementChild;if(td)td.innerHTML=kmCell(st,r,i)})}
 tbody.addEventListener('focusout',e=>{tbody._snap=0;if(['p','r','km','kmPlan','kmd'].includes(e.target.dataset.k)){setTimeout(()=>{refreshSums();renderChart();renderHome()},0)}});
 tbody.addEventListener('input',e=>{const t=e.target,k=t.dataset.k;if(t.dataset.i==null||!k||k==='s')return;M().rows[t.dataset.i][k]=t.tagName==='SELECT'?t.value:t.innerText;if(k==='t'){t.style.setProperty('--c',typeColor(t.value));t.classList.toggle('vazio',!t.value);renderHome()}});
-tbody.addEventListener('change',e=>{if(e.target.tagName==='SELECT'){M().rows[e.target.dataset.i].t=e.target.value;renderHome()}});
+tbody.addEventListener('change',e=>{if(e.target.tagName!=='SELECT')return;const r=M().rows[e.target.dataset.i];
+ if(e.target.value==='__new'){const n=canonType(prompt('Nome da nova categoria de treino (ex.: Mobilidade, Pliometria):','')||'');if(n){const ex=allTypes().find(t=>typeKey(t)===typeKey(n));r.t=ex||n}renderTable();renderHome();return}
+ r.t=e.target.value;e.target.style.setProperty('--c',typeColor(r.t));e.target.classList.toggle('vazio',!r.t);renderHome()});
 const sheets=document.getElementById('sheets');
 sheets.addEventListener('click',e=>{const b=e.target.closest('[data-m]');if(!b)return;if(b.dataset.m==='new')return act('mes');if(+b.dataset.m!==cur){cur=+b.dataset.m;sel=null;renderTable()}});
 sheets.addEventListener('dblclick',e=>{const b=e.target.closest('[data-m]');if(!b||b.dataset.m==='new')return;b.contentEditable='true';b.focus();document.getSelection().selectAllChildren(b);
