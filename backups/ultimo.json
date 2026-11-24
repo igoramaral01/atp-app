@@ -1489,261 +1489,284 @@
      "_seconds": 1795133167,
      "_nanoseconds": 330000000
     },
+    "uid": "mMX3FlGAdQXnKmSP7eaDB8EfkUM2",
+    "email": "miguelalexandrers01@gmail.com",
+    "termos": {
+     "aceito": true,
+     "em": {
+      "_seconds": 1795137822,
+      "_nanoseconds": 402000000
+     }
+    },
     "months": [
      {
+      "nome": "MÊS 1",
       "rows": [
        {
         "w": 1
        },
        {
-        "p": "14",
-        "dt": "23/11",
-        "id": "k4k4qy2yu6j",
-        "o": "\n",
-        "c": "5 TIROS 500 METROS, Ritmo alvo Z3 (5:50)\nPausa passiva (parada, descanso total) de 4 minutos a cada tiro.\n\n Seguir à risca o ritmo prescrito, ou seja, não forçar mais que o indicado e não violar o tempo mínimo de descanso. ",
-        "s": "",
-        "t": "Velocidade",
         "d": "SEGUNDA",
-        "r": "",
-        "kmd": "",
-        "ext": null
+        "t": "Velocidade",
+        "dt": "23/11",
+        "kmd": "2.5 5:25/km\n",
+        "p": "14",
+        "o": "Se manteve por bastante tempo em ritmos de 4:40 +-",
+        "id": "k4k4qy2yu6j",
+        "ext": [
+         {
+          "kcal": null,
+          "src": "print",
+          "tipo": "Run",
+          "id": "p1795464948021",
+          "alt": 667,
+          "min": 0,
+          "fc": null,
+          "nome": "Print",
+          "km": 2.5,
+          "tiros": null
+         }
+        ],
+        "s": "✓",
+        "c": "5 TIROS 500 METROS, Ritmo alvo Z3 (5:50)\nPausa passiva (parada, descanso total) de 4 minutos a cada tiro.\n\n Seguir à risca o ritmo prescrito, ou seja, não forçar mais que o indicado e não violar o tempo mínimo de descanso. ",
+        "r": "11"
        },
        {
         "s": "",
-        "t": "Força",
-        "d": "TERÇA",
-        "r": "",
-        "id": "fweseno7u6j",
-        "dt": "24/11",
         "c": "Academia - sugestão, superiores. ",
+        "id": "fweseno7u6j",
+        "r": "",
+        "d": "TERÇA",
+        "t": "Força",
+        "dt": "24/11",
         "o": "",
         "p": ""
        },
        {
-        "c": "FARTLEK - 4KM com variação de ritmo.\nKM 1 - Z2 (6:10)\nKM 2 -  Z3 (5:50)\nKM 3 -  Z2 (6:10)\nKM 4 - Z3 (5:50)",
-        "id": "knd1xfvju6j",
         "ext": null,
-        "t": "Res. Velocidade",
-        "r": "\n",
-        "d": "QUARTA",
-        "dt": "25/11",
         "s": "",
-        "p": "13",
+        "c": "FARTLEK - 4KM com variação de ritmo.\nKM 1 - Z2 (6:10)\nKM 2 -  Z3 (5:50)\nKM 3 -  Z2 (6:10)\nKM 4 - Z3 (5:50)",
+        "r": "\n",
+        "dt": "25/11",
         "kmd": "",
+        "t": "Res. Velocidade",
+        "d": "QUARTA",
+        "o": "",
+        "p": "13",
+        "id": "knd1xfvju6j"
+       },
+       {
+        "c": "-",
+        "r": "",
+        "dt": "26/11",
+        "s": "",
+        "o": "",
+        "p": "",
+        "t": "Descanso",
+        "d": "QUINTA",
+        "id": "oiekgsslu6j"
+       },
+       {
+        "s": "",
+        "dt": "27/11",
+        "c": "Academia - Sugestão full-body leve.",
+        "r": "",
+        "d": "SEXTA",
+        "t": "Força",
+        "id": "nf00gf0ku6j",
+        "p": "",
         "o": ""
        },
        {
-        "dt": "26/11",
         "o": "",
-        "p": "",
-        "id": "oiekgsslu6j",
-        "s": "",
-        "t": "Descanso",
-        "d": "QUINTA",
-        "r": "",
-        "c": "-"
-       },
-       {
-        "s": "",
-        "t": "Força",
-        "d": "SEXTA",
-        "r": "",
-        "id": "nf00gf0ku6j",
-        "dt": "27/11",
-        "c": "Academia - Sugestão full-body leve.",
-        "o": "",
-        "p": ""
-       },
-       {
         "p": "15",
-        "dt": "28/11",
         "id": "28q0pqq4u6j",
-        "o": "",
-        "c": "RODAGEM 4 KM Z3/Z4 (05:30 - 05:50)\nTreino onde o objetivo é encaixar um ritmo estável entre o Z prescrito e sustentar ao longo dos 4 KM.",
-        "s": "",
         "t": "Específico",
         "d": "SÁBADO",
-        "r": ""
-       },
-       {
-        "o": "",
-        "p": "8",
-        "dt": "29/11",
-        "s": "",
-        "t": "Manutenção",
-        "d": "DOMINGO",
         "r": "",
-        "c": "CAMINHADA - 3 KM\nIntuito de tal treino é a recuperação e soltura da musculatura após realização de todo programa da semana.",
-        "id": "kil6ktezu6j"
+        "c": "RODAGEM 4 KM Z3/Z4 (05:30 - 05:50)\nTreino onde o objetivo é encaixar um ritmo estável entre o Z prescrito e sustentar ao longo dos 4 KM.",
+        "dt": "28/11",
+        "s": ""
        },
        {
-        "kmPlan": "13.5",
+        "s": "",
+        "c": "CAMINHADA - 3 KM\nIntuito de tal treino é a recuperação e soltura da musculatura após realização de todo programa da semana.",
+        "r": "",
+        "id": "kil6ktezu6j",
+        "d": "DOMINGO",
+        "t": "Manutenção",
+        "dt": "29/11",
+        "o": "",
+        "p": "8"
+       },
+       {
+        "km": "",
         "sum": 1,
-        "km": ""
+        "kmPlan": "13.5"
        },
        {
         "w": 2
        },
        {
-        "t": "",
-        "d": "SEGUNDA",
+        "c": "",
         "r": "",
-        "s": "",
-        "id": "3xgmz0bbu6j",
         "dt": "30/11",
-        "c": "",
+        "s": "",
+        "p": "",
         "o": "",
-        "p": ""
+        "d": "SEGUNDA",
+        "t": "",
+        "id": "3xgmz0bbu6j"
        },
        {
+        "r": "",
         "c": "",
+        "s": "",
         "id": "86h54g1yu6j",
-        "dt": "01/12",
-        "s": "",
-        "t": "",
-        "d": "TERÇA",
-        "r": "",
-        "p": "",
-        "o": ""
-       },
-       {
-        "id": "pqcl37l8u6j",
-        "c": "",
-        "s": "",
-        "t": "",
-        "d": "QUARTA",
-        "r": "",
-        "dt": "02/12",
-        "p": "",
-        "o": ""
-       },
-       {
         "p": "",
         "o": "",
+        "dt": "01/12",
+        "d": "TERÇA",
+        "t": ""
+       },
+       {
+        "r": "",
+        "c": "",
+        "id": "pqcl37l8u6j",
+        "s": "",
+        "o": "",
+        "p": "",
+        "dt": "02/12",
+        "d": "QUARTA",
+        "t": ""
+       },
+       {
+        "c": "",
+        "r": "",
         "dt": "03/12",
+        "s": "",
+        "p": "",
+        "o": "",
+        "id": "kpoaxzo0u6j",
+        "d": "QUINTA",
+        "t": ""
+       },
+       {
+        "r": "",
         "c": "",
         "s": "",
-        "id": "kpoaxzo0u6j",
+        "dt": "04/12",
+        "o": "",
+        "p": "",
+        "d": "SEXTA",
         "t": "",
-        "d": "QUINTA",
+        "id": "x1ehwzveu6j"
+       },
+       {
+        "dt": "05/12",
+        "d": "SÁBADO",
+        "t": "",
+        "p": "",
+        "o": "",
+        "id": "g39s2hlru6j",
+        "s": "",
+        "r": "",
+        "c": ""
+       },
+       {
+        "dt": "06/12",
+        "t": "",
+        "d": "DOMINGO",
+        "o": "",
+        "p": "",
+        "id": "vp36e7czu6j",
+        "s": "",
+        "c": "",
         "r": ""
        },
        {
-        "t": "",
-        "d": "SEXTA",
-        "r": "",
-        "s": "",
-        "c": "",
-        "o": "",
-        "id": "x1ehwzveu6j",
-        "dt": "04/12",
-        "p": ""
-       },
-       {
-        "t": "",
-        "d": "SÁBADO",
-        "r": "",
-        "s": "",
-        "c": "",
-        "id": "g39s2hlru6j",
-        "o": "",
-        "dt": "05/12",
-        "p": ""
-       },
-       {
-        "s": "",
-        "t": "",
-        "d": "DOMINGO",
-        "r": "",
-        "c": "",
-        "o": "",
-        "id": "vp36e7czu6j",
-        "dt": "06/12",
-        "p": ""
-       },
-       {
-        "sum": 2,
-        "km": ""
+        "km": "",
+        "sum": 2
        },
        {
         "w": 3
        },
        {
-        "s": "",
+        "id": "0z7twdkmu6j",
+        "p": "",
+        "o": "",
         "t": "",
         "d": "SEGUNDA",
-        "r": "",
-        "c": "",
-        "id": "0z7twdkmu6j",
-        "o": "",
         "dt": "07/12",
-        "p": ""
-       },
-       {
-        "o": "",
-        "p": "",
-        "dt": "08/12",
-        "s": "",
-        "t": "",
-        "d": "TERÇA",
-        "r": "",
         "c": "",
-        "id": "18w7uxk3u6j"
-       },
-       {
-        "s": "",
-        "t": "",
-        "id": "1ugq69a9u6j",
-        "d": "QUARTA",
-        "r": "",
-        "dt": "09/12",
-        "c": "",
-        "o": "",
-        "p": ""
-       },
-       {
-        "s": "",
-        "t": "",
-        "d": "QUINTA",
-        "r": "",
-        "c": "",
-        "id": "xvtb61tcu6j",
-        "o": "",
-        "dt": "10/12",
-        "p": ""
-       },
-       {
-        "o": "",
-        "p": "",
-        "dt": "11/12",
-        "t": "",
-        "d": "SEXTA",
-        "r": "",
-        "s": "",
-        "c": "",
-        "id": "znw6nhalu6j"
-       },
-       {
-        "p": "",
-        "o": "",
-        "c": "",
-        "dt": "12/12",
-        "t": "",
-        "id": "e6udj96ru6j",
-        "d": "SÁBADO",
         "r": "",
         "s": ""
        },
        {
-        "dt": "13/12",
+        "r": "",
+        "c": "",
+        "dt": "08/12",
+        "s": "",
         "o": "",
-        "id": "vl5v78dau6j",
         "p": "",
+        "id": "18w7uxk3u6j",
+        "d": "TERÇA",
+        "t": ""
+       },
+       {
+        "o": "",
+        "p": "",
+        "dt": "09/12",
+        "t": "",
+        "d": "QUARTA",
+        "id": "1ugq69a9u6j",
+        "r": "",
+        "c": "",
+        "s": ""
+       },
+       {
+        "s": "",
+        "c": "",
+        "r": "",
+        "dt": "10/12",
+        "d": "QUINTA",
+        "t": "",
+        "id": "xvtb61tcu6j",
+        "o": "",
+        "p": ""
+       },
+       {
+        "s": "",
+        "c": "",
+        "r": "",
+        "id": "znw6nhalu6j",
+        "d": "SEXTA",
+        "t": "",
+        "o": "",
+        "p": "",
+        "dt": "11/12"
+       },
+       {
+        "dt": "12/12",
+        "p": "",
+        "o": "",
+        "d": "SÁBADO",
+        "t": "",
+        "c": "",
+        "r": "",
+        "id": "e6udj96ru6j",
+        "s": ""
+       },
+       {
+        "s": "",
+        "r": "",
+        "c": "",
+        "dt": "13/12",
         "t": "",
         "d": "DOMINGO",
-        "r": "",
-        "s": "",
-        "c": ""
+        "o": "",
+        "p": "",
+        "id": "vl5v78dau6j"
        },
        {
         "sum": 3,
@@ -1753,85 +1776,85 @@
         "w": 4
        },
        {
-        "dt": "14/12",
-        "o": "",
-        "p": "",
-        "id": "dotye2pru6j",
-        "t": "",
-        "d": "SEGUNDA",
         "r": "",
+        "c": "",
+        "dt": "14/12",
         "s": "",
-        "c": ""
+        "p": "",
+        "o": "",
+        "d": "SEGUNDA",
+        "t": "",
+        "id": "dotye2pru6j"
        },
        {
         "p": "",
-        "dt": "15/12",
-        "id": "c31voybzu6j",
         "o": "",
+        "id": "c31voybzu6j",
+        "d": "TERÇA",
+        "t": "",
+        "dt": "15/12",
+        "c": "",
+        "r": "",
+        "s": ""
+       },
+       {
+        "o": "",
+        "p": "",
+        "id": "zaaxq4rpu6j",
+        "d": "QUARTA",
+        "t": "",
+        "dt": "16/12",
+        "c": "",
+        "r": "",
+        "s": ""
+       },
+       {
+        "r": "",
         "c": "",
         "s": "",
-        "t": "",
-        "d": "TERÇA",
-        "r": ""
-       },
-       {
-        "dt": "16/12",
-        "o": "",
-        "id": "zaaxq4rpu6j",
-        "p": "",
-        "s": "",
-        "t": "",
-        "d": "QUARTA",
-        "r": "",
-        "c": ""
-       },
-       {
         "dt": "17/12",
         "o": "",
-        "id": "uczey5r6u6j",
         "p": "",
-        "t": "",
         "d": "QUINTA",
-        "r": "",
-        "s": "",
-        "c": ""
+        "t": "",
+        "id": "uczey5r6u6j"
        },
        {
-        "c": "",
-        "t": "",
-        "d": "SEXTA",
-        "r": "",
         "s": "",
         "id": "syfxwtqnu6j",
+        "r": "",
+        "c": "",
+        "d": "SEXTA",
+        "t": "",
         "p": "",
         "o": "",
         "dt": "18/12"
        },
        {
-        "p": "",
-        "dt": "19/12",
-        "o": "",
+        "s": "",
         "id": "h30qpqchu6j",
+        "r": "",
         "c": "",
         "t": "",
         "d": "SÁBADO",
-        "r": "",
-        "s": ""
-       },
-       {
         "p": "",
         "o": "",
-        "c": "",
-        "dt": "20/12",
-        "t": "",
-        "id": "eqpcttv1u6j",
-        "d": "DOMINGO",
-        "r": "",
-        "s": ""
+        "dt": "19/12"
        },
        {
-        "sum": 4,
-        "km": ""
+        "c": "",
+        "r": "",
+        "dt": "20/12",
+        "s": "",
+        "p": "",
+        "o": "",
+        "id": "eqpcttv1u6j",
+        "d": "DOMINGO",
+        "t": ""
+       },
+       {
+        "km": "",
+        "sum": 4
        }
       ],
       "cols": [
@@ -1840,16 +1863,16 @@
         "l": "✓/✗"
        },
        {
-        "l": "Dia",
-        "id": "d"
+        "id": "d",
+        "l": "Dia"
        },
        {
         "l": "Data",
         "id": "dt"
        },
        {
-        "l": "Treino",
-        "id": "t"
+        "id": "t",
+        "l": "Treino"
        },
        {
         "l": "Conteúdo",
@@ -1860,8 +1883,8 @@
         "id": "p"
        },
        {
-        "l": "(6-20)",
-        "id": "r"
+        "id": "r",
+        "l": "(6-20)"
        },
        {
         "l": "KM",
@@ -1871,34 +1894,18 @@
         "l": "Observação",
         "id": "o"
        }
-      ],
-      "nome": "MÊS 1"
+      ]
      }
     ],
     "atualizado": {
-     "_seconds": 1795136387,
-     "_nanoseconds": 812000000
-    },
-    "uid": "mMX3FlGAdQXnKmSP7eaDB8EfkUM2",
-    "email": "miguelalexandrers01@gmail.com",
-    "termos": {
-     "aceito": true,
-     "em": {
-      "_seconds": 1795137822,
-      "_nanoseconds": 402000000
-     }
+     "_seconds": 1795465310,
+     "_nanoseconds": 867000000
     },
     "fb": {
      "knd1xfvju6j": {
       "s": "",
       "r": "\n",
       "o": "",
-      "kmd": ""
-     },
-     "k4k4qy2yu6j": {
-      "s": "",
-      "r": "",
-      "o": "\n",
       "kmd": ""
      },
      "_push": {
@@ -1912,6 +1919,26 @@
       ],
       "tz": "America/Sao_Paulo",
       "em": 1795305082503
+     },
+     "k4k4qy2yu6j": {
+      "s": "✓",
+      "r": 12,
+      "o": "Se manteve por bastante tempo em ritmos de 4:40 +-",
+      "kmd": "2.5",
+      "ext": [
+       {
+        "id": "p1795465807083",
+        "src": "print",
+        "tipo": "Run",
+        "nome": "Print",
+        "km": 2.5,
+        "min": 0,
+        "fc": null,
+        "kcal": null,
+        "alt": 667,
+        "tiros": null
+       }
+      ]
      }
     },
     "push": {
@@ -1926,7 +1953,7 @@
      "tz": "America/Sao_Paulo",
      "em": 1795305082503,
      "enviados": {
-      "2026-11-22": [
+      "2026-11-23": [
        12,
        18,
        22
@@ -16098,7 +16125,7 @@
      "tz": "America/Sao_Paulo",
      "em": 1794590319505,
      "enviados": {
-      "2026-11-22": [
+      "2026-11-23": [
        12,
        18,
        22
@@ -16139,7 +16166,9 @@
    "data": {
     "vistos": {
      "BwDxSaOlECTdpwbcegeM": {},
-     "En2olKxpeBM7lEyS04Ou": {},
+     "En2olKxpeBM7lEyS04Ou": {
+      "k4k4qy2yu6j": "✓|12|2.5"
+     },
      "sosjXORp3QIuJsWhfRjv": {
       "gdqyg4egf1q": "✗|-|",
       "gjh4phbff1q": "✓||",
@@ -16486,7 +16515,7 @@
       "va4yp8xtwka": "✓||5"
      }
     },
-    "em": "2026-11-23T06:44:46.096Z"
+    "em": "2026-11-24T07:21:59.749Z"
    },
    "sub": {}
   }
@@ -16507,7 +16536,7 @@
       22
      ],
      "enviados": {
-      "2026-11-22": [
+      "2026-11-23": [
        12,
        22
       ]
