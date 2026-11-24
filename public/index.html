@@ -644,9 +644,21 @@ tbody.addEventListener('click',e=>{const td=e.target.closest('td');if(!td||td.da
  const changed=!sel||sel.i!==i||sel.c!==c;sel={i,c};if(changed){const f=document.activeElement,k=f&&f.dataset&&f.dataset.k;renderTable();if(k&&td.dataset.k){const n=tbody.querySelector(`[data-i="${i}"][data-k="${k}"]`);n&&n.focus()}}});
 thead.addEventListener('click',e=>{const th=e.target.closest('th[data-c]');if(!th)return;const c=+th.dataset.c;if(!sel||sel.c!==c){sel={i:sel?sel.i:null,c};renderTable();const h=thead.querySelector(`[data-h="${c}"]`);h&&h.focus()}});
 thead.addEventListener('input',e=>{const h=e.target.dataset.h;if(h!=null)M().cols[h].l=e.target.innerText.trim()||'Coluna'});
-tbody.addEventListener('focusin',()=>{tbody._snap||(snap(),tbody._snap=1)});
+tbody.addEventListener('focusin',e=>{tbody._snap||(snap(),tbody._snap=1);const t=e.target;if(t.dataset&&t.dataset.k==='dt')tbody._dt={i:+t.dataset.i,v:M().rows[t.dataset.i].dt||''}});
+const DIA_SEM=['DOMINGO','SEGUNDA','TERÇA','QUARTA','QUINTA','SEXTA','SÁBADO'];
+function ddmm(v){const m=String(v||'').match(/(\d{1,2})\s*\/\s*(\d{1,2})/);if(!m)return null;const d=+m[1],mo=+m[2];return d>=1&&d<=31&&mo>=1&&mo<=12?[d,mo]:null}
+function nearYear(d,mo,ref){let best=null;for(const y of [ref.getFullYear()-1,ref.getFullYear(),ref.getFullYear()+1]){const x=new Date(y,mo-1,d,12);if(!best||Math.abs(x-ref)<Math.abs(best-ref))best=x}return best}
+const fmtDM=x=>String(x.getDate()).padStart(2,'0')+'/'+String(x.getMonth()+1).padStart(2,'0');
+function setDia(r,x){const suf=String(r.d||'').trim().split(/\s+/).slice(1).join(' ');r.d=DIA_SEM[x.getDay()]+(suf&&!/^\d/.test(suf)?' '+suf:'')}
+function cascadeDates(i,oldV){const rs=M().rows,r=rs[i],nw=ddmm(r.dt);if(!nw)return;const base=nearYear(nw[0],nw[1],new Date());r.dt=fmtDM(base);setDia(r,base);
+ const od=ddmm(oldV),oldBase=od?nearYear(od[0],od[1],base):null;let prev=base,n=0;
+ for(let j=i+1;j<rs.length;j++){const q=rs[j];if(q.w!=null||q.sum!=null)continue;let x;const qd=ddmm(q.dt);
+  if(oldBase&&qd){let y=nearYear(qd[0],qd[1],oldBase);if(y<oldBase)y=new Date(y.getFullYear()+1,y.getMonth(),y.getDate(),12);x=new Date(base.getTime()+(y-oldBase))}
+  else x=new Date(prev.getFullYear(),prev.getMonth(),prev.getDate()+1,12);
+  x=new Date(x.getFullYear(),x.getMonth(),x.getDate(),12);q.dt=fmtDM(x);setDia(q,x);prev=x;n++}
+ renderTable();renderHome();if(n)flash('Datas e dias da semana seguintes ajustados ✓')}
 function refreshSums(){const m=M(),a=document.activeElement;[...tbody.children].forEach((tr,i)=>{const r=m.rows[i];if(!r||r.sum==null||tr.contains(a))return;const st=weekStats(m.rows,weekOf(m.rows,i)),td=tr.lastElementChild;if(td)td.innerHTML=kmCell(st,r,i)})}
-tbody.addEventListener('focusout',e=>{tbody._snap=0;if(['p','r','km','kmPlan','kmd'].includes(e.target.dataset.k)){setTimeout(()=>{refreshSums();renderChart();renderHome()},0)}});
+tbody.addEventListener('focusout',e=>{tbody._snap=0;if(e.target.dataset.k==='dt'&&tbody._dt&&tbody._dt.i===+e.target.dataset.i){const o=tbody._dt;tbody._dt=null;if((M().rows[o.i].dt||'')!==o.v)setTimeout(()=>cascadeDates(o.i,o.v),0)}if(['p','r','km','kmPlan','kmd'].includes(e.target.dataset.k)){setTimeout(()=>{refreshSums();renderChart();renderHome()},0)}});
 tbody.addEventListener('input',e=>{const t=e.target,k=t.dataset.k;if(t.dataset.i==null||!k||k==='s')return;M().rows[t.dataset.i][k]=t.tagName==='SELECT'?t.value:t.innerText;if(k==='t'){t.style.setProperty('--c',typeColor(t.value));t.classList.toggle('vazio',!t.value);renderHome()}});
 tbody.addEventListener('change',e=>{if(e.target.tagName!=='SELECT')return;const r=M().rows[e.target.dataset.i];
  if(e.target.value==='__new'){const n=canonType(prompt('Nome da nova categoria de treino (ex.: Mobilidade, Pliometria):','')||'');if(n){const ex=allTypes().find(t=>typeKey(t)===typeKey(n));r.t=ex||n}renderTable();renderHome();return}
