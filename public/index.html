@@ -291,6 +291,7 @@ input[type=range].borgr{width:100%;accent-color:var(--purple)}
 .hdr-r{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .out{all:unset;cursor:pointer;font-size:13px;color:var(--mute);font-weight:600;padding:8px}.out:hover{color:var(--fg)}
 .li.sel{background:var(--panel2);border-radius:8px;padding-inline:8px}
+.expb{all:unset;cursor:pointer;width:34px;height:34px;display:grid;place-items:center;border-radius:8px;color:var(--mute);border:1px solid var(--line);flex:0 0 34px}.expb:hover{color:var(--fg)}.exinfo{display:grid;gap:4px;padding:0 0 12px 48px}.exinfo small{color:var(--mute)}.pform{display:grid;gap:10px}@media(min-width:700px){.pform{grid-template-columns:1fr 1fr}.pform .fl:has(textarea){grid-column:1/-1}}
 .li button.pick{all:unset;cursor:pointer;display:flex;gap:12px;align-items:center;flex:1;min-width:0}
 .inv{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.inv input{flex:1;min-width:140px;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:7px;font:inherit;font-size:13px}
 .termos{max-height:45vh;overflow:auto;font-size:13px;color:var(--mute);background:var(--panel2);border-radius:8px;padding:12px}
@@ -535,6 +536,7 @@ if(document.readyState==='complete')go();else addEventListener('load',go);setTim
     <button role="tab" aria-selected="false" data-t="cal">Calendário</button>
     <button role="tab" aria-selected="false" data-t="a-av">Avaliações</button>
     <button role="tab" aria-selected="false" data-t="a-rel">Relatório</button>
+    <button role="tab" aria-selected="false" data-t="a-perf">Perfil</button>
     <button role="tab" aria-selected="false" data-t="a-cfg">Conexões</button>
   </div>
   <div id="hoje" class="panel"><div class="phone today">
@@ -557,6 +559,7 @@ if(document.readyState==='complete')go();else addEventListener('load',go);setTim
   <div id="treinos" class="panel" hidden><div class="flist" id="a-fichas"></div></div>
   <div id="a-av" class="panel" hidden><div id="a-av-root"></div></div>
   <div id="a-rel" class="panel" hidden><div id="rel-root"></div></div>
+  <div id="a-perf" class="panel" hidden><div id="perf-root"></div></div>
   <div id="a-cfg" class="panel" hidden><div id="cfg-root"></div></div>
   <div id="cal" class="panel" hidden><div class="card"><div class="eyebrow" style="margin-bottom:10px" id="cal-t"></div><div class="cal" id="calg"></div></div></div>
 </section>
@@ -1056,7 +1059,7 @@ renderFichasAluno();
 // navegação
 function mode(m){if(ROLE==='athlete')m='aluno';document.getElementById('coach').hidden=m!=='coach';document.getElementById('aluno').hidden=m!=='aluno';document.getElementById('m-coach').setAttribute('aria-pressed',m==='coach');document.getElementById('m-aluno').setAttribute('aria-pressed',m==='aluno')}
 document.getElementById('m-coach').onclick=()=>mode('coach');document.getElementById('m-aluno').onclick=()=>mode('aluno');
-document.querySelectorAll('.tabs').forEach(tl=>tl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;tl.querySelectorAll('button').forEach(x=>{x.setAttribute('aria-selected',x===b);document.getElementById(x.dataset.t).hidden=x!==b})}));
+document.querySelectorAll('.tabs').forEach(tl=>tl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.t==='a-perf'){PERF_DRAFT=null;setTimeout(renderPerfil,0)}tl.querySelectorAll('button').forEach(x=>{x.setAttribute('aria-selected',x===b);document.getElementById(x.dataset.t).hidden=x!==b})}));
 renderAll();
 
 // ---------- NUVEM: login, salvamento e alunos (Firebase) ----------
@@ -1077,7 +1080,7 @@ const planStr=()=>JSON.stringify({months,pastas});
 const busy=()=>{const a=document.activeElement;return a&&(a.isContentEditable||/INPUT|TEXTAREA|SELECT/.test(a.tagName))&&!runner.contains(a)};
 let WARMED='';function warmImgs(){if(!navigator.onLine||!('serviceWorker' in navigator))return;const U=new Set();for(const p of pastas)for(const f of p.fichas||[])for(const x of f.ex||[])(x.img||[]).slice(0,2).forEach(i=>U.add(IMG+i));const k=[...U].join('|');if(!U.size||k===WARMED)return;WARMED=k;
  navigator.serviceWorker.ready.then(()=>{const L=[...U];let i=0;const nx=()=>{if(i>=L.length)return;const u=L[i++];fetch(u,{mode:'no-cors'}).catch(()=>{}).finally(()=>setTimeout(nx,60))};nx();nx()})}
-function applyDoc(d){setTimeout(warmImgs,3000);CURATH=d;LOADED=true;months.splice(0,months.length,...(d.months&&d.months.length?d.months:[newMonth('MÊS 1',new Date())]));normTypes();months.forEach(ensureKmCol);pastas.splice(0,pastas.length,...(d.pastas||[]));
+function applyDoc(d){PERF_DRAFT=null;setTimeout(warmImgs,3000);CURATH=d;LOADED=true;months.splice(0,months.length,...(d.months&&d.months.length?d.months:[newMonth('MÊS 1',new Date())]));normTypes();months.forEach(ensureKmCol);pastas.splice(0,pastas.length,...(d.pastas||[]));
  const fb=d.fb||{};for(const m of months)for(const r of m.rows)if(r.id&&fb[r.id])Object.assign(r,{s:fb[r.id].s||'',r:fb[r.id].r??'',o:fb[r.id].o||'',kmd:fb[r.id].kmd??r.kmd??'',ext:fb[r.id].ext||null});
  for(const k in HIST)delete HIST[k];Object.assign(HIST,d.hist||{});
  if(cur>=months.length)cur=0;if(pasta!=null&&pasta>=pastas.length)pasta=null;lastSaved=planStr();ensureIds();if(ROLE!=='coach')lastSaved=planStr();prevFb=fbFromRows();undoStack.length=0;document.getElementById('undo').disabled=true;
@@ -1109,8 +1112,29 @@ async function loadAthletes(){const A=await athQuery();ATHS=A.docs.map(d=>({id:d
  if(!ATHS.length){const ref=FS.collection('athletes').doc();const m=newMonth('MÊS 1',new Date(2026,10,30));m.rows.forEach(r=>{if(r.w==null&&r.sum==null)r.id=rid()});
   const d={nome:'Bianca Cândido',email:'',months:clean([m]),pastas:clean(SEED_PASTAS),fb:{},criado:FV.serverTimestamp()};await ref.set(d);ATHS=[{id:ref.id,...d}]}
  let last=null;try{last=localStorage.getItem('atp-aid')}catch(e){}subscribe(ATHS.some(a=>a.id===last)?last:ATHS[0].id)}
+// ---------- PERFIL DO ALUNO (dados pessoais + foto) ----------
+const PERF_F=[['nasc','Data de nascimento','date'],['tel','Telefone / WhatsApp','tel'],['cidade','Cidade','text'],['altura','Altura (cm)','number'],['peso','Peso (kg)','number'],['objetivo','Objetivo principal','text'],['lesoes','Lesões ou restrições','area'],['emerg','Contato de emergência (nome e telefone)','text']];
+const perfOf=a=>a?(a.perfil||(a.fb&&a.fb._perfil)||{}):{};
+const idade=n=>{if(!n)return null;const d=new Date(n+'T12:00:00'),t=new Date();let y=t.getFullYear()-d.getFullYear();if(t<new Date(t.getFullYear(),d.getMonth(),d.getDate()))y--;return y>0&&y<120?y:null};
+function avHtml(a,size){const p=perfOf(a),s=size||36,ini=(a&&a.nome||'?').split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+ return p.foto?`<span class="av" style="width:${s}px;height:${s}px;flex-basis:${s}px;background:url('${p.foto}') center/cover"></span>`:`<span class="av" style="width:${s}px;height:${s}px;flex-basis:${s}px;font-size:${Math.round(s/2.6)}px">${esc(ini)}</span>`}
+let PERF_DRAFT=null;
+function renderPerfil(){const el=document.getElementById('perf-root');if(!el||!CURATH)return;const p=PERF_DRAFT||{...perfOf(CURATH)};PERF_DRAFT=p;
+ el.innerHTML=`<div class="card"><div style="display:flex;gap:16px;align-items:center;margin-bottom:14px">${avHtml({nome:CURATH.nome,perfil:p},84)}<div style="min-width:0"><b style="font-size:18px;display:block">${esc(CURATH.nome||'')}</b><small style="color:var(--mute)">${esc(CURATH.email||'')}</small><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><label class="mini ghost" style="cursor:pointer">${p.foto?'Trocar foto':'Adicionar foto'}<input type="file" id="pf-foto" accept="image/*" hidden></label>${p.foto?'<button class="mini ghost" id="pf-rmfoto">Remover</button>':''}</div></div></div>
+ <div class="pform">${PERF_F.map(([k,l,t])=>`<label class="fl"><span>${l}</span>${t==='area'?`<textarea data-pf="${k}" rows="2">${esc(p[k]||'')}</textarea>`:`<input data-pf="${k}" type="${t}" ${t==='number'?'inputmode="decimal"':''} value="${esc(p[k]||'')}">`}</label>`).join('')}</div>
+ <button class="big" id="pf-save" style="display:block;width:100%;box-sizing:border-box;margin-top:12px">Salvar perfil</button><div class="amsg" id="pf-msg"></div></div>`}
+function shrinkImg(file){return new Promise((ok,no)=>{const r=new FileReader();r.onerror=no;r.onload=()=>{const im=new Image();im.onerror=no;im.onload=()=>{const S=320,c=document.createElement('canvas'),m=Math.min(im.width,im.height);c.width=c.height=S;c.getContext('2d').drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,S,S);ok(c.toDataURL('image/jpeg',.8))};im.src=r.result};r.readAsDataURL(file)})}
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.pf;if(k&&PERF_DRAFT)PERF_DRAFT[k]=e.target.value});
+document.addEventListener('change',async e=>{if(e.target.id!=='pf-foto'||!e.target.files[0])return;try{PERF_DRAFT.foto=await shrinkImg(e.target.files[0]);renderPerfil();const m=document.getElementById('pf-msg');m.className='amsg';m.textContent='Foto pronta. Toque em Salvar perfil.'}catch(err){alert('Não consegui ler essa imagem.')}});
+document.addEventListener('click',async e=>{if(e.target.id==='pf-rmfoto'){delete PERF_DRAFT.foto;return renderPerfil()}
+ if(e.target.id!=='pf-save')return;const m=document.getElementById('pf-msg'),p={...PERF_DRAFT,atualizado:new Date().toISOString()};m.className='amsg';m.textContent='Salvando…';
+ try{await FS.collection('athletes').doc(AID).update({'fb._perfil':p});try{await FS.collection('athletes').doc(AID).update({perfil:p})}catch(x){}
+  CURATH.perfil=p;CURATH.fb=CURATH.fb||{};CURATH.fb._perfil=p;const a=ATHS.find(x=>x.id===AID);if(a){a.perfil=p}m.className='amsg ok';m.textContent='Perfil salvo ✓'}
+ catch(err){m.className='amsg err';m.textContent='Não consegui salvar ('+(err.code||err.message)+').'}});
+
+let EXP=new Set();
 function renderAlunos(){const el=document.getElementById('h-alunos');if(!el||ROLE!=='coach')return;
- el.innerHTML=ATHS.map(a=>{const ini=(a.nome||'?').split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();return`<div class="li ${a.id===AID?'sel':''}"><button class="pick" data-aid="${a.id}"><span class="av">${esc(ini)}</span><span style="min-width:0"><b>${esc(a.nome)}</b><small>${a.uid?esc(a.email)+' · com acesso':'Sem acesso ao app ainda'}</small></span></button>${a.id===AID?'<span class="pill p-ok">ABERTO</span>':''}</div><div class="inv">${a.uid?`<button class="mini ghost" data-resend="${esc(a.email)}">Reenviar link de criar senha</button>`:''}<button class="mini ghost" data-ren-aluno="${a.id}">Editar nome</button><button class="mini ghost warn" data-del-aluno="${a.id}">Excluir aluno</button></div>${!a.uid?`<div class="inv"><input id="inv-${a.id}" type="email" placeholder="E-mail de ${esc(a.nome.split(' ')[0])}" value="${esc(a.email||'')}" aria-label="E-mail para convite"><button class="mini" data-inv="${a.id}">CONVIDAR</button></div>`:''}`}).join('')+
+ el.innerHTML=ATHS.map(a=>{const op=EXP.has(a.id),p=perfOf(a),id=idade(p.nasc),info=[id?id+' anos':'',p.tel,p.cidade,p.altura?p.altura+' cm':'',p.peso?p.peso+' kg':''].filter(Boolean);return`<div class="li ${a.id===AID?'sel':''}"><button class="pick" data-aid="${a.id}">${avHtml(a)}<span style="min-width:0"><b>${esc(a.nome)}</b></span></button>${a.id===AID?'<span class="pill p-ok">ABERTO</span>':''}<button class="expb" data-exp="${a.id}" aria-expanded="${op}" aria-label="${op?'Recolher':'Ver mais de'} ${esc(a.nome)}">${op?'▴':'▾'}</button></div>${op?`<div class="exinfo"><small>${a.uid?esc(a.email)+' · com acesso':'Sem acesso ao app ainda'}</small>${info.length?`<small>${esc(info.join(' · '))}</small>`:''}${p.objetivo?`<small>Objetivo: ${esc(p.objetivo)}</small>`:''}${p.lesoes?`<small>Lesões/restrições: ${esc(p.lesoes)}</small>`:''}${p.emerg?`<small>Emergência: ${esc(p.emerg)}</small>`:''}<div class="inv">${a.uid?`<button class="mini ghost" data-resend="${esc(a.email)}">Reenviar link de criar senha</button>`:''}<button class="mini ghost" data-ren-aluno="${a.id}">Editar nome</button><button class="mini ghost warn" data-del-aluno="${a.id}">Excluir aluno</button></div>${!a.uid?`<div class="inv"><input id="inv-${a.id}" type="email" placeholder="E-mail de ${esc(a.nome.split(' ')[0])}" value="${esc(a.email||'')}" aria-label="E-mail para convite"><button class="mini" data-inv="${a.id}">CONVIDAR</button></div>`:''}</div>`:''}`}).join('')+
  `<div class="newbox" style="margin-top:12px"><label for="na-n" style="font-size:12px;color:var(--mute)">Novo aluno</label><input id="na-n" placeholder="Nome completo"><input id="na-e" type="email" placeholder="E-mail (para ele receber o acesso)"><button data-novo>CRIAR ALUNO</button><div class="amsg" id="na-msg"></div></div>`}
 function renderAlerts(){const el=document.getElementById('h-alert');if(!el)return;const it=[],today=new Date();today.setHours(0,0,0,0);
  const D=datedRows(),past=D.filter(o=>o.dt<today&&o.dt>=new Date(today.getTime()-7*864e5));
@@ -1134,7 +1158,7 @@ async function convidar(aid,email,msgEl){email=(email||'').trim().toLowerCase();
   await FS.collection('users').doc(uid).set({role:'athlete',athleteId:aid,email});await FS.collection('athletes').doc(aid).update({uid,email});await FS.collection('emails').doc(email).set({uid}).catch(()=>{});
   try{sec.auth().languageCode='pt'}catch(e){}await sec.auth().sendPasswordResetEmail(email,ACS()).catch(err=>/continue-uri/.test(err.code||'')?sec.auth().sendPasswordResetEmail(email):Promise.reject(err));await sec.auth().signOut();msgEl.className='amsg ok';msgEl.textContent='Convite enviado para '+email+'. Peça para olhar o spam também.';return true}
  catch(e){msgEl.className='amsg err';msgEl.textContent=e.code==='email-em-uso-por-aluno'?'Esse e-mail já é de outro aluno ('+e.nome+').':e.code==='auth/email-already-in-use'?'Esse e-mail já tem conta.':'Não consegui criar o acesso ('+(e.code||e.message)+').';return false}}
-document.getElementById('h-alunos').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
+document.getElementById('h-alunos').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.exp){EXP.has(b.dataset.exp)?EXP.delete(b.dataset.exp):EXP.add(b.dataset.exp);return renderAlunos()}
  if(b.dataset.aid&&b.dataset.aid!==AID){if(ROLE==='coach'&&planStr()!==lastSaved)await save();subscribe(b.dataset.aid);pasta=null;cur=0;renderAlunos();return}
  if(b.dataset.delAluno)return delAluno(b.dataset.delAluno);
  if(b.dataset.resend){b.disabled=true;try{await AUTH.sendPasswordResetEmail(b.dataset.resend,ACS()).catch(err=>/continue-uri/.test(err.code||'')?AUTH.sendPasswordResetEmail(b.dataset.resend):Promise.reject(err));b.textContent='Link reenviado para '+b.dataset.resend}catch(err){b.textContent='Não consegui reenviar ('+(err.code||err.message)+')';b.disabled=false}return}

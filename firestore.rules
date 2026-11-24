@@ -25,7 +25,7 @@ service cloud.firestore {
       allow read, write: if isCoach();
       allow read: if isAthleteOf(id);
       allow update: if isAthleteOf(id)
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fb', 'hist', 'sessions', 'termos', 'strava', 'push']);
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fb', 'hist', 'sessions', 'termos', 'strava', 'push', 'perfil']);
     }
     // vínculo e-mail -> conta de login (para recadastrar um aluno excluído)
     match /emails/{email} {
