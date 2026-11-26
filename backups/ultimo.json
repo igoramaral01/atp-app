@@ -1965,7 +1965,7 @@
      "tz": "America/Sao_Paulo",
      "em": 1795305082503,
      "enviados": {
-      "2026-11-24": [
+      "2026-11-25": [
        12,
        18,
        22
@@ -2127,906 +2127,36 @@
       ]
      }
     ],
+    "hist": {
+     "Abdominal_canivete__remador_": [
+      {
+       "b": ""
+      },
+      {
+       "b": ""
+      },
+      {
+       "b": ""
+      }
+     ],
+     "Bicicleta_ergome_trica": [
+      {
+       "b": ""
+      }
+     ]
+    },
+    "sessions": [],
     "months": [
      {
-      "rows": [
-       {
-        "w": 1
-       },
-       {
-        "s": "",
-        "r": "-",
-        "o": "",
-        "p": "",
-        "dt": "19/10",
-        "t": "Descanso",
-        "c": "",
-        "kmd": "",
-        "id": "pjsc5cdmbcw",
-        "d": "SEGUNDA",
-        "ext": null
-       },
-       {
-        "t": "Força",
-        "c": "Academia - FI1",
-        "ext": null,
-        "s": "✓",
-        "r": "11",
-        "o": "Me senti bem e com uma percepção legal do esforço, fiz com cargas altas e me senti confortável na realização da explosão concêntrica.",
-        "p": "12 - 15",
-        "dt": "20/10",
-        "kmd": "",
-        "d": "Terça\nManhã",
-        "id": "al8jf8bhbcw"
-       },
-       {
-        "ext": null,
-        "d": "Terça\nTarde",
-        "id": "strz6g64bcw",
-        "t": "Específico",
-        "kmd": "",
-        "c": "Teste Sprints\n5 x 30 M",
-        "dt": "",
-        "p": "13 - 16",
-        "s": "✓",
-        "r": "14",
-        "o": ""
-       },
-       {
-        "id": "an9l6rnvbcw",
-        "dt": "21/10",
-        "d": "QUARTA",
-        "kmd": "",
-        "t": "Força",
-        "c": "Academia - S1",
-        "ext": null,
-        "s": "✓",
-        "r": "13",
-        "o": "Fazendo com cargas altas e me sentindo bem.",
-        "p": ""
-       },
-       {
-        "dt": "22/10",
-        "t": "Específico",
-        "c": "Sprint - 16 x 8 metros\n(perna dominante e não dominante)",
-        "p": "",
-        "id": "wd7nvuqubcw",
-        "s": "✗",
-        "r": "-",
-        "ext": null,
-        "o": "Chuva impossibilitou a realização",
-        "d": "QUINTA",
-        "kmd": ""
-       },
-       {
-        "d": "SEXTA\nManhã",
-        "kmd": "",
-        "ext": null,
-        "id": "dszgronhbcw",
-        "s": "✓",
-        "r": "11",
-        "o": "Novos exercícios, carga bem baixa para criar memória motora de como realizar",
-        "p": "",
-        "t": "Potência",
-        "dt": "23/10",
-        "c": "Academia  - PI1"
-       },
-       {
-        "ext": null,
-        "d": "SEXTA\nTarde",
-        "id": "s1lp2g6nbcw",
-        "t": "Específico",
-        "kmd": "",
-        "c": "Sprint - 10 x 5 metros\n(perna dominante)",
-        "dt": "",
-        "p": "",
-        "s": "✓",
-        "r": "12",
-        "o": "Por conta da chuva, não rolou treino de pista."
-       },
-       {
-        "kmd": "",
-        "d": "SÁBADO",
-        "s": "✓",
-        "r": "14",
-        "o": "Por conta do calor e horário que fomos estava bem calor e acabou exigindo mais, porém um bom treino, confortável",
-        "ext": null,
-        "id": "wn1wa561bcw",
-        "p": "8 - 12",
-        "t": "Recuperação",
-        "c": "Rodagem Leve\n10 KM apé",
-        "dt": "24/10"
-       },
-       {
-        "id": "m1dsum8fbcw",
-        "d": "DOMINGO",
-        "ext": null,
-        "dt": "25/10",
-        "p": "",
-        "s": "✓",
-        "r": "-",
-        "o": "",
-        "t": "Descanso",
-        "c": "-",
-        "kmd": ""
-       },
-       {
-        "sum": 1,
-        "km": ""
-       },
-       {
-        "w": 2
-       },
-       {
-        "d": "SEGUNDA",
-        "id": "2qkfs3xubcw",
-        "ext": null,
-        "dt": "26/10",
-        "p": "14 - 17",
-        "s": "✓",
-        "r": "12",
-        "o": "",
-        "kmd": "",
-        "t": "Força",
-        "c": "Academia FI2"
-       },
-       {
-        "id": "1l38zmtibcw",
-        "d": "Terça\nManhã",
-        "ext": null,
-        "dt": "27/10",
-        "p": "13 - 17",
-        "s": "✗",
-        "r": "",
-        "o": "",
-        "t": "Específico",
-        "c": "Sprint - 16 x 5 metros\n(perna dominante e não dominante)",
-        "kmd": ""
-       },
-       {
-        "p": "",
-        "dt": "",
-        "s": "✓",
-        "r": "18",
-        "o": "Ótimo treino, me senti leve na pista e consegui fazer largadas boas, elogiado pelo treinador justamente na parte que estamos treinando, que é a potência e explosão da pedalada para entrar no grio rápido, feedback muito positivo",
-        "id": "ffwz2cf2bcw",
-        "ext": null,
-        "t": "Específico",
-        "c": "Pista BMX, 4 pistas inteiras com Gate, sendo:\n\n1° - Somente 1a reta forte, o resto no embalo \n2° - Somente 1a e 2a reta forte, resto no embalo\n3° - 1a 2a e 3a forte, resto no embalo\n4° - volta completa 100%",
-        "d": "Terça\nTarde",
-        "kmd": ""
-       },
-       {
-        "id": "ikarmo07bcw",
-        "d": "QUARTA",
-        "kmd": "",
-        "dt": "28/10",
-        "p": "12 - 16",
-        "s": "✓",
-        "r": "12",
-        "o": "",
-        "ext": null,
-        "t": "Força",
-        "c": "Academia S2"
-       },
-       {
-        "kmd": "",
-        "d": "QUINTA",
-        "ext": null,
-        "t": "Potência",
-        "id": "ft5a96ydbcw",
-        "c": "Academia PI2",
-        "dt": "29/10",
-        "s": "✗",
-        "r": "",
-        "o": "",
-        "p": "12 - 16"
-       },
-       {
-        "p": "10 - 12",
-        "dt": "30/10",
-        "s": "✓",
-        "r": "13",
-        "o": "",
-        "id": "4v4vb7iobcw",
-        "kmd": "",
-        "t": "Potência",
-        "c": "Academia PI2",
-        "d": "Sexta\nManhã",
-        "ext": null
-       },
-       {
-        "s": "✗",
-        "r": "",
-        "dt": "",
-        "o": "Chuva",
-        "p": "",
-        "kmd": "",
-        "id": "3hwfzdtcbcw",
-        "t": "Específico",
-        "c": "Pista BMX",
-        "d": "Sexta\nTarde",
-        "ext": null
-       },
-       {
-        "t": "Recuperação",
-        "c": "Corrida 10 Km",
-        "kmd": "",
-        "p": "10 - 12",
-        "s": "✓",
-        "r": "12",
-        "o": "",
-        "dt": "31/10",
-        "ext": null,
-        "d": "SÁBADO",
-        "id": "eq9yc9bgbcw"
-       },
-       {
-        "kmd": "",
-        "d": "DOMINGO",
-        "s": "",
-        "r": "-",
-        "o": "",
-        "ext": null,
-        "p": "",
-        "id": "k6kcos6xbcw",
-        "t": "Descanso",
-        "c": "-",
-        "dt": "01/11"
-       },
-       {
-        "km": "",
-        "sum": 1
-       },
-       {
-        "w": 3
-       },
-       {
-        "t": "Específico",
-        "c": "Sprints 15m",
-        "dt": "02/11",
-        "s": "✗",
-        "r": "-",
-        "o": "Chuva e preguiça",
-        "p": "",
-        "kmd": "",
-        "id": "oan65cpobcw",
-        "d": "SEGUNDA",
-        "ext": null
-       },
-       {
-        "dt": "03/11",
-        "t": "Potência",
-        "c": "PI1",
-        "kmd": "",
-        "id": "93zrr44cbcw",
-        "p": "",
-        "s": "✗",
-        "r": "",
-        "o": "",
-        "d": "Terça\nManhã",
-        "ext": null
-       },
-       {
-        "ext": null,
-        "d": "Terça\nTarde",
-        "id": "d0xjl7sebcw",
-        "kmd": "",
-        "p": "",
-        "s": "✓",
-        "r": "14",
-        "o": "Treino técnico de retas separadas com saltos e passagens específicas.",
-        "dt": "",
-        "t": "Específico",
-        "c": "Pista"
-       },
-       {
-        "id": "j40s4gs5bcw",
-        "d": "QUARTA",
-        "dt": "04/11",
-        "t": "Força",
-        "c": "S1",
-        "p": "",
-        "o": "",
-        "r": "",
-        "s": "✗"
-       },
-       {
-        "kmd": "",
-        "t": "Força",
-        "c": "FI1",
-        "s": "✗",
-        "r": "",
-        "o": "e",
-        "p": "",
-        "dt": "05/11",
-        "ext": null,
-        "d": "QUINTA",
-        "id": "gydt0v3vbcw"
-       },
-       {
-        "t": "Recuperação",
-        "c": "GIRO BIKE - 15 / 20km",
-        "dt": "06/11",
-        "p": "",
-        "s": "✗",
-        "r": "",
-        "o": "",
-        "id": "tniqpuflbcw",
-        "ext": null,
-        "kmd": "",
-        "d": "Sexta\nManhã"
-       },
-       {
-        "s": "✓",
-        "r": "",
-        "o": "",
-        "p": "",
-        "dt": "",
-        "t": "Específico",
-        "kmd": "",
-        "c": "Pista",
-        "id": "efky4x2abcw",
-        "d": "Sexta\nTarde",
-        "ext": null
-       },
-       {
-        "ext": null,
-        "d": "SÁBADO",
-        "id": "1re7x0blbcw",
-        "t": "Recuperação",
-        "c": "Rodagem apé 5km",
-        "kmd": "",
-        "dt": "07/11",
-        "p": "",
-        "s": "✓",
-        "r": "",
-        "o": ""
-       },
-       {
-        "id": "ei7ggvxmbcw",
-        "ext": null,
-        "dt": "08/11",
-        "d": "DOMINGO",
-        "t": "Descanso",
-        "c": "",
-        "p": "",
-        "s": "✗",
-        "r": "",
-        "o": "",
-        "kmd": ""
-       },
-       {
-        "km": "",
-        "sum": 1
-       },
-       {
-        "w": 4
-       },
-       {
-        "t": "",
-        "c": "",
-        "dt": "09/11",
-        "p": "",
-        "s": "✗",
-        "r": "",
-        "o": "",
-        "id": "hdsi67p2bcw",
-        "ext": null,
-        "kmd": "",
-        "d": "SEGUNDA"
-       },
-       {
-        "t": "",
-        "c": "",
-        "kmd": "",
-        "s": "✗",
-        "r": "",
-        "o": "",
-        "p": "",
-        "dt": "10/11",
-        "ext": null,
-        "d": "Terça\nManhã",
-        "id": "d3d7ptasbcw"
-       },
-       {
-        "t": "",
-        "c": "",
-        "ext": null,
-        "p": "",
-        "s": "✗",
-        "r": "",
-        "o": "",
-        "kmd": "",
-        "dt": "",
-        "d": "Terça\nTarde",
-        "id": "pp5h5g67bcw"
-       },
-       {
-        "id": "vhmixbunbcw",
-        "d": "QUARTA",
-        "ext": null,
-        "dt": "11/11",
-        "p": "",
-        "s": "✗",
-        "r": "",
-        "o": "",
-        "kmd": "",
-        "t": "",
-        "c": ""
-       },
-       {
-        "s": "✗",
-        "r": "",
-        "o": "",
-        "p": "",
-        "dt": "12/11",
-        "t": "",
-        "c": "",
-        "kmd": "",
-        "id": "0dcn2hkmbcw",
-        "d": "QUINTA",
-        "ext": null
-       },
-       {
-        "ext": null,
-        "d": "Sexta\nManhã",
-        "id": "r1yn80ebbcw",
-        "s": "✗",
-        "r": "",
-        "kmd": "",
-        "o": "",
-        "p": "",
-        "t": "",
-        "dt": "13/11",
-        "c": ""
-       },
-       {
-        "id": "h06rov8zbcw",
-        "d": "Sexta\nTarde",
-        "dt": "",
-        "kmd": "",
-        "s": "✗",
-        "r": "",
-        "o": "",
-        "p": "",
-        "ext": null,
-        "t": "",
-        "c": ""
-       },
-       {
-        "kmd": "",
-        "p": "",
-        "s": "✗",
-        "r": "",
-        "o": "",
-        "t": "",
-        "c": "",
-        "ext": null,
-        "d": "SÁBADO",
-        "dt": "14/11",
-        "id": "07g44508bcw"
-       },
-       {
-        "ext": null,
-        "d": "DOMINGO",
-        "t": "Prova",
-        "c": "",
-        "id": "cwbxuixobcw",
-        "kmd": "",
-        "p": "",
-        "s": "✗",
-        "r": "",
-        "o": "",
-        "dt": "15/11"
-       },
-       {
-        "sum": 1,
-        "km": ""
-       }
-      ],
+      "nome": "MÊS 1",
       "cols": [
        {
-        "l": "✔/❌",
-        "id": "s"
+        "id": "s",
+        "l": "✔/❌"
        },
        {
-        "id": "d",
-        "l": "DIA"
-       },
-       {
-        "id": "dt",
-        "l": "DATA"
-       },
-       {
-        "l": "TREINO",
-        "id": "t"
-       },
-       {
-        "id": "c",
-        "l": "CONTEÚDO"
-       },
-       {
-        "l": "PREVISTO",
-        "id": "p"
-       },
-       {
-        "l": "(6-20)",
-        "id": "r"
-       },
-       {
-        "id": "o",
-        "l": "OBSERVAÇÃO"
-       },
-       {
-        "l": "KM",
-        "id": "kmd"
-       }
-      ],
-      "nome": "MÊS 1"
-     },
-     {
-      "rows": [
-       {
-        "w": 1
-       },
-       {
-        "p": "",
-        "s": "✓",
-        "r": "",
-        "o": "",
-        "dt": "23/11",
-        "t": "Descanso",
-        "id": "hj4nuk1qbcw",
-        "c": "",
-        "ext": null,
-        "d": "SEGUNDA",
-        "kmd": ""
-       },
-       {
-        "dt": "24/11",
-        "t": "Específico",
-        "c": "PISTA BMX",
-        "kmd": "",
-        "p": "",
-        "id": "hfw003tjbcw",
-        "s": "✓",
-        "r": 13,
-        "o": "",
-        "d": "TERÇA",
-        "ext": null
-       },
-       {
-        "id": "28e6cozxbcw",
-        "dt": "25/11",
-        "d": "QUARTA",
-        "t": "Potência",
-        "c": "PI1",
-        "p": "14",
-        "o": "",
-        "r": "",
-        "s": ""
-       },
-       {
-        "o": "",
-        "r": "",
-        "s": "",
-        "p": "15",
-        "dt": "26/11",
-        "t": "Força",
-        "c": "",
-        "id": "42t6r1fcbcw",
-        "d": "QUINTA"
-       },
-       {
-        "t": "Força",
-        "c": "SUPERIOR",
-        "p": "10",
-        "o": "",
-        "r": "",
-        "s": "",
-        "dt": "27/11",
-        "d": "SEXTA",
-        "id": "d5j9r4e8bcw"
-       },
-       {
-        "p": "13",
-        "o": "",
-        "r": "",
-        "s": "",
-        "dt": "28/11",
-        "t": "Rodagem",
-        "id": "84t9c453bcw",
-        "c": "Rodagem - Corrida 10KM",
-        "d": "SÁBADO"
-       },
-       {
-        "d": "DOMINGO",
-        "t": "Descanso",
-        "c": "",
-        "id": "hu3c3mhbbcw",
-        "p": "",
-        "dt": "29/11",
-        "o": "",
-        "r": "",
-        "s": ""
-       },
-       {
-        "sum": 1,
-        "km": ""
-       },
-       {
-        "w": 2
-       },
-       {
-        "t": "",
-        "c": "",
-        "p": "",
-        "o": "",
-        "r": "",
-        "s": "",
-        "dt": "30/11",
-        "d": "SEGUNDA",
-        "id": "my9gvu8qbcw"
-       },
-       {
-        "d": "TERÇA Manhã",
-        "id": "gq3tafyjbcw",
-        "p": "",
-        "o": "",
-        "r": "",
-        "s": "",
-        "dt": "01/12",
-        "t": "",
-        "c": ""
-       },
-       {
-        "t": "",
-        "c": "",
-        "o": "",
-        "r": "",
-        "s": "",
-        "p": "",
-        "dt": "02/12",
-        "id": "w9jgiqepbcw",
-        "d": "QUARTA"
-       },
-       {
-        "t": "",
-        "c": "",
-        "dt": "03/12",
-        "o": "",
-        "r": "",
-        "s": "",
-        "p": "",
-        "id": "azbsscfcbcw",
-        "d": "QUINTA"
-       },
-       {
-        "id": "ylpc6ls5bcw",
-        "d": "SEXTA Manhã",
-        "dt": "04/12",
-        "o": "",
-        "r": "",
-        "s": "",
-        "p": "",
-        "t": "",
-        "c": ""
-       },
-       {
-        "t": "",
-        "c": "",
-        "o": "",
-        "r": "",
-        "s": "",
-        "p": "",
-        "dt": "05/12",
-        "d": "SÁBADO",
-        "id": "j90dnoarbcw"
-       },
-       {
-        "id": "um6v05t2bcw",
-        "dt": "06/12",
-        "d": "DOMINGO",
-        "t": "",
-        "c": "",
-        "o": "",
-        "r": "",
-        "s": "",
-        "p": ""
-       },
-       {
-        "sum": 1,
-        "km": ""
-       },
-       {
-        "w": 3
-       },
-       {
-        "d": "SEGUNDA",
-        "id": "g7ujvbnabcw",
-        "p": "",
-        "o": "",
-        "r": "",
-        "s": "",
-        "dt": "07/12",
-        "t": "",
-        "c": ""
-       },
-       {
-        "d": "TERÇA Manhã",
-        "t": "",
-        "c": "",
-        "id": "3o0gtrxsbcw",
-        "p": "",
-        "dt": "08/12",
-        "o": "",
-        "r": "",
-        "s": ""
-       },
-       {
-        "p": "",
-        "o": "",
-        "r": "",
-        "s": "",
-        "t": "",
-        "c": "",
-        "d": "QUARTA",
-        "dt": "09/12",
-        "id": "j64lhg8abcw"
-       },
-       {
-        "id": "lik4o9dpbcw",
-        "d": "QUINTA",
-        "dt": "10/12",
-        "o": "",
-        "r": "",
-        "s": "",
-        "p": "",
-        "t": "",
-        "c": ""
-       },
-       {
-        "p": "",
-        "o": "",
-        "r": "",
-        "s": "",
-        "t": "",
-        "c": "",
-        "d": "SEXTA Manhã",
-        "dt": "11/12",
-        "id": "7tn61iw1bcw"
-       },
-       {
-        "id": "88cxmqzrbcw",
-        "dt": "12/12",
-        "d": "SÁBADO Tarde",
-        "t": "",
-        "c": "",
-        "o": "",
-        "r": "",
-        "s": "",
-        "p": ""
-       },
-       {
-        "d": "DOMINGO",
-        "id": "rvas7yhmbcw",
-        "o": "",
-        "r": "",
-        "s": "",
-        "p": "",
-        "t": "",
-        "c": "",
-        "dt": "13/12"
-       },
-       {
-        "t": "",
-        "c": "",
-        "dt": "14/12",
-        "o": "",
-        "r": "",
-        "s": "",
-        "p": "",
-        "id": "t25a12gnbcw",
-        "d": "SEGUNDA"
-       },
-       {
-        "sum": 1,
-        "km": ""
-       },
-       {
-        "w": 4
-       },
-       {
-        "dt": "15/12",
-        "p": "",
-        "o": "",
-        "r": "",
-        "s": "",
-        "id": "oopo5q36bcw",
-        "t": "",
-        "c": "",
-        "d": "TERÇA"
-       },
-       {
-        "p": "",
-        "o": "",
-        "r": "",
-        "s": "",
-        "t": "",
-        "c": "",
-        "d": "QUARTA Manhã",
-        "dt": "16/12",
-        "id": "n80mgbcqbcw"
-       },
-       {
-        "o": "",
-        "r": "",
-        "s": "",
-        "p": "",
-        "t": "",
-        "c": "",
-        "d": "QUINTA",
-        "dt": "17/12",
-        "id": "ndzl2zgpbcw"
-       },
-       {
-        "id": "infraqd8bcw",
-        "d": "SEXTA",
-        "dt": "18/12",
-        "t": "",
-        "c": "",
-        "p": "",
-        "o": "",
-        "r": "",
-        "s": ""
-       },
-       {
-        "dt": "19/12",
-        "p": "",
-        "o": "",
-        "r": "",
-        "s": "",
-        "id": "8xvhuds9bcw",
-        "t": "",
-        "c": "",
-        "d": "SÁBADO Manhã"
-       },
-       {
-        "o": "",
-        "r": "",
-        "s": "",
-        "p": "",
-        "t": "",
-        "c": "",
-        "dt": "20/12",
-        "d": "DOMINGO",
-        "id": "xgcuqd4nbcx"
-       },
-       {
-        "d": "SEGUNDA",
-        "t": "Prova",
-        "c": "",
-        "id": "2amn821fbcx",
-        "o": "",
-        "r": "",
-        "s": "",
-        "dt": "21/12",
-        "p": ""
-       },
-       {
-        "sum": 1,
-        "km": ""
-       }
-      ],
-      "cols": [
-       {
-        "l": "✔/❌",
-        "id": "s"
-       },
-       {
-        "id": "d",
-        "l": "DIA"
+        "l": "DIA",
+        "id": "d"
        },
        {
         "l": "DATA",
@@ -3037,8 +2167,8 @@
         "id": "t"
        },
        {
-        "l": "CONTEÚDO",
-        "id": "c"
+        "id": "c",
+        "l": "CONTEÚDO"
        },
        {
         "id": "p",
@@ -3053,16 +2183,907 @@
         "l": "OBSERVAÇÃO"
        },
        {
-        "l": "KM",
-        "id": "kmd"
+        "id": "kmd",
+        "l": "KM"
+       }
+      ],
+      "rows": [
+       {
+        "w": 1
+       },
+       {
+        "id": "pjsc5cdmbcw",
+        "dt": "19/10",
+        "o": "",
+        "ext": null,
+        "c": "",
+        "t": "Descanso",
+        "s": "",
+        "r": "-",
+        "kmd": "",
+        "p": "",
+        "d": "SEGUNDA"
+       },
+       {
+        "t": "Força",
+        "ext": null,
+        "r": "11",
+        "s": "✓",
+        "c": "Academia - FI1",
+        "d": "Terça\nManhã",
+        "p": "12 - 15",
+        "dt": "20/10",
+        "kmd": "",
+        "o": "Me senti bem e com uma percepção legal do esforço, fiz com cargas altas e me senti confortável na realização da explosão concêntrica.",
+        "id": "al8jf8bhbcw"
+       },
+       {
+        "id": "strz6g64bcw",
+        "o": "",
+        "dt": "",
+        "ext": null,
+        "p": "13 - 16",
+        "d": "Terça\nTarde",
+        "c": "Teste Sprints\n5 x 30 M",
+        "kmd": "",
+        "s": "✓",
+        "r": "14",
+        "t": "Específico"
+       },
+       {
+        "id": "an9l6rnvbcw",
+        "o": "Fazendo com cargas altas e me sentindo bem.",
+        "kmd": "",
+        "dt": "21/10",
+        "t": "Força",
+        "r": "13",
+        "s": "✓",
+        "c": "Academia - S1",
+        "d": "QUARTA",
+        "ext": null,
+        "p": ""
+       },
+       {
+        "o": "Chuva impossibilitou a realização",
+        "id": "wd7nvuqubcw",
+        "ext": null,
+        "dt": "22/10",
+        "d": "QUINTA",
+        "p": "",
+        "kmd": "",
+        "t": "Específico",
+        "s": "✗",
+        "r": "-",
+        "c": "Sprint - 16 x 8 metros\n(perna dominante e não dominante)"
+       },
+       {
+        "t": "Potência",
+        "dt": "23/10",
+        "s": "✓",
+        "r": "11",
+        "c": "Academia  - PI1",
+        "d": "SEXTA\nManhã",
+        "p": "",
+        "kmd": "",
+        "id": "dszgronhbcw",
+        "ext": null,
+        "o": "Novos exercícios, carga bem baixa para criar memória motora de como realizar"
+       },
+       {
+        "d": "SEXTA\nTarde",
+        "kmd": "",
+        "p": "",
+        "t": "Específico",
+        "s": "✓",
+        "r": "12",
+        "c": "Sprint - 10 x 5 metros\n(perna dominante)",
+        "ext": null,
+        "o": "Por conta da chuva, não rolou treino de pista.",
+        "dt": "",
+        "id": "s1lp2g6nbcw"
+       },
+       {
+        "p": "8 - 12",
+        "dt": "24/10",
+        "d": "SÁBADO",
+        "id": "wn1wa561bcw",
+        "c": "Rodagem Leve\n10 KM apé",
+        "t": "Recuperação",
+        "kmd": "",
+        "s": "✓",
+        "r": "14",
+        "o": "Por conta do calor e horário que fomos estava bem calor e acabou exigindo mais, porém um bom treino, confortável",
+        "ext": null
+       },
+       {
+        "t": "Descanso",
+        "dt": "25/10",
+        "r": "-",
+        "s": "✓",
+        "c": "-",
+        "ext": null,
+        "d": "DOMINGO",
+        "id": "m1dsum8fbcw",
+        "p": "",
+        "o": "",
+        "kmd": ""
+       },
+       {
+        "km": "",
+        "sum": 1
+       },
+       {
+        "w": 2
+       },
+       {
+        "ext": null,
+        "o": "",
+        "id": "2qkfs3xubcw",
+        "kmd": "",
+        "p": "14 - 17",
+        "d": "SEGUNDA",
+        "c": "Academia FI2",
+        "dt": "26/10",
+        "s": "✓",
+        "r": "12",
+        "t": "Força"
+       },
+       {
+        "c": "Sprint - 16 x 5 metros\n(perna dominante e não dominante)",
+        "ext": null,
+        "s": "✗",
+        "r": "",
+        "t": "Específico",
+        "p": "13 - 17",
+        "d": "Terça\nManhã",
+        "dt": "27/10",
+        "kmd": "",
+        "o": "",
+        "id": "1l38zmtibcw"
+       },
+       {
+        "t": "Específico",
+        "s": "✓",
+        "r": "18",
+        "c": "Pista BMX, 4 pistas inteiras com Gate, sendo:\n\n1° - Somente 1a reta forte, o resto no embalo \n2° - Somente 1a e 2a reta forte, resto no embalo\n3° - 1a 2a e 3a forte, resto no embalo\n4° - volta completa 100%",
+        "kmd": "",
+        "d": "Terça\nTarde",
+        "p": "",
+        "dt": "",
+        "ext": null,
+        "o": "Ótimo treino, me senti leve na pista e consegui fazer largadas boas, elogiado pelo treinador justamente na parte que estamos treinando, que é a potência e explosão da pedalada para entrar no grio rápido, feedback muito positivo",
+        "id": "ffwz2cf2bcw"
+       },
+       {
+        "id": "ikarmo07bcw",
+        "dt": "28/10",
+        "kmd": "",
+        "o": "",
+        "c": "Academia S2",
+        "t": "Força",
+        "s": "✓",
+        "r": "12",
+        "p": "12 - 16",
+        "ext": null,
+        "d": "QUARTA"
+       },
+       {
+        "p": "12 - 16",
+        "d": "QUINTA",
+        "dt": "29/10",
+        "ext": null,
+        "id": "ft5a96ydbcw",
+        "c": "Academia PI2",
+        "r": "",
+        "s": "✗",
+        "t": "Potência",
+        "o": "",
+        "kmd": ""
+       },
+       {
+        "id": "4v4vb7iobcw",
+        "dt": "30/10",
+        "kmd": "",
+        "o": "",
+        "c": "Academia PI2",
+        "t": "Potência",
+        "s": "✓",
+        "r": "13",
+        "p": "10 - 12",
+        "ext": null,
+        "d": "Sexta\nManhã"
+       },
+       {
+        "p": "",
+        "kmd": "",
+        "d": "Sexta\nTarde",
+        "c": "Pista BMX",
+        "t": "Específico",
+        "s": "✗",
+        "r": "",
+        "ext": null,
+        "dt": "",
+        "o": "Chuva",
+        "id": "3hwfzdtcbcw"
+       },
+       {
+        "c": "Corrida 10 Km",
+        "ext": null,
+        "s": "✓",
+        "r": "12",
+        "t": "Recuperação",
+        "p": "10 - 12",
+        "d": "SÁBADO",
+        "dt": "31/10",
+        "kmd": "",
+        "id": "eq9yc9bgbcw",
+        "o": ""
+       },
+       {
+        "kmd": "",
+        "o": "",
+        "id": "k6kcos6xbcw",
+        "d": "DOMINGO",
+        "ext": null,
+        "p": "",
+        "t": "Descanso",
+        "s": "",
+        "r": "-",
+        "dt": "01/11",
+        "c": "-"
+       },
+       {
+        "km": "",
+        "sum": 1
+       },
+       {
+        "w": 3
+       },
+       {
+        "dt": "02/11",
+        "c": "Sprints 15m",
+        "s": "✗",
+        "r": "-",
+        "t": "Específico",
+        "p": "",
+        "id": "oan65cpobcw",
+        "d": "SEGUNDA",
+        "kmd": "",
+        "ext": null,
+        "o": "Chuva e preguiça"
+       },
+       {
+        "d": "Terça\nManhã",
+        "p": "",
+        "dt": "03/11",
+        "t": "Potência",
+        "id": "93zrr44cbcw",
+        "r": "",
+        "s": "✗",
+        "kmd": "",
+        "c": "PI1",
+        "o": "",
+        "ext": null
+       },
+       {
+        "kmd": "",
+        "o": "Treino técnico de retas separadas com saltos e passagens específicas.",
+        "c": "Pista",
+        "t": "Específico",
+        "id": "d0xjl7sebcw",
+        "s": "✓",
+        "r": "14",
+        "ext": null,
+        "dt": "",
+        "p": "",
+        "d": "Terça\nTarde"
+       },
+       {
+        "d": "QUARTA",
+        "p": "",
+        "t": "Força",
+        "s": "✗",
+        "r": "",
+        "c": "S1",
+        "o": "",
+        "dt": "04/11",
+        "id": "j40s4gs5bcw",
+        "kmd": "",
+        "ext": null
+       },
+       {
+        "id": "gydt0v3vbcw",
+        "o": "e",
+        "kmd": "",
+        "dt": "05/11",
+        "t": "Força",
+        "r": "",
+        "s": "✗",
+        "c": "FI1",
+        "d": "QUINTA",
+        "ext": null,
+        "p": ""
+       },
+       {
+        "t": "Recuperação",
+        "r": "",
+        "s": "✗",
+        "dt": "06/11",
+        "c": "GIRO BIKE - 15 / 20km",
+        "d": "Sexta\nManhã",
+        "kmd": "",
+        "id": "tniqpuflbcw",
+        "p": "",
+        "ext": null,
+        "o": ""
+       },
+       {
+        "o": "",
+        "kmd": "",
+        "d": "Sexta\nTarde",
+        "id": "efky4x2abcw",
+        "ext": null,
+        "p": "",
+        "r": "",
+        "s": "✓",
+        "t": "Específico",
+        "c": "Pista",
+        "dt": ""
+       },
+       {
+        "p": "",
+        "d": "SÁBADO",
+        "kmd": "",
+        "c": "Rodagem apé 5km",
+        "s": "✓",
+        "r": "",
+        "t": "Recuperação",
+        "ext": null,
+        "dt": "07/11",
+        "o": "",
+        "id": "1re7x0blbcw"
+       },
+       {
+        "id": "ei7ggvxmbcw",
+        "o": "",
+        "dt": "08/11",
+        "ext": null,
+        "p": "",
+        "d": "DOMINGO",
+        "kmd": "",
+        "c": "",
+        "t": "Descanso",
+        "s": "✗",
+        "r": ""
+       },
+       {
+        "sum": 1,
+        "km": ""
+       },
+       {
+        "w": 4
+       },
+       {
+        "ext": null,
+        "d": "SEGUNDA",
+        "p": "",
+        "r": "",
+        "s": "✗",
+        "t": "",
+        "c": "",
+        "o": "",
+        "kmd": "",
+        "dt": "09/11",
+        "id": "hdsi67p2bcw"
+       },
+       {
+        "id": "d3d7ptasbcw",
+        "dt": "10/11",
+        "o": "",
+        "ext": null,
+        "t": "",
+        "r": "",
+        "s": "✗",
+        "c": "",
+        "kmd": "",
+        "d": "Terça\nManhã",
+        "p": ""
+       },
+       {
+        "c": "",
+        "ext": null,
+        "s": "✗",
+        "r": "",
+        "t": "",
+        "p": "",
+        "d": "Terça\nTarde",
+        "dt": "",
+        "kmd": "",
+        "id": "pp5h5g67bcw",
+        "o": ""
+       },
+       {
+        "o": "",
+        "id": "vhmixbunbcw",
+        "kmd": "",
+        "dt": "11/11",
+        "d": "QUARTA",
+        "p": "",
+        "r": "",
+        "s": "✗",
+        "t": "",
+        "c": "",
+        "ext": null
+       },
+       {
+        "ext": null,
+        "o": "",
+        "id": "0dcn2hkmbcw",
+        "kmd": "",
+        "p": "",
+        "d": "QUINTA",
+        "c": "",
+        "s": "✗",
+        "r": "",
+        "dt": "12/11",
+        "t": ""
+       },
+       {
+        "id": "r1yn80ebbcw",
+        "o": "",
+        "dt": "13/11",
+        "ext": null,
+        "r": "",
+        "s": "✗",
+        "t": "",
+        "c": "",
+        "d": "Sexta\nManhã",
+        "kmd": "",
+        "p": ""
+       },
+       {
+        "kmd": "",
+        "o": "",
+        "s": "✗",
+        "r": "",
+        "t": "",
+        "c": "",
+        "ext": null,
+        "id": "h06rov8zbcw",
+        "d": "Sexta\nTarde",
+        "dt": "",
+        "p": ""
+       },
+       {
+        "ext": null,
+        "o": "",
+        "kmd": "",
+        "c": "",
+        "t": "",
+        "id": "07g44508bcw",
+        "r": "",
+        "s": "✗",
+        "dt": "14/11",
+        "p": "",
+        "d": "SÁBADO"
+       },
+       {
+        "o": "",
+        "ext": null,
+        "kmd": "",
+        "id": "cwbxuixobcw",
+        "d": "DOMINGO",
+        "p": "",
+        "t": "Prova",
+        "r": "",
+        "s": "✗",
+        "dt": "15/11",
+        "c": ""
+       },
+       {
+        "km": "",
+        "sum": 1
+       }
+      ]
+     },
+     {
+      "rows": [
+       {
+        "w": 1
+       },
+       {
+        "dt": "23/11",
+        "c": "",
+        "r": "",
+        "s": "✓",
+        "t": "Descanso",
+        "p": "",
+        "ext": null,
+        "d": "SEGUNDA",
+        "id": "hj4nuk1qbcw",
+        "o": "",
+        "kmd": ""
+       },
+       {
+        "id": "hfw003tjbcw",
+        "o": "",
+        "ext": null,
+        "dt": "24/11",
+        "p": "",
+        "d": "TERÇA",
+        "kmd": "",
+        "c": "PISTA BMX",
+        "r": 13,
+        "s": "✓",
+        "t": "Específico"
+       },
+       {
+        "o": "",
+        "id": "28e6cozxbcw",
+        "dt": "25/11",
+        "d": "QUARTA",
+        "p": "14",
+        "t": "Potência",
+        "s": "✗",
+        "r": "",
+        "c": "PI1"
+       },
+       {
+        "o": "",
+        "r": "",
+        "s": "",
+        "t": "Força",
+        "c": "",
+        "id": "42t6r1fcbcw",
+        "d": "QUINTA",
+        "dt": "26/11",
+        "p": "15"
+       },
+       {
+        "id": "d5j9r4e8bcw",
+        "dt": "27/11",
+        "o": "",
+        "c": "SUPERIOR",
+        "t": "Força",
+        "s": "",
+        "r": "",
+        "p": "10",
+        "d": "SEXTA"
+       },
+       {
+        "id": "84t9c453bcw",
+        "o": "",
+        "dt": "28/11",
+        "d": "SÁBADO",
+        "p": "13",
+        "t": "Rodagem",
+        "r": "",
+        "s": "",
+        "c": "Rodagem - Corrida 10KM"
+       },
+       {
+        "p": "",
+        "d": "DOMINGO",
+        "c": "",
+        "r": "",
+        "s": "",
+        "t": "Descanso",
+        "o": "",
+        "dt": "29/11",
+        "id": "hu3c3mhbbcw"
+       },
+       {
+        "km": "",
+        "sum": 1
+       },
+       {
+        "w": 2
+       },
+       {
+        "id": "my9gvu8qbcw",
+        "o": "",
+        "dt": "30/11",
+        "s": "",
+        "r": "",
+        "t": "",
+        "c": "",
+        "d": "SEGUNDA",
+        "p": ""
+       },
+       {
+        "o": "",
+        "d": "TERÇA Manhã",
+        "id": "gq3tafyjbcw",
+        "p": "",
+        "t": "",
+        "s": "",
+        "r": "",
+        "dt": "01/12",
+        "c": ""
+       },
+       {
+        "r": "",
+        "s": "",
+        "dt": "02/12",
+        "t": "",
+        "c": "",
+        "d": "QUARTA",
+        "p": "",
+        "id": "w9jgiqepbcw",
+        "o": ""
+       },
+       {
+        "o": "",
+        "d": "QUINTA",
+        "id": "azbsscfcbcw",
+        "p": "",
+        "s": "",
+        "r": "",
+        "t": "",
+        "c": "",
+        "dt": "03/12"
+       },
+       {
+        "o": "",
+        "id": "ylpc6ls5bcw",
+        "p": "",
+        "d": "SEXTA Manhã",
+        "c": "",
+        "dt": "04/12",
+        "t": "",
+        "s": "",
+        "r": ""
+       },
+       {
+        "o": "",
+        "d": "SÁBADO",
+        "id": "j90dnoarbcw",
+        "p": "",
+        "t": "",
+        "r": "",
+        "s": "",
+        "dt": "05/12",
+        "c": ""
+       },
+       {
+        "id": "um6v05t2bcw",
+        "dt": "06/12",
+        "o": "",
+        "t": "",
+        "r": "",
+        "s": "",
+        "c": "",
+        "d": "DOMINGO",
+        "p": ""
+       },
+       {
+        "sum": 1,
+        "km": ""
+       },
+       {
+        "w": 3
+       },
+       {
+        "p": "",
+        "dt": "07/12",
+        "d": "SEGUNDA",
+        "c": "",
+        "id": "g7ujvbnabcw",
+        "r": "",
+        "s": "",
+        "t": "",
+        "o": ""
+       },
+       {
+        "id": "3o0gtrxsbcw",
+        "o": "",
+        "dt": "08/12",
+        "p": "",
+        "d": "TERÇA Manhã",
+        "c": "",
+        "t": "",
+        "r": "",
+        "s": ""
+       },
+       {
+        "c": "",
+        "t": "",
+        "s": "",
+        "r": "",
+        "p": "",
+        "d": "QUARTA",
+        "dt": "09/12",
+        "id": "j64lhg8abcw",
+        "o": ""
+       },
+       {
+        "o": "",
+        "id": "lik4o9dpbcw",
+        "p": "",
+        "d": "QUINTA",
+        "c": "",
+        "t": "",
+        "dt": "10/12",
+        "r": "",
+        "s": ""
+       },
+       {
+        "c": "",
+        "t": "",
+        "r": "",
+        "s": "",
+        "p": "",
+        "d": "SEXTA Manhã",
+        "dt": "11/12",
+        "id": "7tn61iw1bcw",
+        "o": ""
+       },
+       {
+        "p": "",
+        "dt": "12/12",
+        "d": "SÁBADO Tarde",
+        "id": "88cxmqzrbcw",
+        "c": "",
+        "t": "",
+        "r": "",
+        "s": "",
+        "o": ""
+       },
+       {
+        "p": "",
+        "d": "DOMINGO",
+        "c": "",
+        "s": "",
+        "r": "",
+        "t": "",
+        "o": "",
+        "dt": "13/12",
+        "id": "rvas7yhmbcw"
+       },
+       {
+        "c": "",
+        "r": "",
+        "s": "",
+        "t": "",
+        "p": "",
+        "d": "SEGUNDA",
+        "dt": "14/12",
+        "o": "",
+        "id": "t25a12gnbcw"
+       },
+       {
+        "sum": 1,
+        "km": ""
+       },
+       {
+        "w": 4
+       },
+       {
+        "s": "",
+        "r": "",
+        "dt": "15/12",
+        "t": "",
+        "c": "",
+        "d": "TERÇA",
+        "p": "",
+        "id": "oopo5q36bcw",
+        "o": ""
+       },
+       {
+        "id": "n80mgbcqbcw",
+        "o": "",
+        "dt": "16/12",
+        "d": "QUARTA Manhã",
+        "p": "",
+        "t": "",
+        "s": "",
+        "r": "",
+        "c": ""
+       },
+       {
+        "o": "",
+        "s": "",
+        "r": "",
+        "t": "",
+        "c": "",
+        "id": "ndzl2zgpbcw",
+        "d": "QUINTA",
+        "dt": "17/12",
+        "p": ""
+       },
+       {
+        "t": "",
+        "s": "",
+        "r": "",
+        "dt": "18/12",
+        "c": "",
+        "d": "SEXTA",
+        "id": "infraqd8bcw",
+        "p": "",
+        "o": ""
+       },
+       {
+        "d": "SÁBADO Manhã",
+        "p": "",
+        "dt": "19/12",
+        "t": "",
+        "s": "",
+        "id": "8xvhuds9bcw",
+        "r": "",
+        "c": "",
+        "o": ""
+       },
+       {
+        "s": "",
+        "r": "",
+        "dt": "20/12",
+        "t": "",
+        "c": "",
+        "d": "DOMINGO",
+        "p": "",
+        "id": "xgcuqd4nbcx",
+        "o": ""
+       },
+       {
+        "id": "2amn821fbcx",
+        "o": "",
+        "dt": "21/12",
+        "t": "Prova",
+        "r": "",
+        "s": "",
+        "c": "",
+        "d": "SEGUNDA",
+        "p": ""
+       },
+       {
+        "sum": 1,
+        "km": ""
+       }
+      ],
+      "cols": [
+       {
+        "id": "s",
+        "l": "✔/❌"
+       },
+       {
+        "l": "DIA",
+        "id": "d"
+       },
+       {
+        "l": "DATA",
+        "id": "dt"
+       },
+       {
+        "id": "t",
+        "l": "TREINO"
+       },
+       {
+        "id": "c",
+        "l": "CONTEÚDO"
+       },
+       {
+        "id": "p",
+        "l": "PREVISTO"
+       },
+       {
+        "l": "(6-20)",
+        "id": "r"
+       },
+       {
+        "id": "o",
+        "l": "OBSERVAÇÃO"
+       },
+       {
+        "id": "kmd",
+        "l": "KM"
        }
       ],
       "nome": "MÊS 2"
      }
     ],
     "atualizado": {
-     "_seconds": 1795561152,
-     "_nanoseconds": 703000000
+     "_seconds": 1795647170,
+     "_nanoseconds": 521000000
     },
     "fb": {
      "_push": {
@@ -3315,27 +3336,14 @@
       "r": "",
       "o": "",
       "kmd": ""
+     },
+     "28e6cozxbcw": {
+      "s": "✗",
+      "r": "",
+      "o": "",
+      "kmd": ""
      }
     },
-    "hist": {
-     "Abdominal_canivete__remador_": [
-      {
-       "b": ""
-      },
-      {
-       "b": ""
-      },
-      {
-       "b": ""
-      }
-     ],
-     "Bicicleta_ergome_trica": [
-      {
-       "b": ""
-      }
-     ]
-    },
-    "sessions": [],
     "push": {
      "tokens": [
       "eFjACMJ2TspTDER3u5e7b0:APA91bHCNWYxglte6JIhpn0wW5jaCLwN7__nSLqp2rXkbkC_eXyM83r_0GrcKETDENhFIpx8y9N6V0ttHM4i_dA7Git2B8IOBfdyuFEP9idP975WuofF-KY"
@@ -3348,7 +3356,8 @@
      "tz": "America/Sao_Paulo",
      "em": 1795559296535,
      "enviados": {
-      "2026-11-24": [
+      "2026-11-25": [
+       12,
        18,
        22
       ]
@@ -17684,6 +17693,26 @@
       "r": "8",
       "o": "",
       "kmd": ""
+     },
+     "rrxt6oenwka": {
+      "s": "✓",
+      "r": "",
+      "o": "",
+      "kmd": "4",
+      "ext": [
+       {
+        "id": "p1795643094870",
+        "src": "print",
+        "tipo": "Run",
+        "nome": "Print",
+        "km": 4,
+        "min": 26.5,
+        "fc": null,
+        "kcal": null,
+        "alt": null,
+        "tiros": null
+       }
+      ]
      }
     },
     "push": {
@@ -17698,7 +17727,7 @@
      "tz": "America/Sao_Paulo",
      "em": 1794590319505,
      "enviados": {
-      "2026-11-24": [
+      "2026-11-25": [
        12,
        18,
        22
@@ -17788,7 +17817,8 @@
       "efky4x2abcw": "✓||",
       "gydt0v3vbcw": "✗||",
       "tniqpuflbcw": "✗||",
-      "j40s4gs5bcw": "✗||"
+      "j40s4gs5bcw": "✗||",
+      "28e6cozxbcw": "✗||"
      },
      "sosjXORp3QIuJsWhfRjv": {
       "gdqyg4egf1q": "✗|-|",
@@ -18135,10 +18165,11 @@
       "7fh120xmwka": "✓||",
       "va4yp8xtwka": "✓||5",
       "4i8gjd09wka": "✓|13|",
-      "2vzwkn7qwka": "✓|8|"
+      "2vzwkn7qwka": "✓|8|",
+      "rrxt6oenwka": "✓||4"
      }
     },
-    "em": "2026-11-25T06:31:27.648Z"
+    "em": "2026-11-26T06:31:22.306Z"
    },
    "sub": {}
   }
@@ -18159,7 +18190,7 @@
       22
      ],
      "enviados": {
-      "2026-11-24": [
+      "2026-11-25": [
        12,
        22
       ]
