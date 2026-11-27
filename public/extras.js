@@ -313,6 +313,22 @@
   }
   function diasRecentes() { const hoje = isoOf(new Date()), ini = isoOf(addD(new Date(), -21));
     return datedRows().filter(o => o.iso >= ini && o.iso <= hoje && o.r.t && typeKey(o.r.t) !== 'descanso').reverse() }
+  // leitura com IA no servidor (/api/print). Se não estiver disponível, cai no leitor do celular (Tesseract).
+  async function shrinkB64(file) { const url = URL.createObjectURL(file), im = new Image(); await new Promise((ok, no) => { im.onload = ok; im.onerror = no; im.src = url });
+    const sc = Math.min(1, 1568 / Math.max(im.width, im.height)), c = document.createElement('canvas'); c.width = Math.round(im.width * sc); c.height = Math.round(im.height * sc);
+    c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); return c.toDataURL('image/jpeg', .85) }
+  async function lerComIA(files) {
+    const imgs = []; for (const f of files.slice(0, 6)) imgs.push(await shrinkB64(f));
+    const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 60000);
+    try { const r = await fetch('/api/print', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ imgs }), signal: ctl.signal });
+      const j = await r.json().catch(() => ({})); if (!r.ok || !j.ok) { const e = new Error(j.erro || 'falha na leitura'); e.status = r.status; throw e }
+      const d = j.dados || {}, o = {}; if (d.e_atividade === false) o.naoAtividade = true;
+      if (d.km > 0 && d.km < 400) o.km = d.km; if (d.tempo_seg > 0) o.seg = d.tempo_seg; if (d.pace_seg_km > 0) o.pace = d.pace_seg_km;
+      if (!o.km && o.seg && o.pace) o.km = Math.round(o.seg / o.pace * 100) / 100; if (!o.seg && o.km && o.pace) o.seg = Math.round(o.km * o.pace);
+      if (d.fc_media >= 40 && d.fc_media <= 230) o.fc = d.fc_media; if (d.kcal > 0) o.kcal = d.kcal; if (d.elevacao_m >= 0 && d.elevacao_m != null) o.alt = d.elevacao_m;
+      if (/^\d{4}-\d{2}-\d{2}$/.test(d.data || '')) o.data = d.data;
+      if (d.tiros && d.tiros.n >= 2 && d.tiros.km > 0) { const P = (d.tiros.paces_seg_km || []).filter(v => v > 60 && v < 1500); o.tiros = { n: d.tiros.n, km: d.tiros.km, paces: P, media: P.length ? P.reduce((a, b) => a + b, 0) / P.length : null } }
+      o.app = d.app || ''; return o } finally { clearTimeout(to) } }
   let TIROS = null;
   function openPrint() {
     TIROS = null;
@@ -336,18 +352,26 @@
     const $ = id => document.getElementById(id), upP = () => { const k = num($('pr-km').value), s = tsec($('pr-t').value); $('pr-p').value = k && s ? fmtT(s / k) + '/km' : '' };
     $('pr-km').oninput = upP; $('pr-t').oninput = upP; $('pr-x').onclick = () => m.remove(); m.onclick = e => { if (e.target === m) m.remove() };
     $('pr-f').onchange = async e => {
-      const fs = [...e.target.files]; if (!fs.length) return; $('pr-st').textContent = 'Carregando leitor…'; let txt = '';
-      try { const T = await loadTess();
-        for (let i = 0; i < fs.length; i++) { const { c, thumb } = await prepImg(fs[i]); $('pr-th').insertAdjacentHTML('beforeend', `<img src="${thumb}" alt="print ${i + 1}">`);
-          const r = await Promise.race([new Promise((_, no) => setTimeout(() => no(new Error('a leitura demorou demais')), 120000)), T.recognize(c, 'por+eng', { logger: x => { if (x.status === 'recognizing text') $('pr-st').textContent = `Lendo print ${i + 1} de ${fs.length}… ${Math.round(x.progress * 100)}%` } })]);
-          txt += '\n' + r.data.text }
-        window.__ocrTxt = txt; const o = lerTexto(txt);
-        if (o.km) $('pr-km').value = String(Math.round(o.km * 100) / 100).replace('.', ','); if (o.seg) $('pr-t').value = fmtT(o.seg);
-        if (o.fc) $('pr-fc').value = o.fc; if (o.kcal) $('pr-kc').value = o.kcal; if (o.alt) $('pr-el').value = o.alt; upP();
-        TIROS = o.tiros || null; if (o.data) { const op = [...$('pr-d').options].find(x => x.dataset.iso === o.data); const cur = $('pr-d').selectedOptions[0]; if (op && (!cur || cur.dataset.iso !== o.data)) $('pr-d').value = op.value }
-        $('pr-tr').innerHTML = TIROS ? `<b>Tiros detectados:</b> ${TIROS.n} × ${String(TIROS.km).replace('.', ',')} km${TIROS.media ? ' · pace médio dos tiros ' + fmtT(TIROS.media) + '/km (' + TIROS.paces.map(fmtT).join(', ') + ')' : ''}` : '';
-        $('pr-st').textContent = o.km || o.seg ? 'Pronto! Confira os números abaixo.' : TIROS ? 'Li os tiros, mas falta o resumo do treino. Envie também o print do topo (KM, DURATION, PACE) ou preencha à mão.' : 'Não consegui achar os números. Preencha à mão ou tente um print mais nítido da tela de resumo.';
-      } catch (er) { $('pr-st').textContent = 'Não consegui ler: ' + er.message + '. Preencha os números à mão.' }
+      const fs = [...e.target.files]; if (!fs.length) return; e.target.value = ''; $('pr-th').innerHTML = ''; $('pr-tr').innerHTML = ''; $('pr-st').style.color = '';
+      fs.forEach((f, i) => $('pr-th').insertAdjacentHTML('beforeend', `<img src="${URL.createObjectURL(f)}" alt="print ${i + 1}">`));
+      let o = null, via = 'IA';
+      $('pr-st').textContent = 'Lendo o print…';
+      try { o = await lerComIA(fs) } catch (er) { o = null; if (er.status && er.status !== 503 && er.status !== 502 && er.status !== 429) console.warn('IA:', er.message) }
+      if (!o) { via = 'celular'; let txt = '';
+        try { $('pr-st').textContent = 'Carregando leitor…'; const T = await loadTess();
+          for (let i = 0; i < fs.length; i++) { const { c } = await prepImg(fs[i]);
+            const r = await Promise.race([new Promise((_, no) => setTimeout(() => no(new Error('a leitura demorou demais')), 120000)), T.recognize(c, 'por+eng', { logger: x => { if (x.status === 'recognizing text') $('pr-st').textContent = `Lendo print ${i + 1} de ${fs.length}… ${Math.round(x.progress * 100)}%` } })]);
+            txt += '\n' + r.data.text }
+          window.__ocrTxt = txt; o = lerTexto(txt) } catch (er) { $('pr-st').textContent = 'Não consegui ler: ' + er.message + '. Preencha os números à mão.'; return } }
+      ['pr-km', 'pr-t', 'pr-fc', 'pr-kc', 'pr-el'].forEach(id => $(id).value = '');
+      if (o.km) $('pr-km').value = String(Math.round(o.km * 100) / 100).replace('.', ','); if (o.seg) $('pr-t').value = fmtT(o.seg);
+      if (o.fc) $('pr-fc').value = o.fc; if (o.kcal) $('pr-kc').value = o.kcal; if (o.alt != null) $('pr-el').value = o.alt; upP();
+      TIROS = o.tiros || null; if (o.data) { const op = [...$('pr-d').options].find(x => x.dataset.iso === o.data); const cur = $('pr-d').selectedOptions[0]; if (op && (!cur || cur.dataset.iso !== o.data)) $('pr-d').value = op.value }
+      $('pr-tr').innerHTML = TIROS ? `<b>Tiros detectados:</b> ${TIROS.n} × ${String(TIROS.km).replace('.', ',')} km${TIROS.media ? ' · pace médio dos tiros ' + fmtT(TIROS.media) + '/km (' + TIROS.paces.map(fmtT).join(', ') + ')' : ''}` : '';
+      $('pr-st').textContent = o.naoAtividade ? 'Esse print não parece ser o resumo de uma atividade. Envie a tela de resumo do Strava/Runkeeper ou preencha à mão.'
+        : o.km || o.seg ? 'Pronto! Confira os números abaixo' + (via === 'celular' ? ' (lidos no celular: confira com atenção)' : '') + '.'
+        : TIROS ? 'Li os tiros, mas falta o resumo do treino. Envie também o print do topo (distância, tempo, ritmo) ou preencha à mão.'
+        : 'Não consegui achar os números. Preencha à mão ou tente um print mais nítido da tela de resumo.';
     };
     $('pr-ok').onclick = async () => { const op = $('pr-d').selectedOptions[0], rowId = op && op.value, iso = op && op.dataset.iso, km = num($('pr-km').value), s = tsec($('pr-t').value);
       if (!rowId) return $('pr-st').textContent = 'Escolha o dia do treino.'; if (!km && !s) return $('pr-st').textContent = 'Informe pelo menos a distância ou o tempo.';
@@ -356,7 +380,8 @@
       if (!r.n) { b.disabled = false; b.textContent = 'Salvar no treino'; return $('pr-st').textContent = 'Não achei esse treino na planilha. Escolha outro dia.' }
       const okk = await r.salvo;
       if (!okk) { b.disabled = false; b.textContent = 'Tentar salvar de novo'; $('pr-st').style.color = 'var(--red)'; return $('pr-st').textContent = 'Não consegui enviar ao treinador (sem internet?). Os números continuam aqui: toque para tentar de novo.' }
-      m.remove(); setMsg('fi-msg', ''); if (typeof flash === 'function') flash('Treino salvo ✓ ' + (km ? String(km).replace('.', ',') + ' km' : '')) };
+      m.remove(); setMsg('fi-msg', ''); try { const fr = typeof FBROW !== 'undefined' && FBROW; if (fr && fr.id === rowId) { const fk = document.getElementById('f-km'); if (fk && km) fk.value = String(Math.round(km * 100) / 100).replace('.', ','); const ok = document.getElementById('f-ok'); if (ok && ok.getAttribute('aria-pressed') !== 'true') ok.click() } } catch (x) { }
+      if (typeof flash === 'function') flash('Treino salvo ✓ ' + (km ? String(km).replace('.', ',') + ' km' : '')) };
   }
   document.addEventListener('click', e => { if (e.target.closest('[data-print-open]')) openPrint() });
 const setMsg=(id,t)=>{MSG[id]=t;const m=document.getElementById(id);if(m)m.textContent=t};
