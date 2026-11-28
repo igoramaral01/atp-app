@@ -59,6 +59,18 @@ async function viaGemini(imgs) {
 }
 module.exports = async (req, res) => {
   res.setHeader('cache-control', 'no-store');
+  if (req.method === 'GET') { // diagnóstico: abra /api/print no navegador
+    const out = { gemini_configurado: !!process.env.GEMINI_API_KEY, claude_configurado: !!process.env.ANTHROPIC_API_KEY };
+    if (process.env.GEMINI_API_KEY) {
+      for (const model of [process.env.GEMINI_MODEL, 'gemini-flash-latest', 'gemini-2.5-flash'].filter(Boolean)) {
+        try { const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent', { method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': process.env.GEMINI_API_KEY }, body: JSON.stringify({ contents: [{ parts: [{ text: 'Responda só: ok' }] }] }) });
+          const j = await r.json().catch(() => ({})); if (r.status === 404) continue;
+          out.teste_gemini = r.ok ? 'OK, funcionando (modelo ' + model + ')' : 'ERRO ' + r.status + ': ' + ((j.error && j.error.message) || ''); break }
+        catch (e) { out.teste_gemini = 'ERRO: ' + e.message; break } }
+      if (!out.teste_gemini) out.teste_gemini = 'ERRO: nenhum modelo Gemini encontrado';
+    } else out.teste_gemini = 'Chave GEMINI_API_KEY não encontrada. Confira o nome e faça Redeploy.';
+    return res.json(out);
+  }
   if (req.method !== 'POST') return res.status(405).json({ erro: 'Use POST' });
   if (!process.env.ANTHROPIC_API_KEY && !process.env.GEMINI_API_KEY) return res.status(503).json({ erro: 'Leitura com IA não configurada.' });
   const host = req.headers['x-forwarded-host'] || req.headers.host, orig = req.headers.origin || '';
